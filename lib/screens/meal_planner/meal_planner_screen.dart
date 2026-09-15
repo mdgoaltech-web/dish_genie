@@ -282,6 +282,9 @@ class _MealPlannerScreenState extends State<MealPlannerScreen> {
   }
 
   Widget _buildFormView(BuildContext context) {
+    final canCreatePlan = context.watch<PremiumProvider>().canUse(
+      FreeFeature.mealPlan,
+    );
     return Column(
       children: [
         Expanded(
@@ -292,6 +295,10 @@ class _MealPlannerScreenState extends State<MealPlannerScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  // Same banner as Home/Chat/Scanner once today's free plan
+                  // is used, so the limit is never a surprise on tap.
+                  if (!canCreatePlan)
+                    const LimitReachedBanner(feature: FreeFeature.mealPlan),
                   const SizedBox(height: 24),
                   // Your Profile Section
                   _buildSection(
@@ -1043,6 +1050,28 @@ class _MealPlannerScreenState extends State<MealPlannerScreen> {
                   child: InkWell(
                     key: const ValueKey('meal_planner_refresh'),
                     onTap: () async {
+                      // Destructive: the plan is deleted and a free user
+                      // may not be able to create another one today.
+                      final confirmed = await showDialog<bool>(
+                        context: context,
+                        builder: (ctx) => AlertDialog(
+                          title: Text(ctx.t('meal.planner.new.plan.title')),
+                          content: Text(
+                            ctx.t('meal.planner.new.plan.message'),
+                          ),
+                          actions: [
+                            TextButton(
+                              onPressed: () => Navigator.of(ctx).pop(false),
+                              child: Text(ctx.t('common.cancel')),
+                            ),
+                            TextButton(
+                              onPressed: () => Navigator.of(ctx).pop(true),
+                              child: Text(ctx.t('common.confirm')),
+                            ),
+                          ],
+                        ),
+                      );
+                      if (confirmed != true || !mounted) return;
                       try {
                         await provider.clearMealPlan();
                         if (!mounted) return;

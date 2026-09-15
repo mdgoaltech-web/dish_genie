@@ -282,7 +282,8 @@ class MealPlanProvider with ChangeNotifier {
         name: planData['name'] ?? 'My Meal Plan',
         description: planData['description'] as String?,
         startDate: DateTime.now(),
-        endDate: DateTime.now().add(Duration(days: days)),
+        // Inclusive range: a 7-day plan runs from today to today + 6.
+        endDate: DateTime.now().add(Duration(days: days - 1)),
         dailyCalories:
             planData['daily_calories'] ??
             planData['dailyCalories'] ??

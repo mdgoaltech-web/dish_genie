@@ -1,8 +1,10 @@
 import 'package:dish_genie/app.dart';
 import 'package:dish_genie/l10n/app_localizations.dart';
 import 'package:dish_genie/providers/language_provider.dart';
+import 'package:dish_genie/providers/meal_plan_provider.dart';
 import 'package:dish_genie/providers/premium_provider.dart';
 import 'package:dish_genie/providers/theme_provider.dart';
+import 'package:dish_genie/screens/meal_planner/meal_planner_screen.dart';
 import 'package:dish_genie/screens/premium/pro_screen.dart';
 import 'package:dish_genie/screens/settings/settings_screen.dart';
 import 'package:dish_genie/services/entitlement_store.dart';
@@ -119,6 +121,35 @@ void main() {
       expect(find.textContaining('chat messages'), findsOneWidget);
       expect(find.text('Upgrade to Pro'), findsOneWidget);
       expect(find.byType(ProBadge), findsOneWidget);
+    });
+  });
+
+  group('Plan tab', () {
+    testWidgets('form shows the limit banner once today\'s free plan is used',
+        (tester) async {
+      final premium = PremiumProvider(autoInitialize: false);
+      Widget plan() => MultiProvider(
+        providers: [
+          ChangeNotifierProvider<PremiumProvider>.value(value: premium),
+          ChangeNotifierProvider(create: (_) => MealPlanProvider()),
+          ChangeNotifierProvider(create: (_) => LanguageProvider()),
+          ChangeNotifierProvider(create: (_) => ThemeProvider()),
+        ],
+        child: MaterialApp(
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: const MealPlannerScreen(),
+        ),
+      );
+      await tester.pumpWidget(plan());
+      await tester.pump(const Duration(seconds: 1));
+      expect(find.byType(FreeUsageChip), findsOneWidget);
+      expect(find.byType(LimitReachedBanner), findsNothing);
+
+      premium.recordUse(FreeFeature.mealPlan);
+      await tester.pump(const Duration(seconds: 1));
+      expect(find.byType(LimitReachedBanner), findsOneWidget);
+      expect(find.text('Upgrade to Pro'), findsOneWidget);
     });
   });
 
