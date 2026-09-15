@@ -11,7 +11,7 @@ void main() {
     expect(match, isNotNull);
     expect(match!.group(1), AppLinks.version);
     expect(match.group(1), '1.1.0');
-    expect(match.group(2), '21');
+    expect(match.group(2), '22');
   });
 
   test('legal links are the agreed URLs', () {
@@ -21,7 +21,7 @@ void main() {
     );
     expect(
       AppLinks.privacyPolicyUrl,
-      'https://sites.google.com/view/dodishgenie/home',
+      'https://sites.google.com/view/recipe-keeper-privacy',
     );
     expect(
       AppLinks.manageSubscriptionsUrl,

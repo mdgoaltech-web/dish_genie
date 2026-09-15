@@ -12,7 +12,7 @@ class AppLinks {
   static const String supportEmail = 'md.goaltech@gmail.com';
 
   static const String privacyPolicyUrl =
-      'https://sites.google.com/view/dodishgenie/home';
+      'https://sites.google.com/view/recipe-keeper-privacy';
 
   /// Apple's standard Licensed Application End User License Agreement.
   static const String termsOfUseUrl =
