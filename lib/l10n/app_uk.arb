@@ -682,5 +682,137 @@
   "weeklyPlanTue": "Вт",
   "weeklyPlanView": "Переглянути",
   "weeklyPlanWed": "Ср",
-  "languageScreenHeaderTitle": "Мови"
+  "languageScreenHeaderTitle": "Мови",
+  "commonRetry": "Спробувати ще раз",
+  "recipeDetailNoImage": "Немає зображення",
+  "noInternetTitle": "Немає інтернету",
+  "noInternetMessage": "Перевірте з'єднання та спробуйте ще раз.",
+  "permissionDeniedTitle": "Потрібен дозвіл",
+  "permissionDeniedMessage": "Для цієї функції потрібен доступ до камери та мікрофона. Увімкніть його в налаштуваннях системи.",
+  "permissionOpenSettings": "Відкрити налаштування",
+  "freeLeftToday": "Сьогодні безкоштовно: {remaining} з {limit}",
+  "@freeLeftToday": {
+    "placeholders": {
+      "remaining": {
+        "type": "String",
+        "format": "none"
+      },
+      "limit": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "freeLimitReachedTitle": "Денний безкоштовний ліміт вичерпано",
+  "freeLimitReachedMessage": "Ви використали денний безкоштовний ліміт: {feature} ({limit}). Перейдіть на Pro для необмеженого доступу або повертайтеся завтра.",
+  "@freeLimitReachedMessage": {
+    "placeholders": {
+      "limit": {
+        "type": "String",
+        "format": "none"
+      },
+      "feature": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "freeFeatureRecipes": "ШІ-рецепти",
+  "freeFeatureChat": "повідомлення в чаті",
+  "freeFeatureScans": "сканування інгредієнтів",
+  "freeFeaturePlans": "ШІ-плани харчування",
+  "paywallTitle": "Recipe Keeper Pro",
+  "paywallSubtitle": "Необмежена ШІ-допомога на кухні, щодня",
+  "paywallFeatureRecipes": "Необмежена генерація ШІ-рецептів",
+  "paywallFeatureChat": "Необмежені повідомлення в чаті з ШІ-шефом",
+  "paywallFeatureScans": "Необмежене сканування інгредієнтів",
+  "paywallFeaturePlans": "Необмежені ШІ-плани харчування",
+  "paywallFreeTierNote": "Безкоштовно щодня: ШІ-рецепти ({recipes}), повідомлення в чаті ({chat}), сканування ({scans}) і план харчування ({plans}). Збережені рецепти, обране та списки покупок завжди безкоштовні.",
+  "@paywallFreeTierNote": {
+    "placeholders": {
+      "recipes": {
+        "type": "String",
+        "format": "none"
+      },
+      "chat": {
+        "type": "String",
+        "format": "none"
+      },
+      "scans": {
+        "type": "String",
+        "format": "none"
+      },
+      "plans": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "paywallPerWeek": "на тиждень, з автопродовженням",
+  "paywallPerYear": "на рік, з автопродовженням",
+  "paywallOneTime": "разова покупка, назавжди",
+  "paywallContinue": "Продовжити",
+  "paywallTrialThen": "{trial} безкоштовно, потім {price}",
+  "@paywallTrialThen": {
+    "placeholders": {
+      "trial": {
+        "type": "String",
+        "format": "none"
+      },
+      "price": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "paywallAutoRenewDisclosure": "Оплата стягується з вашого облікового запису Apple ID під час підтвердження покупки. Підписка автоматично продовжується за вказаною ціною, якщо її не скасувати щонайменше за 24 години до кінця поточного періоду. Керувати підпискою або скасувати її можна в налаштуваннях облікового запису App Store.",
+  "paywallLifetimeDisclosure": "Разовий платіж стягується з вашого облікового запису Apple ID під час підтвердження покупки. Це не підписка; нічого не продовжується.",
+  "paywallLoadError": "Не вдалося завантажити тарифи з App Store. Перевірте з'єднання та спробуйте ще раз.",
+  "paywallRetry": "Повторити",
+  "paywallNothingToRestore": "Для цього Apple ID не знайдено попередніх покупок.",
+  "settingsProSection": "Recipe Keeper Pro",
+  "settingsUpgrade": "Перейти на Pro",
+  "settingsUpgradeSubtitle": "Необмежені ШІ-рецепти, чат, сканування та плани харчування",
+  "settingsProActive": "Pro активовано",
+  "settingsProActiveSubtitle": "{plan} - дякуємо за підтримку Recipe Keeper",
+  "@settingsProActiveSubtitle": {
+    "placeholders": {
+      "plan": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "settingsProExpires": "Продовжиться або завершиться {date}",
+  "@settingsProExpires": {
+    "placeholders": {
+      "date": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "settingsManageSubscription": "Керувати підпискою",
+  "settingsManageSubscriptionSubtitle": "Змініть або скасуйте тариф в App Store",
+  "settingsRestorePurchasesSubtitle": "Уже купили Pro? Відновіть покупку на цьому пристрої",
+  "recipeServingsCount": "{count} порцій",
+  "@recipeServingsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "favoritesAdded": "Додано до обраного",
+  "favoritesRemoved": "Вилучено з обраного",
+  "groceryItemRemoved": "Вилучено: {item}",
+  "@groceryItemRemoved": {
+    "placeholders": {
+      "item": {
+        "type": "String"
+      }
+    }
+  },
+  "mealPlannerNewPlanTitle": "Почати новий план?",
+  "mealPlannerNewPlanMessage": "Поточний план харчування буде видалено."
 }

@@ -692,5 +692,137 @@
   "weeklyPlanTue": "Wt",
   "weeklyPlanView": "Zobacz",
   "weeklyPlanWed": "Śr",
-  "languageScreenHeaderTitle": "Języki"
+  "languageScreenHeaderTitle": "Języki",
+  "commonRetry": "Spróbuj ponownie",
+  "recipeDetailNoImage": "Brak obrazu",
+  "noInternetTitle": "Brak internetu",
+  "noInternetMessage": "Sprawdź połączenie i spróbuj ponownie.",
+  "permissionDeniedTitle": "Wymagane uprawnienie",
+  "permissionDeniedMessage": "Ta funkcja wymaga dostępu do aparatu i mikrofonu. Włącz go w ustawieniach systemu.",
+  "permissionOpenSettings": "Otwórz Ustawienia",
+  "freeLeftToday": "{remaining} z {limit} bezpłatnych dzisiaj",
+  "@freeLeftToday": {
+    "placeholders": {
+      "remaining": {
+        "type": "String",
+        "format": "none"
+      },
+      "limit": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "freeLimitReachedTitle": "Osiągnięto dzienny bezpłatny limit",
+  "freeLimitReachedMessage": "Wykorzystano dzisiejszy bezpłatny limit: {feature} ({limit}). Przejdź na Pro, aby uzyskać nieograniczony dostęp, lub wróć jutro.",
+  "@freeLimitReachedMessage": {
+    "placeholders": {
+      "limit": {
+        "type": "String",
+        "format": "none"
+      },
+      "feature": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "freeFeatureRecipes": "przepisy AI",
+  "freeFeatureChat": "wiadomości na czacie",
+  "freeFeatureScans": "skany składników",
+  "freeFeaturePlans": "plany posiłków AI",
+  "paywallTitle": "Recipe Keeper Pro",
+  "paywallSubtitle": "Nieograniczona pomoc AI w kuchni, każdego dnia",
+  "paywallFeatureRecipes": "Nieograniczone generowanie przepisów AI",
+  "paywallFeatureChat": "Nieograniczone wiadomości na czacie z Szefem AI",
+  "paywallFeatureScans": "Nieograniczone skany składników",
+  "paywallFeaturePlans": "Nieograniczone plany posiłków AI",
+  "paywallFreeTierNote": "Codziennie za darmo: {recipes} przepisy AI, {chat} wiadomości na czacie, {scans} skany i {plans} plan posiłków. Zapisane przepisy, ulubione i listy zakupów są zawsze bezpłatne.",
+  "@paywallFreeTierNote": {
+    "placeholders": {
+      "recipes": {
+        "type": "String",
+        "format": "none"
+      },
+      "chat": {
+        "type": "String",
+        "format": "none"
+      },
+      "scans": {
+        "type": "String",
+        "format": "none"
+      },
+      "plans": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "paywallPerWeek": "tygodniowo, odnawiane automatycznie",
+  "paywallPerYear": "rocznie, odnawiane automatycznie",
+  "paywallOneTime": "jednorazowy zakup, na zawsze",
+  "paywallContinue": "Kontynuuj",
+  "paywallTrialThen": "{trial} za darmo, potem {price}",
+  "@paywallTrialThen": {
+    "placeholders": {
+      "trial": {
+        "type": "String",
+        "format": "none"
+      },
+      "price": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "paywallAutoRenewDisclosure": "Płatność zostanie pobrana z konta Apple ID w momencie potwierdzenia zakupu. Subskrypcja odnawia się automatycznie po wyświetlonej cenie, chyba że zostanie anulowana co najmniej 24 godziny przed końcem bieżącego okresu. Możesz nią zarządzać lub ją anulować w ustawieniach konta App Store.",
+  "paywallLifetimeDisclosure": "Jednorazowa płatność pobierana z konta Apple ID w momencie potwierdzenia zakupu. To nie jest subskrypcja; nic się nie odnawia.",
+  "paywallLoadError": "Nie udało się wczytać planów z App Store. Sprawdź połączenie i spróbuj ponownie.",
+  "paywallRetry": "Ponów",
+  "paywallNothingToRestore": "Nie znaleziono wcześniejszego zakupu dla tego Apple ID.",
+  "settingsProSection": "Recipe Keeper Pro",
+  "settingsUpgrade": "Przejdź na Pro",
+  "settingsUpgradeSubtitle": "Nieograniczone przepisy AI, czat, skany i plany posiłków",
+  "settingsProActive": "Pro jest aktywne",
+  "settingsProActiveSubtitle": "{plan} - dziękujemy za wspieranie Recipe Keeper",
+  "@settingsProActiveSubtitle": {
+    "placeholders": {
+      "plan": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "settingsProExpires": "Odnowienie lub zakończenie: {date}",
+  "@settingsProExpires": {
+    "placeholders": {
+      "date": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "settingsManageSubscription": "Zarządzaj subskrypcją",
+  "settingsManageSubscriptionSubtitle": "Zmień lub anuluj swój plan w App Store",
+  "settingsRestorePurchasesSubtitle": "Masz już Pro? Przywróć zakup na tym urządzeniu",
+  "recipeServingsCount": "{count} porcji",
+  "@recipeServingsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "favoritesAdded": "Dodano do ulubionych",
+  "favoritesRemoved": "Usunięto z ulubionych",
+  "groceryItemRemoved": "Usunięto: {item}",
+  "@groceryItemRemoved": {
+    "placeholders": {
+      "item": {
+        "type": "String"
+      }
+    }
+  },
+  "mealPlannerNewPlanTitle": "Rozpocząć nowy plan?",
+  "mealPlannerNewPlanMessage": "Twój obecny plan posiłków zostanie usunięty."
 }

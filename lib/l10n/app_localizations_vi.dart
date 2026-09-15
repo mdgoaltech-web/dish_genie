@@ -87,7 +87,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get commonDone => 'Xong';
 
   @override
-  String get commonRetry => 'Try Again';
+  String get commonRetry => 'Thử lại';
 
   @override
   String get commonShare => 'Chia sẻ';
@@ -1479,7 +1479,7 @@ class AppLocalizationsVi extends AppLocalizations {
       'Cần trợ giúp? Hỏi tôi về mẹo, thay thế hoặc hướng dẫn từng bước!';
 
   @override
-  String get recipeDetailNoImage => 'No image';
+  String get recipeDetailNoImage => 'Không có hình ảnh';
 
   @override
   String get tagsHighProtein => 'Giàu Protein';
@@ -1636,20 +1636,20 @@ class AppLocalizationsVi extends AppLocalizations {
   }
 
   @override
-  String get noInternetTitle => 'No internet';
+  String get noInternetTitle => 'Không có kết nối Internet';
 
   @override
-  String get noInternetMessage => 'Please check your connection and try again.';
+  String get noInternetMessage => 'Vui lòng kiểm tra kết nối và thử lại.';
 
   @override
-  String get permissionDeniedTitle => 'Permission required';
+  String get permissionDeniedTitle => 'Cần cấp quyền';
 
   @override
   String get permissionDeniedMessage =>
-      'Camera and microphone access is needed for this feature. Please enable it in system settings.';
+      'Tính năng này cần quyền truy cập camera và micrô. Vui lòng bật trong cài đặt hệ thống.';
 
   @override
-  String get permissionOpenSettings => 'Open Settings';
+  String get permissionOpenSettings => 'Mở Cài đặt';
 
   @override
   String get settingsAppearance => 'Vẻ bề ngoài';
@@ -1905,46 +1905,47 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String freeLeftToday(String remaining, String limit) {
-    return '$remaining of $limit free today';
+    return 'Hôm nay còn $remaining/$limit lượt miễn phí';
   }
 
   @override
-  String get freeLimitReachedTitle => 'Daily free limit reached';
+  String get freeLimitReachedTitle => 'Đã hết lượt miễn phí hôm nay';
 
   @override
   String freeLimitReachedMessage(String limit, String feature) {
-    return 'You have used today\'s $limit free $feature. Upgrade to Pro for unlimited access, or come back tomorrow.';
+    return 'Bạn đã dùng hết $limit $feature miễn phí của hôm nay. Nâng cấp lên Pro để dùng không giới hạn, hoặc quay lại vào ngày mai.';
   }
 
   @override
-  String get freeFeatureRecipes => 'AI recipes';
+  String get freeFeatureRecipes => 'công thức AI';
 
   @override
-  String get freeFeatureChat => 'chat messages';
+  String get freeFeatureChat => 'tin nhắn trò chuyện';
 
   @override
-  String get freeFeatureScans => 'ingredient scans';
+  String get freeFeatureScans => 'lượt quét nguyên liệu';
 
   @override
-  String get freeFeaturePlans => 'AI meal plans';
+  String get freeFeaturePlans => 'kế hoạch bữa ăn AI';
 
   @override
   String get paywallTitle => 'Recipe Keeper Pro';
 
   @override
-  String get paywallSubtitle => 'Unlimited AI cooking help, every day';
+  String get paywallSubtitle =>
+      'Trợ giúp nấu ăn bằng AI không giới hạn, mỗi ngày';
 
   @override
-  String get paywallFeatureRecipes => 'Unlimited AI recipe generations';
+  String get paywallFeatureRecipes => 'Tạo công thức AI không giới hạn';
 
   @override
-  String get paywallFeatureChat => 'Unlimited AI Chef chat messages';
+  String get paywallFeatureChat => 'Trò chuyện với Đầu bếp AI không giới hạn';
 
   @override
-  String get paywallFeatureScans => 'Unlimited ingredient scans';
+  String get paywallFeatureScans => 'Quét nguyên liệu không giới hạn';
 
   @override
-  String get paywallFeaturePlans => 'Unlimited AI meal plans';
+  String get paywallFeaturePlans => 'Kế hoạch bữa ăn AI không giới hạn';
 
   @override
   String paywallFreeTierNote(
@@ -1953,76 +1954,99 @@ class AppLocalizationsVi extends AppLocalizations {
     String scans,
     String plans,
   ) {
-    return 'Free every day: $recipes AI recipes, $chat chat messages, $scans scans and $plans meal plan. Saved recipes, favorites and grocery lists are always free.';
+    return 'Miễn phí mỗi ngày: $recipes công thức AI, $chat tin nhắn trò chuyện, $scans lượt quét và $plans kế hoạch bữa ăn. Công thức đã lưu, mục yêu thích và danh sách đi chợ luôn miễn phí.';
   }
 
   @override
-  String get paywallPerWeek => 'per week, auto-renewing';
+  String get paywallPerWeek => 'mỗi tuần, tự động gia hạn';
 
   @override
-  String get paywallPerYear => 'per year, auto-renewing';
+  String get paywallPerYear => 'mỗi năm, tự động gia hạn';
 
   @override
-  String get paywallOneTime => 'one-time purchase, yours forever';
+  String get paywallOneTime => 'mua một lần, sở hữu vĩnh viễn';
 
   @override
-  String get paywallContinue => 'Continue';
+  String get paywallContinue => 'Tiếp tục';
 
   @override
   String paywallTrialThen(String trial, String price) {
-    return '$trial free, then $price';
+    return 'Miễn phí $trial, sau đó $price';
   }
 
   @override
   String get paywallAutoRenewDisclosure =>
-      'Payment is charged to your Apple ID account at confirmation of purchase. The subscription renews automatically at the price shown unless it is cancelled at least 24 hours before the end of the current period. You can manage or cancel it in your App Store account settings.';
+      'Khoản thanh toán sẽ được tính vào tài khoản Apple ID của bạn khi xác nhận mua. Gói đăng ký tự động gia hạn theo giá hiển thị trừ khi bị hủy ít nhất 24 giờ trước khi kết thúc chu kỳ hiện tại. Bạn có thể quản lý hoặc hủy trong cài đặt tài khoản App Store.';
 
   @override
   String get paywallLifetimeDisclosure =>
-      'One-time payment charged to your Apple ID account at confirmation of purchase. Not a subscription; nothing renews.';
+      'Thanh toán một lần được tính vào tài khoản Apple ID của bạn khi xác nhận mua. Không phải gói đăng ký; không có gì được gia hạn.';
 
   @override
   String get paywallLoadError =>
-      'Plans could not be loaded from the App Store. Check your connection and try again.';
+      'Không thể tải các gói từ App Store. Hãy kiểm tra kết nối và thử lại.';
 
   @override
-  String get paywallRetry => 'Retry';
+  String get paywallRetry => 'Thử lại';
 
   @override
   String get paywallNothingToRestore =>
-      'No previous purchase was found for this Apple ID.';
+      'Không tìm thấy giao dịch mua trước đó cho Apple ID này.';
 
   @override
   String get settingsProSection => 'Recipe Keeper Pro';
 
   @override
-  String get settingsUpgrade => 'Upgrade to Pro';
+  String get settingsUpgrade => 'Nâng cấp lên Pro';
 
   @override
   String get settingsUpgradeSubtitle =>
-      'Unlimited AI recipes, chat, scans and meal plans';
+      'Công thức AI, trò chuyện, quét và kế hoạch bữa ăn không giới hạn';
 
   @override
-  String get settingsProActive => 'Pro is active';
+  String get settingsProActive => 'Pro đang hoạt động';
 
   @override
   String settingsProActiveSubtitle(String plan) {
-    return '$plan - thank you for supporting Recipe Keeper';
+    return '$plan - cảm ơn bạn đã ủng hộ Recipe Keeper';
   }
 
   @override
   String settingsProExpires(String date) {
-    return 'Renews or ends $date';
+    return 'Gia hạn hoặc kết thúc vào $date';
   }
 
   @override
-  String get settingsManageSubscription => 'Manage Subscription';
+  String get settingsManageSubscription => 'Quản lý đăng ký';
 
   @override
   String get settingsManageSubscriptionSubtitle =>
-      'Change or cancel your plan in the App Store';
+      'Thay đổi hoặc hủy gói của bạn trong App Store';
 
   @override
   String get settingsRestorePurchasesSubtitle =>
-      'Already bought Pro? Restore it on this device';
+      'Đã mua Pro? Khôi phục trên thiết bị này';
+
+  @override
+  String recipeServingsCount(int count) {
+    return '$count phần';
+  }
+
+  @override
+  String get favoritesAdded => 'Đã thêm vào yêu thích';
+
+  @override
+  String get favoritesRemoved => 'Đã xóa khỏi yêu thích';
+
+  @override
+  String groceryItemRemoved(String item) {
+    return 'Đã xóa $item';
+  }
+
+  @override
+  String get mealPlannerNewPlanTitle => 'Bắt đầu kế hoạch mới?';
+
+  @override
+  String get mealPlannerNewPlanMessage =>
+      'Kế hoạch bữa ăn hiện tại của bạn sẽ bị xóa.';
 }

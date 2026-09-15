@@ -87,7 +87,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get commonDone => '完了';
 
   @override
-  String get commonRetry => 'Try Again';
+  String get commonRetry => '再試行';
 
   @override
   String get commonShare => '共有';
@@ -1450,7 +1450,7 @@ class AppLocalizationsJa extends AppLocalizations {
       'ヘルプが必要ですか？ヒント、代用品、ステップバイステップのガイドをお聞きください！';
 
   @override
-  String get recipeDetailNoImage => 'No image';
+  String get recipeDetailNoImage => '画像なし';
 
   @override
   String get tagsHighProtein => '高タンパク';
@@ -1606,20 +1606,20 @@ class AppLocalizationsJa extends AppLocalizations {
   }
 
   @override
-  String get noInternetTitle => 'No internet';
+  String get noInternetTitle => 'インターネットに接続されていません';
 
   @override
-  String get noInternetMessage => 'Please check your connection and try again.';
+  String get noInternetMessage => '接続を確認して、もう一度お試しください。';
 
   @override
-  String get permissionDeniedTitle => 'Permission required';
+  String get permissionDeniedTitle => '権限が必要です';
 
   @override
   String get permissionDeniedMessage =>
-      'Camera and microphone access is needed for this feature. Please enable it in system settings.';
+      'この機能にはカメラとマイクへのアクセスが必要です。システム設定で有効にしてください。';
 
   @override
-  String get permissionOpenSettings => 'Open Settings';
+  String get permissionOpenSettings => '設定を開く';
 
   @override
   String get settingsAppearance => '外観';
@@ -1868,46 +1868,46 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String freeLeftToday(String remaining, String limit) {
-    return '$remaining of $limit free today';
+    return '本日の無料分：残り$remaining/$limit';
   }
 
   @override
-  String get freeLimitReachedTitle => 'Daily free limit reached';
+  String get freeLimitReachedTitle => '本日の無料上限に達しました';
 
   @override
   String freeLimitReachedMessage(String limit, String feature) {
-    return 'You have used today\'s $limit free $feature. Upgrade to Pro for unlimited access, or come back tomorrow.';
+    return '本日の無料$feature（$limit回）を使い切りました。Proにアップグレードして無制限に利用するか、明日またお越しください。';
   }
 
   @override
-  String get freeFeatureRecipes => 'AI recipes';
+  String get freeFeatureRecipes => 'AIレシピ';
 
   @override
-  String get freeFeatureChat => 'chat messages';
+  String get freeFeatureChat => 'チャットメッセージ';
 
   @override
-  String get freeFeatureScans => 'ingredient scans';
+  String get freeFeatureScans => '食材スキャン';
 
   @override
-  String get freeFeaturePlans => 'AI meal plans';
+  String get freeFeaturePlans => 'AI献立プラン';
 
   @override
   String get paywallTitle => 'Recipe Keeper Pro';
 
   @override
-  String get paywallSubtitle => 'Unlimited AI cooking help, every day';
+  String get paywallSubtitle => '毎日、無制限のAI料理サポート';
 
   @override
-  String get paywallFeatureRecipes => 'Unlimited AI recipe generations';
+  String get paywallFeatureRecipes => 'AIレシピ生成が無制限';
 
   @override
-  String get paywallFeatureChat => 'Unlimited AI Chef chat messages';
+  String get paywallFeatureChat => 'AIシェフとのチャットが無制限';
 
   @override
-  String get paywallFeatureScans => 'Unlimited ingredient scans';
+  String get paywallFeatureScans => '食材スキャンが無制限';
 
   @override
-  String get paywallFeaturePlans => 'Unlimited AI meal plans';
+  String get paywallFeaturePlans => 'AI献立プランが無制限';
 
   @override
   String paywallFreeTierNote(
@@ -1916,76 +1916,94 @@ class AppLocalizationsJa extends AppLocalizations {
     String scans,
     String plans,
   ) {
-    return 'Free every day: $recipes AI recipes, $chat chat messages, $scans scans and $plans meal plan. Saved recipes, favorites and grocery lists are always free.';
+    return '毎日無料：AIレシピ$recipes回、チャットメッセージ$chat回、スキャン$scans回、献立プラン$plans回。保存したレシピ、お気に入り、買い物リストはいつでも無料です。';
   }
 
   @override
-  String get paywallPerWeek => 'per week, auto-renewing';
+  String get paywallPerWeek => '週ごと、自動更新';
 
   @override
-  String get paywallPerYear => 'per year, auto-renewing';
+  String get paywallPerYear => '年ごと、自動更新';
 
   @override
-  String get paywallOneTime => 'one-time purchase, yours forever';
+  String get paywallOneTime => '買い切り、ずっと使えます';
 
   @override
-  String get paywallContinue => 'Continue';
+  String get paywallContinue => '続ける';
 
   @override
   String paywallTrialThen(String trial, String price) {
-    return '$trial free, then $price';
+    return '$trial無料、その後$price';
   }
 
   @override
   String get paywallAutoRenewDisclosure =>
-      'Payment is charged to your Apple ID account at confirmation of purchase. The subscription renews automatically at the price shown unless it is cancelled at least 24 hours before the end of the current period. You can manage or cancel it in your App Store account settings.';
+      'お支払いは購入確定時にApple IDアカウントに請求されます。サブスクリプションは、現在の期間終了の24時間前までにキャンセルされない限り、表示価格で自動更新されます。App Storeのアカウント設定から管理またはキャンセルできます。';
 
   @override
   String get paywallLifetimeDisclosure =>
-      'One-time payment charged to your Apple ID account at confirmation of purchase. Not a subscription; nothing renews.';
+      '購入確定時にApple IDアカウントに一回限りの支払いが請求されます。サブスクリプションではなく、自動更新はありません。';
 
   @override
   String get paywallLoadError =>
-      'Plans could not be loaded from the App Store. Check your connection and try again.';
+      'App Storeからプランを読み込めませんでした。接続を確認して、もう一度お試しください。';
 
   @override
-  String get paywallRetry => 'Retry';
+  String get paywallRetry => '再試行';
 
   @override
-  String get paywallNothingToRestore =>
-      'No previous purchase was found for this Apple ID.';
+  String get paywallNothingToRestore => 'このApple IDでの過去の購入は見つかりませんでした。';
 
   @override
   String get settingsProSection => 'Recipe Keeper Pro';
 
   @override
-  String get settingsUpgrade => 'Upgrade to Pro';
+  String get settingsUpgrade => 'Proにアップグレード';
 
   @override
-  String get settingsUpgradeSubtitle =>
-      'Unlimited AI recipes, chat, scans and meal plans';
+  String get settingsUpgradeSubtitle => 'AIレシピ、チャット、スキャン、献立プランが無制限';
 
   @override
-  String get settingsProActive => 'Pro is active';
+  String get settingsProActive => 'Proは有効です';
 
   @override
   String settingsProActiveSubtitle(String plan) {
-    return '$plan - thank you for supporting Recipe Keeper';
+    return '$plan - Recipe Keeperへのご支援ありがとうございます';
   }
 
   @override
   String settingsProExpires(String date) {
-    return 'Renews or ends $date';
+    return '$dateに更新または終了';
   }
 
   @override
-  String get settingsManageSubscription => 'Manage Subscription';
+  String get settingsManageSubscription => 'サブスクリプションを管理';
 
   @override
-  String get settingsManageSubscriptionSubtitle =>
-      'Change or cancel your plan in the App Store';
+  String get settingsManageSubscriptionSubtitle => 'App Storeでプランを変更またはキャンセル';
 
   @override
-  String get settingsRestorePurchasesSubtitle =>
-      'Already bought Pro? Restore it on this device';
+  String get settingsRestorePurchasesSubtitle => 'Proを購入済みですか？このデバイスで復元できます';
+
+  @override
+  String recipeServingsCount(int count) {
+    return '$count人前';
+  }
+
+  @override
+  String get favoritesAdded => 'お気に入りに追加しました';
+
+  @override
+  String get favoritesRemoved => 'お気に入りから削除しました';
+
+  @override
+  String groceryItemRemoved(String item) {
+    return '$itemを削除しました';
+  }
+
+  @override
+  String get mealPlannerNewPlanTitle => '新しいプランを始めますか？';
+
+  @override
+  String get mealPlannerNewPlanMessage => '現在の食事プランは削除されます。';
 }

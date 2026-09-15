@@ -87,7 +87,7 @@ class AppLocalizationsUz extends AppLocalizations {
   String get commonDone => 'Tayyor';
 
   @override
-  String get commonRetry => 'Try Again';
+  String get commonRetry => 'Qayta urinish';
 
   @override
   String get commonShare => 'Ulashish';
@@ -1488,7 +1488,7 @@ class AppLocalizationsUz extends AppLocalizations {
       'Yordam kerakmi? Maslahatlar, almashtirishlar yoki bosqichma-bosqich ko\'rsatmalar so\'rang!';
 
   @override
-  String get recipeDetailNoImage => 'No image';
+  String get recipeDetailNoImage => 'Rasm yoʻq';
 
   @override
   String get tagsHighProtein => 'Yuqori Oqsil';
@@ -1646,20 +1646,21 @@ class AppLocalizationsUz extends AppLocalizations {
   }
 
   @override
-  String get noInternetTitle => 'No internet';
+  String get noInternetTitle => 'Internet yoʻq';
 
   @override
-  String get noInternetMessage => 'Please check your connection and try again.';
+  String get noInternetMessage =>
+      'Iltimos, ulanishni tekshirib, qayta urinib koʻring.';
 
   @override
-  String get permissionDeniedTitle => 'Permission required';
+  String get permissionDeniedTitle => 'Ruxsat talab qilinadi';
 
   @override
   String get permissionDeniedMessage =>
-      'Camera and microphone access is needed for this feature. Please enable it in system settings.';
+      'Bu funksiya uchun kamera va mikrofonga ruxsat kerak. Iltimos, uni tizim sozlamalarida yoqing.';
 
   @override
-  String get permissionOpenSettings => 'Open Settings';
+  String get permissionOpenSettings => 'Sozlamalarni ochish';
 
   @override
   String get settingsAppearance => 'Tashqi ko\'rinish';
@@ -1914,46 +1915,46 @@ class AppLocalizationsUz extends AppLocalizations {
 
   @override
   String freeLeftToday(String remaining, String limit) {
-    return '$remaining of $limit free today';
+    return 'Bugun bepul: $limit tadan $remaining ta qoldi';
   }
 
   @override
-  String get freeLimitReachedTitle => 'Daily free limit reached';
+  String get freeLimitReachedTitle => 'Kunlik bepul limitga yetildi';
 
   @override
   String freeLimitReachedMessage(String limit, String feature) {
-    return 'You have used today\'s $limit free $feature. Upgrade to Pro for unlimited access, or come back tomorrow.';
+    return 'Siz bugungi $limit ta bepul $feature imkoniyatidan foydalandingiz. Cheksiz foydalanish uchun Pro ga oʻting yoki ertaga qayting.';
   }
 
   @override
-  String get freeFeatureRecipes => 'AI recipes';
+  String get freeFeatureRecipes => 'AI retsept';
 
   @override
-  String get freeFeatureChat => 'chat messages';
+  String get freeFeatureChat => 'chat xabari';
 
   @override
-  String get freeFeatureScans => 'ingredient scans';
+  String get freeFeatureScans => 'masalliq skaneri';
 
   @override
-  String get freeFeaturePlans => 'AI meal plans';
+  String get freeFeaturePlans => 'AI ovqat rejasi';
 
   @override
   String get paywallTitle => 'Recipe Keeper Pro';
 
   @override
-  String get paywallSubtitle => 'Unlimited AI cooking help, every day';
+  String get paywallSubtitle => 'Har kuni cheksiz AI oshpazlik yordami';
 
   @override
-  String get paywallFeatureRecipes => 'Unlimited AI recipe generations';
+  String get paywallFeatureRecipes => 'Cheksiz AI retsept yaratish';
 
   @override
-  String get paywallFeatureChat => 'Unlimited AI Chef chat messages';
+  String get paywallFeatureChat => 'AI oshpaz bilan cheksiz chat xabarlari';
 
   @override
-  String get paywallFeatureScans => 'Unlimited ingredient scans';
+  String get paywallFeatureScans => 'Cheksiz masalliq skanerlash';
 
   @override
-  String get paywallFeaturePlans => 'Unlimited AI meal plans';
+  String get paywallFeaturePlans => 'Cheksiz AI ovqat rejalari';
 
   @override
   String paywallFreeTierNote(
@@ -1962,76 +1963,99 @@ class AppLocalizationsUz extends AppLocalizations {
     String scans,
     String plans,
   ) {
-    return 'Free every day: $recipes AI recipes, $chat chat messages, $scans scans and $plans meal plan. Saved recipes, favorites and grocery lists are always free.';
+    return 'Har kuni bepul: $recipes ta AI retsept, $chat ta chat xabari, $scans ta skaner va $plans ta ovqat rejasi. Saqlangan retseptlar, sevimlilar va xarid roʻyxatlari doim bepul.';
   }
 
   @override
-  String get paywallPerWeek => 'per week, auto-renewing';
+  String get paywallPerWeek => 'haftasiga, avtomatik yangilanadi';
 
   @override
-  String get paywallPerYear => 'per year, auto-renewing';
+  String get paywallPerYear => 'yiliga, avtomatik yangilanadi';
 
   @override
-  String get paywallOneTime => 'one-time purchase, yours forever';
+  String get paywallOneTime => 'bir martalik xarid, abadiy sizniki';
 
   @override
-  String get paywallContinue => 'Continue';
+  String get paywallContinue => 'Davom etish';
 
   @override
   String paywallTrialThen(String trial, String price) {
-    return '$trial free, then $price';
+    return '$trial bepul, keyin $price';
   }
 
   @override
   String get paywallAutoRenewDisclosure =>
-      'Payment is charged to your Apple ID account at confirmation of purchase. The subscription renews automatically at the price shown unless it is cancelled at least 24 hours before the end of the current period. You can manage or cancel it in your App Store account settings.';
+      'Toʻlov xaridni tasdiqlashda Apple ID hisobingizdan undiriladi. Obuna joriy davr tugashidan kamida 24 soat oldin bekor qilinmasa, koʻrsatilgan narxda avtomatik yangilanadi. Uni App Store hisob sozlamalarida boshqarishingiz yoki bekor qilishingiz mumkin.';
 
   @override
   String get paywallLifetimeDisclosure =>
-      'One-time payment charged to your Apple ID account at confirmation of purchase. Not a subscription; nothing renews.';
+      'Xaridni tasdiqlashda Apple ID hisobingizdan bir martalik toʻlov undiriladi. Bu obuna emas; hech narsa yangilanmaydi.';
 
   @override
   String get paywallLoadError =>
-      'Plans could not be loaded from the App Store. Check your connection and try again.';
+      'Rejalarni App Store dan yuklab boʻlmadi. Ulanishni tekshirib, qayta urinib koʻring.';
 
   @override
-  String get paywallRetry => 'Retry';
+  String get paywallRetry => 'Qayta urinish';
 
   @override
   String get paywallNothingToRestore =>
-      'No previous purchase was found for this Apple ID.';
+      'Bu Apple ID uchun avvalgi xarid topilmadi.';
 
   @override
   String get settingsProSection => 'Recipe Keeper Pro';
 
   @override
-  String get settingsUpgrade => 'Upgrade to Pro';
+  String get settingsUpgrade => 'Pro ga oʻtish';
 
   @override
   String get settingsUpgradeSubtitle =>
-      'Unlimited AI recipes, chat, scans and meal plans';
+      'Cheksiz AI retseptlar, chat, skanerlash va ovqat rejalari';
 
   @override
-  String get settingsProActive => 'Pro is active';
+  String get settingsProActive => 'Pro faol';
 
   @override
   String settingsProActiveSubtitle(String plan) {
-    return '$plan - thank you for supporting Recipe Keeper';
+    return '$plan - Recipe Keeper ni qoʻllab-quvvatlaganingiz uchun rahmat';
   }
 
   @override
   String settingsProExpires(String date) {
-    return 'Renews or ends $date';
+    return '$date kuni yangilanadi yoki tugaydi';
   }
 
   @override
-  String get settingsManageSubscription => 'Manage Subscription';
+  String get settingsManageSubscription => 'Obunani boshqarish';
 
   @override
   String get settingsManageSubscriptionSubtitle =>
-      'Change or cancel your plan in the App Store';
+      'Rejangizni App Store da oʻzgartiring yoki bekor qiling';
 
   @override
   String get settingsRestorePurchasesSubtitle =>
-      'Already bought Pro? Restore it on this device';
+      'Pro allaqachon sotib olinganmi? Uni bu qurilmada tiklang';
+
+  @override
+  String recipeServingsCount(int count) {
+    return '$count porsiya';
+  }
+
+  @override
+  String get favoritesAdded => 'Sevimlilarga qoʻshildi';
+
+  @override
+  String get favoritesRemoved => 'Sevimlilardan olib tashlandi';
+
+  @override
+  String groceryItemRemoved(String item) {
+    return '$item olib tashlandi';
+  }
+
+  @override
+  String get mealPlannerNewPlanTitle => 'Yangi reja boshlansinmi?';
+
+  @override
+  String get mealPlannerNewPlanMessage =>
+      'Joriy ovqatlanish rejangiz oʻchiriladi.';
 }

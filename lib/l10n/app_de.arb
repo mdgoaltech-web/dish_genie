@@ -682,5 +682,137 @@
   "premiumPlanWeekly": "Wöchentlich",
   "premiumPlanYearly": "Jährlich",
   "premiumPlanLifetime": "Lebenslang",
-  "languageScreenHeaderTitle": "Sprachen"
+  "languageScreenHeaderTitle": "Sprachen",
+  "commonRetry": "Erneut versuchen",
+  "recipeDetailNoImage": "Kein Bild",
+  "noInternetTitle": "Kein Internet",
+  "noInternetMessage": "Bitte überprüfen Sie Ihre Verbindung und versuchen Sie es erneut.",
+  "permissionDeniedTitle": "Berechtigung erforderlich",
+  "permissionDeniedMessage": "Für diese Funktion wird Zugriff auf Kamera und Mikrofon benötigt. Bitte aktivieren Sie ihn in den Systemeinstellungen.",
+  "permissionOpenSettings": "Einstellungen öffnen",
+  "freeLeftToday": "{remaining} von {limit} heute gratis",
+  "@freeLeftToday": {
+    "placeholders": {
+      "remaining": {
+        "type": "String",
+        "format": "none"
+      },
+      "limit": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "freeLimitReachedTitle": "Tägliches Gratis-Limit erreicht",
+  "freeLimitReachedMessage": "Sie haben die {limit} kostenlosen {feature} für heute aufgebraucht. Upgraden Sie auf Pro für unbegrenzten Zugriff, oder kommen Sie morgen wieder.",
+  "@freeLimitReachedMessage": {
+    "placeholders": {
+      "limit": {
+        "type": "String",
+        "format": "none"
+      },
+      "feature": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "freeFeatureRecipes": "KI-Rezepte",
+  "freeFeatureChat": "Chat-Nachrichten",
+  "freeFeatureScans": "Zutaten-Scans",
+  "freeFeaturePlans": "KI-Essenspläne",
+  "paywallTitle": "Recipe Keeper Pro",
+  "paywallSubtitle": "Unbegrenzte KI-Kochhilfe, jeden Tag",
+  "paywallFeatureRecipes": "Unbegrenzte KI-Rezeptgenerierungen",
+  "paywallFeatureChat": "Unbegrenzte Chat-Nachrichten mit dem KI-Chef",
+  "paywallFeatureScans": "Unbegrenzte Zutaten-Scans",
+  "paywallFeaturePlans": "Unbegrenzte KI-Essenspläne",
+  "paywallFreeTierNote": "Jeden Tag gratis: {recipes} KI-Rezepte, {chat} Chat-Nachrichten, {scans} Scans und {plans} Essensplan. Gespeicherte Rezepte, Favoriten und Einkaufslisten sind immer kostenlos.",
+  "@paywallFreeTierNote": {
+    "placeholders": {
+      "recipes": {
+        "type": "String",
+        "format": "none"
+      },
+      "chat": {
+        "type": "String",
+        "format": "none"
+      },
+      "scans": {
+        "type": "String",
+        "format": "none"
+      },
+      "plans": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "paywallPerWeek": "pro Woche, verlängert sich automatisch",
+  "paywallPerYear": "pro Jahr, verlängert sich automatisch",
+  "paywallOneTime": "Einmalkauf, für immer Ihres",
+  "paywallContinue": "Weiter",
+  "paywallTrialThen": "{trial} gratis, danach {price}",
+  "@paywallTrialThen": {
+    "placeholders": {
+      "trial": {
+        "type": "String",
+        "format": "none"
+      },
+      "price": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "paywallAutoRenewDisclosure": "Die Zahlung wird bei Kaufbestätigung über Ihr Apple-ID-Konto abgebucht. Das Abonnement verlängert sich automatisch zum angezeigten Preis, sofern es nicht mindestens 24 Stunden vor Ablauf des aktuellen Zeitraums gekündigt wird. Sie können es in den Kontoeinstellungen des App Store verwalten oder kündigen.",
+  "paywallLifetimeDisclosure": "Einmalige Zahlung, die bei Kaufbestätigung über Ihr Apple-ID-Konto abgebucht wird. Kein Abonnement; nichts verlängert sich.",
+  "paywallLoadError": "Die Pläne konnten nicht aus dem App Store geladen werden. Überprüfen Sie Ihre Verbindung und versuchen Sie es erneut.",
+  "paywallRetry": "Erneut versuchen",
+  "paywallNothingToRestore": "Für diese Apple-ID wurde kein früherer Kauf gefunden.",
+  "settingsProSection": "Recipe Keeper Pro",
+  "settingsUpgrade": "Auf Pro upgraden",
+  "settingsUpgradeSubtitle": "Unbegrenzte KI-Rezepte, Chats, Scans und Essenspläne",
+  "settingsProActive": "Pro ist aktiv",
+  "settingsProActiveSubtitle": "{plan} - vielen Dank für Ihre Unterstützung von Recipe Keeper",
+  "@settingsProActiveSubtitle": {
+    "placeholders": {
+      "plan": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "settingsProExpires": "Verlängert sich oder endet am {date}",
+  "@settingsProExpires": {
+    "placeholders": {
+      "date": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "settingsManageSubscription": "Abonnement verwalten",
+  "settingsManageSubscriptionSubtitle": "Ändern oder kündigen Sie Ihren Plan im App Store",
+  "settingsRestorePurchasesSubtitle": "Pro bereits gekauft? Stellen Sie es auf diesem Gerät wieder her",
+  "recipeServingsCount": "{count} Portionen",
+  "@recipeServingsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "favoritesAdded": "Zu Favoriten hinzugefügt",
+  "favoritesRemoved": "Aus Favoriten entfernt",
+  "groceryItemRemoved": "{item} entfernt",
+  "@groceryItemRemoved": {
+    "placeholders": {
+      "item": {
+        "type": "String"
+      }
+    }
+  },
+  "mealPlannerNewPlanTitle": "Neuen Plan starten?",
+  "mealPlannerNewPlanMessage": "Ihr aktueller Essensplan wird gelöscht."
 }

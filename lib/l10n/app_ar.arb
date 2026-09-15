@@ -682,5 +682,137 @@
   "premiumPlanWeekly": "أسبوعي",
   "premiumPlanYearly": "سنوي",
   "premiumPlanLifetime": "مدى الحياة",
-  "languageScreenHeaderTitle": "اللغات"
+  "languageScreenHeaderTitle": "اللغات",
+  "commonRetry": "حاول مرة أخرى",
+  "recipeDetailNoImage": "لا توجد صورة",
+  "noInternetTitle": "لا يوجد اتصال بالإنترنت",
+  "noInternetMessage": "يرجى التحقق من اتصالك والمحاولة مرة أخرى.",
+  "permissionDeniedTitle": "الإذن مطلوب",
+  "permissionDeniedMessage": "تحتاج هذه الميزة إلى الوصول إلى الكاميرا والميكروفون. يرجى تفعيله من إعدادات النظام.",
+  "permissionOpenSettings": "فتح الإعدادات",
+  "freeLeftToday": "{remaining} من {limit} مجانًا اليوم",
+  "@freeLeftToday": {
+    "placeholders": {
+      "remaining": {
+        "type": "String",
+        "format": "none"
+      },
+      "limit": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "freeLimitReachedTitle": "تم بلوغ الحد المجاني اليومي",
+  "freeLimitReachedMessage": "لقد استخدمت {limit} {feature} المجانية لهذا اليوم. قم بالترقية إلى Pro للوصول غير المحدود، أو عد غدًا.",
+  "@freeLimitReachedMessage": {
+    "placeholders": {
+      "limit": {
+        "type": "String",
+        "format": "none"
+      },
+      "feature": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "freeFeatureRecipes": "وصفات الذكاء الاصطناعي",
+  "freeFeatureChat": "رسائل الدردشة",
+  "freeFeatureScans": "عمليات مسح المكونات",
+  "freeFeaturePlans": "خطط الوجبات بالذكاء الاصطناعي",
+  "paywallTitle": "Recipe Keeper Pro",
+  "paywallSubtitle": "مساعدة طهي غير محدودة بالذكاء الاصطناعي، كل يوم",
+  "paywallFeatureRecipes": "توليد وصفات غير محدود بالذكاء الاصطناعي",
+  "paywallFeatureChat": "رسائل دردشة غير محدودة مع الشيف الذكي",
+  "paywallFeatureScans": "عمليات مسح غير محدودة للمكونات",
+  "paywallFeaturePlans": "خطط وجبات غير محدودة بالذكاء الاصطناعي",
+  "paywallFreeTierNote": "مجانًا كل يوم: {recipes} وصفات بالذكاء الاصطناعي، {chat} رسائل دردشة، {scans} عمليات مسح و{plans} خطة وجبات. الوصفات المحفوظة والمفضلة وقوائم البقالة مجانية دائمًا.",
+  "@paywallFreeTierNote": {
+    "placeholders": {
+      "recipes": {
+        "type": "String",
+        "format": "none"
+      },
+      "chat": {
+        "type": "String",
+        "format": "none"
+      },
+      "scans": {
+        "type": "String",
+        "format": "none"
+      },
+      "plans": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "paywallPerWeek": "أسبوعيًا، يتجدد تلقائيًا",
+  "paywallPerYear": "سنويًا، يتجدد تلقائيًا",
+  "paywallOneTime": "شراء لمرة واحدة، ملكك للأبد",
+  "paywallContinue": "متابعة",
+  "paywallTrialThen": "{trial} مجانًا، ثم {price}",
+  "@paywallTrialThen": {
+    "placeholders": {
+      "trial": {
+        "type": "String",
+        "format": "none"
+      },
+      "price": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "paywallAutoRenewDisclosure": "يتم تحصيل المبلغ من حساب Apple ID الخاص بك عند تأكيد الشراء. يتجدد الاشتراك تلقائيًا بالسعر المعروض ما لم يتم إلغاؤه قبل 24 ساعة على الأقل من نهاية الفترة الحالية. يمكنك إدارته أو إلغاؤه من إعدادات حسابك في App Store.",
+  "paywallLifetimeDisclosure": "دفعة لمرة واحدة يتم تحصيلها من حساب Apple ID الخاص بك عند تأكيد الشراء. ليس اشتراكًا؛ لا شيء يتجدد.",
+  "paywallLoadError": "تعذر تحميل الخطط من App Store. تحقق من اتصالك وحاول مرة أخرى.",
+  "paywallRetry": "إعادة المحاولة",
+  "paywallNothingToRestore": "لم يتم العثور على أي عملية شراء سابقة لهذا الـ Apple ID.",
+  "settingsProSection": "Recipe Keeper Pro",
+  "settingsUpgrade": "الترقية إلى Pro",
+  "settingsUpgradeSubtitle": "وصفات ودردشة ومسح وخطط وجبات غير محدودة بالذكاء الاصطناعي",
+  "settingsProActive": "Pro مفعّل",
+  "settingsProActiveSubtitle": "{plan} - شكرًا لدعمك Recipe Keeper",
+  "@settingsProActiveSubtitle": {
+    "placeholders": {
+      "plan": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "settingsProExpires": "يتجدد أو ينتهي في {date}",
+  "@settingsProExpires": {
+    "placeholders": {
+      "date": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "settingsManageSubscription": "إدارة الاشتراك",
+  "settingsManageSubscriptionSubtitle": "غيّر خطتك أو ألغِها من App Store",
+  "settingsRestorePurchasesSubtitle": "اشتريت Pro من قبل؟ استعده على هذا الجهاز",
+  "recipeServingsCount": "{count} حصص",
+  "@recipeServingsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "favoritesAdded": "تمت الإضافة إلى المفضلة",
+  "favoritesRemoved": "تمت الإزالة من المفضلة",
+  "groceryItemRemoved": "تمت إزالة {item}",
+  "@groceryItemRemoved": {
+    "placeholders": {
+      "item": {
+        "type": "String"
+      }
+    }
+  },
+  "mealPlannerNewPlanTitle": "بدء خطة جديدة؟",
+  "mealPlannerNewPlanMessage": "سيتم حذف خطة وجباتك الحالية."
 }

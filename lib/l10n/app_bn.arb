@@ -692,5 +692,137 @@
   "weeklyPlanTue": "মঙ্গল",
   "weeklyPlanView": "দেখুন",
   "weeklyPlanWed": "বুধ",
-  "languageScreenHeaderTitle": "ভাষাসমূহ"
+  "languageScreenHeaderTitle": "ভাষাসমূহ",
+  "commonRetry": "আবার চেষ্টা করুন",
+  "recipeDetailNoImage": "কোনো ছবি নেই",
+  "noInternetTitle": "ইন্টারনেট নেই",
+  "noInternetMessage": "অনুগ্রহ করে আপনার সংযোগ পরীক্ষা করে আবার চেষ্টা করুন।",
+  "permissionDeniedTitle": "অনুমতি প্রয়োজন",
+  "permissionDeniedMessage": "এই ফিচারের জন্য ক্যামেরা ও মাইক্রোফোন অ্যাক্সেস প্রয়োজন। অনুগ্রহ করে সিস্টেম সেটিংসে এটি চালু করুন।",
+  "permissionOpenSettings": "সেটিংস খুলুন",
+  "freeLeftToday": "আজ {limit}টির মধ্যে {remaining}টি বিনামূল্যে",
+  "@freeLeftToday": {
+    "placeholders": {
+      "remaining": {
+        "type": "String",
+        "format": "none"
+      },
+      "limit": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "freeLimitReachedTitle": "দৈনিক বিনামূল্যের সীমা শেষ",
+  "freeLimitReachedMessage": "আপনি আজকের {limit}টি বিনামূল্যের {feature} ব্যবহার করে ফেলেছেন। সীমাহীন অ্যাক্সেসের জন্য Pro-তে আপগ্রেড করুন, অথবা আগামীকাল আবার আসুন।",
+  "@freeLimitReachedMessage": {
+    "placeholders": {
+      "limit": {
+        "type": "String",
+        "format": "none"
+      },
+      "feature": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "freeFeatureRecipes": "AI রেসিপি",
+  "freeFeatureChat": "চ্যাট বার্তা",
+  "freeFeatureScans": "উপকরণ স্ক্যান",
+  "freeFeaturePlans": "AI মিল প্ল্যান",
+  "paywallTitle": "Recipe Keeper Pro",
+  "paywallSubtitle": "প্রতিদিন সীমাহীন AI রান্নার সহায়তা",
+  "paywallFeatureRecipes": "সীমাহীন AI রেসিপি তৈরি",
+  "paywallFeatureChat": "সীমাহীন AI Chef চ্যাট বার্তা",
+  "paywallFeatureScans": "সীমাহীন উপকরণ স্ক্যান",
+  "paywallFeaturePlans": "সীমাহীন AI মিল প্ল্যান",
+  "paywallFreeTierNote": "প্রতিদিন বিনামূল্যে: {recipes}টি AI রেসিপি, {chat}টি চ্যাট বার্তা, {scans}টি স্ক্যান এবং {plans}টি মিল প্ল্যান। সংরক্ষিত রেসিপি, পছন্দের তালিকা ও বাজারের তালিকা সবসময় বিনামূল্যে।",
+  "@paywallFreeTierNote": {
+    "placeholders": {
+      "recipes": {
+        "type": "String",
+        "format": "none"
+      },
+      "chat": {
+        "type": "String",
+        "format": "none"
+      },
+      "scans": {
+        "type": "String",
+        "format": "none"
+      },
+      "plans": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "paywallPerWeek": "প্রতি সপ্তাহে, স্বয়ংক্রিয়ভাবে নবায়ন হয়",
+  "paywallPerYear": "প্রতি বছরে, স্বয়ংক্রিয়ভাবে নবায়ন হয়",
+  "paywallOneTime": "এককালীন ক্রয়, চিরকালের জন্য আপনার",
+  "paywallContinue": "চালিয়ে যান",
+  "paywallTrialThen": "{trial} বিনামূল্যে, তারপর {price}",
+  "@paywallTrialThen": {
+    "placeholders": {
+      "trial": {
+        "type": "String",
+        "format": "none"
+      },
+      "price": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "paywallAutoRenewDisclosure": "ক্রয় নিশ্চিত হওয়ার সময় আপনার Apple ID অ্যাকাউন্ট থেকে অর্থ কাটা হয়। চলতি মেয়াদ শেষ হওয়ার কমপক্ষে ২৪ ঘণ্টা আগে বাতিল না করলে সাবস্ক্রিপশনটি প্রদর্শিত মূল্যে স্বয়ংক্রিয়ভাবে নবায়ন হবে। আপনি App Store অ্যাকাউন্ট সেটিংসে এটি পরিচালনা বা বাতিল করতে পারেন।",
+  "paywallLifetimeDisclosure": "ক্রয় নিশ্চিত হওয়ার সময় আপনার Apple ID অ্যাকাউন্ট থেকে এককালীন অর্থ কাটা হয়। এটি সাবস্ক্রিপশন নয়; কিছুই নবায়ন হয় না।",
+  "paywallLoadError": "App Store থেকে প্ল্যান লোড করা যায়নি। আপনার সংযোগ পরীক্ষা করে আবার চেষ্টা করুন।",
+  "paywallRetry": "আবার চেষ্টা করুন",
+  "paywallNothingToRestore": "এই Apple ID-এর জন্য কোনো পূর্ববর্তী ক্রয় পাওয়া যায়নি।",
+  "settingsProSection": "Recipe Keeper Pro",
+  "settingsUpgrade": "Pro-তে আপগ্রেড করুন",
+  "settingsUpgradeSubtitle": "সীমাহীন AI রেসিপি, চ্যাট, স্ক্যান ও মিল প্ল্যান",
+  "settingsProActive": "Pro সক্রিয় আছে",
+  "settingsProActiveSubtitle": "{plan} - Recipe Keeper-কে সমর্থন করার জন্য ধন্যবাদ",
+  "@settingsProActiveSubtitle": {
+    "placeholders": {
+      "plan": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "settingsProExpires": "{date} তারিখে নবায়ন বা শেষ হবে",
+  "@settingsProExpires": {
+    "placeholders": {
+      "date": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "settingsManageSubscription": "সাবস্ক্রিপশন পরিচালনা করুন",
+  "settingsManageSubscriptionSubtitle": "App Store-এ আপনার প্ল্যান পরিবর্তন বা বাতিল করুন",
+  "settingsRestorePurchasesSubtitle": "আগেই Pro কিনেছেন? এই ডিভাইসে পুনরুদ্ধার করুন",
+  "recipeServingsCount": "{count} পরিবেশন",
+  "@recipeServingsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "favoritesAdded": "পছন্দে যোগ করা হয়েছে",
+  "favoritesRemoved": "পছন্দ থেকে সরানো হয়েছে",
+  "groceryItemRemoved": "{item} সরানো হয়েছে",
+  "@groceryItemRemoved": {
+    "placeholders": {
+      "item": {
+        "type": "String"
+      }
+    }
+  },
+  "mealPlannerNewPlanTitle": "নতুন পরিকল্পনা শুরু করবেন?",
+  "mealPlannerNewPlanMessage": "আপনার বর্তমান খাবারের পরিকল্পনা মুছে যাবে।"
 }

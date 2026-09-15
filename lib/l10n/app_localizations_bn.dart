@@ -87,7 +87,7 @@ class AppLocalizationsBn extends AppLocalizations {
   String get commonDone => 'সম্পন্ন';
 
   @override
-  String get commonRetry => 'Try Again';
+  String get commonRetry => 'আবার চেষ্টা করুন';
 
   @override
   String get commonShare => 'শেয়ার';
@@ -1482,7 +1482,7 @@ class AppLocalizationsBn extends AppLocalizations {
       'সাহায্য দরকার? টিপস, বিকল্প বা ধাপে ধাপে গাইডের জন্য আমাকে জিজ্ঞাসা করুন!';
 
   @override
-  String get recipeDetailNoImage => 'No image';
+  String get recipeDetailNoImage => 'কোনো ছবি নেই';
 
   @override
   String get tagsHighProtein => 'উচ্চ প্রোটিন';
@@ -1639,20 +1639,21 @@ class AppLocalizationsBn extends AppLocalizations {
   }
 
   @override
-  String get noInternetTitle => 'No internet';
+  String get noInternetTitle => 'ইন্টারনেট নেই';
 
   @override
-  String get noInternetMessage => 'Please check your connection and try again.';
+  String get noInternetMessage =>
+      'অনুগ্রহ করে আপনার সংযোগ পরীক্ষা করে আবার চেষ্টা করুন।';
 
   @override
-  String get permissionDeniedTitle => 'Permission required';
+  String get permissionDeniedTitle => 'অনুমতি প্রয়োজন';
 
   @override
   String get permissionDeniedMessage =>
-      'Camera and microphone access is needed for this feature. Please enable it in system settings.';
+      'এই ফিচারের জন্য ক্যামেরা ও মাইক্রোফোন অ্যাক্সেস প্রয়োজন। অনুগ্রহ করে সিস্টেম সেটিংসে এটি চালু করুন।';
 
   @override
-  String get permissionOpenSettings => 'Open Settings';
+  String get permissionOpenSettings => 'সেটিংস খুলুন';
 
   @override
   String get settingsAppearance => 'চেহারা';
@@ -1907,46 +1908,46 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String freeLeftToday(String remaining, String limit) {
-    return '$remaining of $limit free today';
+    return 'আজ $limitটির মধ্যে $remainingটি বিনামূল্যে';
   }
 
   @override
-  String get freeLimitReachedTitle => 'Daily free limit reached';
+  String get freeLimitReachedTitle => 'দৈনিক বিনামূল্যের সীমা শেষ';
 
   @override
   String freeLimitReachedMessage(String limit, String feature) {
-    return 'You have used today\'s $limit free $feature. Upgrade to Pro for unlimited access, or come back tomorrow.';
+    return 'আপনি আজকের $limitটি বিনামূল্যের $feature ব্যবহার করে ফেলেছেন। সীমাহীন অ্যাক্সেসের জন্য Pro-তে আপগ্রেড করুন, অথবা আগামীকাল আবার আসুন।';
   }
 
   @override
-  String get freeFeatureRecipes => 'AI recipes';
+  String get freeFeatureRecipes => 'AI রেসিপি';
 
   @override
-  String get freeFeatureChat => 'chat messages';
+  String get freeFeatureChat => 'চ্যাট বার্তা';
 
   @override
-  String get freeFeatureScans => 'ingredient scans';
+  String get freeFeatureScans => 'উপকরণ স্ক্যান';
 
   @override
-  String get freeFeaturePlans => 'AI meal plans';
+  String get freeFeaturePlans => 'AI মিল প্ল্যান';
 
   @override
   String get paywallTitle => 'Recipe Keeper Pro';
 
   @override
-  String get paywallSubtitle => 'Unlimited AI cooking help, every day';
+  String get paywallSubtitle => 'প্রতিদিন সীমাহীন AI রান্নার সহায়তা';
 
   @override
-  String get paywallFeatureRecipes => 'Unlimited AI recipe generations';
+  String get paywallFeatureRecipes => 'সীমাহীন AI রেসিপি তৈরি';
 
   @override
-  String get paywallFeatureChat => 'Unlimited AI Chef chat messages';
+  String get paywallFeatureChat => 'সীমাহীন AI Chef চ্যাট বার্তা';
 
   @override
-  String get paywallFeatureScans => 'Unlimited ingredient scans';
+  String get paywallFeatureScans => 'সীমাহীন উপকরণ স্ক্যান';
 
   @override
-  String get paywallFeaturePlans => 'Unlimited AI meal plans';
+  String get paywallFeaturePlans => 'সীমাহীন AI মিল প্ল্যান';
 
   @override
   String paywallFreeTierNote(
@@ -1955,76 +1956,99 @@ class AppLocalizationsBn extends AppLocalizations {
     String scans,
     String plans,
   ) {
-    return 'Free every day: $recipes AI recipes, $chat chat messages, $scans scans and $plans meal plan. Saved recipes, favorites and grocery lists are always free.';
+    return 'প্রতিদিন বিনামূল্যে: $recipesটি AI রেসিপি, $chatটি চ্যাট বার্তা, $scansটি স্ক্যান এবং $plansটি মিল প্ল্যান। সংরক্ষিত রেসিপি, পছন্দের তালিকা ও বাজারের তালিকা সবসময় বিনামূল্যে।';
   }
 
   @override
-  String get paywallPerWeek => 'per week, auto-renewing';
+  String get paywallPerWeek => 'প্রতি সপ্তাহে, স্বয়ংক্রিয়ভাবে নবায়ন হয়';
 
   @override
-  String get paywallPerYear => 'per year, auto-renewing';
+  String get paywallPerYear => 'প্রতি বছরে, স্বয়ংক্রিয়ভাবে নবায়ন হয়';
 
   @override
-  String get paywallOneTime => 'one-time purchase, yours forever';
+  String get paywallOneTime => 'এককালীন ক্রয়, চিরকালের জন্য আপনার';
 
   @override
-  String get paywallContinue => 'Continue';
+  String get paywallContinue => 'চালিয়ে যান';
 
   @override
   String paywallTrialThen(String trial, String price) {
-    return '$trial free, then $price';
+    return '$trial বিনামূল্যে, তারপর $price';
   }
 
   @override
   String get paywallAutoRenewDisclosure =>
-      'Payment is charged to your Apple ID account at confirmation of purchase. The subscription renews automatically at the price shown unless it is cancelled at least 24 hours before the end of the current period. You can manage or cancel it in your App Store account settings.';
+      'ক্রয় নিশ্চিত হওয়ার সময় আপনার Apple ID অ্যাকাউন্ট থেকে অর্থ কাটা হয়। চলতি মেয়াদ শেষ হওয়ার কমপক্ষে ২৪ ঘণ্টা আগে বাতিল না করলে সাবস্ক্রিপশনটি প্রদর্শিত মূল্যে স্বয়ংক্রিয়ভাবে নবায়ন হবে। আপনি App Store অ্যাকাউন্ট সেটিংসে এটি পরিচালনা বা বাতিল করতে পারেন।';
 
   @override
   String get paywallLifetimeDisclosure =>
-      'One-time payment charged to your Apple ID account at confirmation of purchase. Not a subscription; nothing renews.';
+      'ক্রয় নিশ্চিত হওয়ার সময় আপনার Apple ID অ্যাকাউন্ট থেকে এককালীন অর্থ কাটা হয়। এটি সাবস্ক্রিপশন নয়; কিছুই নবায়ন হয় না।';
 
   @override
   String get paywallLoadError =>
-      'Plans could not be loaded from the App Store. Check your connection and try again.';
+      'App Store থেকে প্ল্যান লোড করা যায়নি। আপনার সংযোগ পরীক্ষা করে আবার চেষ্টা করুন।';
 
   @override
-  String get paywallRetry => 'Retry';
+  String get paywallRetry => 'আবার চেষ্টা করুন';
 
   @override
   String get paywallNothingToRestore =>
-      'No previous purchase was found for this Apple ID.';
+      'এই Apple ID-এর জন্য কোনো পূর্ববর্তী ক্রয় পাওয়া যায়নি।';
 
   @override
   String get settingsProSection => 'Recipe Keeper Pro';
 
   @override
-  String get settingsUpgrade => 'Upgrade to Pro';
+  String get settingsUpgrade => 'Pro-তে আপগ্রেড করুন';
 
   @override
   String get settingsUpgradeSubtitle =>
-      'Unlimited AI recipes, chat, scans and meal plans';
+      'সীমাহীন AI রেসিপি, চ্যাট, স্ক্যান ও মিল প্ল্যান';
 
   @override
-  String get settingsProActive => 'Pro is active';
+  String get settingsProActive => 'Pro সক্রিয় আছে';
 
   @override
   String settingsProActiveSubtitle(String plan) {
-    return '$plan - thank you for supporting Recipe Keeper';
+    return '$plan - Recipe Keeper-কে সমর্থন করার জন্য ধন্যবাদ';
   }
 
   @override
   String settingsProExpires(String date) {
-    return 'Renews or ends $date';
+    return '$date তারিখে নবায়ন বা শেষ হবে';
   }
 
   @override
-  String get settingsManageSubscription => 'Manage Subscription';
+  String get settingsManageSubscription => 'সাবস্ক্রিপশন পরিচালনা করুন';
 
   @override
   String get settingsManageSubscriptionSubtitle =>
-      'Change or cancel your plan in the App Store';
+      'App Store-এ আপনার প্ল্যান পরিবর্তন বা বাতিল করুন';
 
   @override
   String get settingsRestorePurchasesSubtitle =>
-      'Already bought Pro? Restore it on this device';
+      'আগেই Pro কিনেছেন? এই ডিভাইসে পুনরুদ্ধার করুন';
+
+  @override
+  String recipeServingsCount(int count) {
+    return '$count পরিবেশন';
+  }
+
+  @override
+  String get favoritesAdded => 'পছন্দে যোগ করা হয়েছে';
+
+  @override
+  String get favoritesRemoved => 'পছন্দ থেকে সরানো হয়েছে';
+
+  @override
+  String groceryItemRemoved(String item) {
+    return '$item সরানো হয়েছে';
+  }
+
+  @override
+  String get mealPlannerNewPlanTitle => 'নতুন পরিকল্পনা শুরু করবেন?';
+
+  @override
+  String get mealPlannerNewPlanMessage =>
+      'আপনার বর্তমান খাবারের পরিকল্পনা মুছে যাবে।';
 }

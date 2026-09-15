@@ -682,5 +682,137 @@
   "weeklyPlanTue": "อ",
   "weeklyPlanView": "ดู",
   "weeklyPlanWed": "พ",
-  "languageScreenHeaderTitle": "ภาษา"
+  "languageScreenHeaderTitle": "ภาษา",
+  "commonRetry": "ลองอีกครั้ง",
+  "recipeDetailNoImage": "ไม่มีรูปภาพ",
+  "noInternetTitle": "ไม่มีอินเทอร์เน็ต",
+  "noInternetMessage": "โปรดตรวจสอบการเชื่อมต่อแล้วลองอีกครั้ง",
+  "permissionDeniedTitle": "ต้องได้รับสิทธิ์",
+  "permissionDeniedMessage": "ฟีเจอร์นี้ต้องใช้สิทธิ์เข้าถึงกล้องและไมโครโฟน โปรดเปิดใช้งานในการตั้งค่าระบบ",
+  "permissionOpenSettings": "เปิดการตั้งค่า",
+  "freeLeftToday": "ฟรีวันนี้เหลือ {remaining} จาก {limit}",
+  "@freeLeftToday": {
+    "placeholders": {
+      "remaining": {
+        "type": "String",
+        "format": "none"
+      },
+      "limit": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "freeLimitReachedTitle": "ถึงขีดจำกัดฟรีรายวันแล้ว",
+  "freeLimitReachedMessage": "คุณใช้{feature}ฟรี {limit} ครั้งของวันนี้หมดแล้ว อัปเกรดเป็น Pro เพื่อใช้งานไม่จำกัด หรือกลับมาใหม่พรุ่งนี้",
+  "@freeLimitReachedMessage": {
+    "placeholders": {
+      "limit": {
+        "type": "String",
+        "format": "none"
+      },
+      "feature": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "freeFeatureRecipes": "สูตรอาหาร AI",
+  "freeFeatureChat": "ข้อความแชท",
+  "freeFeatureScans": "การสแกนวัตถุดิบ",
+  "freeFeaturePlans": "แผนมื้ออาหาร AI",
+  "paywallTitle": "Recipe Keeper Pro",
+  "paywallSubtitle": "ผู้ช่วยทำอาหาร AI ไม่จำกัด ทุกวัน",
+  "paywallFeatureRecipes": "สร้างสูตรอาหาร AI ไม่จำกัด",
+  "paywallFeatureChat": "แชทกับเชฟ AI ไม่จำกัด",
+  "paywallFeatureScans": "สแกนวัตถุดิบไม่จำกัด",
+  "paywallFeaturePlans": "แผนมื้ออาหาร AI ไม่จำกัด",
+  "paywallFreeTierNote": "ฟรีทุกวัน: สูตรอาหาร AI {recipes} สูตร ข้อความแชท {chat} ข้อความ สแกน {scans} ครั้ง และแผนมื้ออาหาร {plans} แผน สูตรอาหารที่บันทึกไว้ รายการโปรด และรายการซื้อของฟรีเสมอ",
+  "@paywallFreeTierNote": {
+    "placeholders": {
+      "recipes": {
+        "type": "String",
+        "format": "none"
+      },
+      "chat": {
+        "type": "String",
+        "format": "none"
+      },
+      "scans": {
+        "type": "String",
+        "format": "none"
+      },
+      "plans": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "paywallPerWeek": "ต่อสัปดาห์ ต่ออายุอัตโนมัติ",
+  "paywallPerYear": "ต่อปี ต่ออายุอัตโนมัติ",
+  "paywallOneTime": "ซื้อครั้งเดียว เป็นของคุณตลอดไป",
+  "paywallContinue": "ดำเนินการต่อ",
+  "paywallTrialThen": "ฟรี {trial} จากนั้น {price}",
+  "@paywallTrialThen": {
+    "placeholders": {
+      "trial": {
+        "type": "String",
+        "format": "none"
+      },
+      "price": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "paywallAutoRenewDisclosure": "ระบบจะเรียกเก็บเงินจากบัญชี Apple ID ของคุณเมื่อยืนยันการซื้อ การสมัครสมาชิกจะต่ออายุโดยอัตโนมัติในราคาที่แสดง เว้นแต่จะยกเลิกอย่างน้อย 24 ชั่วโมงก่อนสิ้นสุดรอบปัจจุบัน คุณสามารถจัดการหรือยกเลิกได้ในการตั้งค่าบัญชี App Store",
+  "paywallLifetimeDisclosure": "ชำระเงินครั้งเดียวโดยเรียกเก็บจากบัญชี Apple ID ของคุณเมื่อยืนยันการซื้อ ไม่ใช่การสมัครสมาชิก ไม่มีการต่ออายุใดๆ",
+  "paywallLoadError": "ไม่สามารถโหลดแพ็กเกจจาก App Store ได้ ตรวจสอบการเชื่อมต่อแล้วลองอีกครั้ง",
+  "paywallRetry": "ลองใหม่",
+  "paywallNothingToRestore": "ไม่พบการซื้อก่อนหน้าสำหรับ Apple ID นี้",
+  "settingsProSection": "Recipe Keeper Pro",
+  "settingsUpgrade": "อัปเกรดเป็น Pro",
+  "settingsUpgradeSubtitle": "สูตรอาหาร AI แชท สแกน และแผนมื้ออาหารไม่จำกัด",
+  "settingsProActive": "Pro เปิดใช้งานอยู่",
+  "settingsProActiveSubtitle": "{plan} - ขอบคุณที่สนับสนุน Recipe Keeper",
+  "@settingsProActiveSubtitle": {
+    "placeholders": {
+      "plan": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "settingsProExpires": "ต่ออายุหรือสิ้นสุดวันที่ {date}",
+  "@settingsProExpires": {
+    "placeholders": {
+      "date": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "settingsManageSubscription": "จัดการการสมัครสมาชิก",
+  "settingsManageSubscriptionSubtitle": "เปลี่ยนหรือยกเลิกแพ็กเกจของคุณใน App Store",
+  "settingsRestorePurchasesSubtitle": "ซื้อ Pro แล้วใช่ไหม กู้คืนบนอุปกรณ์นี้",
+  "recipeServingsCount": "{count} ที่",
+  "@recipeServingsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "favoritesAdded": "เพิ่มในรายการโปรดแล้ว",
+  "favoritesRemoved": "นำออกจากรายการโปรดแล้ว",
+  "groceryItemRemoved": "นำ {item} ออกแล้ว",
+  "@groceryItemRemoved": {
+    "placeholders": {
+      "item": {
+        "type": "String"
+      }
+    }
+  },
+  "mealPlannerNewPlanTitle": "เริ่มแผนใหม่หรือไม่?",
+  "mealPlannerNewPlanMessage": "แผนมื้ออาหารปัจจุบันของคุณจะถูกลบ"
 }

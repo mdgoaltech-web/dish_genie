@@ -692,5 +692,137 @@
   "weeklyPlanTue": "Mar",
   "weeklyPlanView": "Tingnan",
   "weeklyPlanWed": "Miy",
-  "languageScreenHeaderTitle": "Mga Wika"
+  "languageScreenHeaderTitle": "Mga Wika",
+  "commonRetry": "Subukan Muli",
+  "recipeDetailNoImage": "Walang larawan",
+  "noInternetTitle": "Walang internet",
+  "noInternetMessage": "Pakisuri ang iyong koneksyon at subukan muli.",
+  "permissionDeniedTitle": "Kailangan ng pahintulot",
+  "permissionDeniedMessage": "Kailangan ng access sa camera at mikropono para sa feature na ito. Paki-enable ito sa mga setting ng system.",
+  "permissionOpenSettings": "Buksan ang Mga Setting",
+  "freeLeftToday": "{remaining} sa {limit} na libre ngayong araw",
+  "@freeLeftToday": {
+    "placeholders": {
+      "remaining": {
+        "type": "String",
+        "format": "none"
+      },
+      "limit": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "freeLimitReachedTitle": "Naabot na ang pang-araw-araw na libreng limitasyon",
+  "freeLimitReachedMessage": "Nagamit mo na ang {limit} libreng {feature} para ngayong araw. Mag-upgrade sa Pro para sa walang limitasyong access, o bumalik bukas.",
+  "@freeLimitReachedMessage": {
+    "placeholders": {
+      "limit": {
+        "type": "String",
+        "format": "none"
+      },
+      "feature": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "freeFeatureRecipes": "AI na recipe",
+  "freeFeatureChat": "mensahe sa chat",
+  "freeFeatureScans": "pag-scan ng sangkap",
+  "freeFeaturePlans": "AI na meal plan",
+  "paywallTitle": "Recipe Keeper Pro",
+  "paywallSubtitle": "Walang limitasyong tulong sa pagluluto gamit ang AI, araw-araw",
+  "paywallFeatureRecipes": "Walang limitasyong paggawa ng AI na recipe",
+  "paywallFeatureChat": "Walang limitasyong mensahe sa AI Chef chat",
+  "paywallFeatureScans": "Walang limitasyong pag-scan ng sangkap",
+  "paywallFeaturePlans": "Walang limitasyong AI na meal plan",
+  "paywallFreeTierNote": "Libre araw-araw: {recipes} AI na recipe, {chat} mensahe sa chat, {scans} pag-scan at {plans} meal plan. Palaging libre ang mga naka-save na recipe, paborito at listahan ng pamimili.",
+  "@paywallFreeTierNote": {
+    "placeholders": {
+      "recipes": {
+        "type": "String",
+        "format": "none"
+      },
+      "chat": {
+        "type": "String",
+        "format": "none"
+      },
+      "scans": {
+        "type": "String",
+        "format": "none"
+      },
+      "plans": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "paywallPerWeek": "kada linggo, awtomatikong nagre-renew",
+  "paywallPerYear": "kada taon, awtomatikong nagre-renew",
+  "paywallOneTime": "isang beses na pagbili, sa iyo habambuhay",
+  "paywallContinue": "Magpatuloy",
+  "paywallTrialThen": "{trial} na libre, pagkatapos ay {price}",
+  "@paywallTrialThen": {
+    "placeholders": {
+      "trial": {
+        "type": "String",
+        "format": "none"
+      },
+      "price": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "paywallAutoRenewDisclosure": "Sisingilin ang bayad sa iyong Apple ID account sa pagkumpirma ng pagbili. Awtomatikong nagre-renew ang subscription sa ipinakitang presyo maliban kung kakanselahin ito nang hindi bababa sa 24 oras bago matapos ang kasalukuyang panahon. Maaari mo itong pamahalaan o kanselahin sa mga setting ng iyong App Store account.",
+  "paywallLifetimeDisclosure": "Isang beses na bayad na sisingilin sa iyong Apple ID account sa pagkumpirma ng pagbili. Hindi ito subscription; walang nagre-renew.",
+  "paywallLoadError": "Hindi ma-load ang mga plan mula sa App Store. Suriin ang iyong koneksyon at subukan muli.",
+  "paywallRetry": "Subukan Muli",
+  "paywallNothingToRestore": "Walang nakitang naunang pagbili para sa Apple ID na ito.",
+  "settingsProSection": "Recipe Keeper Pro",
+  "settingsUpgrade": "Mag-upgrade sa Pro",
+  "settingsUpgradeSubtitle": "Walang limitasyong AI na recipe, chat, pag-scan at meal plan",
+  "settingsProActive": "Aktibo ang Pro",
+  "settingsProActiveSubtitle": "{plan} - salamat sa pagsuporta sa Recipe Keeper",
+  "@settingsProActiveSubtitle": {
+    "placeholders": {
+      "plan": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "settingsProExpires": "Magre-renew o magtatapos sa {date}",
+  "@settingsProExpires": {
+    "placeholders": {
+      "date": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "settingsManageSubscription": "Pamahalaan ang Subscription",
+  "settingsManageSubscriptionSubtitle": "Baguhin o kanselahin ang iyong plan sa App Store",
+  "settingsRestorePurchasesSubtitle": "Nabili mo na ang Pro? I-restore ito sa device na ito",
+  "recipeServingsCount": "{count} serving",
+  "@recipeServingsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "favoritesAdded": "Idinagdag sa mga paborito",
+  "favoritesRemoved": "Inalis sa mga paborito",
+  "groceryItemRemoved": "Inalis ang {item}",
+  "@groceryItemRemoved": {
+    "placeholders": {
+      "item": {
+        "type": "String"
+      }
+    }
+  },
+  "mealPlannerNewPlanTitle": "Magsimula ng bagong plano?",
+  "mealPlannerNewPlanMessage": "Aalisin ang kasalukuyang meal plan mo."
 }

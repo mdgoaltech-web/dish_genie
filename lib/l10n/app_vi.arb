@@ -692,5 +692,137 @@
   "weeklyPlanTue": "T3",
   "weeklyPlanView": "Xem",
   "weeklyPlanWed": "T4",
-  "languageScreenHeaderTitle": "Ngôn ngữ"
+  "languageScreenHeaderTitle": "Ngôn ngữ",
+  "commonRetry": "Thử lại",
+  "recipeDetailNoImage": "Không có hình ảnh",
+  "noInternetTitle": "Không có kết nối Internet",
+  "noInternetMessage": "Vui lòng kiểm tra kết nối và thử lại.",
+  "permissionDeniedTitle": "Cần cấp quyền",
+  "permissionDeniedMessage": "Tính năng này cần quyền truy cập camera và micrô. Vui lòng bật trong cài đặt hệ thống.",
+  "permissionOpenSettings": "Mở Cài đặt",
+  "freeLeftToday": "Hôm nay còn {remaining}/{limit} lượt miễn phí",
+  "@freeLeftToday": {
+    "placeholders": {
+      "remaining": {
+        "type": "String",
+        "format": "none"
+      },
+      "limit": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "freeLimitReachedTitle": "Đã hết lượt miễn phí hôm nay",
+  "freeLimitReachedMessage": "Bạn đã dùng hết {limit} {feature} miễn phí của hôm nay. Nâng cấp lên Pro để dùng không giới hạn, hoặc quay lại vào ngày mai.",
+  "@freeLimitReachedMessage": {
+    "placeholders": {
+      "limit": {
+        "type": "String",
+        "format": "none"
+      },
+      "feature": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "freeFeatureRecipes": "công thức AI",
+  "freeFeatureChat": "tin nhắn trò chuyện",
+  "freeFeatureScans": "lượt quét nguyên liệu",
+  "freeFeaturePlans": "kế hoạch bữa ăn AI",
+  "paywallTitle": "Recipe Keeper Pro",
+  "paywallSubtitle": "Trợ giúp nấu ăn bằng AI không giới hạn, mỗi ngày",
+  "paywallFeatureRecipes": "Tạo công thức AI không giới hạn",
+  "paywallFeatureChat": "Trò chuyện với Đầu bếp AI không giới hạn",
+  "paywallFeatureScans": "Quét nguyên liệu không giới hạn",
+  "paywallFeaturePlans": "Kế hoạch bữa ăn AI không giới hạn",
+  "paywallFreeTierNote": "Miễn phí mỗi ngày: {recipes} công thức AI, {chat} tin nhắn trò chuyện, {scans} lượt quét và {plans} kế hoạch bữa ăn. Công thức đã lưu, mục yêu thích và danh sách đi chợ luôn miễn phí.",
+  "@paywallFreeTierNote": {
+    "placeholders": {
+      "recipes": {
+        "type": "String",
+        "format": "none"
+      },
+      "chat": {
+        "type": "String",
+        "format": "none"
+      },
+      "scans": {
+        "type": "String",
+        "format": "none"
+      },
+      "plans": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "paywallPerWeek": "mỗi tuần, tự động gia hạn",
+  "paywallPerYear": "mỗi năm, tự động gia hạn",
+  "paywallOneTime": "mua một lần, sở hữu vĩnh viễn",
+  "paywallContinue": "Tiếp tục",
+  "paywallTrialThen": "Miễn phí {trial}, sau đó {price}",
+  "@paywallTrialThen": {
+    "placeholders": {
+      "trial": {
+        "type": "String",
+        "format": "none"
+      },
+      "price": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "paywallAutoRenewDisclosure": "Khoản thanh toán sẽ được tính vào tài khoản Apple ID của bạn khi xác nhận mua. Gói đăng ký tự động gia hạn theo giá hiển thị trừ khi bị hủy ít nhất 24 giờ trước khi kết thúc chu kỳ hiện tại. Bạn có thể quản lý hoặc hủy trong cài đặt tài khoản App Store.",
+  "paywallLifetimeDisclosure": "Thanh toán một lần được tính vào tài khoản Apple ID của bạn khi xác nhận mua. Không phải gói đăng ký; không có gì được gia hạn.",
+  "paywallLoadError": "Không thể tải các gói từ App Store. Hãy kiểm tra kết nối và thử lại.",
+  "paywallRetry": "Thử lại",
+  "paywallNothingToRestore": "Không tìm thấy giao dịch mua trước đó cho Apple ID này.",
+  "settingsProSection": "Recipe Keeper Pro",
+  "settingsUpgrade": "Nâng cấp lên Pro",
+  "settingsUpgradeSubtitle": "Công thức AI, trò chuyện, quét và kế hoạch bữa ăn không giới hạn",
+  "settingsProActive": "Pro đang hoạt động",
+  "settingsProActiveSubtitle": "{plan} - cảm ơn bạn đã ủng hộ Recipe Keeper",
+  "@settingsProActiveSubtitle": {
+    "placeholders": {
+      "plan": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "settingsProExpires": "Gia hạn hoặc kết thúc vào {date}",
+  "@settingsProExpires": {
+    "placeholders": {
+      "date": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "settingsManageSubscription": "Quản lý đăng ký",
+  "settingsManageSubscriptionSubtitle": "Thay đổi hoặc hủy gói của bạn trong App Store",
+  "settingsRestorePurchasesSubtitle": "Đã mua Pro? Khôi phục trên thiết bị này",
+  "recipeServingsCount": "{count} phần",
+  "@recipeServingsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "favoritesAdded": "Đã thêm vào yêu thích",
+  "favoritesRemoved": "Đã xóa khỏi yêu thích",
+  "groceryItemRemoved": "Đã xóa {item}",
+  "@groceryItemRemoved": {
+    "placeholders": {
+      "item": {
+        "type": "String"
+      }
+    }
+  },
+  "mealPlannerNewPlanTitle": "Bắt đầu kế hoạch mới?",
+  "mealPlannerNewPlanMessage": "Kế hoạch bữa ăn hiện tại của bạn sẽ bị xóa."
 }

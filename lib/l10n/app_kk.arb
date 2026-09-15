@@ -692,5 +692,137 @@
   "weeklyPlanTue": "Сс",
   "weeklyPlanView": "Көру",
   "weeklyPlanWed": "Ср",
-  "languageScreenHeaderTitle": "Тілдер"
+  "languageScreenHeaderTitle": "Тілдер",
+  "commonRetry": "Қайталап көру",
+  "recipeDetailNoImage": "Сурет жоқ",
+  "noInternetTitle": "Интернет жоқ",
+  "noInternetMessage": "Байланысты тексеріп, қайталап көріңіз.",
+  "permissionDeniedTitle": "Рұқсат қажет",
+  "permissionDeniedMessage": "Бұл мүмкіндік үшін камера мен микрофонға рұқсат қажет. Оны жүйе параметрлерінен қосыңыз.",
+  "permissionOpenSettings": "Параметрлерді ашу",
+  "freeLeftToday": "Бүгін тегін: {limit} ішінен {remaining}",
+  "@freeLeftToday": {
+    "placeholders": {
+      "remaining": {
+        "type": "String",
+        "format": "none"
+      },
+      "limit": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "freeLimitReachedTitle": "Күнделікті тегін шекке жеттіңіз",
+  "freeLimitReachedMessage": "Сіз бүгінгі {limit} тегін {feature} пайдаландыңыз. Шексіз қолжетімділік үшін Pro нұсқасына өтіңіз немесе ертең қайта келіңіз.",
+  "@freeLimitReachedMessage": {
+    "placeholders": {
+      "limit": {
+        "type": "String",
+        "format": "none"
+      },
+      "feature": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "freeFeatureRecipes": "AI рецепт",
+  "freeFeatureChat": "чат хабарлама",
+  "freeFeatureScans": "ингредиент сканерлеу",
+  "freeFeaturePlans": "AI тамақ жоспары",
+  "paywallTitle": "Recipe Keeper Pro",
+  "paywallSubtitle": "Күн сайын шексіз AI аспаздық көмек",
+  "paywallFeatureRecipes": "Шексіз AI рецепт жасау",
+  "paywallFeatureChat": "AI аспазбен шексіз чат хабарламалары",
+  "paywallFeatureScans": "Шексіз ингредиент сканерлеу",
+  "paywallFeaturePlans": "Шексіз AI тамақ жоспарлары",
+  "paywallFreeTierNote": "Күн сайын тегін: {recipes} AI рецепт, {chat} чат хабарлама, {scans} сканерлеу және {plans} тамақ жоспары. Сақталған рецепттер, таңдаулылар және азық-түлік тізімдері әрқашан тегін.",
+  "@paywallFreeTierNote": {
+    "placeholders": {
+      "recipes": {
+        "type": "String",
+        "format": "none"
+      },
+      "chat": {
+        "type": "String",
+        "format": "none"
+      },
+      "scans": {
+        "type": "String",
+        "format": "none"
+      },
+      "plans": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "paywallPerWeek": "аптасына, автоматты жаңартылады",
+  "paywallPerYear": "жылына, автоматты жаңартылады",
+  "paywallOneTime": "бір реттік сатып алу, мәңгі сіздікі",
+  "paywallContinue": "Жалғастыру",
+  "paywallTrialThen": "{trial} тегін, содан кейін {price}",
+  "@paywallTrialThen": {
+    "placeholders": {
+      "trial": {
+        "type": "String",
+        "format": "none"
+      },
+      "price": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "paywallAutoRenewDisclosure": "Төлем сатып алуды растаған кезде Apple ID тіркелгіңізден алынады. Ағымдағы кезең аяқталуына кемінде 24 сағат қалғанда бас тартылмаса, жазылым көрсетілген бағамен автоматты түрде жаңартылады. Оны App Store тіркелгі параметрлерінен басқаруға немесе тоқтатуға болады.",
+  "paywallLifetimeDisclosure": "Сатып алуды растаған кезде Apple ID тіркелгіңізден бір реттік төлем алынады. Бұл жазылым емес; ештеңе жаңартылмайды.",
+  "paywallLoadError": "Жоспарларды App Store дүкенінен жүктеу мүмкін болмады. Байланысты тексеріп, қайталап көріңіз.",
+  "paywallRetry": "Қайталау",
+  "paywallNothingToRestore": "Бұл Apple ID үшін бұрынғы сатып алу табылмады.",
+  "settingsProSection": "Recipe Keeper Pro",
+  "settingsUpgrade": "Pro нұсқасына өту",
+  "settingsUpgradeSubtitle": "Шексіз AI рецепттер, чат, сканерлеу және тамақ жоспарлары",
+  "settingsProActive": "Pro белсенді",
+  "settingsProActiveSubtitle": "{plan} - Recipe Keeper қолдағаныңыз үшін рақмет",
+  "@settingsProActiveSubtitle": {
+    "placeholders": {
+      "plan": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "settingsProExpires": "{date} күні жаңартылады немесе аяқталады",
+  "@settingsProExpires": {
+    "placeholders": {
+      "date": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "settingsManageSubscription": "Жазылымды басқару",
+  "settingsManageSubscriptionSubtitle": "Жоспарыңызды App Store арқылы өзгертіңіз немесе тоқтатыңыз",
+  "settingsRestorePurchasesSubtitle": "Pro бұрын сатып алдыңыз ба? Оны осы құрылғыда қалпына келтіріңіз",
+  "recipeServingsCount": "{count} порция",
+  "@recipeServingsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "favoritesAdded": "Таңдаулыларға қосылды",
+  "favoritesRemoved": "Таңдаулылардан алынды",
+  "groceryItemRemoved": "{item} жойылды",
+  "@groceryItemRemoved": {
+    "placeholders": {
+      "item": {
+        "type": "String"
+      }
+    }
+  },
+  "mealPlannerNewPlanTitle": "Жаңа жоспар бастау керек пе?",
+  "mealPlannerNewPlanMessage": "Ағымдағы тамақтану жоспарыңыз жойылады."
 }

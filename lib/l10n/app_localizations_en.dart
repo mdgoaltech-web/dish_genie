@@ -2018,4 +2018,33 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get settingsRestorePurchasesSubtitle =>
       'Already bought Pro? Restore it on this device';
+
+  @override
+  String recipeServingsCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count servings',
+      one: '1 serving',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get favoritesAdded => 'Added to favorites';
+
+  @override
+  String get favoritesRemoved => 'Removed from favorites';
+
+  @override
+  String groceryItemRemoved(String item) {
+    return '$item removed';
+  }
+
+  @override
+  String get mealPlannerNewPlanTitle => 'Start a new plan?';
+
+  @override
+  String get mealPlannerNewPlanMessage =>
+      'Your current meal plan will be removed.';
 }

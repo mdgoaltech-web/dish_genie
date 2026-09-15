@@ -3980,6 +3980,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Already bought Pro? Restore it on this device'**
   String get settingsRestorePurchasesSubtitle;
+
+  /// No description provided for @recipeServingsCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 serving} other{{count} servings}}'**
+  String recipeServingsCount(int count);
+
+  /// No description provided for @favoritesAdded.
+  ///
+  /// In en, this message translates to:
+  /// **'Added to favorites'**
+  String get favoritesAdded;
+
+  /// No description provided for @favoritesRemoved.
+  ///
+  /// In en, this message translates to:
+  /// **'Removed from favorites'**
+  String get favoritesRemoved;
+
+  /// No description provided for @groceryItemRemoved.
+  ///
+  /// In en, this message translates to:
+  /// **'{item} removed'**
+  String groceryItemRemoved(String item);
+
+  /// No description provided for @mealPlannerNewPlanTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Start a new plan?'**
+  String get mealPlannerNewPlanTitle;
+
+  /// No description provided for @mealPlannerNewPlanMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Your current meal plan will be removed.'**
+  String get mealPlannerNewPlanMessage;
 }
 
 class _AppLocalizationsDelegate

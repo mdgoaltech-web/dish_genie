@@ -682,5 +682,137 @@
   "weeklyPlanTue": "火",
   "weeklyPlanView": "表示",
   "weeklyPlanWed": "水",
-  "languageScreenHeaderTitle": "言語"
+  "languageScreenHeaderTitle": "言語",
+  "commonRetry": "再試行",
+  "recipeDetailNoImage": "画像なし",
+  "noInternetTitle": "インターネットに接続されていません",
+  "noInternetMessage": "接続を確認して、もう一度お試しください。",
+  "permissionDeniedTitle": "権限が必要です",
+  "permissionDeniedMessage": "この機能にはカメラとマイクへのアクセスが必要です。システム設定で有効にしてください。",
+  "permissionOpenSettings": "設定を開く",
+  "freeLeftToday": "本日の無料分：残り{remaining}/{limit}",
+  "@freeLeftToday": {
+    "placeholders": {
+      "remaining": {
+        "type": "String",
+        "format": "none"
+      },
+      "limit": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "freeLimitReachedTitle": "本日の無料上限に達しました",
+  "freeLimitReachedMessage": "本日の無料{feature}（{limit}回）を使い切りました。Proにアップグレードして無制限に利用するか、明日またお越しください。",
+  "@freeLimitReachedMessage": {
+    "placeholders": {
+      "limit": {
+        "type": "String",
+        "format": "none"
+      },
+      "feature": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "freeFeatureRecipes": "AIレシピ",
+  "freeFeatureChat": "チャットメッセージ",
+  "freeFeatureScans": "食材スキャン",
+  "freeFeaturePlans": "AI献立プラン",
+  "paywallTitle": "Recipe Keeper Pro",
+  "paywallSubtitle": "毎日、無制限のAI料理サポート",
+  "paywallFeatureRecipes": "AIレシピ生成が無制限",
+  "paywallFeatureChat": "AIシェフとのチャットが無制限",
+  "paywallFeatureScans": "食材スキャンが無制限",
+  "paywallFeaturePlans": "AI献立プランが無制限",
+  "paywallFreeTierNote": "毎日無料：AIレシピ{recipes}回、チャットメッセージ{chat}回、スキャン{scans}回、献立プラン{plans}回。保存したレシピ、お気に入り、買い物リストはいつでも無料です。",
+  "@paywallFreeTierNote": {
+    "placeholders": {
+      "recipes": {
+        "type": "String",
+        "format": "none"
+      },
+      "chat": {
+        "type": "String",
+        "format": "none"
+      },
+      "scans": {
+        "type": "String",
+        "format": "none"
+      },
+      "plans": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "paywallPerWeek": "週ごと、自動更新",
+  "paywallPerYear": "年ごと、自動更新",
+  "paywallOneTime": "買い切り、ずっと使えます",
+  "paywallContinue": "続ける",
+  "paywallTrialThen": "{trial}無料、その後{price}",
+  "@paywallTrialThen": {
+    "placeholders": {
+      "trial": {
+        "type": "String",
+        "format": "none"
+      },
+      "price": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "paywallAutoRenewDisclosure": "お支払いは購入確定時にApple IDアカウントに請求されます。サブスクリプションは、現在の期間終了の24時間前までにキャンセルされない限り、表示価格で自動更新されます。App Storeのアカウント設定から管理またはキャンセルできます。",
+  "paywallLifetimeDisclosure": "購入確定時にApple IDアカウントに一回限りの支払いが請求されます。サブスクリプションではなく、自動更新はありません。",
+  "paywallLoadError": "App Storeからプランを読み込めませんでした。接続を確認して、もう一度お試しください。",
+  "paywallRetry": "再試行",
+  "paywallNothingToRestore": "このApple IDでの過去の購入は見つかりませんでした。",
+  "settingsProSection": "Recipe Keeper Pro",
+  "settingsUpgrade": "Proにアップグレード",
+  "settingsUpgradeSubtitle": "AIレシピ、チャット、スキャン、献立プランが無制限",
+  "settingsProActive": "Proは有効です",
+  "settingsProActiveSubtitle": "{plan} - Recipe Keeperへのご支援ありがとうございます",
+  "@settingsProActiveSubtitle": {
+    "placeholders": {
+      "plan": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "settingsProExpires": "{date}に更新または終了",
+  "@settingsProExpires": {
+    "placeholders": {
+      "date": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "settingsManageSubscription": "サブスクリプションを管理",
+  "settingsManageSubscriptionSubtitle": "App Storeでプランを変更またはキャンセル",
+  "settingsRestorePurchasesSubtitle": "Proを購入済みですか？このデバイスで復元できます",
+  "recipeServingsCount": "{count}人前",
+  "@recipeServingsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "favoritesAdded": "お気に入りに追加しました",
+  "favoritesRemoved": "お気に入りから削除しました",
+  "groceryItemRemoved": "{item}を削除しました",
+  "@groceryItemRemoved": {
+    "placeholders": {
+      "item": {
+        "type": "String"
+      }
+    }
+  },
+  "mealPlannerNewPlanTitle": "新しいプランを始めますか？",
+  "mealPlannerNewPlanMessage": "現在の食事プランは削除されます。"
 }

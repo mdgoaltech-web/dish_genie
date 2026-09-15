@@ -682,5 +682,137 @@
   "weeklyPlanTue": "Di",
   "weeklyPlanView": "Bekijken",
   "weeklyPlanWed": "Wo",
-  "languageScreenHeaderTitle": "Talen"
+  "languageScreenHeaderTitle": "Talen",
+  "commonRetry": "Opnieuw proberen",
+  "recipeDetailNoImage": "Geen afbeelding",
+  "noInternetTitle": "Geen internet",
+  "noInternetMessage": "Controleer je verbinding en probeer het opnieuw.",
+  "permissionDeniedTitle": "Toestemming vereist",
+  "permissionDeniedMessage": "Voor deze functie is toegang tot camera en microfoon nodig. Schakel dit in bij de systeeminstellingen.",
+  "permissionOpenSettings": "Instellingen openen",
+  "freeLeftToday": "{remaining} van {limit} gratis vandaag",
+  "@freeLeftToday": {
+    "placeholders": {
+      "remaining": {
+        "type": "String",
+        "format": "none"
+      },
+      "limit": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "freeLimitReachedTitle": "Dagelijkse gratis limiet bereikt",
+  "freeLimitReachedMessage": "Je hebt de {limit} gratis {feature} van vandaag gebruikt. Upgrade naar Pro voor onbeperkte toegang, of kom morgen terug.",
+  "@freeLimitReachedMessage": {
+    "placeholders": {
+      "limit": {
+        "type": "String",
+        "format": "none"
+      },
+      "feature": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "freeFeatureRecipes": "AI-recepten",
+  "freeFeatureChat": "chatberichten",
+  "freeFeatureScans": "ingrediëntenscans",
+  "freeFeaturePlans": "AI-maaltijdplannen",
+  "paywallTitle": "Recipe Keeper Pro",
+  "paywallSubtitle": "Onbeperkte AI-kookhulp, elke dag",
+  "paywallFeatureRecipes": "Onbeperkt AI-recepten genereren",
+  "paywallFeatureChat": "Onbeperkt chatberichten met de AI-chef",
+  "paywallFeatureScans": "Onbeperkt ingrediëntenscans",
+  "paywallFeaturePlans": "Onbeperkt AI-maaltijdplannen",
+  "paywallFreeTierNote": "Elke dag gratis: {recipes} AI-recepten, {chat} chatberichten, {scans} scans en {plans} maaltijdplan. Opgeslagen recepten, favorieten en boodschappenlijsten zijn altijd gratis.",
+  "@paywallFreeTierNote": {
+    "placeholders": {
+      "recipes": {
+        "type": "String",
+        "format": "none"
+      },
+      "chat": {
+        "type": "String",
+        "format": "none"
+      },
+      "scans": {
+        "type": "String",
+        "format": "none"
+      },
+      "plans": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "paywallPerWeek": "per week, wordt automatisch verlengd",
+  "paywallPerYear": "per jaar, wordt automatisch verlengd",
+  "paywallOneTime": "eenmalige aankoop, voor altijd van jou",
+  "paywallContinue": "Doorgaan",
+  "paywallTrialThen": "{trial} gratis, daarna {price}",
+  "@paywallTrialThen": {
+    "placeholders": {
+      "trial": {
+        "type": "String",
+        "format": "none"
+      },
+      "price": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "paywallAutoRenewDisclosure": "De betaling wordt bij bevestiging van de aankoop via je Apple ID-account in rekening gebracht. Het abonnement wordt automatisch verlengd tegen de getoonde prijs, tenzij het minstens 24 uur voor het einde van de huidige periode wordt opgezegd. Je kunt het beheren of opzeggen in de accountinstellingen van de App Store.",
+  "paywallLifetimeDisclosure": "Eenmalige betaling die bij bevestiging van de aankoop via je Apple ID-account in rekening wordt gebracht. Geen abonnement; er wordt niets verlengd.",
+  "paywallLoadError": "De abonnementen konden niet uit de App Store worden geladen. Controleer je verbinding en probeer het opnieuw.",
+  "paywallRetry": "Opnieuw proberen",
+  "paywallNothingToRestore": "Er is geen eerdere aankoop gevonden voor dit Apple ID.",
+  "settingsProSection": "Recipe Keeper Pro",
+  "settingsUpgrade": "Upgraden naar Pro",
+  "settingsUpgradeSubtitle": "Onbeperkt AI-recepten, chat, scans en maaltijdplannen",
+  "settingsProActive": "Pro is actief",
+  "settingsProActiveSubtitle": "{plan} - bedankt dat je Recipe Keeper steunt",
+  "@settingsProActiveSubtitle": {
+    "placeholders": {
+      "plan": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "settingsProExpires": "Wordt verlengd of eindigt op {date}",
+  "@settingsProExpires": {
+    "placeholders": {
+      "date": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "settingsManageSubscription": "Abonnement beheren",
+  "settingsManageSubscriptionSubtitle": "Wijzig of annuleer je abonnement in de App Store",
+  "settingsRestorePurchasesSubtitle": "Pro al gekocht? Herstel het op dit apparaat",
+  "recipeServingsCount": "{count} porties",
+  "@recipeServingsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "favoritesAdded": "Toegevoegd aan favorieten",
+  "favoritesRemoved": "Verwijderd uit favorieten",
+  "groceryItemRemoved": "{item} verwijderd",
+  "@groceryItemRemoved": {
+    "placeholders": {
+      "item": {
+        "type": "String"
+      }
+    }
+  },
+  "mealPlannerNewPlanTitle": "Nieuw plan starten?",
+  "mealPlannerNewPlanMessage": "Je huidige maaltijdplan wordt verwijderd."
 }

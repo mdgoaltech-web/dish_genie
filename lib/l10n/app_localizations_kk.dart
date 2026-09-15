@@ -87,7 +87,7 @@ class AppLocalizationsKk extends AppLocalizations {
   String get commonDone => 'Дайын';
 
   @override
-  String get commonRetry => 'Try Again';
+  String get commonRetry => 'Қайталап көру';
 
   @override
   String get commonShare => 'Бөлісу';
@@ -1483,7 +1483,7 @@ class AppLocalizationsKk extends AppLocalizations {
       'Көмек керек пе? Кеңестер, ауыстырулар немесе қадамдық нұсқаулық сұраңыз!';
 
   @override
-  String get recipeDetailNoImage => 'No image';
+  String get recipeDetailNoImage => 'Сурет жоқ';
 
   @override
   String get tagsHighProtein => 'Жоғары Ақуыз';
@@ -1641,20 +1641,20 @@ class AppLocalizationsKk extends AppLocalizations {
   }
 
   @override
-  String get noInternetTitle => 'No internet';
+  String get noInternetTitle => 'Интернет жоқ';
 
   @override
-  String get noInternetMessage => 'Please check your connection and try again.';
+  String get noInternetMessage => 'Байланысты тексеріп, қайталап көріңіз.';
 
   @override
-  String get permissionDeniedTitle => 'Permission required';
+  String get permissionDeniedTitle => 'Рұқсат қажет';
 
   @override
   String get permissionDeniedMessage =>
-      'Camera and microphone access is needed for this feature. Please enable it in system settings.';
+      'Бұл мүмкіндік үшін камера мен микрофонға рұқсат қажет. Оны жүйе параметрлерінен қосыңыз.';
 
   @override
-  String get permissionOpenSettings => 'Open Settings';
+  String get permissionOpenSettings => 'Параметрлерді ашу';
 
   @override
   String get settingsAppearance => 'Сыртқы түрі';
@@ -1909,46 +1909,46 @@ class AppLocalizationsKk extends AppLocalizations {
 
   @override
   String freeLeftToday(String remaining, String limit) {
-    return '$remaining of $limit free today';
+    return 'Бүгін тегін: $limit ішінен $remaining';
   }
 
   @override
-  String get freeLimitReachedTitle => 'Daily free limit reached';
+  String get freeLimitReachedTitle => 'Күнделікті тегін шекке жеттіңіз';
 
   @override
   String freeLimitReachedMessage(String limit, String feature) {
-    return 'You have used today\'s $limit free $feature. Upgrade to Pro for unlimited access, or come back tomorrow.';
+    return 'Сіз бүгінгі $limit тегін $feature пайдаландыңыз. Шексіз қолжетімділік үшін Pro нұсқасына өтіңіз немесе ертең қайта келіңіз.';
   }
 
   @override
-  String get freeFeatureRecipes => 'AI recipes';
+  String get freeFeatureRecipes => 'AI рецепт';
 
   @override
-  String get freeFeatureChat => 'chat messages';
+  String get freeFeatureChat => 'чат хабарлама';
 
   @override
-  String get freeFeatureScans => 'ingredient scans';
+  String get freeFeatureScans => 'ингредиент сканерлеу';
 
   @override
-  String get freeFeaturePlans => 'AI meal plans';
+  String get freeFeaturePlans => 'AI тамақ жоспары';
 
   @override
   String get paywallTitle => 'Recipe Keeper Pro';
 
   @override
-  String get paywallSubtitle => 'Unlimited AI cooking help, every day';
+  String get paywallSubtitle => 'Күн сайын шексіз AI аспаздық көмек';
 
   @override
-  String get paywallFeatureRecipes => 'Unlimited AI recipe generations';
+  String get paywallFeatureRecipes => 'Шексіз AI рецепт жасау';
 
   @override
-  String get paywallFeatureChat => 'Unlimited AI Chef chat messages';
+  String get paywallFeatureChat => 'AI аспазбен шексіз чат хабарламалары';
 
   @override
-  String get paywallFeatureScans => 'Unlimited ingredient scans';
+  String get paywallFeatureScans => 'Шексіз ингредиент сканерлеу';
 
   @override
-  String get paywallFeaturePlans => 'Unlimited AI meal plans';
+  String get paywallFeaturePlans => 'Шексіз AI тамақ жоспарлары';
 
   @override
   String paywallFreeTierNote(
@@ -1957,76 +1957,99 @@ class AppLocalizationsKk extends AppLocalizations {
     String scans,
     String plans,
   ) {
-    return 'Free every day: $recipes AI recipes, $chat chat messages, $scans scans and $plans meal plan. Saved recipes, favorites and grocery lists are always free.';
+    return 'Күн сайын тегін: $recipes AI рецепт, $chat чат хабарлама, $scans сканерлеу және $plans тамақ жоспары. Сақталған рецепттер, таңдаулылар және азық-түлік тізімдері әрқашан тегін.';
   }
 
   @override
-  String get paywallPerWeek => 'per week, auto-renewing';
+  String get paywallPerWeek => 'аптасына, автоматты жаңартылады';
 
   @override
-  String get paywallPerYear => 'per year, auto-renewing';
+  String get paywallPerYear => 'жылына, автоматты жаңартылады';
 
   @override
-  String get paywallOneTime => 'one-time purchase, yours forever';
+  String get paywallOneTime => 'бір реттік сатып алу, мәңгі сіздікі';
 
   @override
-  String get paywallContinue => 'Continue';
+  String get paywallContinue => 'Жалғастыру';
 
   @override
   String paywallTrialThen(String trial, String price) {
-    return '$trial free, then $price';
+    return '$trial тегін, содан кейін $price';
   }
 
   @override
   String get paywallAutoRenewDisclosure =>
-      'Payment is charged to your Apple ID account at confirmation of purchase. The subscription renews automatically at the price shown unless it is cancelled at least 24 hours before the end of the current period. You can manage or cancel it in your App Store account settings.';
+      'Төлем сатып алуды растаған кезде Apple ID тіркелгіңізден алынады. Ағымдағы кезең аяқталуына кемінде 24 сағат қалғанда бас тартылмаса, жазылым көрсетілген бағамен автоматты түрде жаңартылады. Оны App Store тіркелгі параметрлерінен басқаруға немесе тоқтатуға болады.';
 
   @override
   String get paywallLifetimeDisclosure =>
-      'One-time payment charged to your Apple ID account at confirmation of purchase. Not a subscription; nothing renews.';
+      'Сатып алуды растаған кезде Apple ID тіркелгіңізден бір реттік төлем алынады. Бұл жазылым емес; ештеңе жаңартылмайды.';
 
   @override
   String get paywallLoadError =>
-      'Plans could not be loaded from the App Store. Check your connection and try again.';
+      'Жоспарларды App Store дүкенінен жүктеу мүмкін болмады. Байланысты тексеріп, қайталап көріңіз.';
 
   @override
-  String get paywallRetry => 'Retry';
+  String get paywallRetry => 'Қайталау';
 
   @override
   String get paywallNothingToRestore =>
-      'No previous purchase was found for this Apple ID.';
+      'Бұл Apple ID үшін бұрынғы сатып алу табылмады.';
 
   @override
   String get settingsProSection => 'Recipe Keeper Pro';
 
   @override
-  String get settingsUpgrade => 'Upgrade to Pro';
+  String get settingsUpgrade => 'Pro нұсқасына өту';
 
   @override
   String get settingsUpgradeSubtitle =>
-      'Unlimited AI recipes, chat, scans and meal plans';
+      'Шексіз AI рецепттер, чат, сканерлеу және тамақ жоспарлары';
 
   @override
-  String get settingsProActive => 'Pro is active';
+  String get settingsProActive => 'Pro белсенді';
 
   @override
   String settingsProActiveSubtitle(String plan) {
-    return '$plan - thank you for supporting Recipe Keeper';
+    return '$plan - Recipe Keeper қолдағаныңыз үшін рақмет';
   }
 
   @override
   String settingsProExpires(String date) {
-    return 'Renews or ends $date';
+    return '$date күні жаңартылады немесе аяқталады';
   }
 
   @override
-  String get settingsManageSubscription => 'Manage Subscription';
+  String get settingsManageSubscription => 'Жазылымды басқару';
 
   @override
   String get settingsManageSubscriptionSubtitle =>
-      'Change or cancel your plan in the App Store';
+      'Жоспарыңызды App Store арқылы өзгертіңіз немесе тоқтатыңыз';
 
   @override
   String get settingsRestorePurchasesSubtitle =>
-      'Already bought Pro? Restore it on this device';
+      'Pro бұрын сатып алдыңыз ба? Оны осы құрылғыда қалпына келтіріңіз';
+
+  @override
+  String recipeServingsCount(int count) {
+    return '$count порция';
+  }
+
+  @override
+  String get favoritesAdded => 'Таңдаулыларға қосылды';
+
+  @override
+  String get favoritesRemoved => 'Таңдаулылардан алынды';
+
+  @override
+  String groceryItemRemoved(String item) {
+    return '$item жойылды';
+  }
+
+  @override
+  String get mealPlannerNewPlanTitle => 'Жаңа жоспар бастау керек пе?';
+
+  @override
+  String get mealPlannerNewPlanMessage =>
+      'Ағымдағы тамақтану жоспарыңыз жойылады.';
 }

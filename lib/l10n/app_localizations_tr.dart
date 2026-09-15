@@ -87,7 +87,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get commonDone => 'Tamam';
 
   @override
-  String get commonRetry => 'Try Again';
+  String get commonRetry => 'Tekrar Dene';
 
   @override
   String get commonShare => 'Paylaş';
@@ -1482,7 +1482,7 @@ class AppLocalizationsTr extends AppLocalizations {
       'Yardıma mı ihtiyacınız var? İpuçları, alternatifler veya adım adım rehberlik için bana sorun!';
 
   @override
-  String get recipeDetailNoImage => 'No image';
+  String get recipeDetailNoImage => 'Görsel yok';
 
   @override
   String get tagsHighProtein => 'Yüksek Protein';
@@ -1640,20 +1640,21 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
-  String get noInternetTitle => 'No internet';
+  String get noInternetTitle => 'İnternet yok';
 
   @override
-  String get noInternetMessage => 'Please check your connection and try again.';
+  String get noInternetMessage =>
+      'Lütfen bağlantınızı kontrol edip tekrar deneyin.';
 
   @override
-  String get permissionDeniedTitle => 'Permission required';
+  String get permissionDeniedTitle => 'İzin gerekli';
 
   @override
   String get permissionDeniedMessage =>
-      'Camera and microphone access is needed for this feature. Please enable it in system settings.';
+      'Bu özellik için kamera ve mikrofon erişimi gerekiyor. Lütfen sistem ayarlarından etkinleştirin.';
 
   @override
-  String get permissionOpenSettings => 'Open Settings';
+  String get permissionOpenSettings => 'Ayarları Aç';
 
   @override
   String get settingsAppearance => 'Dış görünüş';
@@ -1907,46 +1908,46 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String freeLeftToday(String remaining, String limit) {
-    return '$remaining of $limit free today';
+    return 'Bugün $limit ücretsiz haktan $remaining kaldı';
   }
 
   @override
-  String get freeLimitReachedTitle => 'Daily free limit reached';
+  String get freeLimitReachedTitle => 'Günlük ücretsiz sınıra ulaşıldı';
 
   @override
   String freeLimitReachedMessage(String limit, String feature) {
-    return 'You have used today\'s $limit free $feature. Upgrade to Pro for unlimited access, or come back tomorrow.';
+    return 'Bugünkü $limit ücretsiz $feature hakkınızı kullandınız. Sınırsız erişim için Pro\'ya yükseltin veya yarın tekrar gelin.';
   }
 
   @override
-  String get freeFeatureRecipes => 'AI recipes';
+  String get freeFeatureRecipes => 'yapay zeka tarifi';
 
   @override
-  String get freeFeatureChat => 'chat messages';
+  String get freeFeatureChat => 'sohbet mesajı';
 
   @override
-  String get freeFeatureScans => 'ingredient scans';
+  String get freeFeatureScans => 'malzeme taraması';
 
   @override
-  String get freeFeaturePlans => 'AI meal plans';
+  String get freeFeaturePlans => 'yapay zeka yemek planı';
 
   @override
   String get paywallTitle => 'Recipe Keeper Pro';
 
   @override
-  String get paywallSubtitle => 'Unlimited AI cooking help, every day';
+  String get paywallSubtitle => 'Her gün sınırsız yapay zeka mutfak yardımı';
 
   @override
-  String get paywallFeatureRecipes => 'Unlimited AI recipe generations';
+  String get paywallFeatureRecipes => 'Sınırsız yapay zeka tarif oluşturma';
 
   @override
-  String get paywallFeatureChat => 'Unlimited AI Chef chat messages';
+  String get paywallFeatureChat => 'Yapay Zeka Şef ile sınırsız sohbet';
 
   @override
-  String get paywallFeatureScans => 'Unlimited ingredient scans';
+  String get paywallFeatureScans => 'Sınırsız malzeme taraması';
 
   @override
-  String get paywallFeaturePlans => 'Unlimited AI meal plans';
+  String get paywallFeaturePlans => 'Sınırsız yapay zeka yemek planı';
 
   @override
   String paywallFreeTierNote(
@@ -1955,76 +1956,98 @@ class AppLocalizationsTr extends AppLocalizations {
     String scans,
     String plans,
   ) {
-    return 'Free every day: $recipes AI recipes, $chat chat messages, $scans scans and $plans meal plan. Saved recipes, favorites and grocery lists are always free.';
+    return 'Her gün ücretsiz: $recipes yapay zeka tarifi, $chat sohbet mesajı, $scans tarama ve $plans yemek planı. Kayıtlı tarifler, favoriler ve alışveriş listeleri her zaman ücretsizdir.';
   }
 
   @override
-  String get paywallPerWeek => 'per week, auto-renewing';
+  String get paywallPerWeek => 'haftalık, otomatik yenilenir';
 
   @override
-  String get paywallPerYear => 'per year, auto-renewing';
+  String get paywallPerYear => 'yıllık, otomatik yenilenir';
 
   @override
-  String get paywallOneTime => 'one-time purchase, yours forever';
+  String get paywallOneTime => 'tek seferlik satın alma, sonsuza kadar sizin';
 
   @override
-  String get paywallContinue => 'Continue';
+  String get paywallContinue => 'Devam';
 
   @override
   String paywallTrialThen(String trial, String price) {
-    return '$trial free, then $price';
+    return '$trial ücretsiz, ardından $price';
   }
 
   @override
   String get paywallAutoRenewDisclosure =>
-      'Payment is charged to your Apple ID account at confirmation of purchase. The subscription renews automatically at the price shown unless it is cancelled at least 24 hours before the end of the current period. You can manage or cancel it in your App Store account settings.';
+      'Ödeme, satın alma onaylandığında Apple ID hesabınızdan tahsil edilir. Abonelik, mevcut dönemin bitiminden en az 24 saat önce iptal edilmediği sürece gösterilen fiyattan otomatik olarak yenilenir. Aboneliği App Store hesap ayarlarınızdan yönetebilir veya iptal edebilirsiniz.';
 
   @override
   String get paywallLifetimeDisclosure =>
-      'One-time payment charged to your Apple ID account at confirmation of purchase. Not a subscription; nothing renews.';
+      'Satın alma onaylandığında Apple ID hesabınızdan tek seferlik ödeme tahsil edilir. Abonelik değildir; hiçbir şey yenilenmez.';
 
   @override
   String get paywallLoadError =>
-      'Plans could not be loaded from the App Store. Check your connection and try again.';
+      'Planlar App Store\'dan yüklenemedi. Bağlantınızı kontrol edip tekrar deneyin.';
 
   @override
-  String get paywallRetry => 'Retry';
+  String get paywallRetry => 'Tekrar Dene';
 
   @override
   String get paywallNothingToRestore =>
-      'No previous purchase was found for this Apple ID.';
+      'Bu Apple ID için önceki bir satın alma bulunamadı.';
 
   @override
   String get settingsProSection => 'Recipe Keeper Pro';
 
   @override
-  String get settingsUpgrade => 'Upgrade to Pro';
+  String get settingsUpgrade => 'Pro\'ya Yükselt';
 
   @override
   String get settingsUpgradeSubtitle =>
-      'Unlimited AI recipes, chat, scans and meal plans';
+      'Sınırsız yapay zeka tarifi, sohbet, tarama ve yemek planı';
 
   @override
-  String get settingsProActive => 'Pro is active';
+  String get settingsProActive => 'Pro etkin';
 
   @override
   String settingsProActiveSubtitle(String plan) {
-    return '$plan - thank you for supporting Recipe Keeper';
+    return '$plan - Recipe Keeper\'ı desteklediğiniz için teşekkürler';
   }
 
   @override
   String settingsProExpires(String date) {
-    return 'Renews or ends $date';
+    return '$date tarihinde yenilenir veya sona erer';
   }
 
   @override
-  String get settingsManageSubscription => 'Manage Subscription';
+  String get settingsManageSubscription => 'Aboneliği Yönet';
 
   @override
   String get settingsManageSubscriptionSubtitle =>
-      'Change or cancel your plan in the App Store';
+      'Planınızı App Store\'da değiştirin veya iptal edin';
 
   @override
   String get settingsRestorePurchasesSubtitle =>
-      'Already bought Pro? Restore it on this device';
+      'Pro\'yu zaten satın aldınız mı? Bu cihazda geri yükleyin';
+
+  @override
+  String recipeServingsCount(int count) {
+    return '$count kişilik';
+  }
+
+  @override
+  String get favoritesAdded => 'Favorilere eklendi';
+
+  @override
+  String get favoritesRemoved => 'Favorilerden kaldırıldı';
+
+  @override
+  String groceryItemRemoved(String item) {
+    return '$item kaldırıldı';
+  }
+
+  @override
+  String get mealPlannerNewPlanTitle => 'Yeni plan başlatılsın mı?';
+
+  @override
+  String get mealPlannerNewPlanMessage => 'Mevcut yemek planınız silinecek.';
 }

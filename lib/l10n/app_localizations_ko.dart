@@ -87,7 +87,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get commonDone => '완료';
 
   @override
-  String get commonRetry => 'Try Again';
+  String get commonRetry => '다시 시도';
 
   @override
   String get commonShare => '공유';
@@ -1449,7 +1449,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get recipeDetailGenieHelp => '도움이 필요하신가요? 팁, 대체 재료, 단계별 안내를 물어보세요!';
 
   @override
-  String get recipeDetailNoImage => 'No image';
+  String get recipeDetailNoImage => '이미지 없음';
 
   @override
   String get tagsHighProtein => '고단백';
@@ -1605,20 +1605,20 @@ class AppLocalizationsKo extends AppLocalizations {
   }
 
   @override
-  String get noInternetTitle => 'No internet';
+  String get noInternetTitle => '인터넷 연결 없음';
 
   @override
-  String get noInternetMessage => 'Please check your connection and try again.';
+  String get noInternetMessage => '연결 상태를 확인하고 다시 시도해 주세요.';
 
   @override
-  String get permissionDeniedTitle => 'Permission required';
+  String get permissionDeniedTitle => '권한 필요';
 
   @override
   String get permissionDeniedMessage =>
-      'Camera and microphone access is needed for this feature. Please enable it in system settings.';
+      '이 기능을 사용하려면 카메라와 마이크 접근 권한이 필요합니다. 시스템 설정에서 허용해 주세요.';
 
   @override
-  String get permissionOpenSettings => 'Open Settings';
+  String get permissionOpenSettings => '설정 열기';
 
   @override
   String get settingsAppearance => '모습';
@@ -1867,46 +1867,46 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String freeLeftToday(String remaining, String limit) {
-    return '$remaining of $limit free today';
+    return '오늘 무료 $limit회 중 $remaining회 남음';
   }
 
   @override
-  String get freeLimitReachedTitle => 'Daily free limit reached';
+  String get freeLimitReachedTitle => '오늘의 무료 한도에 도달했습니다';
 
   @override
   String freeLimitReachedMessage(String limit, String feature) {
-    return 'You have used today\'s $limit free $feature. Upgrade to Pro for unlimited access, or come back tomorrow.';
+    return '오늘의 무료 $feature $limit회를 모두 사용했습니다. Pro로 업그레이드하여 무제한으로 이용하거나 내일 다시 방문해 주세요.';
   }
 
   @override
-  String get freeFeatureRecipes => 'AI recipes';
+  String get freeFeatureRecipes => 'AI 레시피';
 
   @override
-  String get freeFeatureChat => 'chat messages';
+  String get freeFeatureChat => '채팅 메시지';
 
   @override
-  String get freeFeatureScans => 'ingredient scans';
+  String get freeFeatureScans => '재료 스캔';
 
   @override
-  String get freeFeaturePlans => 'AI meal plans';
+  String get freeFeaturePlans => 'AI 식단 플랜';
 
   @override
   String get paywallTitle => 'Recipe Keeper Pro';
 
   @override
-  String get paywallSubtitle => 'Unlimited AI cooking help, every day';
+  String get paywallSubtitle => '매일 무제한 AI 요리 도우미';
 
   @override
-  String get paywallFeatureRecipes => 'Unlimited AI recipe generations';
+  String get paywallFeatureRecipes => 'AI 레시피 생성 무제한';
 
   @override
-  String get paywallFeatureChat => 'Unlimited AI Chef chat messages';
+  String get paywallFeatureChat => 'AI 셰프 채팅 메시지 무제한';
 
   @override
-  String get paywallFeatureScans => 'Unlimited ingredient scans';
+  String get paywallFeatureScans => '재료 스캔 무제한';
 
   @override
-  String get paywallFeaturePlans => 'Unlimited AI meal plans';
+  String get paywallFeaturePlans => 'AI 식단 플랜 무제한';
 
   @override
   String paywallFreeTierNote(
@@ -1915,76 +1915,95 @@ class AppLocalizationsKo extends AppLocalizations {
     String scans,
     String plans,
   ) {
-    return 'Free every day: $recipes AI recipes, $chat chat messages, $scans scans and $plans meal plan. Saved recipes, favorites and grocery lists are always free.';
+    return '매일 무료: AI 레시피 $recipes회, 채팅 메시지 $chat회, 스캔 $scans회, 식단 플랜 $plans회. 저장한 레시피, 즐겨찾기, 장보기 목록은 항상 무료입니다.';
   }
 
   @override
-  String get paywallPerWeek => 'per week, auto-renewing';
+  String get paywallPerWeek => '주당, 자동 갱신';
 
   @override
-  String get paywallPerYear => 'per year, auto-renewing';
+  String get paywallPerYear => '연간, 자동 갱신';
 
   @override
-  String get paywallOneTime => 'one-time purchase, yours forever';
+  String get paywallOneTime => '일회성 구매, 영구 소장';
 
   @override
-  String get paywallContinue => 'Continue';
+  String get paywallContinue => '계속';
 
   @override
   String paywallTrialThen(String trial, String price) {
-    return '$trial free, then $price';
+    return '$trial 무료, 이후 $price';
   }
 
   @override
   String get paywallAutoRenewDisclosure =>
-      'Payment is charged to your Apple ID account at confirmation of purchase. The subscription renews automatically at the price shown unless it is cancelled at least 24 hours before the end of the current period. You can manage or cancel it in your App Store account settings.';
+      '구매 확인 시 Apple ID 계정으로 결제됩니다. 현재 기간 종료 최소 24시간 전에 취소하지 않으면 구독은 표시된 가격으로 자동 갱신됩니다. App Store 계정 설정에서 구독을 관리하거나 취소할 수 있습니다.';
 
   @override
   String get paywallLifetimeDisclosure =>
-      'One-time payment charged to your Apple ID account at confirmation of purchase. Not a subscription; nothing renews.';
+      '구매 확인 시 Apple ID 계정으로 일회성 결제가 이루어집니다. 구독이 아니며 자동 갱신되지 않습니다.';
 
   @override
   String get paywallLoadError =>
-      'Plans could not be loaded from the App Store. Check your connection and try again.';
+      'App Store에서 플랜을 불러올 수 없습니다. 연결 상태를 확인하고 다시 시도해 주세요.';
 
   @override
-  String get paywallRetry => 'Retry';
+  String get paywallRetry => '다시 시도';
 
   @override
-  String get paywallNothingToRestore =>
-      'No previous purchase was found for this Apple ID.';
+  String get paywallNothingToRestore => '이 Apple ID로 구매한 내역이 없습니다.';
 
   @override
   String get settingsProSection => 'Recipe Keeper Pro';
 
   @override
-  String get settingsUpgrade => 'Upgrade to Pro';
+  String get settingsUpgrade => 'Pro로 업그레이드';
 
   @override
-  String get settingsUpgradeSubtitle =>
-      'Unlimited AI recipes, chat, scans and meal plans';
+  String get settingsUpgradeSubtitle => 'AI 레시피, 채팅, 스캔, 식단 플랜 무제한';
 
   @override
-  String get settingsProActive => 'Pro is active';
+  String get settingsProActive => 'Pro 사용 중';
 
   @override
   String settingsProActiveSubtitle(String plan) {
-    return '$plan - thank you for supporting Recipe Keeper';
+    return '$plan - Recipe Keeper를 후원해 주셔서 감사합니다';
   }
 
   @override
   String settingsProExpires(String date) {
-    return 'Renews or ends $date';
+    return '$date에 갱신 또는 종료';
   }
 
   @override
-  String get settingsManageSubscription => 'Manage Subscription';
+  String get settingsManageSubscription => '구독 관리';
 
   @override
   String get settingsManageSubscriptionSubtitle =>
-      'Change or cancel your plan in the App Store';
+      'App Store에서 플랜을 변경하거나 취소하세요';
 
   @override
-  String get settingsRestorePurchasesSubtitle =>
-      'Already bought Pro? Restore it on this device';
+  String get settingsRestorePurchasesSubtitle => '이미 Pro를 구매하셨나요? 이 기기에서 복원하세요';
+
+  @override
+  String recipeServingsCount(int count) {
+    return '$count 인분';
+  }
+
+  @override
+  String get favoritesAdded => '즐겨찾기에 추가됨';
+
+  @override
+  String get favoritesRemoved => '즐겨찾기에서 제거됨';
+
+  @override
+  String groceryItemRemoved(String item) {
+    return '$item 삭제됨';
+  }
+
+  @override
+  String get mealPlannerNewPlanTitle => '새 플랜을 시작할까요?';
+
+  @override
+  String get mealPlannerNewPlanMessage => '현재 식단 플랜이 삭제됩니다.';
 }

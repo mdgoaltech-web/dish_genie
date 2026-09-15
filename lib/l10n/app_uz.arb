@@ -682,5 +682,137 @@
   "weeklyPlanTue": "Se",
   "weeklyPlanView": "Ko'rish",
   "weeklyPlanWed": "Cho",
-  "languageScreenHeaderTitle": "Tillar"
+  "languageScreenHeaderTitle": "Tillar",
+  "commonRetry": "Qayta urinish",
+  "recipeDetailNoImage": "Rasm yoʻq",
+  "noInternetTitle": "Internet yoʻq",
+  "noInternetMessage": "Iltimos, ulanishni tekshirib, qayta urinib koʻring.",
+  "permissionDeniedTitle": "Ruxsat talab qilinadi",
+  "permissionDeniedMessage": "Bu funksiya uchun kamera va mikrofonga ruxsat kerak. Iltimos, uni tizim sozlamalarida yoqing.",
+  "permissionOpenSettings": "Sozlamalarni ochish",
+  "freeLeftToday": "Bugun bepul: {limit} tadan {remaining} ta qoldi",
+  "@freeLeftToday": {
+    "placeholders": {
+      "remaining": {
+        "type": "String",
+        "format": "none"
+      },
+      "limit": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "freeLimitReachedTitle": "Kunlik bepul limitga yetildi",
+  "freeLimitReachedMessage": "Siz bugungi {limit} ta bepul {feature} imkoniyatidan foydalandingiz. Cheksiz foydalanish uchun Pro ga oʻting yoki ertaga qayting.",
+  "@freeLimitReachedMessage": {
+    "placeholders": {
+      "limit": {
+        "type": "String",
+        "format": "none"
+      },
+      "feature": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "freeFeatureRecipes": "AI retsept",
+  "freeFeatureChat": "chat xabari",
+  "freeFeatureScans": "masalliq skaneri",
+  "freeFeaturePlans": "AI ovqat rejasi",
+  "paywallTitle": "Recipe Keeper Pro",
+  "paywallSubtitle": "Har kuni cheksiz AI oshpazlik yordami",
+  "paywallFeatureRecipes": "Cheksiz AI retsept yaratish",
+  "paywallFeatureChat": "AI oshpaz bilan cheksiz chat xabarlari",
+  "paywallFeatureScans": "Cheksiz masalliq skanerlash",
+  "paywallFeaturePlans": "Cheksiz AI ovqat rejalari",
+  "paywallFreeTierNote": "Har kuni bepul: {recipes} ta AI retsept, {chat} ta chat xabari, {scans} ta skaner va {plans} ta ovqat rejasi. Saqlangan retseptlar, sevimlilar va xarid roʻyxatlari doim bepul.",
+  "@paywallFreeTierNote": {
+    "placeholders": {
+      "recipes": {
+        "type": "String",
+        "format": "none"
+      },
+      "chat": {
+        "type": "String",
+        "format": "none"
+      },
+      "scans": {
+        "type": "String",
+        "format": "none"
+      },
+      "plans": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "paywallPerWeek": "haftasiga, avtomatik yangilanadi",
+  "paywallPerYear": "yiliga, avtomatik yangilanadi",
+  "paywallOneTime": "bir martalik xarid, abadiy sizniki",
+  "paywallContinue": "Davom etish",
+  "paywallTrialThen": "{trial} bepul, keyin {price}",
+  "@paywallTrialThen": {
+    "placeholders": {
+      "trial": {
+        "type": "String",
+        "format": "none"
+      },
+      "price": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "paywallAutoRenewDisclosure": "Toʻlov xaridni tasdiqlashda Apple ID hisobingizdan undiriladi. Obuna joriy davr tugashidan kamida 24 soat oldin bekor qilinmasa, koʻrsatilgan narxda avtomatik yangilanadi. Uni App Store hisob sozlamalarida boshqarishingiz yoki bekor qilishingiz mumkin.",
+  "paywallLifetimeDisclosure": "Xaridni tasdiqlashda Apple ID hisobingizdan bir martalik toʻlov undiriladi. Bu obuna emas; hech narsa yangilanmaydi.",
+  "paywallLoadError": "Rejalarni App Store dan yuklab boʻlmadi. Ulanishni tekshirib, qayta urinib koʻring.",
+  "paywallRetry": "Qayta urinish",
+  "paywallNothingToRestore": "Bu Apple ID uchun avvalgi xarid topilmadi.",
+  "settingsProSection": "Recipe Keeper Pro",
+  "settingsUpgrade": "Pro ga oʻtish",
+  "settingsUpgradeSubtitle": "Cheksiz AI retseptlar, chat, skanerlash va ovqat rejalari",
+  "settingsProActive": "Pro faol",
+  "settingsProActiveSubtitle": "{plan} - Recipe Keeper ni qoʻllab-quvvatlaganingiz uchun rahmat",
+  "@settingsProActiveSubtitle": {
+    "placeholders": {
+      "plan": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "settingsProExpires": "{date} kuni yangilanadi yoki tugaydi",
+  "@settingsProExpires": {
+    "placeholders": {
+      "date": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "settingsManageSubscription": "Obunani boshqarish",
+  "settingsManageSubscriptionSubtitle": "Rejangizni App Store da oʻzgartiring yoki bekor qiling",
+  "settingsRestorePurchasesSubtitle": "Pro allaqachon sotib olinganmi? Uni bu qurilmada tiklang",
+  "recipeServingsCount": "{count} porsiya",
+  "@recipeServingsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "favoritesAdded": "Sevimlilarga qoʻshildi",
+  "favoritesRemoved": "Sevimlilardan olib tashlandi",
+  "groceryItemRemoved": "{item} olib tashlandi",
+  "@groceryItemRemoved": {
+    "placeholders": {
+      "item": {
+        "type": "String"
+      }
+    }
+  },
+  "mealPlannerNewPlanTitle": "Yangi reja boshlansinmi?",
+  "mealPlannerNewPlanMessage": "Joriy ovqatlanish rejangiz oʻchiriladi."
 }

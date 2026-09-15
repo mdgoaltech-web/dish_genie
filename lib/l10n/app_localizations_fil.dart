@@ -87,7 +87,7 @@ class AppLocalizationsFil extends AppLocalizations {
   String get commonDone => 'Tapos na';
 
   @override
-  String get commonRetry => 'Try Again';
+  String get commonRetry => 'Subukan Muli';
 
   @override
   String get commonShare => 'Ibahagi';
@@ -1495,7 +1495,7 @@ class AppLocalizationsFil extends AppLocalizations {
       'Kailangan ng tulong? Tanungin ako para sa mga tip, pamalit, o step-by-step na gabay!';
 
   @override
-  String get recipeDetailNoImage => 'No image';
+  String get recipeDetailNoImage => 'Walang larawan';
 
   @override
   String get tagsHighProtein => 'Mataas na Protina';
@@ -1653,20 +1653,21 @@ class AppLocalizationsFil extends AppLocalizations {
   }
 
   @override
-  String get noInternetTitle => 'No internet';
+  String get noInternetTitle => 'Walang internet';
 
   @override
-  String get noInternetMessage => 'Please check your connection and try again.';
+  String get noInternetMessage =>
+      'Pakisuri ang iyong koneksyon at subukan muli.';
 
   @override
-  String get permissionDeniedTitle => 'Permission required';
+  String get permissionDeniedTitle => 'Kailangan ng pahintulot';
 
   @override
   String get permissionDeniedMessage =>
-      'Camera and microphone access is needed for this feature. Please enable it in system settings.';
+      'Kailangan ng access sa camera at mikropono para sa feature na ito. Paki-enable ito sa mga setting ng system.';
 
   @override
-  String get permissionOpenSettings => 'Open Settings';
+  String get permissionOpenSettings => 'Buksan ang Mga Setting';
 
   @override
   String get settingsAppearance => 'Hitsura';
@@ -1922,46 +1923,49 @@ class AppLocalizationsFil extends AppLocalizations {
 
   @override
   String freeLeftToday(String remaining, String limit) {
-    return '$remaining of $limit free today';
+    return '$remaining sa $limit na libre ngayong araw';
   }
 
   @override
-  String get freeLimitReachedTitle => 'Daily free limit reached';
+  String get freeLimitReachedTitle =>
+      'Naabot na ang pang-araw-araw na libreng limitasyon';
 
   @override
   String freeLimitReachedMessage(String limit, String feature) {
-    return 'You have used today\'s $limit free $feature. Upgrade to Pro for unlimited access, or come back tomorrow.';
+    return 'Nagamit mo na ang $limit libreng $feature para ngayong araw. Mag-upgrade sa Pro para sa walang limitasyong access, o bumalik bukas.';
   }
 
   @override
-  String get freeFeatureRecipes => 'AI recipes';
+  String get freeFeatureRecipes => 'AI na recipe';
 
   @override
-  String get freeFeatureChat => 'chat messages';
+  String get freeFeatureChat => 'mensahe sa chat';
 
   @override
-  String get freeFeatureScans => 'ingredient scans';
+  String get freeFeatureScans => 'pag-scan ng sangkap';
 
   @override
-  String get freeFeaturePlans => 'AI meal plans';
+  String get freeFeaturePlans => 'AI na meal plan';
 
   @override
   String get paywallTitle => 'Recipe Keeper Pro';
 
   @override
-  String get paywallSubtitle => 'Unlimited AI cooking help, every day';
+  String get paywallSubtitle =>
+      'Walang limitasyong tulong sa pagluluto gamit ang AI, araw-araw';
 
   @override
-  String get paywallFeatureRecipes => 'Unlimited AI recipe generations';
+  String get paywallFeatureRecipes =>
+      'Walang limitasyong paggawa ng AI na recipe';
 
   @override
-  String get paywallFeatureChat => 'Unlimited AI Chef chat messages';
+  String get paywallFeatureChat => 'Walang limitasyong mensahe sa AI Chef chat';
 
   @override
-  String get paywallFeatureScans => 'Unlimited ingredient scans';
+  String get paywallFeatureScans => 'Walang limitasyong pag-scan ng sangkap';
 
   @override
-  String get paywallFeaturePlans => 'Unlimited AI meal plans';
+  String get paywallFeaturePlans => 'Walang limitasyong AI na meal plan';
 
   @override
   String paywallFreeTierNote(
@@ -1970,76 +1974,99 @@ class AppLocalizationsFil extends AppLocalizations {
     String scans,
     String plans,
   ) {
-    return 'Free every day: $recipes AI recipes, $chat chat messages, $scans scans and $plans meal plan. Saved recipes, favorites and grocery lists are always free.';
+    return 'Libre araw-araw: $recipes AI na recipe, $chat mensahe sa chat, $scans pag-scan at $plans meal plan. Palaging libre ang mga naka-save na recipe, paborito at listahan ng pamimili.';
   }
 
   @override
-  String get paywallPerWeek => 'per week, auto-renewing';
+  String get paywallPerWeek => 'kada linggo, awtomatikong nagre-renew';
 
   @override
-  String get paywallPerYear => 'per year, auto-renewing';
+  String get paywallPerYear => 'kada taon, awtomatikong nagre-renew';
 
   @override
-  String get paywallOneTime => 'one-time purchase, yours forever';
+  String get paywallOneTime => 'isang beses na pagbili, sa iyo habambuhay';
 
   @override
-  String get paywallContinue => 'Continue';
+  String get paywallContinue => 'Magpatuloy';
 
   @override
   String paywallTrialThen(String trial, String price) {
-    return '$trial free, then $price';
+    return '$trial na libre, pagkatapos ay $price';
   }
 
   @override
   String get paywallAutoRenewDisclosure =>
-      'Payment is charged to your Apple ID account at confirmation of purchase. The subscription renews automatically at the price shown unless it is cancelled at least 24 hours before the end of the current period. You can manage or cancel it in your App Store account settings.';
+      'Sisingilin ang bayad sa iyong Apple ID account sa pagkumpirma ng pagbili. Awtomatikong nagre-renew ang subscription sa ipinakitang presyo maliban kung kakanselahin ito nang hindi bababa sa 24 oras bago matapos ang kasalukuyang panahon. Maaari mo itong pamahalaan o kanselahin sa mga setting ng iyong App Store account.';
 
   @override
   String get paywallLifetimeDisclosure =>
-      'One-time payment charged to your Apple ID account at confirmation of purchase. Not a subscription; nothing renews.';
+      'Isang beses na bayad na sisingilin sa iyong Apple ID account sa pagkumpirma ng pagbili. Hindi ito subscription; walang nagre-renew.';
 
   @override
   String get paywallLoadError =>
-      'Plans could not be loaded from the App Store. Check your connection and try again.';
+      'Hindi ma-load ang mga plan mula sa App Store. Suriin ang iyong koneksyon at subukan muli.';
 
   @override
-  String get paywallRetry => 'Retry';
+  String get paywallRetry => 'Subukan Muli';
 
   @override
   String get paywallNothingToRestore =>
-      'No previous purchase was found for this Apple ID.';
+      'Walang nakitang naunang pagbili para sa Apple ID na ito.';
 
   @override
   String get settingsProSection => 'Recipe Keeper Pro';
 
   @override
-  String get settingsUpgrade => 'Upgrade to Pro';
+  String get settingsUpgrade => 'Mag-upgrade sa Pro';
 
   @override
   String get settingsUpgradeSubtitle =>
-      'Unlimited AI recipes, chat, scans and meal plans';
+      'Walang limitasyong AI na recipe, chat, pag-scan at meal plan';
 
   @override
-  String get settingsProActive => 'Pro is active';
+  String get settingsProActive => 'Aktibo ang Pro';
 
   @override
   String settingsProActiveSubtitle(String plan) {
-    return '$plan - thank you for supporting Recipe Keeper';
+    return '$plan - salamat sa pagsuporta sa Recipe Keeper';
   }
 
   @override
   String settingsProExpires(String date) {
-    return 'Renews or ends $date';
+    return 'Magre-renew o magtatapos sa $date';
   }
 
   @override
-  String get settingsManageSubscription => 'Manage Subscription';
+  String get settingsManageSubscription => 'Pamahalaan ang Subscription';
 
   @override
   String get settingsManageSubscriptionSubtitle =>
-      'Change or cancel your plan in the App Store';
+      'Baguhin o kanselahin ang iyong plan sa App Store';
 
   @override
   String get settingsRestorePurchasesSubtitle =>
-      'Already bought Pro? Restore it on this device';
+      'Nabili mo na ang Pro? I-restore ito sa device na ito';
+
+  @override
+  String recipeServingsCount(int count) {
+    return '$count serving';
+  }
+
+  @override
+  String get favoritesAdded => 'Idinagdag sa mga paborito';
+
+  @override
+  String get favoritesRemoved => 'Inalis sa mga paborito';
+
+  @override
+  String groceryItemRemoved(String item) {
+    return 'Inalis ang $item';
+  }
+
+  @override
+  String get mealPlannerNewPlanTitle => 'Magsimula ng bagong plano?';
+
+  @override
+  String get mealPlannerNewPlanMessage =>
+      'Aalisin ang kasalukuyang meal plan mo.';
 }

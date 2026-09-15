@@ -87,7 +87,7 @@ class AppLocalizationsMs extends AppLocalizations {
   String get commonDone => 'Selesai';
 
   @override
-  String get commonRetry => 'Try Again';
+  String get commonRetry => 'Cuba Lagi';
 
   @override
   String get commonShare => 'Kongsi';
@@ -1487,7 +1487,7 @@ class AppLocalizationsMs extends AppLocalizations {
       'Perlukan bantuan? Tanya saya untuk tip, pengganti, atau panduan langkah demi langkah!';
 
   @override
-  String get recipeDetailNoImage => 'No image';
+  String get recipeDetailNoImage => 'Tiada imej';
 
   @override
   String get tagsHighProtein => 'Tinggi Protein';
@@ -1644,20 +1644,20 @@ class AppLocalizationsMs extends AppLocalizations {
   }
 
   @override
-  String get noInternetTitle => 'No internet';
+  String get noInternetTitle => 'Tiada internet';
 
   @override
-  String get noInternetMessage => 'Please check your connection and try again.';
+  String get noInternetMessage => 'Sila semak sambungan anda dan cuba lagi.';
 
   @override
-  String get permissionDeniedTitle => 'Permission required';
+  String get permissionDeniedTitle => 'Kebenaran diperlukan';
 
   @override
   String get permissionDeniedMessage =>
-      'Camera and microphone access is needed for this feature. Please enable it in system settings.';
+      'Ciri ini memerlukan akses kamera dan mikrofon. Sila aktifkannya dalam tetapan sistem.';
 
   @override
-  String get permissionOpenSettings => 'Open Settings';
+  String get permissionOpenSettings => 'Buka Tetapan';
 
   @override
   String get settingsAppearance => 'Penampilan';
@@ -1910,46 +1910,46 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String freeLeftToday(String remaining, String limit) {
-    return '$remaining of $limit free today';
+    return '$remaining daripada $limit percuma hari ini';
   }
 
   @override
-  String get freeLimitReachedTitle => 'Daily free limit reached';
+  String get freeLimitReachedTitle => 'Had percuma harian dicapai';
 
   @override
   String freeLimitReachedMessage(String limit, String feature) {
-    return 'You have used today\'s $limit free $feature. Upgrade to Pro for unlimited access, or come back tomorrow.';
+    return 'Anda telah menggunakan $limit $feature percuma hari ini. Naik taraf ke Pro untuk akses tanpa had, atau kembali esok.';
   }
 
   @override
-  String get freeFeatureRecipes => 'AI recipes';
+  String get freeFeatureRecipes => 'resipi AI';
 
   @override
-  String get freeFeatureChat => 'chat messages';
+  String get freeFeatureChat => 'mesej sembang';
 
   @override
-  String get freeFeatureScans => 'ingredient scans';
+  String get freeFeatureScans => 'imbasan bahan';
 
   @override
-  String get freeFeaturePlans => 'AI meal plans';
+  String get freeFeaturePlans => 'pelan makanan AI';
 
   @override
   String get paywallTitle => 'Recipe Keeper Pro';
 
   @override
-  String get paywallSubtitle => 'Unlimited AI cooking help, every day';
+  String get paywallSubtitle => 'Bantuan memasak AI tanpa had, setiap hari';
 
   @override
-  String get paywallFeatureRecipes => 'Unlimited AI recipe generations';
+  String get paywallFeatureRecipes => 'Penjanaan resipi AI tanpa had';
 
   @override
-  String get paywallFeatureChat => 'Unlimited AI Chef chat messages';
+  String get paywallFeatureChat => 'Mesej sembang AI Chef tanpa had';
 
   @override
-  String get paywallFeatureScans => 'Unlimited ingredient scans';
+  String get paywallFeatureScans => 'Imbasan bahan tanpa had';
 
   @override
-  String get paywallFeaturePlans => 'Unlimited AI meal plans';
+  String get paywallFeaturePlans => 'Pelan makanan AI tanpa had';
 
   @override
   String paywallFreeTierNote(
@@ -1958,76 +1958,99 @@ class AppLocalizationsMs extends AppLocalizations {
     String scans,
     String plans,
   ) {
-    return 'Free every day: $recipes AI recipes, $chat chat messages, $scans scans and $plans meal plan. Saved recipes, favorites and grocery lists are always free.';
+    return 'Percuma setiap hari: $recipes resipi AI, $chat mesej sembang, $scans imbasan dan $plans pelan makanan. Resipi yang disimpan, kegemaran dan senarai barangan dapur sentiasa percuma.';
   }
 
   @override
-  String get paywallPerWeek => 'per week, auto-renewing';
+  String get paywallPerWeek => 'seminggu, diperbaharui secara automatik';
 
   @override
-  String get paywallPerYear => 'per year, auto-renewing';
+  String get paywallPerYear => 'setahun, diperbaharui secara automatik';
 
   @override
-  String get paywallOneTime => 'one-time purchase, yours forever';
+  String get paywallOneTime => 'pembelian sekali sahaja, milik anda selamanya';
 
   @override
-  String get paywallContinue => 'Continue';
+  String get paywallContinue => 'Teruskan';
 
   @override
   String paywallTrialThen(String trial, String price) {
-    return '$trial free, then $price';
+    return '$trial percuma, kemudian $price';
   }
 
   @override
   String get paywallAutoRenewDisclosure =>
-      'Payment is charged to your Apple ID account at confirmation of purchase. The subscription renews automatically at the price shown unless it is cancelled at least 24 hours before the end of the current period. You can manage or cancel it in your App Store account settings.';
+      'Bayaran akan dicaj ke akaun Apple ID anda semasa pengesahan pembelian. Langganan diperbaharui secara automatik pada harga yang dipaparkan melainkan dibatalkan sekurang-kurangnya 24 jam sebelum tamat tempoh semasa. Anda boleh mengurus atau membatalkannya dalam tetapan akaun App Store anda.';
 
   @override
   String get paywallLifetimeDisclosure =>
-      'One-time payment charged to your Apple ID account at confirmation of purchase. Not a subscription; nothing renews.';
+      'Bayaran sekali sahaja yang dicaj ke akaun Apple ID anda semasa pengesahan pembelian. Bukan langganan; tiada apa-apa yang diperbaharui.';
 
   @override
   String get paywallLoadError =>
-      'Plans could not be loaded from the App Store. Check your connection and try again.';
+      'Pelan tidak dapat dimuatkan daripada App Store. Semak sambungan anda dan cuba lagi.';
 
   @override
-  String get paywallRetry => 'Retry';
+  String get paywallRetry => 'Cuba Lagi';
 
   @override
   String get paywallNothingToRestore =>
-      'No previous purchase was found for this Apple ID.';
+      'Tiada pembelian terdahulu ditemui untuk Apple ID ini.';
 
   @override
   String get settingsProSection => 'Recipe Keeper Pro';
 
   @override
-  String get settingsUpgrade => 'Upgrade to Pro';
+  String get settingsUpgrade => 'Naik taraf ke Pro';
 
   @override
   String get settingsUpgradeSubtitle =>
-      'Unlimited AI recipes, chat, scans and meal plans';
+      'Resipi AI, sembang, imbasan dan pelan makanan tanpa had';
 
   @override
-  String get settingsProActive => 'Pro is active';
+  String get settingsProActive => 'Pro aktif';
 
   @override
   String settingsProActiveSubtitle(String plan) {
-    return '$plan - thank you for supporting Recipe Keeper';
+    return '$plan - terima kasih kerana menyokong Recipe Keeper';
   }
 
   @override
   String settingsProExpires(String date) {
-    return 'Renews or ends $date';
+    return 'Diperbaharui atau tamat pada $date';
   }
 
   @override
-  String get settingsManageSubscription => 'Manage Subscription';
+  String get settingsManageSubscription => 'Urus Langganan';
 
   @override
   String get settingsManageSubscriptionSubtitle =>
-      'Change or cancel your plan in the App Store';
+      'Tukar atau batalkan pelan anda di App Store';
 
   @override
   String get settingsRestorePurchasesSubtitle =>
-      'Already bought Pro? Restore it on this device';
+      'Sudah membeli Pro? Pulihkannya pada peranti ini';
+
+  @override
+  String recipeServingsCount(int count) {
+    return '$count hidangan';
+  }
+
+  @override
+  String get favoritesAdded => 'Ditambah ke kegemaran';
+
+  @override
+  String get favoritesRemoved => 'Dialih keluar daripada kegemaran';
+
+  @override
+  String groceryItemRemoved(String item) {
+    return '$item dialih keluar';
+  }
+
+  @override
+  String get mealPlannerNewPlanTitle => 'Mulakan pelan baharu?';
+
+  @override
+  String get mealPlannerNewPlanMessage =>
+      'Pelan makan semasa anda akan dipadamkan.';
 }

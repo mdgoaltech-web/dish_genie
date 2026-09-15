@@ -87,7 +87,7 @@ class AppLocalizationsNl extends AppLocalizations {
   String get commonDone => 'Klaar';
 
   @override
-  String get commonRetry => 'Try Again';
+  String get commonRetry => 'Opnieuw proberen';
 
   @override
   String get commonShare => 'Delen';
@@ -1482,7 +1482,7 @@ class AppLocalizationsNl extends AppLocalizations {
       'Hulp nodig? Vraag me om tips, vervangingen of stap-voor-stap begeleiding!';
 
   @override
-  String get recipeDetailNoImage => 'No image';
+  String get recipeDetailNoImage => 'Geen afbeelding';
 
   @override
   String get tagsHighProtein => 'Hoog Eiwit';
@@ -1639,20 +1639,21 @@ class AppLocalizationsNl extends AppLocalizations {
   }
 
   @override
-  String get noInternetTitle => 'No internet';
+  String get noInternetTitle => 'Geen internet';
 
   @override
-  String get noInternetMessage => 'Please check your connection and try again.';
+  String get noInternetMessage =>
+      'Controleer je verbinding en probeer het opnieuw.';
 
   @override
-  String get permissionDeniedTitle => 'Permission required';
+  String get permissionDeniedTitle => 'Toestemming vereist';
 
   @override
   String get permissionDeniedMessage =>
-      'Camera and microphone access is needed for this feature. Please enable it in system settings.';
+      'Voor deze functie is toegang tot camera en microfoon nodig. Schakel dit in bij de systeeminstellingen.';
 
   @override
-  String get permissionOpenSettings => 'Open Settings';
+  String get permissionOpenSettings => 'Instellingen openen';
 
   @override
   String get settingsAppearance => 'Verschijning';
@@ -1905,46 +1906,46 @@ class AppLocalizationsNl extends AppLocalizations {
 
   @override
   String freeLeftToday(String remaining, String limit) {
-    return '$remaining of $limit free today';
+    return '$remaining van $limit gratis vandaag';
   }
 
   @override
-  String get freeLimitReachedTitle => 'Daily free limit reached';
+  String get freeLimitReachedTitle => 'Dagelijkse gratis limiet bereikt';
 
   @override
   String freeLimitReachedMessage(String limit, String feature) {
-    return 'You have used today\'s $limit free $feature. Upgrade to Pro for unlimited access, or come back tomorrow.';
+    return 'Je hebt de $limit gratis $feature van vandaag gebruikt. Upgrade naar Pro voor onbeperkte toegang, of kom morgen terug.';
   }
 
   @override
-  String get freeFeatureRecipes => 'AI recipes';
+  String get freeFeatureRecipes => 'AI-recepten';
 
   @override
-  String get freeFeatureChat => 'chat messages';
+  String get freeFeatureChat => 'chatberichten';
 
   @override
-  String get freeFeatureScans => 'ingredient scans';
+  String get freeFeatureScans => 'ingrediëntenscans';
 
   @override
-  String get freeFeaturePlans => 'AI meal plans';
+  String get freeFeaturePlans => 'AI-maaltijdplannen';
 
   @override
   String get paywallTitle => 'Recipe Keeper Pro';
 
   @override
-  String get paywallSubtitle => 'Unlimited AI cooking help, every day';
+  String get paywallSubtitle => 'Onbeperkte AI-kookhulp, elke dag';
 
   @override
-  String get paywallFeatureRecipes => 'Unlimited AI recipe generations';
+  String get paywallFeatureRecipes => 'Onbeperkt AI-recepten genereren';
 
   @override
-  String get paywallFeatureChat => 'Unlimited AI Chef chat messages';
+  String get paywallFeatureChat => 'Onbeperkt chatberichten met de AI-chef';
 
   @override
-  String get paywallFeatureScans => 'Unlimited ingredient scans';
+  String get paywallFeatureScans => 'Onbeperkt ingrediëntenscans';
 
   @override
-  String get paywallFeaturePlans => 'Unlimited AI meal plans';
+  String get paywallFeaturePlans => 'Onbeperkt AI-maaltijdplannen';
 
   @override
   String paywallFreeTierNote(
@@ -1953,76 +1954,99 @@ class AppLocalizationsNl extends AppLocalizations {
     String scans,
     String plans,
   ) {
-    return 'Free every day: $recipes AI recipes, $chat chat messages, $scans scans and $plans meal plan. Saved recipes, favorites and grocery lists are always free.';
+    return 'Elke dag gratis: $recipes AI-recepten, $chat chatberichten, $scans scans en $plans maaltijdplan. Opgeslagen recepten, favorieten en boodschappenlijsten zijn altijd gratis.';
   }
 
   @override
-  String get paywallPerWeek => 'per week, auto-renewing';
+  String get paywallPerWeek => 'per week, wordt automatisch verlengd';
 
   @override
-  String get paywallPerYear => 'per year, auto-renewing';
+  String get paywallPerYear => 'per jaar, wordt automatisch verlengd';
 
   @override
-  String get paywallOneTime => 'one-time purchase, yours forever';
+  String get paywallOneTime => 'eenmalige aankoop, voor altijd van jou';
 
   @override
-  String get paywallContinue => 'Continue';
+  String get paywallContinue => 'Doorgaan';
 
   @override
   String paywallTrialThen(String trial, String price) {
-    return '$trial free, then $price';
+    return '$trial gratis, daarna $price';
   }
 
   @override
   String get paywallAutoRenewDisclosure =>
-      'Payment is charged to your Apple ID account at confirmation of purchase. The subscription renews automatically at the price shown unless it is cancelled at least 24 hours before the end of the current period. You can manage or cancel it in your App Store account settings.';
+      'De betaling wordt bij bevestiging van de aankoop via je Apple ID-account in rekening gebracht. Het abonnement wordt automatisch verlengd tegen de getoonde prijs, tenzij het minstens 24 uur voor het einde van de huidige periode wordt opgezegd. Je kunt het beheren of opzeggen in de accountinstellingen van de App Store.';
 
   @override
   String get paywallLifetimeDisclosure =>
-      'One-time payment charged to your Apple ID account at confirmation of purchase. Not a subscription; nothing renews.';
+      'Eenmalige betaling die bij bevestiging van de aankoop via je Apple ID-account in rekening wordt gebracht. Geen abonnement; er wordt niets verlengd.';
 
   @override
   String get paywallLoadError =>
-      'Plans could not be loaded from the App Store. Check your connection and try again.';
+      'De abonnementen konden niet uit de App Store worden geladen. Controleer je verbinding en probeer het opnieuw.';
 
   @override
-  String get paywallRetry => 'Retry';
+  String get paywallRetry => 'Opnieuw proberen';
 
   @override
   String get paywallNothingToRestore =>
-      'No previous purchase was found for this Apple ID.';
+      'Er is geen eerdere aankoop gevonden voor dit Apple ID.';
 
   @override
   String get settingsProSection => 'Recipe Keeper Pro';
 
   @override
-  String get settingsUpgrade => 'Upgrade to Pro';
+  String get settingsUpgrade => 'Upgraden naar Pro';
 
   @override
   String get settingsUpgradeSubtitle =>
-      'Unlimited AI recipes, chat, scans and meal plans';
+      'Onbeperkt AI-recepten, chat, scans en maaltijdplannen';
 
   @override
-  String get settingsProActive => 'Pro is active';
+  String get settingsProActive => 'Pro is actief';
 
   @override
   String settingsProActiveSubtitle(String plan) {
-    return '$plan - thank you for supporting Recipe Keeper';
+    return '$plan - bedankt dat je Recipe Keeper steunt';
   }
 
   @override
   String settingsProExpires(String date) {
-    return 'Renews or ends $date';
+    return 'Wordt verlengd of eindigt op $date';
   }
 
   @override
-  String get settingsManageSubscription => 'Manage Subscription';
+  String get settingsManageSubscription => 'Abonnement beheren';
 
   @override
   String get settingsManageSubscriptionSubtitle =>
-      'Change or cancel your plan in the App Store';
+      'Wijzig of annuleer je abonnement in de App Store';
 
   @override
   String get settingsRestorePurchasesSubtitle =>
-      'Already bought Pro? Restore it on this device';
+      'Pro al gekocht? Herstel het op dit apparaat';
+
+  @override
+  String recipeServingsCount(int count) {
+    return '$count porties';
+  }
+
+  @override
+  String get favoritesAdded => 'Toegevoegd aan favorieten';
+
+  @override
+  String get favoritesRemoved => 'Verwijderd uit favorieten';
+
+  @override
+  String groceryItemRemoved(String item) {
+    return '$item verwijderd';
+  }
+
+  @override
+  String get mealPlannerNewPlanTitle => 'Nieuw plan starten?';
+
+  @override
+  String get mealPlannerNewPlanMessage =>
+      'Je huidige maaltijdplan wordt verwijderd.';
 }

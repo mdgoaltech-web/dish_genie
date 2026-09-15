@@ -87,7 +87,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get commonDone => 'Готово';
 
   @override
-  String get commonRetry => 'Try Again';
+  String get commonRetry => 'Повторить';
 
   @override
   String get commonShare => 'Поделиться';
@@ -1482,7 +1482,7 @@ class AppLocalizationsRu extends AppLocalizations {
       'Нужна помощь? Спросите меня о советах, заменах или пошаговых инструкциях!';
 
   @override
-  String get recipeDetailNoImage => 'No image';
+  String get recipeDetailNoImage => 'Нет изображения';
 
   @override
   String get tagsHighProtein => 'Высокобелковый';
@@ -1639,20 +1639,20 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
-  String get noInternetTitle => 'No internet';
+  String get noInternetTitle => 'Нет интернета';
 
   @override
-  String get noInternetMessage => 'Please check your connection and try again.';
+  String get noInternetMessage => 'Проверьте подключение и попробуйте снова.';
 
   @override
-  String get permissionDeniedTitle => 'Permission required';
+  String get permissionDeniedTitle => 'Требуется разрешение';
 
   @override
   String get permissionDeniedMessage =>
-      'Camera and microphone access is needed for this feature. Please enable it in system settings.';
+      'Для этой функции нужен доступ к камере и микрофону. Включите его в настройках системы.';
 
   @override
-  String get permissionOpenSettings => 'Open Settings';
+  String get permissionOpenSettings => 'Открыть настройки';
 
   @override
   String get settingsAppearance => 'Внешний вид';
@@ -1906,46 +1906,46 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String freeLeftToday(String remaining, String limit) {
-    return '$remaining of $limit free today';
+    return 'Сегодня бесплатно: $remaining из $limit';
   }
 
   @override
-  String get freeLimitReachedTitle => 'Daily free limit reached';
+  String get freeLimitReachedTitle => 'Дневной бесплатный лимит исчерпан';
 
   @override
   String freeLimitReachedMessage(String limit, String feature) {
-    return 'You have used today\'s $limit free $feature. Upgrade to Pro for unlimited access, or come back tomorrow.';
+    return 'Вы использовали дневной бесплатный лимит: $feature ($limit). Перейдите на Pro для безлимитного доступа или возвращайтесь завтра.';
   }
 
   @override
-  String get freeFeatureRecipes => 'AI recipes';
+  String get freeFeatureRecipes => 'ИИ-рецепты';
 
   @override
-  String get freeFeatureChat => 'chat messages';
+  String get freeFeatureChat => 'сообщения в чате';
 
   @override
-  String get freeFeatureScans => 'ingredient scans';
+  String get freeFeatureScans => 'сканирования ингредиентов';
 
   @override
-  String get freeFeaturePlans => 'AI meal plans';
+  String get freeFeaturePlans => 'ИИ-планы питания';
 
   @override
   String get paywallTitle => 'Recipe Keeper Pro';
 
   @override
-  String get paywallSubtitle => 'Unlimited AI cooking help, every day';
+  String get paywallSubtitle => 'Безлимитная ИИ-помощь на кухне, каждый день';
 
   @override
-  String get paywallFeatureRecipes => 'Unlimited AI recipe generations';
+  String get paywallFeatureRecipes => 'Безлимитная генерация ИИ-рецептов';
 
   @override
-  String get paywallFeatureChat => 'Unlimited AI Chef chat messages';
+  String get paywallFeatureChat => 'Безлимитные сообщения в чате с ИИ-шефом';
 
   @override
-  String get paywallFeatureScans => 'Unlimited ingredient scans';
+  String get paywallFeatureScans => 'Безлимитные сканирования ингредиентов';
 
   @override
-  String get paywallFeaturePlans => 'Unlimited AI meal plans';
+  String get paywallFeaturePlans => 'Безлимитные ИИ-планы питания';
 
   @override
   String paywallFreeTierNote(
@@ -1954,76 +1954,98 @@ class AppLocalizationsRu extends AppLocalizations {
     String scans,
     String plans,
   ) {
-    return 'Free every day: $recipes AI recipes, $chat chat messages, $scans scans and $plans meal plan. Saved recipes, favorites and grocery lists are always free.';
+    return 'Бесплатно каждый день: ИИ-рецепты ($recipes), сообщения в чате ($chat), сканирования ($scans) и план питания ($plans). Сохранённые рецепты, избранное и списки покупок всегда бесплатны.';
   }
 
   @override
-  String get paywallPerWeek => 'per week, auto-renewing';
+  String get paywallPerWeek => 'в неделю, с автопродлением';
 
   @override
-  String get paywallPerYear => 'per year, auto-renewing';
+  String get paywallPerYear => 'в год, с автопродлением';
 
   @override
-  String get paywallOneTime => 'one-time purchase, yours forever';
+  String get paywallOneTime => 'разовая покупка, навсегда';
 
   @override
-  String get paywallContinue => 'Continue';
+  String get paywallContinue => 'Продолжить';
 
   @override
   String paywallTrialThen(String trial, String price) {
-    return '$trial free, then $price';
+    return '$trial бесплатно, затем $price';
   }
 
   @override
   String get paywallAutoRenewDisclosure =>
-      'Payment is charged to your Apple ID account at confirmation of purchase. The subscription renews automatically at the price shown unless it is cancelled at least 24 hours before the end of the current period. You can manage or cancel it in your App Store account settings.';
+      'Оплата списывается с вашего аккаунта Apple ID при подтверждении покупки. Подписка продлевается автоматически по указанной цене, если не отменить её минимум за 24 часа до окончания текущего периода. Управлять подпиской или отменить её можно в настройках аккаунта App Store.';
 
   @override
   String get paywallLifetimeDisclosure =>
-      'One-time payment charged to your Apple ID account at confirmation of purchase. Not a subscription; nothing renews.';
+      'Разовый платёж списывается с вашего аккаунта Apple ID при подтверждении покупки. Это не подписка; ничего не продлевается.';
 
   @override
   String get paywallLoadError =>
-      'Plans could not be loaded from the App Store. Check your connection and try again.';
+      'Не удалось загрузить тарифы из App Store. Проверьте подключение и попробуйте снова.';
 
   @override
-  String get paywallRetry => 'Retry';
+  String get paywallRetry => 'Повторить';
 
   @override
   String get paywallNothingToRestore =>
-      'No previous purchase was found for this Apple ID.';
+      'Для этого Apple ID не найдено предыдущих покупок.';
 
   @override
   String get settingsProSection => 'Recipe Keeper Pro';
 
   @override
-  String get settingsUpgrade => 'Upgrade to Pro';
+  String get settingsUpgrade => 'Перейти на Pro';
 
   @override
   String get settingsUpgradeSubtitle =>
-      'Unlimited AI recipes, chat, scans and meal plans';
+      'Безлимитные ИИ-рецепты, чат, сканирования и планы питания';
 
   @override
-  String get settingsProActive => 'Pro is active';
+  String get settingsProActive => 'Pro активен';
 
   @override
   String settingsProActiveSubtitle(String plan) {
-    return '$plan - thank you for supporting Recipe Keeper';
+    return '$plan - спасибо за поддержку Recipe Keeper';
   }
 
   @override
   String settingsProExpires(String date) {
-    return 'Renews or ends $date';
+    return 'Продлится или завершится $date';
   }
 
   @override
-  String get settingsManageSubscription => 'Manage Subscription';
+  String get settingsManageSubscription => 'Управление подпиской';
 
   @override
   String get settingsManageSubscriptionSubtitle =>
-      'Change or cancel your plan in the App Store';
+      'Измените или отмените тариф в App Store';
 
   @override
   String get settingsRestorePurchasesSubtitle =>
-      'Already bought Pro? Restore it on this device';
+      'Уже купили Pro? Восстановите покупку на этом устройстве';
+
+  @override
+  String recipeServingsCount(int count) {
+    return '$count порций';
+  }
+
+  @override
+  String get favoritesAdded => 'Добавлено в избранное';
+
+  @override
+  String get favoritesRemoved => 'Удалено из избранного';
+
+  @override
+  String groceryItemRemoved(String item) {
+    return 'Удалено: $item';
+  }
+
+  @override
+  String get mealPlannerNewPlanTitle => 'Начать новый план?';
+
+  @override
+  String get mealPlannerNewPlanMessage => 'Текущий план питания будет удалён.';
 }

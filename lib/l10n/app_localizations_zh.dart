@@ -87,7 +87,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get commonDone => '完成';
 
   @override
-  String get commonRetry => 'Try Again';
+  String get commonRetry => '重试';
 
   @override
   String get commonShare => '分享';
@@ -1442,7 +1442,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get recipeDetailGenieHelp => '需要帮助？问我有关技巧、替代品或逐步指导！';
 
   @override
-  String get recipeDetailNoImage => 'No image';
+  String get recipeDetailNoImage => '暂无图片';
 
   @override
   String get tagsHighProtein => '高蛋白';
@@ -1598,20 +1598,19 @@ class AppLocalizationsZh extends AppLocalizations {
   }
 
   @override
-  String get noInternetTitle => 'No internet';
+  String get noInternetTitle => '无网络连接';
 
   @override
-  String get noInternetMessage => 'Please check your connection and try again.';
+  String get noInternetMessage => '请检查网络连接后重试。';
 
   @override
-  String get permissionDeniedTitle => 'Permission required';
+  String get permissionDeniedTitle => '需要权限';
 
   @override
-  String get permissionDeniedMessage =>
-      'Camera and microphone access is needed for this feature. Please enable it in system settings.';
+  String get permissionDeniedMessage => '此功能需要访问相机和麦克风。请在系统设置中开启。';
 
   @override
-  String get permissionOpenSettings => 'Open Settings';
+  String get permissionOpenSettings => '打开设置';
 
   @override
   String get settingsAppearance => '外观';
@@ -1858,46 +1857,46 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String freeLeftToday(String remaining, String limit) {
-    return '$remaining of $limit free today';
+    return '今日免费额度：剩余 $remaining/$limit';
   }
 
   @override
-  String get freeLimitReachedTitle => 'Daily free limit reached';
+  String get freeLimitReachedTitle => '已达今日免费上限';
 
   @override
   String freeLimitReachedMessage(String limit, String feature) {
-    return 'You have used today\'s $limit free $feature. Upgrade to Pro for unlimited access, or come back tomorrow.';
+    return '您已用完今日的 $limit 次免费$feature。升级到 Pro 享受无限使用，或明天再来。';
   }
 
   @override
-  String get freeFeatureRecipes => 'AI recipes';
+  String get freeFeatureRecipes => 'AI 食谱';
 
   @override
-  String get freeFeatureChat => 'chat messages';
+  String get freeFeatureChat => '聊天消息';
 
   @override
-  String get freeFeatureScans => 'ingredient scans';
+  String get freeFeatureScans => '食材扫描';
 
   @override
-  String get freeFeaturePlans => 'AI meal plans';
+  String get freeFeaturePlans => 'AI 膳食计划';
 
   @override
   String get paywallTitle => 'Recipe Keeper Pro';
 
   @override
-  String get paywallSubtitle => 'Unlimited AI cooking help, every day';
+  String get paywallSubtitle => '每天无限次 AI 烹饪助手';
 
   @override
-  String get paywallFeatureRecipes => 'Unlimited AI recipe generations';
+  String get paywallFeatureRecipes => '无限次 AI 食谱生成';
 
   @override
-  String get paywallFeatureChat => 'Unlimited AI Chef chat messages';
+  String get paywallFeatureChat => '无限次 AI 大厨聊天';
 
   @override
-  String get paywallFeatureScans => 'Unlimited ingredient scans';
+  String get paywallFeatureScans => '无限次食材扫描';
 
   @override
-  String get paywallFeaturePlans => 'Unlimited AI meal plans';
+  String get paywallFeaturePlans => '无限次 AI 膳食计划';
 
   @override
   String paywallFreeTierNote(
@@ -1906,76 +1905,93 @@ class AppLocalizationsZh extends AppLocalizations {
     String scans,
     String plans,
   ) {
-    return 'Free every day: $recipes AI recipes, $chat chat messages, $scans scans and $plans meal plan. Saved recipes, favorites and grocery lists are always free.';
+    return '每天免费：$recipes 次 AI 食谱、$chat 条聊天消息、$scans 次扫描和 $plans 份膳食计划。已保存的食谱、收藏和购物清单永久免费。';
   }
 
   @override
-  String get paywallPerWeek => 'per week, auto-renewing';
+  String get paywallPerWeek => '每周，自动续订';
 
   @override
-  String get paywallPerYear => 'per year, auto-renewing';
+  String get paywallPerYear => '每年，自动续订';
 
   @override
-  String get paywallOneTime => 'one-time purchase, yours forever';
+  String get paywallOneTime => '一次性购买，永久拥有';
 
   @override
-  String get paywallContinue => 'Continue';
+  String get paywallContinue => '继续';
 
   @override
   String paywallTrialThen(String trial, String price) {
-    return '$trial free, then $price';
+    return '免费试用 $trial，之后 $price';
   }
 
   @override
   String get paywallAutoRenewDisclosure =>
-      'Payment is charged to your Apple ID account at confirmation of purchase. The subscription renews automatically at the price shown unless it is cancelled at least 24 hours before the end of the current period. You can manage or cancel it in your App Store account settings.';
+      '确认购买时将通过您的 Apple ID 账户扣款。除非在当前周期结束前至少 24 小时取消，否则订阅将按显示价格自动续订。您可以在 App Store 账户设置中管理或取消订阅。';
 
   @override
   String get paywallLifetimeDisclosure =>
-      'One-time payment charged to your Apple ID account at confirmation of purchase. Not a subscription; nothing renews.';
+      '确认购买时通过您的 Apple ID 账户一次性扣款。非订阅，不会自动续订。';
 
   @override
-  String get paywallLoadError =>
-      'Plans could not be loaded from the App Store. Check your connection and try again.';
+  String get paywallLoadError => '无法从 App Store 加载方案。请检查网络连接后重试。';
 
   @override
-  String get paywallRetry => 'Retry';
+  String get paywallRetry => '重试';
 
   @override
-  String get paywallNothingToRestore =>
-      'No previous purchase was found for this Apple ID.';
+  String get paywallNothingToRestore => '未找到此 Apple ID 的历史购买记录。';
 
   @override
   String get settingsProSection => 'Recipe Keeper Pro';
 
   @override
-  String get settingsUpgrade => 'Upgrade to Pro';
+  String get settingsUpgrade => '升级到 Pro';
 
   @override
-  String get settingsUpgradeSubtitle =>
-      'Unlimited AI recipes, chat, scans and meal plans';
+  String get settingsUpgradeSubtitle => '无限次 AI 食谱、聊天、扫描和膳食计划';
 
   @override
-  String get settingsProActive => 'Pro is active';
+  String get settingsProActive => 'Pro 已激活';
 
   @override
   String settingsProActiveSubtitle(String plan) {
-    return '$plan - thank you for supporting Recipe Keeper';
+    return '$plan - 感谢您支持 Recipe Keeper';
   }
 
   @override
   String settingsProExpires(String date) {
-    return 'Renews or ends $date';
+    return '将于 $date 续订或到期';
   }
 
   @override
-  String get settingsManageSubscription => 'Manage Subscription';
+  String get settingsManageSubscription => '管理订阅';
 
   @override
-  String get settingsManageSubscriptionSubtitle =>
-      'Change or cancel your plan in the App Store';
+  String get settingsManageSubscriptionSubtitle => '在 App Store 中更改或取消您的方案';
 
   @override
-  String get settingsRestorePurchasesSubtitle =>
-      'Already bought Pro? Restore it on this device';
+  String get settingsRestorePurchasesSubtitle => '已购买 Pro？在此设备上恢复';
+
+  @override
+  String recipeServingsCount(int count) {
+    return '$count 份';
+  }
+
+  @override
+  String get favoritesAdded => '已添加到收藏';
+
+  @override
+  String get favoritesRemoved => '已从收藏中移除';
+
+  @override
+  String groceryItemRemoved(String item) {
+    return '已移除 $item';
+  }
+
+  @override
+  String get mealPlannerNewPlanTitle => '开始新计划？';
+
+  @override
+  String get mealPlannerNewPlanMessage => '当前的膳食计划将被删除。';
 }

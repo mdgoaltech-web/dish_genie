@@ -87,7 +87,7 @@ class AppLocalizationsFa extends AppLocalizations {
   String get commonDone => 'انجام شد';
 
   @override
-  String get commonRetry => 'Try Again';
+  String get commonRetry => 'تلاش دوباره';
 
   @override
   String get commonShare => 'اشتراک‌گذاری';
@@ -1485,7 +1485,7 @@ class AppLocalizationsFa extends AppLocalizations {
       'کمک می‌خواهید؟ از من نکات، جایگزین‌ها یا راهنمای قدم به قدم بخواهید!';
 
   @override
-  String get recipeDetailNoImage => 'No image';
+  String get recipeDetailNoImage => 'بدون تصویر';
 
   @override
   String get tagsHighProtein => 'پروتئین بالا';
@@ -1643,20 +1643,21 @@ class AppLocalizationsFa extends AppLocalizations {
   }
 
   @override
-  String get noInternetTitle => 'No internet';
+  String get noInternetTitle => 'اینترنت در دسترس نیست';
 
   @override
-  String get noInternetMessage => 'Please check your connection and try again.';
+  String get noInternetMessage =>
+      'لطفاً اتصال خود را بررسی کنید و دوباره تلاش کنید.';
 
   @override
-  String get permissionDeniedTitle => 'Permission required';
+  String get permissionDeniedTitle => 'نیاز به مجوز';
 
   @override
   String get permissionDeniedMessage =>
-      'Camera and microphone access is needed for this feature. Please enable it in system settings.';
+      'این قابلیت به دسترسی دوربین و میکروفون نیاز دارد. لطفاً آن را در تنظیمات سیستم فعال کنید.';
 
   @override
-  String get permissionOpenSettings => 'Open Settings';
+  String get permissionOpenSettings => 'باز کردن تنظیمات';
 
   @override
   String get settingsAppearance => 'ظاهر';
@@ -1910,46 +1911,46 @@ class AppLocalizationsFa extends AppLocalizations {
 
   @override
   String freeLeftToday(String remaining, String limit) {
-    return '$remaining of $limit free today';
+    return '$remaining از $limit رایگان امروز';
   }
 
   @override
-  String get freeLimitReachedTitle => 'Daily free limit reached';
+  String get freeLimitReachedTitle => 'به سقف رایگان روزانه رسیدید';
 
   @override
   String freeLimitReachedMessage(String limit, String feature) {
-    return 'You have used today\'s $limit free $feature. Upgrade to Pro for unlimited access, or come back tomorrow.';
+    return 'شما $limit $feature رایگان امروز را استفاده کرده‌اید. برای دسترسی نامحدود به Pro ارتقا دهید یا فردا دوباره سر بزنید.';
   }
 
   @override
-  String get freeFeatureRecipes => 'AI recipes';
+  String get freeFeatureRecipes => 'دستور پخت هوش مصنوعی';
 
   @override
-  String get freeFeatureChat => 'chat messages';
+  String get freeFeatureChat => 'پیام چت';
 
   @override
-  String get freeFeatureScans => 'ingredient scans';
+  String get freeFeatureScans => 'اسکن مواد اولیه';
 
   @override
-  String get freeFeaturePlans => 'AI meal plans';
+  String get freeFeaturePlans => 'برنامه غذایی هوش مصنوعی';
 
   @override
   String get paywallTitle => 'Recipe Keeper Pro';
 
   @override
-  String get paywallSubtitle => 'Unlimited AI cooking help, every day';
+  String get paywallSubtitle => 'کمک آشپزی نامحدود با هوش مصنوعی، هر روز';
 
   @override
-  String get paywallFeatureRecipes => 'Unlimited AI recipe generations';
+  String get paywallFeatureRecipes => 'تولید نامحدود دستور پخت با هوش مصنوعی';
 
   @override
-  String get paywallFeatureChat => 'Unlimited AI Chef chat messages';
+  String get paywallFeatureChat => 'پیام‌های چت نامحدود با سرآشپز هوشمند';
 
   @override
-  String get paywallFeatureScans => 'Unlimited ingredient scans';
+  String get paywallFeatureScans => 'اسکن نامحدود مواد اولیه';
 
   @override
-  String get paywallFeaturePlans => 'Unlimited AI meal plans';
+  String get paywallFeaturePlans => 'برنامه‌های غذایی نامحدود با هوش مصنوعی';
 
   @override
   String paywallFreeTierNote(
@@ -1958,76 +1959,98 @@ class AppLocalizationsFa extends AppLocalizations {
     String scans,
     String plans,
   ) {
-    return 'Free every day: $recipes AI recipes, $chat chat messages, $scans scans and $plans meal plan. Saved recipes, favorites and grocery lists are always free.';
+    return 'هر روز رایگان: $recipes دستور پخت هوش مصنوعی، $chat پیام چت، $scans اسکن و $plans برنامه غذایی. دستورهای ذخیره‌شده، علاقه‌مندی‌ها و فهرست‌های خرید همیشه رایگان هستند.';
   }
 
   @override
-  String get paywallPerWeek => 'per week, auto-renewing';
+  String get paywallPerWeek => 'هفتگی، تمدید خودکار';
 
   @override
-  String get paywallPerYear => 'per year, auto-renewing';
+  String get paywallPerYear => 'سالانه، تمدید خودکار';
 
   @override
-  String get paywallOneTime => 'one-time purchase, yours forever';
+  String get paywallOneTime => 'خرید یک‌باره، برای همیشه مال شما';
 
   @override
-  String get paywallContinue => 'Continue';
+  String get paywallContinue => 'ادامه';
 
   @override
   String paywallTrialThen(String trial, String price) {
-    return '$trial free, then $price';
+    return '$trial رایگان، سپس $price';
   }
 
   @override
   String get paywallAutoRenewDisclosure =>
-      'Payment is charged to your Apple ID account at confirmation of purchase. The subscription renews automatically at the price shown unless it is cancelled at least 24 hours before the end of the current period. You can manage or cancel it in your App Store account settings.';
+      'مبلغ هنگام تأیید خرید از حساب Apple ID شما کسر می‌شود. اشتراک به‌طور خودکار با قیمت نمایش‌داده‌شده تمدید می‌شود، مگر اینکه دست‌کم ۲۴ ساعت پیش از پایان دوره فعلی لغو شود. می‌توانید آن را در تنظیمات حساب App Store مدیریت یا لغو کنید.';
 
   @override
   String get paywallLifetimeDisclosure =>
-      'One-time payment charged to your Apple ID account at confirmation of purchase. Not a subscription; nothing renews.';
+      'پرداخت یک‌باره که هنگام تأیید خرید از حساب Apple ID شما کسر می‌شود. اشتراک نیست؛ هیچ چیزی تمدید نمی‌شود.';
 
   @override
   String get paywallLoadError =>
-      'Plans could not be loaded from the App Store. Check your connection and try again.';
+      'بارگیری طرح‌ها از App Store ممکن نشد. اتصال خود را بررسی کنید و دوباره تلاش کنید.';
 
   @override
-  String get paywallRetry => 'Retry';
+  String get paywallRetry => 'تلاش دوباره';
 
   @override
   String get paywallNothingToRestore =>
-      'No previous purchase was found for this Apple ID.';
+      'هیچ خرید قبلی برای این Apple ID پیدا نشد.';
 
   @override
   String get settingsProSection => 'Recipe Keeper Pro';
 
   @override
-  String get settingsUpgrade => 'Upgrade to Pro';
+  String get settingsUpgrade => 'ارتقا به Pro';
 
   @override
   String get settingsUpgradeSubtitle =>
-      'Unlimited AI recipes, chat, scans and meal plans';
+      'دستور پخت، چت، اسکن و برنامه غذایی نامحدود با هوش مصنوعی';
 
   @override
-  String get settingsProActive => 'Pro is active';
+  String get settingsProActive => 'Pro فعال است';
 
   @override
   String settingsProActiveSubtitle(String plan) {
-    return '$plan - thank you for supporting Recipe Keeper';
+    return '$plan - از حمایت شما از Recipe Keeper سپاسگزاریم';
   }
 
   @override
   String settingsProExpires(String date) {
-    return 'Renews or ends $date';
+    return 'تمدید یا پایان در $date';
   }
 
   @override
-  String get settingsManageSubscription => 'Manage Subscription';
+  String get settingsManageSubscription => 'مدیریت اشتراک';
 
   @override
   String get settingsManageSubscriptionSubtitle =>
-      'Change or cancel your plan in the App Store';
+      'طرح خود را در App Store تغییر دهید یا لغو کنید';
 
   @override
   String get settingsRestorePurchasesSubtitle =>
-      'Already bought Pro? Restore it on this device';
+      'قبلاً Pro خریده‌اید؟ آن را در این دستگاه بازیابی کنید';
+
+  @override
+  String recipeServingsCount(int count) {
+    return '$count پرس';
+  }
+
+  @override
+  String get favoritesAdded => 'به علاقه‌مندی‌ها اضافه شد';
+
+  @override
+  String get favoritesRemoved => 'از علاقه‌مندی‌ها حذف شد';
+
+  @override
+  String groceryItemRemoved(String item) {
+    return '$item حذف شد';
+  }
+
+  @override
+  String get mealPlannerNewPlanTitle => 'برنامه جدید شروع شود؟';
+
+  @override
+  String get mealPlannerNewPlanMessage => 'برنامه غذایی فعلی شما حذف خواهد شد.';
 }

@@ -692,5 +692,137 @@
   "weeklyPlanTue": "Di",
   "weeklyPlanView": "Bekyk",
   "weeklyPlanWed": "Wo",
-  "languageScreenHeaderTitle": "Tale"
+  "languageScreenHeaderTitle": "Tale",
+  "commonRetry": "Probeer weer",
+  "recipeDetailNoImage": "Geen prent nie",
+  "noInternetTitle": "Geen internet nie",
+  "noInternetMessage": "Kontroleer asseblief jou verbinding en probeer weer.",
+  "permissionDeniedTitle": "Toestemming benodig",
+  "permissionDeniedMessage": "Kamera- en mikrofoontoegang is nodig vir hierdie funksie. Skakel dit asseblief in die stelselinstellings aan.",
+  "permissionOpenSettings": "Maak Instellings oop",
+  "freeLeftToday": "{remaining} van {limit} gratis vandag",
+  "@freeLeftToday": {
+    "placeholders": {
+      "remaining": {
+        "type": "String",
+        "format": "none"
+      },
+      "limit": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "freeLimitReachedTitle": "Daaglikse gratis limiet bereik",
+  "freeLimitReachedMessage": "Jy het vandag se {limit} gratis {feature} gebruik. Gradeer op na Pro vir onbeperkte toegang, of kom môre terug.",
+  "@freeLimitReachedMessage": {
+    "placeholders": {
+      "limit": {
+        "type": "String",
+        "format": "none"
+      },
+      "feature": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "freeFeatureRecipes": "KI-resepte",
+  "freeFeatureChat": "kletsboodskappe",
+  "freeFeatureScans": "bestanddeelskanderings",
+  "freeFeaturePlans": "KI-maaltydplanne",
+  "paywallTitle": "Recipe Keeper Pro",
+  "paywallSubtitle": "Onbeperkte KI-kookhulp, elke dag",
+  "paywallFeatureRecipes": "Onbeperkte KI-resepgenerering",
+  "paywallFeatureChat": "Onbeperkte KI Chef-kletsboodskappe",
+  "paywallFeatureScans": "Onbeperkte bestanddeelskanderings",
+  "paywallFeaturePlans": "Onbeperkte KI-maaltydplanne",
+  "paywallFreeTierNote": "Elke dag gratis: {recipes} KI-resepte, {chat} kletsboodskappe, {scans} skanderings en {plans} maaltydplan. Gestoorde resepte, gunstelinge en inkopielyste is altyd gratis.",
+  "@paywallFreeTierNote": {
+    "placeholders": {
+      "recipes": {
+        "type": "String",
+        "format": "none"
+      },
+      "chat": {
+        "type": "String",
+        "format": "none"
+      },
+      "scans": {
+        "type": "String",
+        "format": "none"
+      },
+      "plans": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "paywallPerWeek": "per week, hernu outomaties",
+  "paywallPerYear": "per jaar, hernu outomaties",
+  "paywallOneTime": "eenmalige aankoop, vir altyd joune",
+  "paywallContinue": "Gaan voort",
+  "paywallTrialThen": "{trial} gratis, daarna {price}",
+  "@paywallTrialThen": {
+    "placeholders": {
+      "trial": {
+        "type": "String",
+        "format": "none"
+      },
+      "price": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "paywallAutoRenewDisclosure": "Betaling word by bevestiging van die aankoop van jou Apple ID-rekening gehef. Die intekening hernu outomaties teen die getoonde prys, tensy dit minstens 24 uur voor die einde van die huidige tydperk gekanselleer word. Jy kan dit in jou App Store-rekeninginstellings bestuur of kanselleer.",
+  "paywallLifetimeDisclosure": "Eenmalige betaling wat by bevestiging van die aankoop van jou Apple ID-rekening gehef word. Nie 'n intekening nie; niks hernu nie.",
+  "paywallLoadError": "Planne kon nie vanaf die App Store gelaai word nie. Kontroleer jou verbinding en probeer weer.",
+  "paywallRetry": "Probeer weer",
+  "paywallNothingToRestore": "Geen vorige aankoop is vir hierdie Apple ID gevind nie.",
+  "settingsProSection": "Recipe Keeper Pro",
+  "settingsUpgrade": "Gradeer op na Pro",
+  "settingsUpgradeSubtitle": "Onbeperkte KI-resepte, klets, skanderings en maaltydplanne",
+  "settingsProActive": "Pro is aktief",
+  "settingsProActiveSubtitle": "{plan} - dankie dat jy Recipe Keeper ondersteun",
+  "@settingsProActiveSubtitle": {
+    "placeholders": {
+      "plan": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "settingsProExpires": "Hernu of eindig op {date}",
+  "@settingsProExpires": {
+    "placeholders": {
+      "date": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "settingsManageSubscription": "Bestuur intekening",
+  "settingsManageSubscriptionSubtitle": "Verander of kanselleer jou plan in die App Store",
+  "settingsRestorePurchasesSubtitle": "Reeds Pro gekoop? Herstel dit op hierdie toestel",
+  "recipeServingsCount": "{count} porsies",
+  "@recipeServingsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "favoritesAdded": "By gunstelinge gevoeg",
+  "favoritesRemoved": "Uit gunstelinge verwyder",
+  "groceryItemRemoved": "{item} verwyder",
+  "@groceryItemRemoved": {
+    "placeholders": {
+      "item": {
+        "type": "String"
+      }
+    }
+  },
+  "mealPlannerNewPlanTitle": "Nuwe plan begin?",
+  "mealPlannerNewPlanMessage": "Jou huidige maaltydplan sal verwyder word."
 }

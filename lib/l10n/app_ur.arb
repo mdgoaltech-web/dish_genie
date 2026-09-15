@@ -682,5 +682,137 @@
   "weeklyPlanTue": "منگل",
   "weeklyPlanView": "دیکھیں",
   "weeklyPlanWed": "بدھ",
-  "languageScreenHeaderTitle": "زبانیں"
+  "languageScreenHeaderTitle": "زبانیں",
+  "commonRetry": "دوبارہ کوشش کریں",
+  "recipeDetailNoImage": "کوئی تصویر نہیں",
+  "noInternetTitle": "انٹرنیٹ دستیاب نہیں",
+  "noInternetMessage": "براہ کرم اپنا کنکشن چیک کریں اور دوبارہ کوشش کریں۔",
+  "permissionDeniedTitle": "اجازت درکار ہے",
+  "permissionDeniedMessage": "اس فیچر کے لیے کیمرا اور مائیکروفون تک رسائی درکار ہے۔ براہ کرم اسے سسٹم سیٹنگز میں فعال کریں۔",
+  "permissionOpenSettings": "سیٹنگز کھولیں",
+  "freeLeftToday": "آج {limit} میں سے {remaining} مفت",
+  "@freeLeftToday": {
+    "placeholders": {
+      "remaining": {
+        "type": "String",
+        "format": "none"
+      },
+      "limit": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "freeLimitReachedTitle": "روزانہ کی مفت حد پوری ہو گئی",
+  "freeLimitReachedMessage": "آپ آج کے {limit} مفت {feature} استعمال کر چکے ہیں۔ لامحدود رسائی کے لیے Pro پر اپ گریڈ کریں، یا کل دوبارہ آئیں۔",
+  "@freeLimitReachedMessage": {
+    "placeholders": {
+      "limit": {
+        "type": "String",
+        "format": "none"
+      },
+      "feature": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "freeFeatureRecipes": "AI ترکیبیں",
+  "freeFeatureChat": "چیٹ پیغامات",
+  "freeFeatureScans": "اجزاء کے اسکین",
+  "freeFeaturePlans": "AI کھانے کے منصوبے",
+  "paywallTitle": "Recipe Keeper Pro",
+  "paywallSubtitle": "ہر روز لامحدود AI کوکنگ مدد",
+  "paywallFeatureRecipes": "لامحدود AI ترکیبیں بنائیں",
+  "paywallFeatureChat": "AI شیف کے ساتھ لامحدود چیٹ پیغامات",
+  "paywallFeatureScans": "لامحدود اجزاء کے اسکین",
+  "paywallFeaturePlans": "لامحدود AI کھانے کے منصوبے",
+  "paywallFreeTierNote": "ہر روز مفت: {recipes} AI ترکیبیں، {chat} چیٹ پیغامات، {scans} اسکین اور {plans} کھانے کا منصوبہ۔ محفوظ کردہ ترکیبیں، پسندیدہ اور گروسری کی فہرستیں ہمیشہ مفت ہیں۔",
+  "@paywallFreeTierNote": {
+    "placeholders": {
+      "recipes": {
+        "type": "String",
+        "format": "none"
+      },
+      "chat": {
+        "type": "String",
+        "format": "none"
+      },
+      "scans": {
+        "type": "String",
+        "format": "none"
+      },
+      "plans": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "paywallPerWeek": "فی ہفتہ، خودکار تجدید",
+  "paywallPerYear": "فی سال، خودکار تجدید",
+  "paywallOneTime": "ایک بار کی خریداری، ہمیشہ کے لیے آپ کی",
+  "paywallContinue": "جاری رکھیں",
+  "paywallTrialThen": "{trial} مفت، پھر {price}",
+  "@paywallTrialThen": {
+    "placeholders": {
+      "trial": {
+        "type": "String",
+        "format": "none"
+      },
+      "price": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "paywallAutoRenewDisclosure": "خریداری کی تصدیق پر ادائیگی آپ کے Apple ID اکاؤنٹ سے وصول کی جاتی ہے۔ سبسکرپشن دکھائی گئی قیمت پر خودکار طور پر تجدید ہوتی ہے، جب تک کہ موجودہ مدت کے ختم ہونے سے کم از کم 24 گھنٹے پہلے اسے منسوخ نہ کیا جائے۔ آپ اسے اپنے App Store اکاؤنٹ کی سیٹنگز میں منظم یا منسوخ کر سکتے ہیں۔",
+  "paywallLifetimeDisclosure": "خریداری کی تصدیق پر آپ کے Apple ID اکاؤنٹ سے ایک بار کی ادائیگی وصول کی جاتی ہے۔ یہ سبسکرپشن نہیں ہے؛ کچھ بھی تجدید نہیں ہوتا۔",
+  "paywallLoadError": "App Store سے پلانز لوڈ نہیں ہو سکے۔ اپنا کنکشن چیک کریں اور دوبارہ کوشش کریں۔",
+  "paywallRetry": "دوبارہ کوشش کریں",
+  "paywallNothingToRestore": "اس Apple ID کے لیے کوئی سابقہ خریداری نہیں ملی۔",
+  "settingsProSection": "Recipe Keeper Pro",
+  "settingsUpgrade": "Pro پر اپ گریڈ کریں",
+  "settingsUpgradeSubtitle": "لامحدود AI ترکیبیں، چیٹ، اسکین اور کھانے کے منصوبے",
+  "settingsProActive": "Pro فعال ہے",
+  "settingsProActiveSubtitle": "{plan} - Recipe Keeper کو سپورٹ کرنے کا شکریہ",
+  "@settingsProActiveSubtitle": {
+    "placeholders": {
+      "plan": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "settingsProExpires": "{date} کو تجدید یا ختم ہوگی",
+  "@settingsProExpires": {
+    "placeholders": {
+      "date": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "settingsManageSubscription": "سبسکرپشن منظم کریں",
+  "settingsManageSubscriptionSubtitle": "App Store میں اپنا پلان تبدیل یا منسوخ کریں",
+  "settingsRestorePurchasesSubtitle": "پہلے ہی Pro خرید چکے ہیں؟ اسے اس ڈیوائس پر بحال کریں",
+  "recipeServingsCount": "{count} پیشکش",
+  "@recipeServingsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "favoritesAdded": "پسندیدہ میں شامل کر دیا گیا",
+  "favoritesRemoved": "پسندیدہ سے ہٹا دیا گیا",
+  "groceryItemRemoved": "{item} ہٹا دیا گیا",
+  "@groceryItemRemoved": {
+    "placeholders": {
+      "item": {
+        "type": "String"
+      }
+    }
+  },
+  "mealPlannerNewPlanTitle": "نیا پلان شروع کریں؟",
+  "mealPlannerNewPlanMessage": "آپ کا موجودہ کھانے کا پلان حذف ہو جائے گا۔"
 }

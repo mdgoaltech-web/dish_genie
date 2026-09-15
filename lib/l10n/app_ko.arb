@@ -682,5 +682,137 @@
   "weeklyPlanTue": "화",
   "weeklyPlanView": "보기",
   "weeklyPlanWed": "수",
-  "languageScreenHeaderTitle": "언어"
+  "languageScreenHeaderTitle": "언어",
+  "commonRetry": "다시 시도",
+  "recipeDetailNoImage": "이미지 없음",
+  "noInternetTitle": "인터넷 연결 없음",
+  "noInternetMessage": "연결 상태를 확인하고 다시 시도해 주세요.",
+  "permissionDeniedTitle": "권한 필요",
+  "permissionDeniedMessage": "이 기능을 사용하려면 카메라와 마이크 접근 권한이 필요합니다. 시스템 설정에서 허용해 주세요.",
+  "permissionOpenSettings": "설정 열기",
+  "freeLeftToday": "오늘 무료 {limit}회 중 {remaining}회 남음",
+  "@freeLeftToday": {
+    "placeholders": {
+      "remaining": {
+        "type": "String",
+        "format": "none"
+      },
+      "limit": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "freeLimitReachedTitle": "오늘의 무료 한도에 도달했습니다",
+  "freeLimitReachedMessage": "오늘의 무료 {feature} {limit}회를 모두 사용했습니다. Pro로 업그레이드하여 무제한으로 이용하거나 내일 다시 방문해 주세요.",
+  "@freeLimitReachedMessage": {
+    "placeholders": {
+      "limit": {
+        "type": "String",
+        "format": "none"
+      },
+      "feature": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "freeFeatureRecipes": "AI 레시피",
+  "freeFeatureChat": "채팅 메시지",
+  "freeFeatureScans": "재료 스캔",
+  "freeFeaturePlans": "AI 식단 플랜",
+  "paywallTitle": "Recipe Keeper Pro",
+  "paywallSubtitle": "매일 무제한 AI 요리 도우미",
+  "paywallFeatureRecipes": "AI 레시피 생성 무제한",
+  "paywallFeatureChat": "AI 셰프 채팅 메시지 무제한",
+  "paywallFeatureScans": "재료 스캔 무제한",
+  "paywallFeaturePlans": "AI 식단 플랜 무제한",
+  "paywallFreeTierNote": "매일 무료: AI 레시피 {recipes}회, 채팅 메시지 {chat}회, 스캔 {scans}회, 식단 플랜 {plans}회. 저장한 레시피, 즐겨찾기, 장보기 목록은 항상 무료입니다.",
+  "@paywallFreeTierNote": {
+    "placeholders": {
+      "recipes": {
+        "type": "String",
+        "format": "none"
+      },
+      "chat": {
+        "type": "String",
+        "format": "none"
+      },
+      "scans": {
+        "type": "String",
+        "format": "none"
+      },
+      "plans": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "paywallPerWeek": "주당, 자동 갱신",
+  "paywallPerYear": "연간, 자동 갱신",
+  "paywallOneTime": "일회성 구매, 영구 소장",
+  "paywallContinue": "계속",
+  "paywallTrialThen": "{trial} 무료, 이후 {price}",
+  "@paywallTrialThen": {
+    "placeholders": {
+      "trial": {
+        "type": "String",
+        "format": "none"
+      },
+      "price": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "paywallAutoRenewDisclosure": "구매 확인 시 Apple ID 계정으로 결제됩니다. 현재 기간 종료 최소 24시간 전에 취소하지 않으면 구독은 표시된 가격으로 자동 갱신됩니다. App Store 계정 설정에서 구독을 관리하거나 취소할 수 있습니다.",
+  "paywallLifetimeDisclosure": "구매 확인 시 Apple ID 계정으로 일회성 결제가 이루어집니다. 구독이 아니며 자동 갱신되지 않습니다.",
+  "paywallLoadError": "App Store에서 플랜을 불러올 수 없습니다. 연결 상태를 확인하고 다시 시도해 주세요.",
+  "paywallRetry": "다시 시도",
+  "paywallNothingToRestore": "이 Apple ID로 구매한 내역이 없습니다.",
+  "settingsProSection": "Recipe Keeper Pro",
+  "settingsUpgrade": "Pro로 업그레이드",
+  "settingsUpgradeSubtitle": "AI 레시피, 채팅, 스캔, 식단 플랜 무제한",
+  "settingsProActive": "Pro 사용 중",
+  "settingsProActiveSubtitle": "{plan} - Recipe Keeper를 후원해 주셔서 감사합니다",
+  "@settingsProActiveSubtitle": {
+    "placeholders": {
+      "plan": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "settingsProExpires": "{date}에 갱신 또는 종료",
+  "@settingsProExpires": {
+    "placeholders": {
+      "date": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "settingsManageSubscription": "구독 관리",
+  "settingsManageSubscriptionSubtitle": "App Store에서 플랜을 변경하거나 취소하세요",
+  "settingsRestorePurchasesSubtitle": "이미 Pro를 구매하셨나요? 이 기기에서 복원하세요",
+  "recipeServingsCount": "{count} 인분",
+  "@recipeServingsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "favoritesAdded": "즐겨찾기에 추가됨",
+  "favoritesRemoved": "즐겨찾기에서 제거됨",
+  "groceryItemRemoved": "{item} 삭제됨",
+  "@groceryItemRemoved": {
+    "placeholders": {
+      "item": {
+        "type": "String"
+      }
+    }
+  },
+  "mealPlannerNewPlanTitle": "새 플랜을 시작할까요?",
+  "mealPlannerNewPlanMessage": "현재 식단 플랜이 삭제됩니다."
 }

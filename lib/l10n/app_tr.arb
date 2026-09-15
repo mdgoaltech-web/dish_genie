@@ -682,5 +682,137 @@
   "weeklyPlanTue": "Sal",
   "weeklyPlanView": "Görüntüle",
   "weeklyPlanWed": "Çar",
-  "languageScreenHeaderTitle": "Diller"
+  "languageScreenHeaderTitle": "Diller",
+  "commonRetry": "Tekrar Dene",
+  "recipeDetailNoImage": "Görsel yok",
+  "noInternetTitle": "İnternet yok",
+  "noInternetMessage": "Lütfen bağlantınızı kontrol edip tekrar deneyin.",
+  "permissionDeniedTitle": "İzin gerekli",
+  "permissionDeniedMessage": "Bu özellik için kamera ve mikrofon erişimi gerekiyor. Lütfen sistem ayarlarından etkinleştirin.",
+  "permissionOpenSettings": "Ayarları Aç",
+  "freeLeftToday": "Bugün {limit} ücretsiz haktan {remaining} kaldı",
+  "@freeLeftToday": {
+    "placeholders": {
+      "remaining": {
+        "type": "String",
+        "format": "none"
+      },
+      "limit": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "freeLimitReachedTitle": "Günlük ücretsiz sınıra ulaşıldı",
+  "freeLimitReachedMessage": "Bugünkü {limit} ücretsiz {feature} hakkınızı kullandınız. Sınırsız erişim için Pro'ya yükseltin veya yarın tekrar gelin.",
+  "@freeLimitReachedMessage": {
+    "placeholders": {
+      "limit": {
+        "type": "String",
+        "format": "none"
+      },
+      "feature": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "freeFeatureRecipes": "yapay zeka tarifi",
+  "freeFeatureChat": "sohbet mesajı",
+  "freeFeatureScans": "malzeme taraması",
+  "freeFeaturePlans": "yapay zeka yemek planı",
+  "paywallTitle": "Recipe Keeper Pro",
+  "paywallSubtitle": "Her gün sınırsız yapay zeka mutfak yardımı",
+  "paywallFeatureRecipes": "Sınırsız yapay zeka tarif oluşturma",
+  "paywallFeatureChat": "Yapay Zeka Şef ile sınırsız sohbet",
+  "paywallFeatureScans": "Sınırsız malzeme taraması",
+  "paywallFeaturePlans": "Sınırsız yapay zeka yemek planı",
+  "paywallFreeTierNote": "Her gün ücretsiz: {recipes} yapay zeka tarifi, {chat} sohbet mesajı, {scans} tarama ve {plans} yemek planı. Kayıtlı tarifler, favoriler ve alışveriş listeleri her zaman ücretsizdir.",
+  "@paywallFreeTierNote": {
+    "placeholders": {
+      "recipes": {
+        "type": "String",
+        "format": "none"
+      },
+      "chat": {
+        "type": "String",
+        "format": "none"
+      },
+      "scans": {
+        "type": "String",
+        "format": "none"
+      },
+      "plans": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "paywallPerWeek": "haftalık, otomatik yenilenir",
+  "paywallPerYear": "yıllık, otomatik yenilenir",
+  "paywallOneTime": "tek seferlik satın alma, sonsuza kadar sizin",
+  "paywallContinue": "Devam",
+  "paywallTrialThen": "{trial} ücretsiz, ardından {price}",
+  "@paywallTrialThen": {
+    "placeholders": {
+      "trial": {
+        "type": "String",
+        "format": "none"
+      },
+      "price": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "paywallAutoRenewDisclosure": "Ödeme, satın alma onaylandığında Apple ID hesabınızdan tahsil edilir. Abonelik, mevcut dönemin bitiminden en az 24 saat önce iptal edilmediği sürece gösterilen fiyattan otomatik olarak yenilenir. Aboneliği App Store hesap ayarlarınızdan yönetebilir veya iptal edebilirsiniz.",
+  "paywallLifetimeDisclosure": "Satın alma onaylandığında Apple ID hesabınızdan tek seferlik ödeme tahsil edilir. Abonelik değildir; hiçbir şey yenilenmez.",
+  "paywallLoadError": "Planlar App Store'dan yüklenemedi. Bağlantınızı kontrol edip tekrar deneyin.",
+  "paywallRetry": "Tekrar Dene",
+  "paywallNothingToRestore": "Bu Apple ID için önceki bir satın alma bulunamadı.",
+  "settingsProSection": "Recipe Keeper Pro",
+  "settingsUpgrade": "Pro'ya Yükselt",
+  "settingsUpgradeSubtitle": "Sınırsız yapay zeka tarifi, sohbet, tarama ve yemek planı",
+  "settingsProActive": "Pro etkin",
+  "settingsProActiveSubtitle": "{plan} - Recipe Keeper'ı desteklediğiniz için teşekkürler",
+  "@settingsProActiveSubtitle": {
+    "placeholders": {
+      "plan": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "settingsProExpires": "{date} tarihinde yenilenir veya sona erer",
+  "@settingsProExpires": {
+    "placeholders": {
+      "date": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "settingsManageSubscription": "Aboneliği Yönet",
+  "settingsManageSubscriptionSubtitle": "Planınızı App Store'da değiştirin veya iptal edin",
+  "settingsRestorePurchasesSubtitle": "Pro'yu zaten satın aldınız mı? Bu cihazda geri yükleyin",
+  "recipeServingsCount": "{count} kişilik",
+  "@recipeServingsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "favoritesAdded": "Favorilere eklendi",
+  "favoritesRemoved": "Favorilerden kaldırıldı",
+  "groceryItemRemoved": "{item} kaldırıldı",
+  "@groceryItemRemoved": {
+    "placeholders": {
+      "item": {
+        "type": "String"
+      }
+    }
+  },
+  "mealPlannerNewPlanTitle": "Yeni plan başlatılsın mı?",
+  "mealPlannerNewPlanMessage": "Mevcut yemek planınız silinecek."
 }

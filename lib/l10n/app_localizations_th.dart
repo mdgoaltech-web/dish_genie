@@ -87,7 +87,7 @@ class AppLocalizationsTh extends AppLocalizations {
   String get commonDone => 'เสร็จสิ้น';
 
   @override
-  String get commonRetry => 'Try Again';
+  String get commonRetry => 'ลองอีกครั้ง';
 
   @override
   String get commonShare => 'แชร์';
@@ -1465,7 +1465,7 @@ class AppLocalizationsTh extends AppLocalizations {
       'ต้องการความช่วยเหลือไหม? ถามฉันเพื่อรับเคล็ดลับ ทดแทน หรือคำแนะนำทีละขั้นตอน!';
 
   @override
-  String get recipeDetailNoImage => 'No image';
+  String get recipeDetailNoImage => 'ไม่มีรูปภาพ';
 
   @override
   String get tagsHighProtein => 'โปรตีนสูง';
@@ -1621,20 +1621,20 @@ class AppLocalizationsTh extends AppLocalizations {
   }
 
   @override
-  String get noInternetTitle => 'No internet';
+  String get noInternetTitle => 'ไม่มีอินเทอร์เน็ต';
 
   @override
-  String get noInternetMessage => 'Please check your connection and try again.';
+  String get noInternetMessage => 'โปรดตรวจสอบการเชื่อมต่อแล้วลองอีกครั้ง';
 
   @override
-  String get permissionDeniedTitle => 'Permission required';
+  String get permissionDeniedTitle => 'ต้องได้รับสิทธิ์';
 
   @override
   String get permissionDeniedMessage =>
-      'Camera and microphone access is needed for this feature. Please enable it in system settings.';
+      'ฟีเจอร์นี้ต้องใช้สิทธิ์เข้าถึงกล้องและไมโครโฟน โปรดเปิดใช้งานในการตั้งค่าระบบ';
 
   @override
-  String get permissionOpenSettings => 'Open Settings';
+  String get permissionOpenSettings => 'เปิดการตั้งค่า';
 
   @override
   String get settingsAppearance => 'รูปร่าง';
@@ -1885,46 +1885,46 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String freeLeftToday(String remaining, String limit) {
-    return '$remaining of $limit free today';
+    return 'ฟรีวันนี้เหลือ $remaining จาก $limit';
   }
 
   @override
-  String get freeLimitReachedTitle => 'Daily free limit reached';
+  String get freeLimitReachedTitle => 'ถึงขีดจำกัดฟรีรายวันแล้ว';
 
   @override
   String freeLimitReachedMessage(String limit, String feature) {
-    return 'You have used today\'s $limit free $feature. Upgrade to Pro for unlimited access, or come back tomorrow.';
+    return 'คุณใช้$featureฟรี $limit ครั้งของวันนี้หมดแล้ว อัปเกรดเป็น Pro เพื่อใช้งานไม่จำกัด หรือกลับมาใหม่พรุ่งนี้';
   }
 
   @override
-  String get freeFeatureRecipes => 'AI recipes';
+  String get freeFeatureRecipes => 'สูตรอาหาร AI';
 
   @override
-  String get freeFeatureChat => 'chat messages';
+  String get freeFeatureChat => 'ข้อความแชท';
 
   @override
-  String get freeFeatureScans => 'ingredient scans';
+  String get freeFeatureScans => 'การสแกนวัตถุดิบ';
 
   @override
-  String get freeFeaturePlans => 'AI meal plans';
+  String get freeFeaturePlans => 'แผนมื้ออาหาร AI';
 
   @override
   String get paywallTitle => 'Recipe Keeper Pro';
 
   @override
-  String get paywallSubtitle => 'Unlimited AI cooking help, every day';
+  String get paywallSubtitle => 'ผู้ช่วยทำอาหาร AI ไม่จำกัด ทุกวัน';
 
   @override
-  String get paywallFeatureRecipes => 'Unlimited AI recipe generations';
+  String get paywallFeatureRecipes => 'สร้างสูตรอาหาร AI ไม่จำกัด';
 
   @override
-  String get paywallFeatureChat => 'Unlimited AI Chef chat messages';
+  String get paywallFeatureChat => 'แชทกับเชฟ AI ไม่จำกัด';
 
   @override
-  String get paywallFeatureScans => 'Unlimited ingredient scans';
+  String get paywallFeatureScans => 'สแกนวัตถุดิบไม่จำกัด';
 
   @override
-  String get paywallFeaturePlans => 'Unlimited AI meal plans';
+  String get paywallFeaturePlans => 'แผนมื้ออาหาร AI ไม่จำกัด';
 
   @override
   String paywallFreeTierNote(
@@ -1933,76 +1933,98 @@ class AppLocalizationsTh extends AppLocalizations {
     String scans,
     String plans,
   ) {
-    return 'Free every day: $recipes AI recipes, $chat chat messages, $scans scans and $plans meal plan. Saved recipes, favorites and grocery lists are always free.';
+    return 'ฟรีทุกวัน: สูตรอาหาร AI $recipes สูตร ข้อความแชท $chat ข้อความ สแกน $scans ครั้ง และแผนมื้ออาหาร $plans แผน สูตรอาหารที่บันทึกไว้ รายการโปรด และรายการซื้อของฟรีเสมอ';
   }
 
   @override
-  String get paywallPerWeek => 'per week, auto-renewing';
+  String get paywallPerWeek => 'ต่อสัปดาห์ ต่ออายุอัตโนมัติ';
 
   @override
-  String get paywallPerYear => 'per year, auto-renewing';
+  String get paywallPerYear => 'ต่อปี ต่ออายุอัตโนมัติ';
 
   @override
-  String get paywallOneTime => 'one-time purchase, yours forever';
+  String get paywallOneTime => 'ซื้อครั้งเดียว เป็นของคุณตลอดไป';
 
   @override
-  String get paywallContinue => 'Continue';
+  String get paywallContinue => 'ดำเนินการต่อ';
 
   @override
   String paywallTrialThen(String trial, String price) {
-    return '$trial free, then $price';
+    return 'ฟรี $trial จากนั้น $price';
   }
 
   @override
   String get paywallAutoRenewDisclosure =>
-      'Payment is charged to your Apple ID account at confirmation of purchase. The subscription renews automatically at the price shown unless it is cancelled at least 24 hours before the end of the current period. You can manage or cancel it in your App Store account settings.';
+      'ระบบจะเรียกเก็บเงินจากบัญชี Apple ID ของคุณเมื่อยืนยันการซื้อ การสมัครสมาชิกจะต่ออายุโดยอัตโนมัติในราคาที่แสดง เว้นแต่จะยกเลิกอย่างน้อย 24 ชั่วโมงก่อนสิ้นสุดรอบปัจจุบัน คุณสามารถจัดการหรือยกเลิกได้ในการตั้งค่าบัญชี App Store';
 
   @override
   String get paywallLifetimeDisclosure =>
-      'One-time payment charged to your Apple ID account at confirmation of purchase. Not a subscription; nothing renews.';
+      'ชำระเงินครั้งเดียวโดยเรียกเก็บจากบัญชี Apple ID ของคุณเมื่อยืนยันการซื้อ ไม่ใช่การสมัครสมาชิก ไม่มีการต่ออายุใดๆ';
 
   @override
   String get paywallLoadError =>
-      'Plans could not be loaded from the App Store. Check your connection and try again.';
+      'ไม่สามารถโหลดแพ็กเกจจาก App Store ได้ ตรวจสอบการเชื่อมต่อแล้วลองอีกครั้ง';
 
   @override
-  String get paywallRetry => 'Retry';
+  String get paywallRetry => 'ลองใหม่';
 
   @override
   String get paywallNothingToRestore =>
-      'No previous purchase was found for this Apple ID.';
+      'ไม่พบการซื้อก่อนหน้าสำหรับ Apple ID นี้';
 
   @override
   String get settingsProSection => 'Recipe Keeper Pro';
 
   @override
-  String get settingsUpgrade => 'Upgrade to Pro';
+  String get settingsUpgrade => 'อัปเกรดเป็น Pro';
 
   @override
   String get settingsUpgradeSubtitle =>
-      'Unlimited AI recipes, chat, scans and meal plans';
+      'สูตรอาหาร AI แชท สแกน และแผนมื้ออาหารไม่จำกัด';
 
   @override
-  String get settingsProActive => 'Pro is active';
+  String get settingsProActive => 'Pro เปิดใช้งานอยู่';
 
   @override
   String settingsProActiveSubtitle(String plan) {
-    return '$plan - thank you for supporting Recipe Keeper';
+    return '$plan - ขอบคุณที่สนับสนุน Recipe Keeper';
   }
 
   @override
   String settingsProExpires(String date) {
-    return 'Renews or ends $date';
+    return 'ต่ออายุหรือสิ้นสุดวันที่ $date';
   }
 
   @override
-  String get settingsManageSubscription => 'Manage Subscription';
+  String get settingsManageSubscription => 'จัดการการสมัครสมาชิก';
 
   @override
   String get settingsManageSubscriptionSubtitle =>
-      'Change or cancel your plan in the App Store';
+      'เปลี่ยนหรือยกเลิกแพ็กเกจของคุณใน App Store';
 
   @override
   String get settingsRestorePurchasesSubtitle =>
-      'Already bought Pro? Restore it on this device';
+      'ซื้อ Pro แล้วใช่ไหม กู้คืนบนอุปกรณ์นี้';
+
+  @override
+  String recipeServingsCount(int count) {
+    return '$count ที่';
+  }
+
+  @override
+  String get favoritesAdded => 'เพิ่มในรายการโปรดแล้ว';
+
+  @override
+  String get favoritesRemoved => 'นำออกจากรายการโปรดแล้ว';
+
+  @override
+  String groceryItemRemoved(String item) {
+    return 'นำ $item ออกแล้ว';
+  }
+
+  @override
+  String get mealPlannerNewPlanTitle => 'เริ่มแผนใหม่หรือไม่?';
+
+  @override
+  String get mealPlannerNewPlanMessage => 'แผนมื้ออาหารปัจจุบันของคุณจะถูกลบ';
 }

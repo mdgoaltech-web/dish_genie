@@ -692,5 +692,137 @@
   "weeklyPlanTue": "Вт",
   "weeklyPlanView": "Просмотр",
   "weeklyPlanWed": "Ср",
-  "languageScreenHeaderTitle": "Языки"
+  "languageScreenHeaderTitle": "Языки",
+  "commonRetry": "Повторить",
+  "recipeDetailNoImage": "Нет изображения",
+  "noInternetTitle": "Нет интернета",
+  "noInternetMessage": "Проверьте подключение и попробуйте снова.",
+  "permissionDeniedTitle": "Требуется разрешение",
+  "permissionDeniedMessage": "Для этой функции нужен доступ к камере и микрофону. Включите его в настройках системы.",
+  "permissionOpenSettings": "Открыть настройки",
+  "freeLeftToday": "Сегодня бесплатно: {remaining} из {limit}",
+  "@freeLeftToday": {
+    "placeholders": {
+      "remaining": {
+        "type": "String",
+        "format": "none"
+      },
+      "limit": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "freeLimitReachedTitle": "Дневной бесплатный лимит исчерпан",
+  "freeLimitReachedMessage": "Вы использовали дневной бесплатный лимит: {feature} ({limit}). Перейдите на Pro для безлимитного доступа или возвращайтесь завтра.",
+  "@freeLimitReachedMessage": {
+    "placeholders": {
+      "limit": {
+        "type": "String",
+        "format": "none"
+      },
+      "feature": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "freeFeatureRecipes": "ИИ-рецепты",
+  "freeFeatureChat": "сообщения в чате",
+  "freeFeatureScans": "сканирования ингредиентов",
+  "freeFeaturePlans": "ИИ-планы питания",
+  "paywallTitle": "Recipe Keeper Pro",
+  "paywallSubtitle": "Безлимитная ИИ-помощь на кухне, каждый день",
+  "paywallFeatureRecipes": "Безлимитная генерация ИИ-рецептов",
+  "paywallFeatureChat": "Безлимитные сообщения в чате с ИИ-шефом",
+  "paywallFeatureScans": "Безлимитные сканирования ингредиентов",
+  "paywallFeaturePlans": "Безлимитные ИИ-планы питания",
+  "paywallFreeTierNote": "Бесплатно каждый день: ИИ-рецепты ({recipes}), сообщения в чате ({chat}), сканирования ({scans}) и план питания ({plans}). Сохранённые рецепты, избранное и списки покупок всегда бесплатны.",
+  "@paywallFreeTierNote": {
+    "placeholders": {
+      "recipes": {
+        "type": "String",
+        "format": "none"
+      },
+      "chat": {
+        "type": "String",
+        "format": "none"
+      },
+      "scans": {
+        "type": "String",
+        "format": "none"
+      },
+      "plans": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "paywallPerWeek": "в неделю, с автопродлением",
+  "paywallPerYear": "в год, с автопродлением",
+  "paywallOneTime": "разовая покупка, навсегда",
+  "paywallContinue": "Продолжить",
+  "paywallTrialThen": "{trial} бесплатно, затем {price}",
+  "@paywallTrialThen": {
+    "placeholders": {
+      "trial": {
+        "type": "String",
+        "format": "none"
+      },
+      "price": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "paywallAutoRenewDisclosure": "Оплата списывается с вашего аккаунта Apple ID при подтверждении покупки. Подписка продлевается автоматически по указанной цене, если не отменить её минимум за 24 часа до окончания текущего периода. Управлять подпиской или отменить её можно в настройках аккаунта App Store.",
+  "paywallLifetimeDisclosure": "Разовый платёж списывается с вашего аккаунта Apple ID при подтверждении покупки. Это не подписка; ничего не продлевается.",
+  "paywallLoadError": "Не удалось загрузить тарифы из App Store. Проверьте подключение и попробуйте снова.",
+  "paywallRetry": "Повторить",
+  "paywallNothingToRestore": "Для этого Apple ID не найдено предыдущих покупок.",
+  "settingsProSection": "Recipe Keeper Pro",
+  "settingsUpgrade": "Перейти на Pro",
+  "settingsUpgradeSubtitle": "Безлимитные ИИ-рецепты, чат, сканирования и планы питания",
+  "settingsProActive": "Pro активен",
+  "settingsProActiveSubtitle": "{plan} - спасибо за поддержку Recipe Keeper",
+  "@settingsProActiveSubtitle": {
+    "placeholders": {
+      "plan": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "settingsProExpires": "Продлится или завершится {date}",
+  "@settingsProExpires": {
+    "placeholders": {
+      "date": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "settingsManageSubscription": "Управление подпиской",
+  "settingsManageSubscriptionSubtitle": "Измените или отмените тариф в App Store",
+  "settingsRestorePurchasesSubtitle": "Уже купили Pro? Восстановите покупку на этом устройстве",
+  "recipeServingsCount": "{count} порций",
+  "@recipeServingsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "favoritesAdded": "Добавлено в избранное",
+  "favoritesRemoved": "Удалено из избранного",
+  "groceryItemRemoved": "Удалено: {item}",
+  "@groceryItemRemoved": {
+    "placeholders": {
+      "item": {
+        "type": "String"
+      }
+    }
+  },
+  "mealPlannerNewPlanTitle": "Начать новый план?",
+  "mealPlannerNewPlanMessage": "Текущий план питания будет удалён."
 }

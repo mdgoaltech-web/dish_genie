@@ -692,5 +692,137 @@
   "weeklyPlanTue": "سش",
   "weeklyPlanView": "مشاهده",
   "weeklyPlanWed": "چهار",
-  "languageScreenHeaderTitle": "زبان‌ها"
+  "languageScreenHeaderTitle": "زبان‌ها",
+  "commonRetry": "تلاش دوباره",
+  "recipeDetailNoImage": "بدون تصویر",
+  "noInternetTitle": "اینترنت در دسترس نیست",
+  "noInternetMessage": "لطفاً اتصال خود را بررسی کنید و دوباره تلاش کنید.",
+  "permissionDeniedTitle": "نیاز به مجوز",
+  "permissionDeniedMessage": "این قابلیت به دسترسی دوربین و میکروفون نیاز دارد. لطفاً آن را در تنظیمات سیستم فعال کنید.",
+  "permissionOpenSettings": "باز کردن تنظیمات",
+  "freeLeftToday": "{remaining} از {limit} رایگان امروز",
+  "@freeLeftToday": {
+    "placeholders": {
+      "remaining": {
+        "type": "String",
+        "format": "none"
+      },
+      "limit": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "freeLimitReachedTitle": "به سقف رایگان روزانه رسیدید",
+  "freeLimitReachedMessage": "شما {limit} {feature} رایگان امروز را استفاده کرده‌اید. برای دسترسی نامحدود به Pro ارتقا دهید یا فردا دوباره سر بزنید.",
+  "@freeLimitReachedMessage": {
+    "placeholders": {
+      "limit": {
+        "type": "String",
+        "format": "none"
+      },
+      "feature": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "freeFeatureRecipes": "دستور پخت هوش مصنوعی",
+  "freeFeatureChat": "پیام چت",
+  "freeFeatureScans": "اسکن مواد اولیه",
+  "freeFeaturePlans": "برنامه غذایی هوش مصنوعی",
+  "paywallTitle": "Recipe Keeper Pro",
+  "paywallSubtitle": "کمک آشپزی نامحدود با هوش مصنوعی، هر روز",
+  "paywallFeatureRecipes": "تولید نامحدود دستور پخت با هوش مصنوعی",
+  "paywallFeatureChat": "پیام‌های چت نامحدود با سرآشپز هوشمند",
+  "paywallFeatureScans": "اسکن نامحدود مواد اولیه",
+  "paywallFeaturePlans": "برنامه‌های غذایی نامحدود با هوش مصنوعی",
+  "paywallFreeTierNote": "هر روز رایگان: {recipes} دستور پخت هوش مصنوعی، {chat} پیام چت، {scans} اسکن و {plans} برنامه غذایی. دستورهای ذخیره‌شده، علاقه‌مندی‌ها و فهرست‌های خرید همیشه رایگان هستند.",
+  "@paywallFreeTierNote": {
+    "placeholders": {
+      "recipes": {
+        "type": "String",
+        "format": "none"
+      },
+      "chat": {
+        "type": "String",
+        "format": "none"
+      },
+      "scans": {
+        "type": "String",
+        "format": "none"
+      },
+      "plans": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "paywallPerWeek": "هفتگی، تمدید خودکار",
+  "paywallPerYear": "سالانه، تمدید خودکار",
+  "paywallOneTime": "خرید یک‌باره، برای همیشه مال شما",
+  "paywallContinue": "ادامه",
+  "paywallTrialThen": "{trial} رایگان، سپس {price}",
+  "@paywallTrialThen": {
+    "placeholders": {
+      "trial": {
+        "type": "String",
+        "format": "none"
+      },
+      "price": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "paywallAutoRenewDisclosure": "مبلغ هنگام تأیید خرید از حساب Apple ID شما کسر می‌شود. اشتراک به‌طور خودکار با قیمت نمایش‌داده‌شده تمدید می‌شود، مگر اینکه دست‌کم ۲۴ ساعت پیش از پایان دوره فعلی لغو شود. می‌توانید آن را در تنظیمات حساب App Store مدیریت یا لغو کنید.",
+  "paywallLifetimeDisclosure": "پرداخت یک‌باره که هنگام تأیید خرید از حساب Apple ID شما کسر می‌شود. اشتراک نیست؛ هیچ چیزی تمدید نمی‌شود.",
+  "paywallLoadError": "بارگیری طرح‌ها از App Store ممکن نشد. اتصال خود را بررسی کنید و دوباره تلاش کنید.",
+  "paywallRetry": "تلاش دوباره",
+  "paywallNothingToRestore": "هیچ خرید قبلی برای این Apple ID پیدا نشد.",
+  "settingsProSection": "Recipe Keeper Pro",
+  "settingsUpgrade": "ارتقا به Pro",
+  "settingsUpgradeSubtitle": "دستور پخت، چت، اسکن و برنامه غذایی نامحدود با هوش مصنوعی",
+  "settingsProActive": "Pro فعال است",
+  "settingsProActiveSubtitle": "{plan} - از حمایت شما از Recipe Keeper سپاسگزاریم",
+  "@settingsProActiveSubtitle": {
+    "placeholders": {
+      "plan": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "settingsProExpires": "تمدید یا پایان در {date}",
+  "@settingsProExpires": {
+    "placeholders": {
+      "date": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "settingsManageSubscription": "مدیریت اشتراک",
+  "settingsManageSubscriptionSubtitle": "طرح خود را در App Store تغییر دهید یا لغو کنید",
+  "settingsRestorePurchasesSubtitle": "قبلاً Pro خریده‌اید؟ آن را در این دستگاه بازیابی کنید",
+  "recipeServingsCount": "{count} پرس",
+  "@recipeServingsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "favoritesAdded": "به علاقه‌مندی‌ها اضافه شد",
+  "favoritesRemoved": "از علاقه‌مندی‌ها حذف شد",
+  "groceryItemRemoved": "{item} حذف شد",
+  "@groceryItemRemoved": {
+    "placeholders": {
+      "item": {
+        "type": "String"
+      }
+    }
+  },
+  "mealPlannerNewPlanTitle": "برنامه جدید شروع شود؟",
+  "mealPlannerNewPlanMessage": "برنامه غذایی فعلی شما حذف خواهد شد."
 }

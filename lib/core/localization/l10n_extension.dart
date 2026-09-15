@@ -474,6 +474,10 @@ extension L10nExtension on BuildContext {
     'recipes.moods.sweetCravings': (l) => l.recipesMoodsSweetCravings,
     'recipes.new.recipe': (l) => l.recipesNewRecipe,
     'recipes.no.results': (l) => l.recipesNoResults,
+    'favorites.added': (l) => l.favoritesAdded,
+    'favorites.removed': (l) => l.favoritesRemoved,
+    'meal.planner.new.plan.title': (l) => l.mealPlannerNewPlanTitle,
+    'meal.planner.new.plan.message': (l) => l.mealPlannerNewPlanMessage,
     'recipes.quick': (l) => l.recipesQuick,
     'recipes.results.for': (l) => l.recipesResultsFor,
     'recipes.scan': (l) => l.recipesScan,
@@ -827,5 +831,9 @@ extension L10nExtension on BuildContext {
         l.settingsProActiveSubtitle(params?['plan'] ?? ''),
     'settings.pro.expires': (l, params) =>
         l.settingsProExpires(params?['date'] ?? ''),
+    'recipe.servings.count': (l, params) =>
+        l.recipeServingsCount(int.tryParse(params?['count'] ?? '') ?? 0),
+    'grocery.item.removed': (l, params) =>
+        l.groceryItemRemoved(params?['item'] ?? ''),
   };
 }

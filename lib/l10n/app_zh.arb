@@ -682,5 +682,137 @@
   "weeklyPlanTue": "周二",
   "weeklyPlanView": "查看",
   "weeklyPlanWed": "周三",
-  "languageScreenHeaderTitle": "语言"
+  "languageScreenHeaderTitle": "语言",
+  "commonRetry": "重试",
+  "recipeDetailNoImage": "暂无图片",
+  "noInternetTitle": "无网络连接",
+  "noInternetMessage": "请检查网络连接后重试。",
+  "permissionDeniedTitle": "需要权限",
+  "permissionDeniedMessage": "此功能需要访问相机和麦克风。请在系统设置中开启。",
+  "permissionOpenSettings": "打开设置",
+  "freeLeftToday": "今日免费额度：剩余 {remaining}/{limit}",
+  "@freeLeftToday": {
+    "placeholders": {
+      "remaining": {
+        "type": "String",
+        "format": "none"
+      },
+      "limit": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "freeLimitReachedTitle": "已达今日免费上限",
+  "freeLimitReachedMessage": "您已用完今日的 {limit} 次免费{feature}。升级到 Pro 享受无限使用，或明天再来。",
+  "@freeLimitReachedMessage": {
+    "placeholders": {
+      "limit": {
+        "type": "String",
+        "format": "none"
+      },
+      "feature": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "freeFeatureRecipes": "AI 食谱",
+  "freeFeatureChat": "聊天消息",
+  "freeFeatureScans": "食材扫描",
+  "freeFeaturePlans": "AI 膳食计划",
+  "paywallTitle": "Recipe Keeper Pro",
+  "paywallSubtitle": "每天无限次 AI 烹饪助手",
+  "paywallFeatureRecipes": "无限次 AI 食谱生成",
+  "paywallFeatureChat": "无限次 AI 大厨聊天",
+  "paywallFeatureScans": "无限次食材扫描",
+  "paywallFeaturePlans": "无限次 AI 膳食计划",
+  "paywallFreeTierNote": "每天免费：{recipes} 次 AI 食谱、{chat} 条聊天消息、{scans} 次扫描和 {plans} 份膳食计划。已保存的食谱、收藏和购物清单永久免费。",
+  "@paywallFreeTierNote": {
+    "placeholders": {
+      "recipes": {
+        "type": "String",
+        "format": "none"
+      },
+      "chat": {
+        "type": "String",
+        "format": "none"
+      },
+      "scans": {
+        "type": "String",
+        "format": "none"
+      },
+      "plans": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "paywallPerWeek": "每周，自动续订",
+  "paywallPerYear": "每年，自动续订",
+  "paywallOneTime": "一次性购买，永久拥有",
+  "paywallContinue": "继续",
+  "paywallTrialThen": "免费试用 {trial}，之后 {price}",
+  "@paywallTrialThen": {
+    "placeholders": {
+      "trial": {
+        "type": "String",
+        "format": "none"
+      },
+      "price": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "paywallAutoRenewDisclosure": "确认购买时将通过您的 Apple ID 账户扣款。除非在当前周期结束前至少 24 小时取消，否则订阅将按显示价格自动续订。您可以在 App Store 账户设置中管理或取消订阅。",
+  "paywallLifetimeDisclosure": "确认购买时通过您的 Apple ID 账户一次性扣款。非订阅，不会自动续订。",
+  "paywallLoadError": "无法从 App Store 加载方案。请检查网络连接后重试。",
+  "paywallRetry": "重试",
+  "paywallNothingToRestore": "未找到此 Apple ID 的历史购买记录。",
+  "settingsProSection": "Recipe Keeper Pro",
+  "settingsUpgrade": "升级到 Pro",
+  "settingsUpgradeSubtitle": "无限次 AI 食谱、聊天、扫描和膳食计划",
+  "settingsProActive": "Pro 已激活",
+  "settingsProActiveSubtitle": "{plan} - 感谢您支持 Recipe Keeper",
+  "@settingsProActiveSubtitle": {
+    "placeholders": {
+      "plan": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "settingsProExpires": "将于 {date} 续订或到期",
+  "@settingsProExpires": {
+    "placeholders": {
+      "date": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "settingsManageSubscription": "管理订阅",
+  "settingsManageSubscriptionSubtitle": "在 App Store 中更改或取消您的方案",
+  "settingsRestorePurchasesSubtitle": "已购买 Pro？在此设备上恢复",
+  "recipeServingsCount": "{count} 份",
+  "@recipeServingsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "favoritesAdded": "已添加到收藏",
+  "favoritesRemoved": "已从收藏中移除",
+  "groceryItemRemoved": "已移除 {item}",
+  "@groceryItemRemoved": {
+    "placeholders": {
+      "item": {
+        "type": "String"
+      }
+    }
+  },
+  "mealPlannerNewPlanTitle": "开始新计划？",
+  "mealPlannerNewPlanMessage": "当前的膳食计划将被删除。"
 }

@@ -692,5 +692,137 @@
   "weeklyPlanTue": "Sel",
   "weeklyPlanView": "Lihat",
   "weeklyPlanWed": "Rab",
-  "languageScreenHeaderTitle": "Bahasa"
+  "languageScreenHeaderTitle": "Bahasa",
+  "commonRetry": "Coba Lagi",
+  "recipeDetailNoImage": "Tidak ada gambar",
+  "noInternetTitle": "Tidak ada internet",
+  "noInternetMessage": "Periksa koneksi Anda dan coba lagi.",
+  "permissionDeniedTitle": "Izin diperlukan",
+  "permissionDeniedMessage": "Fitur ini memerlukan akses kamera dan mikrofon. Aktifkan di pengaturan sistem.",
+  "permissionOpenSettings": "Buka Pengaturan",
+  "freeLeftToday": "{remaining} dari {limit} gratis hari ini",
+  "@freeLeftToday": {
+    "placeholders": {
+      "remaining": {
+        "type": "String",
+        "format": "none"
+      },
+      "limit": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "freeLimitReachedTitle": "Batas gratis harian tercapai",
+  "freeLimitReachedMessage": "Anda telah menggunakan {limit} {feature} gratis hari ini. Upgrade ke Pro untuk akses tanpa batas, atau kembali lagi besok.",
+  "@freeLimitReachedMessage": {
+    "placeholders": {
+      "limit": {
+        "type": "String",
+        "format": "none"
+      },
+      "feature": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "freeFeatureRecipes": "resep AI",
+  "freeFeatureChat": "pesan chat",
+  "freeFeatureScans": "pemindaian bahan",
+  "freeFeaturePlans": "rencana makan AI",
+  "paywallTitle": "Recipe Keeper Pro",
+  "paywallSubtitle": "Bantuan memasak AI tanpa batas, setiap hari",
+  "paywallFeatureRecipes": "Pembuatan resep AI tanpa batas",
+  "paywallFeatureChat": "Pesan chat AI Chef tanpa batas",
+  "paywallFeatureScans": "Pemindaian bahan tanpa batas",
+  "paywallFeaturePlans": "Rencana makan AI tanpa batas",
+  "paywallFreeTierNote": "Gratis setiap hari: {recipes} resep AI, {chat} pesan chat, {scans} pemindaian, dan {plans} rencana makan. Resep tersimpan, favorit, dan daftar belanja selalu gratis.",
+  "@paywallFreeTierNote": {
+    "placeholders": {
+      "recipes": {
+        "type": "String",
+        "format": "none"
+      },
+      "chat": {
+        "type": "String",
+        "format": "none"
+      },
+      "scans": {
+        "type": "String",
+        "format": "none"
+      },
+      "plans": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "paywallPerWeek": "per minggu, diperpanjang otomatis",
+  "paywallPerYear": "per tahun, diperpanjang otomatis",
+  "paywallOneTime": "pembelian sekali bayar, milik Anda selamanya",
+  "paywallContinue": "Lanjutkan",
+  "paywallTrialThen": "{trial} gratis, lalu {price}",
+  "@paywallTrialThen": {
+    "placeholders": {
+      "trial": {
+        "type": "String",
+        "format": "none"
+      },
+      "price": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "paywallAutoRenewDisclosure": "Pembayaran ditagihkan ke akun Apple ID Anda saat pembelian dikonfirmasi. Langganan diperpanjang secara otomatis dengan harga yang ditampilkan kecuali dibatalkan setidaknya 24 jam sebelum akhir periode berjalan. Anda dapat mengelola atau membatalkannya di pengaturan akun App Store.",
+  "paywallLifetimeDisclosure": "Pembayaran sekali bayar ditagihkan ke akun Apple ID Anda saat pembelian dikonfirmasi. Bukan langganan; tidak ada yang diperpanjang.",
+  "paywallLoadError": "Paket tidak dapat dimuat dari App Store. Periksa koneksi Anda dan coba lagi.",
+  "paywallRetry": "Coba Lagi",
+  "paywallNothingToRestore": "Tidak ditemukan pembelian sebelumnya untuk Apple ID ini.",
+  "settingsProSection": "Recipe Keeper Pro",
+  "settingsUpgrade": "Upgrade ke Pro",
+  "settingsUpgradeSubtitle": "Resep AI, chat, pemindaian, dan rencana makan tanpa batas",
+  "settingsProActive": "Pro aktif",
+  "settingsProActiveSubtitle": "{plan} - terima kasih telah mendukung Recipe Keeper",
+  "@settingsProActiveSubtitle": {
+    "placeholders": {
+      "plan": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "settingsProExpires": "Diperpanjang atau berakhir pada {date}",
+  "@settingsProExpires": {
+    "placeholders": {
+      "date": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "settingsManageSubscription": "Kelola Langganan",
+  "settingsManageSubscriptionSubtitle": "Ubah atau batalkan paket Anda di App Store",
+  "settingsRestorePurchasesSubtitle": "Sudah membeli Pro? Pulihkan di perangkat ini",
+  "recipeServingsCount": "{count} porsi",
+  "@recipeServingsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "favoritesAdded": "Ditambahkan ke favorit",
+  "favoritesRemoved": "Dihapus dari favorit",
+  "groceryItemRemoved": "{item} dihapus",
+  "@groceryItemRemoved": {
+    "placeholders": {
+      "item": {
+        "type": "String"
+      }
+    }
+  },
+  "mealPlannerNewPlanTitle": "Mulai rencana baru?",
+  "mealPlannerNewPlanMessage": "Rencana makan Anda saat ini akan dihapus."
 }

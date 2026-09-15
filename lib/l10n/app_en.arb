@@ -798,5 +798,25 @@
   },
   "settingsManageSubscription": "Manage Subscription",
   "settingsManageSubscriptionSubtitle": "Change or cancel your plan in the App Store",
-  "settingsRestorePurchasesSubtitle": "Already bought Pro? Restore it on this device"
+  "settingsRestorePurchasesSubtitle": "Already bought Pro? Restore it on this device",
+  "recipeServingsCount": "{count, plural, =1{1 serving} other{{count} servings}}",
+  "@recipeServingsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "favoritesAdded": "Added to favorites",
+  "favoritesRemoved": "Removed from favorites",
+  "groceryItemRemoved": "{item} removed",
+  "@groceryItemRemoved": {
+    "placeholders": {
+      "item": {
+        "type": "String"
+      }
+    }
+  },
+  "mealPlannerNewPlanTitle": "Start a new plan?",
+  "mealPlannerNewPlanMessage": "Your current meal plan will be removed."
 }
