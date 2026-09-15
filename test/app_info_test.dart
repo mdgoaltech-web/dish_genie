@@ -11,7 +11,7 @@ void main() {
     expect(match, isNotNull);
     expect(match!.group(1), AppLinks.version);
     expect(match.group(1), '1.1.0');
-    expect(match.group(2), '22');
+    expect(match.group(2), '23');
   });
 
   test('legal links are the agreed URLs', () {
