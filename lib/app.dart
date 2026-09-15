@@ -99,7 +99,13 @@ class _AppState extends State<App> with WidgetsBindingObserver {
                 ),
                 child: Directionality(
                   textDirection: languageProvider.textDirection,
-                  child: child ?? const SizedBox.shrink(),
+                  // Dynamic Type is honoured up to 1.3x; beyond that the
+                  // dense Home/paywall layouts overflow, so larger system
+                  // sizes are capped instead of clipping text.
+                  child: MediaQuery.withClampedTextScaling(
+                    maxScaleFactor: 1.3,
+                    child: child ?? const SizedBox.shrink(),
+                  ),
                 ),
               );
             },
