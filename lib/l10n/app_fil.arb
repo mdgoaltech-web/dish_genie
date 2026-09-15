@@ -824,5 +824,19 @@
     }
   },
   "mealPlannerNewPlanTitle": "Magsimula ng bagong plano?",
-  "mealPlannerNewPlanMessage": "Aalisin ang kasalukuyang meal plan mo."
+  "mealPlannerNewPlanMessage": "Aalisin ang kasalukuyang meal plan mo.",
+  "grocerySuggestionForRecipe": "{item} — para sa {recipe}",
+  "@grocerySuggestionForRecipe": {
+    "placeholders": {
+      "item": {
+        "type": "String"
+      },
+      "recipe": {
+        "type": "String"
+      }
+    }
+  },
+  "grocerySuggestionsEmpty": "Gumawa ng recipe o mag-save ng paborito at imumungkahi namin ang bibilhin.",
+  "grocerySavedListsEmpty": "Lalabas dito ang mga listang ise-save mo.",
+  "groceryNeedsMealPlan": "Gumawa muna ng meal plan — mula rito binubuo ang lingguhang listahan."
 }

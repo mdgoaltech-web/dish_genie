@@ -815,5 +815,19 @@
     }
   },
   "mealPlannerNewPlanTitle": "Commencer un nouveau plan ?",
-  "mealPlannerNewPlanMessage": "Votre plan de repas actuel sera supprimé."
+  "mealPlannerNewPlanMessage": "Votre plan de repas actuel sera supprimé.",
+  "grocerySuggestionForRecipe": "{item} — pour {recipe}",
+  "@grocerySuggestionForRecipe": {
+    "placeholders": {
+      "item": {
+        "type": "String"
+      },
+      "recipe": {
+        "type": "String"
+      }
+    }
+  },
+  "grocerySuggestionsEmpty": "Générez une recette ou enregistrez un favori et nous vous suggérerons quoi acheter.",
+  "grocerySavedListsEmpty": "Les listes enregistrées apparaîtront ici.",
+  "groceryNeedsMealPlan": "Créez d'abord un plan de repas : la liste de la semaine en est tirée."
 }

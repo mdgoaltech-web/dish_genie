@@ -2027,4 +2027,20 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get mealPlannerNewPlanMessage => 'แผนมื้ออาหารปัจจุบันของคุณจะถูกลบ';
+
+  @override
+  String grocerySuggestionForRecipe(String item, String recipe) {
+    return '$item — สำหรับ $recipe';
+  }
+
+  @override
+  String get grocerySuggestionsEmpty =>
+      'สร้างสูตรอาหารหรือบันทึกรายการโปรด แล้วเราจะแนะนำสิ่งที่ควรซื้อ';
+
+  @override
+  String get grocerySavedListsEmpty => 'รายการที่คุณบันทึกจะแสดงที่นี่';
+
+  @override
+  String get groceryNeedsMealPlan =>
+      'สร้างแผนมื้ออาหารก่อน — รายการประจำสัปดาห์สร้างจากแผนนั้น';
 }

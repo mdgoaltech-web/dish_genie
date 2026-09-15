@@ -824,5 +824,19 @@
     }
   },
   "mealPlannerNewPlanTitle": "Nuwe plan begin?",
-  "mealPlannerNewPlanMessage": "Jou huidige maaltydplan sal verwyder word."
+  "mealPlannerNewPlanMessage": "Jou huidige maaltydplan sal verwyder word.",
+  "grocerySuggestionForRecipe": "{item} — vir {recipe}",
+  "@grocerySuggestionForRecipe": {
+    "placeholders": {
+      "item": {
+        "type": "String"
+      },
+      "recipe": {
+        "type": "String"
+      }
+    }
+  },
+  "grocerySuggestionsEmpty": "Genereer 'n resep of stoor 'n gunsteling en ons stel voor wat om te koop.",
+  "grocerySavedListsEmpty": "Lyste wat jy stoor verskyn hier.",
+  "groceryNeedsMealPlan": "Skep eers 'n maaltydplan — die weeklikse lys word daaruit gebou."
 }

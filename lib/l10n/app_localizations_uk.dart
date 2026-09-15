@@ -2049,4 +2049,20 @@ class AppLocalizationsUk extends AppLocalizations {
   @override
   String get mealPlannerNewPlanMessage =>
       'Поточний план харчування буде видалено.';
+
+  @override
+  String grocerySuggestionForRecipe(String item, String recipe) {
+    return '$item — для: $recipe';
+  }
+
+  @override
+  String get grocerySuggestionsEmpty =>
+      'Створіть рецепт або збережіть в обране, і ми підкажемо, що купити.';
+
+  @override
+  String get grocerySavedListsEmpty => 'Збережені списки з\'являться тут.';
+
+  @override
+  String get groceryNeedsMealPlan =>
+      'Спочатку створіть план харчування — тижневий список формується з нього.';
 }

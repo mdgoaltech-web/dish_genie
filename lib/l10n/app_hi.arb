@@ -814,5 +814,19 @@
     }
   },
   "mealPlannerNewPlanTitle": "नई योजना शुरू करें?",
-  "mealPlannerNewPlanMessage": "आपकी वर्तमान भोजन योजना हटा दी जाएगी।"
+  "mealPlannerNewPlanMessage": "आपकी वर्तमान भोजन योजना हटा दी जाएगी।",
+  "grocerySuggestionForRecipe": "{item} — {recipe} के लिए",
+  "@grocerySuggestionForRecipe": {
+    "placeholders": {
+      "item": {
+        "type": "String"
+      },
+      "recipe": {
+        "type": "String"
+      }
+    }
+  },
+  "grocerySuggestionsEmpty": "कोई रेसिपी बनाएँ या पसंदीदा सहेजें, हम बताएँगे क्या खरीदना है।",
+  "grocerySavedListsEmpty": "आपकी सहेजी गई सूचियाँ यहाँ दिखेंगी।",
+  "groceryNeedsMealPlan": "पहले भोजन योजना बनाएँ — साप्ताहिक सूची उसी से बनती है।"
 }

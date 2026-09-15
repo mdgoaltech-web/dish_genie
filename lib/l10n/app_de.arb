@@ -814,5 +814,19 @@
     }
   },
   "mealPlannerNewPlanTitle": "Neuen Plan starten?",
-  "mealPlannerNewPlanMessage": "Ihr aktueller Essensplan wird gelöscht."
+  "mealPlannerNewPlanMessage": "Ihr aktueller Essensplan wird gelöscht.",
+  "grocerySuggestionForRecipe": "{item} — für {recipe}",
+  "@grocerySuggestionForRecipe": {
+    "placeholders": {
+      "item": {
+        "type": "String"
+      },
+      "recipe": {
+        "type": "String"
+      }
+    }
+  },
+  "grocerySuggestionsEmpty": "Erstellen Sie ein Rezept oder speichern Sie einen Favoriten, dann schlagen wir Einkäufe vor.",
+  "grocerySavedListsEmpty": "Gespeicherte Listen erscheinen hier.",
+  "groceryNeedsMealPlan": "Erstellen Sie zuerst einen Essensplan — die Wochenliste wird daraus erstellt."
 }

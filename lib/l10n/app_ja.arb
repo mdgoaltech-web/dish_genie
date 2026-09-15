@@ -814,5 +814,19 @@
     }
   },
   "mealPlannerNewPlanTitle": "新しいプランを始めますか？",
-  "mealPlannerNewPlanMessage": "現在の食事プランは削除されます。"
+  "mealPlannerNewPlanMessage": "現在の食事プランは削除されます。",
+  "grocerySuggestionForRecipe": "{item}（{recipe}用）",
+  "@grocerySuggestionForRecipe": {
+    "placeholders": {
+      "item": {
+        "type": "String"
+      },
+      "recipe": {
+        "type": "String"
+      }
+    }
+  },
+  "grocerySuggestionsEmpty": "レシピを作成するかお気に入りに保存すると、買うものを提案します。",
+  "grocerySavedListsEmpty": "保存したリストはここに表示されます。",
+  "groceryNeedsMealPlan": "先に食事プランを作成してください。週間リストはそこから作られます。"
 }

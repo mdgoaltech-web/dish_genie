@@ -2052,4 +2052,20 @@ class AppLocalizationsKk extends AppLocalizations {
   @override
   String get mealPlannerNewPlanMessage =>
       'Ағымдағы тамақтану жоспарыңыз жойылады.';
+
+  @override
+  String grocerySuggestionForRecipe(String item, String recipe) {
+    return '$item — $recipe үшін';
+  }
+
+  @override
+  String get grocerySuggestionsEmpty =>
+      'Рецепт жасаңыз немесе таңдаулыға сақтаңыз, біз не сатып алу керегін ұсынамыз.';
+
+  @override
+  String get grocerySavedListsEmpty => 'Сақталған тізімдер осында көрсетіледі.';
+
+  @override
+  String get groceryNeedsMealPlan =>
+      'Алдымен тамақтану жоспарын жасаңыз — апталық тізім содан құрылады.';
 }

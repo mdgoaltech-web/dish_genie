@@ -824,5 +824,19 @@
     }
   },
   "mealPlannerNewPlanTitle": "Iniziare un nuovo piano?",
-  "mealPlannerNewPlanMessage": "Il piano pasti attuale verrà eliminato."
+  "mealPlannerNewPlanMessage": "Il piano pasti attuale verrà eliminato.",
+  "grocerySuggestionForRecipe": "{item} — per {recipe}",
+  "@grocerySuggestionForRecipe": {
+    "placeholders": {
+      "item": {
+        "type": "String"
+      },
+      "recipe": {
+        "type": "String"
+      }
+    }
+  },
+  "grocerySuggestionsEmpty": "Genera una ricetta o salva un preferito e ti suggeriremo cosa comprare.",
+  "grocerySavedListsEmpty": "Le liste salvate appariranno qui.",
+  "groceryNeedsMealPlan": "Crea prima un piano pasti: la lista settimanale viene creata da lì."
 }

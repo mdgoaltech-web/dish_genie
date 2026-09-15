@@ -824,5 +824,19 @@
     }
   },
   "mealPlannerNewPlanTitle": "Rozpocząć nowy plan?",
-  "mealPlannerNewPlanMessage": "Twój obecny plan posiłków zostanie usunięty."
+  "mealPlannerNewPlanMessage": "Twój obecny plan posiłków zostanie usunięty.",
+  "grocerySuggestionForRecipe": "{item} — do: {recipe}",
+  "@grocerySuggestionForRecipe": {
+    "placeholders": {
+      "item": {
+        "type": "String"
+      },
+      "recipe": {
+        "type": "String"
+      }
+    }
+  },
+  "grocerySuggestionsEmpty": "Wygeneruj przepis lub zapisz ulubiony, a podpowiemy, co kupić.",
+  "grocerySavedListsEmpty": "Zapisane listy pojawią się tutaj.",
+  "groceryNeedsMealPlan": "Najpierw utwórz plan posiłków — lista tygodniowa powstaje na jego podstawie."
 }

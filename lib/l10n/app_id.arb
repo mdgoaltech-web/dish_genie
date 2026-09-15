@@ -824,5 +824,19 @@
     }
   },
   "mealPlannerNewPlanTitle": "Mulai rencana baru?",
-  "mealPlannerNewPlanMessage": "Rencana makan Anda saat ini akan dihapus."
+  "mealPlannerNewPlanMessage": "Rencana makan Anda saat ini akan dihapus.",
+  "grocerySuggestionForRecipe": "{item} — untuk {recipe}",
+  "@grocerySuggestionForRecipe": {
+    "placeholders": {
+      "item": {
+        "type": "String"
+      },
+      "recipe": {
+        "type": "String"
+      }
+    }
+  },
+  "grocerySuggestionsEmpty": "Buat resep atau simpan favorit, dan kami akan menyarankan apa yang perlu dibeli.",
+  "grocerySavedListsEmpty": "Daftar yang Anda simpan akan muncul di sini.",
+  "groceryNeedsMealPlan": "Buat rencana makan terlebih dahulu — daftar mingguan dibuat dari sana."
 }

@@ -814,5 +814,19 @@
     }
   },
   "mealPlannerNewPlanTitle": "เริ่มแผนใหม่หรือไม่?",
-  "mealPlannerNewPlanMessage": "แผนมื้ออาหารปัจจุบันของคุณจะถูกลบ"
+  "mealPlannerNewPlanMessage": "แผนมื้ออาหารปัจจุบันของคุณจะถูกลบ",
+  "grocerySuggestionForRecipe": "{item} — สำหรับ {recipe}",
+  "@grocerySuggestionForRecipe": {
+    "placeholders": {
+      "item": {
+        "type": "String"
+      },
+      "recipe": {
+        "type": "String"
+      }
+    }
+  },
+  "grocerySuggestionsEmpty": "สร้างสูตรอาหารหรือบันทึกรายการโปรด แล้วเราจะแนะนำสิ่งที่ควรซื้อ",
+  "grocerySavedListsEmpty": "รายการที่คุณบันทึกจะแสดงที่นี่",
+  "groceryNeedsMealPlan": "สร้างแผนมื้ออาหารก่อน — รายการประจำสัปดาห์สร้างจากแผนนั้น"
 }

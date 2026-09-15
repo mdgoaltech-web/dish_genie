@@ -1994,4 +1994,18 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get mealPlannerNewPlanMessage => '当前的膳食计划将被删除。';
+
+  @override
+  String grocerySuggestionForRecipe(String item, String recipe) {
+    return '$item — 用于 $recipe';
+  }
+
+  @override
+  String get grocerySuggestionsEmpty => '生成食谱或收藏一个食谱，我们会建议要买什么。';
+
+  @override
+  String get grocerySavedListsEmpty => '你保存的清单会显示在这里。';
+
+  @override
+  String get groceryNeedsMealPlan => '请先创建膳食计划——每周清单由此生成。';
 }

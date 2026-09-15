@@ -2049,4 +2049,20 @@ class AppLocalizationsVi extends AppLocalizations {
   @override
   String get mealPlannerNewPlanMessage =>
       'Kế hoạch bữa ăn hiện tại của bạn sẽ bị xóa.';
+
+  @override
+  String grocerySuggestionForRecipe(String item, String recipe) {
+    return '$item — cho $recipe';
+  }
+
+  @override
+  String get grocerySuggestionsEmpty =>
+      'Tạo công thức hoặc lưu yêu thích và chúng tôi sẽ gợi ý những gì cần mua.';
+
+  @override
+  String get grocerySavedListsEmpty => 'Danh sách bạn lưu sẽ hiển thị ở đây.';
+
+  @override
+  String get groceryNeedsMealPlan =>
+      'Hãy tạo kế hoạch bữa ăn trước — danh sách hằng tuần được tạo từ đó.';
 }

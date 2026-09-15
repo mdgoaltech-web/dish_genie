@@ -824,5 +824,19 @@
     }
   },
   "mealPlannerNewPlanTitle": "Жаңа жоспар бастау керек пе?",
-  "mealPlannerNewPlanMessage": "Ағымдағы тамақтану жоспарыңыз жойылады."
+  "mealPlannerNewPlanMessage": "Ағымдағы тамақтану жоспарыңыз жойылады.",
+  "grocerySuggestionForRecipe": "{item} — {recipe} үшін",
+  "@grocerySuggestionForRecipe": {
+    "placeholders": {
+      "item": {
+        "type": "String"
+      },
+      "recipe": {
+        "type": "String"
+      }
+    }
+  },
+  "grocerySuggestionsEmpty": "Рецепт жасаңыз немесе таңдаулыға сақтаңыз, біз не сатып алу керегін ұсынамыз.",
+  "grocerySavedListsEmpty": "Сақталған тізімдер осында көрсетіледі.",
+  "groceryNeedsMealPlan": "Алдымен тамақтану жоспарын жасаңыз — апталық тізім содан құрылады."
 }

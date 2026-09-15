@@ -814,5 +814,19 @@
     }
   },
   "mealPlannerNewPlanTitle": "بدء خطة جديدة؟",
-  "mealPlannerNewPlanMessage": "سيتم حذف خطة وجباتك الحالية."
+  "mealPlannerNewPlanMessage": "سيتم حذف خطة وجباتك الحالية.",
+  "grocerySuggestionForRecipe": "{item} — لوصفة {recipe}",
+  "@grocerySuggestionForRecipe": {
+    "placeholders": {
+      "item": {
+        "type": "String"
+      },
+      "recipe": {
+        "type": "String"
+      }
+    }
+  },
+  "grocerySuggestionsEmpty": "أنشئ وصفة أو احفظ وصفة مفضلة وسنقترح عليك ما تشتريه.",
+  "grocerySavedListsEmpty": "ستظهر القوائم التي تحفظها هنا.",
+  "groceryNeedsMealPlan": "أنشئ خطة وجبات أولاً — تُبنى قائمة الأسبوع منها."
 }

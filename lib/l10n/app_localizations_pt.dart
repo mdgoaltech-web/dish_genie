@@ -2052,4 +2052,20 @@ class AppLocalizationsPt extends AppLocalizations {
   @override
   String get mealPlannerNewPlanMessage =>
       'O seu plano de refeições atual será removido.';
+
+  @override
+  String grocerySuggestionForRecipe(String item, String recipe) {
+    return '$item — para $recipe';
+  }
+
+  @override
+  String get grocerySuggestionsEmpty =>
+      'Gere uma receita ou guarde um favorito e sugerimos o que comprar.';
+
+  @override
+  String get grocerySavedListsEmpty => 'As listas que guardar aparecem aqui.';
+
+  @override
+  String get groceryNeedsMealPlan =>
+      'Crie primeiro um plano de refeições — a lista semanal é criada a partir dele.';
 }

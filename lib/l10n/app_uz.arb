@@ -814,5 +814,19 @@
     }
   },
   "mealPlannerNewPlanTitle": "Yangi reja boshlansinmi?",
-  "mealPlannerNewPlanMessage": "Joriy ovqatlanish rejangiz oʻchiriladi."
+  "mealPlannerNewPlanMessage": "Joriy ovqatlanish rejangiz oʻchiriladi.",
+  "grocerySuggestionForRecipe": "{item} — {recipe} uchun",
+  "@grocerySuggestionForRecipe": {
+    "placeholders": {
+      "item": {
+        "type": "String"
+      },
+      "recipe": {
+        "type": "String"
+      }
+    }
+  },
+  "grocerySuggestionsEmpty": "Retsept yarating yoki sevimlilarga saqlang, nima sotib olishni taklif qilamiz.",
+  "grocerySavedListsEmpty": "Saqlagan roʻyxatlaringiz shu yerda koʻrinadi.",
+  "groceryNeedsMealPlan": "Avval ovqatlanish rejasini tuzing — haftalik roʻyxat undan tuziladi."
 }

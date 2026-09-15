@@ -814,5 +814,19 @@
     }
   },
   "mealPlannerNewPlanTitle": "开始新计划？",
-  "mealPlannerNewPlanMessage": "当前的膳食计划将被删除。"
+  "mealPlannerNewPlanMessage": "当前的膳食计划将被删除。",
+  "grocerySuggestionForRecipe": "{item} — 用于 {recipe}",
+  "@grocerySuggestionForRecipe": {
+    "placeholders": {
+      "item": {
+        "type": "String"
+      },
+      "recipe": {
+        "type": "String"
+      }
+    }
+  },
+  "grocerySuggestionsEmpty": "生成食谱或收藏一个食谱，我们会建议要买什么。",
+  "grocerySavedListsEmpty": "你保存的清单会显示在这里。",
+  "groceryNeedsMealPlan": "请先创建膳食计划——每周清单由此生成。"
 }

@@ -8,9 +8,12 @@ import '../../core/localization/l10n_extension.dart';
 import '../../core/theme/colors.dart';
 import '../../data/models/grocery_item.dart';
 import '../../data/models/grocery_list.dart';
+import '../../data/models/recipe.dart';
 import '../../providers/grocery_provider.dart';
 import '../../providers/meal_plan_provider.dart';
+import '../../providers/recipe_provider.dart';
 import '../../services/grocery_service.dart';
+import '../../services/grocery_suggestions.dart';
 import '../../services/storage_service.dart';
 import '../../widgets/voice/voice_input_dialog.dart';
 import '../../widgets/common/floating_sparkles.dart';
@@ -40,6 +43,9 @@ class _GroceryListScreenState extends State<GroceryListScreen> {
   final TextEditingController _quickAddController = TextEditingController();
   bool _isCategoryGridView = true;
   final Map<String, bool> _expandedCategories = {};
+
+  /// Favourite and saved recipes, the source of real Smart Suggestions.
+  List<Recipe> _suggestionRecipes = const [];
   final Set<String> _dismissedSmartSuggestions = {};
 
   final FocusNode _budgetFocusNode = FocusNode();
@@ -62,6 +68,7 @@ class _GroceryListScreenState extends State<GroceryListScreen> {
     }
     // Defer heavy operations to after first frame to improve initial load time
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      _loadSuggestionRecipes();
       // Only check for meal plan if needed (don't block UI)
       _checkForMealPlan();
       // Defer non-critical operations to improve initial load
@@ -288,6 +295,71 @@ class _GroceryListScreenState extends State<GroceryListScreen> {
     }
   }
 
+  Future<void> _loadSuggestionRecipes() async {
+    try {
+      final slugs = <String>{
+        ...await StorageService.getFavorites(),
+        ...await StorageService.getSavedRecipes(),
+      };
+      final recipes = <Recipe>[];
+      for (final slug in slugs) {
+        final recipe = await StorageService.getRecipeDataBySlug(slug);
+        if (recipe != null) recipes.add(recipe);
+      }
+      if (mounted) setState(() => _suggestionRecipes = recipes);
+    } catch (_) {
+      // Suggestions are optional; the tab works without them.
+    }
+  }
+
+  /// Smart Suggestions built only from recipes the user generated or saved.
+  /// When there is nothing to draw on, an honest hint is shown instead.
+  List<Widget> _buildSmartSuggestions(
+    BuildContext context,
+    bool Function(String) hasItemNamed,
+    void Function(String) addSuggestion,
+  ) {
+    final generated = context.watch<RecipeProvider>().recipe;
+    final suggestions = GrocerySuggestions.from(
+      [generated, ..._suggestionRecipes],
+      hasItemNamed,
+    );
+    if (suggestions.isEmpty) {
+      return [
+        Container(
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: Theme.of(context).cardColor,
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: Text(
+            context.t('grocery.suggestions.empty'),
+            style: TextStyle(
+              fontSize: 14,
+              color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
+            ),
+          ),
+        ),
+      ];
+    }
+    return [
+      for (var i = 0; i < suggestions.length; i++) ...[
+        if (i > 0) const SizedBox(height: 10),
+        _buildSmartSuggestionTile(
+          context,
+          icon: Icons.restaurant_menu,
+          iconColor: AppColors.geniePurple,
+          text: context.t('grocery.suggestion.for.recipe', {
+            'item': suggestions[i].item,
+            'recipe': suggestions[i].recipeTitle,
+          }),
+          isAdded: hasItemNamed(suggestions[i].item),
+          onAdd: () => addSuggestion(suggestions[i].item),
+        ),
+      ],
+    ];
+  }
+
   Future<void> _handleQuickGenerate() async {
     final mealPlanProvider = context.read<MealPlanProvider>();
     final mealPlan = mealPlanProvider.currentMealPlan;
@@ -304,58 +376,12 @@ class _GroceryListScreenState extends State<GroceryListScreen> {
             : null,
       );
     } else {
-      // Generate demo list with sample recipes (matching web app)
-      await groceryProvider.generateGroceryList(
-        recipes: [
-          {
-            'title': context.t('grocery.demo.recipe.chicken.biryani'),
-            'ingredients': [
-              'basmati rice',
-              'chicken',
-              'yogurt',
-              'onions',
-              'tomatoes',
-              'ginger',
-              'garlic',
-              'biryani spices',
-              'saffron',
-              'ghee',
-            ],
-          },
-          {
-            'title': context.t('grocery.demo.recipe.dal.makhani'),
-            'ingredients': [
-              'black lentils',
-              'kidney beans',
-              'butter',
-              'cream',
-              'tomatoes',
-              'onions',
-              'ginger',
-              'garlic',
-              'cumin',
-              'garam masala',
-            ],
-          },
-          {
-            'title': context.t('grocery.demo.recipe.aloo.paratha'),
-            'ingredients': [
-              'whole wheat flour',
-              'potatoes',
-              'green chilies',
-              'coriander',
-              'cumin seeds',
-              'ghee',
-              'salt',
-            ],
-          },
-        ],
-        pantryItems: [],
-        budgetMode: _isBudgetMode,
-        budget: _isBudgetMode && _budgetController.text.isNotEmpty
-            ? _budgetController.text
-            : null,
+      // No plan yet: say so instead of inventing a list from sample recipes.
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(context.t('grocery.needs.meal.plan'))),
       );
+      return;
     }
     // Switch to list tab after generating (matching web app)
     if (mounted) {
@@ -1819,41 +1845,7 @@ class _GroceryListScreenState extends State<GroceryListScreen> {
           ],
         ),
         const SizedBox(height: 12),
-        _buildSmartSuggestionTile(
-          context,
-          icon: Icons.warning_amber_rounded,
-          iconColor: AppColors.genieGold,
-          text: context.t('groceryLowStock'),
-          isAdded: hasItemNamed(context.t('ingredient.onions')),
-          onAdd: () => addSuggestion(context.t('ingredient.onions')),
-        ),
-        const SizedBox(height: 10),
-        _buildSmartSuggestionTile(
-          context,
-          icon: Icons.calendar_today,
-          iconColor: AppColors.geniePurple,
-          text: context.t('groceryRecipeNeed'),
-          isAdded: hasItemNamed(context.t('ingredient.yogurt')),
-          onAdd: () => addSuggestion(context.t('ingredient.yogurt')),
-        ),
-        const SizedBox(height: 10),
-        _buildSmartSuggestionTile(
-          context,
-          icon: Icons.refresh,
-          iconColor: AppColors.geniePink,
-          text: context.t('groceryFrequentItem'),
-          isAdded: hasItemNamed(context.t('ingredient.rice')),
-          onAdd: () => addSuggestion(context.t('ingredient.rice')),
-        ),
-        const SizedBox(height: 10),
-        _buildSmartSuggestionTile(
-          context,
-          icon: Icons.warning_amber_rounded,
-          iconColor: AppColors.destructive,
-          text: context.t('groceryExpiringItem'),
-          isAdded: hasItemNamed(context.t('ingredient.milk')),
-          onAdd: () => addSuggestion(context.t('ingredient.milk')),
-        ),
+        ..._buildSmartSuggestions(context, hasItemNamed, addSuggestion),
         const SizedBox(height: 24),
 
         // Saved Lists (moved from Home tab)
@@ -1864,38 +1856,27 @@ class _GroceryListScreenState extends State<GroceryListScreen> {
           ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 12),
+        if (provider.savedLists.isEmpty)
+          Padding(
+            padding: const EdgeInsets.only(bottom: 16),
+            child: Text(
+              context.t('grocery.saved.lists.empty'),
+              style: TextStyle(
+                fontSize: 14,
+                color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
+              ),
+            ),
+          )
+        else
         SizedBox(
           height: 120,
           child: ListView.separated(
             clipBehavior: Clip.none,
             padding: const EdgeInsets.fromLTRB(0, 4, 0, 24),
             scrollDirection: Axis.horizontal,
-            itemCount: provider.savedLists.isNotEmpty ? provider.savedLists.length : 3,
+            itemCount: provider.savedLists.length,
             separatorBuilder: (_, __) => const SizedBox(width: 12),
             itemBuilder: (context, index) {
-              if (provider.savedLists.isEmpty) {
-                final placeholders = [
-                  {
-                    'name': context.t('grocery.placeholder.weekly.grocery'),
-                    'items': const <dynamic>[],
-                  },
-                  {
-                    'name': context.t('grocery.placeholder.monthly.stock'),
-                    'items': const <dynamic>[],
-                  },
-                  {
-                    'name': context.t('grocery.placeholder.high.protein.diet'),
-                    'items': const <dynamic>[],
-                  },
-                ];
-                final data = placeholders[index];
-                return _buildSavedListCard(
-                  context,
-                  title: data['name'] as String,
-                  itemCount: 0,
-                  onTap: null,
-                );
-              }
 
               final saved = provider.savedLists[index];
               final id = saved['id']?.toString();
@@ -2177,41 +2158,7 @@ class _GroceryListScreenState extends State<GroceryListScreen> {
             ],
           ),
           const SizedBox(height: 12),
-          _buildSmartSuggestionTile(
-            context,
-            icon: Icons.warning_amber_rounded,
-            iconColor: AppColors.genieGold,
-            text: context.t('groceryLowStock'),
-            isAdded: hasItemNamed(context.t('ingredient.onions')),
-            onAdd: () => addSuggestion(context.t('ingredient.onions')),
-          ),
-          const SizedBox(height: 10),
-          _buildSmartSuggestionTile(
-            context,
-            icon: Icons.calendar_today,
-            iconColor: AppColors.geniePurple,
-            text: context.t('groceryRecipeNeed'),
-            isAdded: hasItemNamed(context.t('ingredient.yogurt')),
-            onAdd: () => addSuggestion(context.t('ingredient.yogurt')),
-          ),
-          const SizedBox(height: 10),
-          _buildSmartSuggestionTile(
-            context,
-            icon: Icons.refresh,
-            iconColor: AppColors.geniePink,
-            text: context.t('groceryFrequentItem'),
-            isAdded: hasItemNamed(context.t('ingredient.rice')),
-            onAdd: () => addSuggestion(context.t('ingredient.rice')),
-          ),
-          const SizedBox(height: 10),
-          _buildSmartSuggestionTile(
-            context,
-            icon: Icons.warning_amber_rounded,
-            iconColor: AppColors.destructive,
-            text: context.t('groceryExpiringItem'),
-            isAdded: hasItemNamed(context.t('ingredient.milk')),
-            onAdd: () => addSuggestion(context.t('ingredient.milk')),
-          ),
+          ..._buildSmartSuggestions(context, hasItemNamed, addSuggestion),
           const SizedBox(height: 24),
 
           // Saved Lists
@@ -2222,42 +2169,27 @@ class _GroceryListScreenState extends State<GroceryListScreen> {
             ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 12),
+          if (provider.savedLists.isEmpty)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 16),
+              child: Text(
+                context.t('grocery.saved.lists.empty'),
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
+                ),
+              ),
+            )
+          else
           SizedBox(
             height: 120,
             child: ListView.separated(
               clipBehavior: Clip.none,
               padding: const EdgeInsets.fromLTRB(0, 4, 0, 24),
               scrollDirection: Axis.horizontal,
-              itemCount: provider.savedLists.isNotEmpty
-                  ? provider.savedLists.length
-                  : 3,
+              itemCount: provider.savedLists.length,
               separatorBuilder: (_, __) => const SizedBox(width: 12),
               itemBuilder: (context, index) {
-                if (provider.savedLists.isEmpty) {
-                  final placeholders = [
-                    {
-                      'name': context.t('grocery.placeholder.weekly.grocery'),
-                      'items': const <dynamic>[],
-                    },
-                    {
-                      'name': context.t('grocery.placeholder.monthly.stock'),
-                      'items': const <dynamic>[],
-                    },
-                    {
-                      'name': context.t(
-                        'grocery.placeholder.high.protein.diet',
-                      ),
-                      'items': const <dynamic>[],
-                    },
-                  ];
-                  final data = placeholders[index];
-                  return _buildSavedListCard(
-                    context,
-                    title: data['name'] as String,
-                    itemCount: 0,
-                    onTap: null,
-                  );
-                }
 
                 final saved = provider.savedLists[index];
                 final id = saved['id']?.toString();

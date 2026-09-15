@@ -2053,4 +2053,20 @@ class AppLocalizationsIt extends AppLocalizations {
   @override
   String get mealPlannerNewPlanMessage =>
       'Il piano pasti attuale verrà eliminato.';
+
+  @override
+  String grocerySuggestionForRecipe(String item, String recipe) {
+    return '$item — per $recipe';
+  }
+
+  @override
+  String get grocerySuggestionsEmpty =>
+      'Genera una ricetta o salva un preferito e ti suggeriremo cosa comprare.';
+
+  @override
+  String get grocerySavedListsEmpty => 'Le liste salvate appariranno qui.';
+
+  @override
+  String get groceryNeedsMealPlan =>
+      'Crea prima un piano pasti: la lista settimanale viene creata da lì.';
 }

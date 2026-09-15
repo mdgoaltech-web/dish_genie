@@ -225,6 +225,9 @@ extension L10nExtension on BuildContext {
     'grocery.shop.mode': (l) => l.groceryShopMode,
     'grocery.shopping.mode': (l) => l.groceryShoppingMode,
     'grocery.smart.suggestions': (l) => l.grocerySmartSuggestions,
+    'grocery.suggestions.empty': (l) => l.grocerySuggestionsEmpty,
+    'grocery.saved.lists.empty': (l) => l.grocerySavedListsEmpty,
+    'grocery.needs.meal.plan': (l) => l.groceryNeedsMealPlan,
     'grocery.subtitle': (l) => l.grocerySubtitle,
     'grocery.title': (l) => l.groceryTitle,
     'grocery.total': (l) => l.groceryTotal,
@@ -835,5 +838,9 @@ extension L10nExtension on BuildContext {
         l.recipeServingsCount(int.tryParse(params?['count'] ?? '') ?? 0),
     'grocery.item.removed': (l, params) =>
         l.groceryItemRemoved(params?['item'] ?? ''),
+    'grocery.suggestion.for.recipe': (l, params) => l.grocerySuggestionForRecipe(
+      params?['item'] ?? '',
+      params?['recipe'] ?? '',
+    ),
   };
 }

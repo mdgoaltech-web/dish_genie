@@ -814,5 +814,19 @@
     }
   },
   "mealPlannerNewPlanTitle": "Yeni plan başlatılsın mı?",
-  "mealPlannerNewPlanMessage": "Mevcut yemek planınız silinecek."
+  "mealPlannerNewPlanMessage": "Mevcut yemek planınız silinecek.",
+  "grocerySuggestionForRecipe": "{item} — {recipe} için",
+  "@grocerySuggestionForRecipe": {
+    "placeholders": {
+      "item": {
+        "type": "String"
+      },
+      "recipe": {
+        "type": "String"
+      }
+    }
+  },
+  "grocerySuggestionsEmpty": "Bir tarif oluşturun veya favorilere kaydedin, ne alacağınızı önerelim.",
+  "grocerySavedListsEmpty": "Kaydettiğiniz listeler burada görünür.",
+  "groceryNeedsMealPlan": "Önce bir yemek planı oluşturun — haftalık liste ondan oluşturulur."
 }

@@ -818,5 +818,19 @@
     }
   },
   "mealPlannerNewPlanTitle": "Start a new plan?",
-  "mealPlannerNewPlanMessage": "Your current meal plan will be removed."
+  "mealPlannerNewPlanMessage": "Your current meal plan will be removed.",
+  "grocerySuggestionForRecipe": "{item} — for {recipe}",
+  "@grocerySuggestionForRecipe": {
+    "placeholders": {
+      "item": {
+        "type": "String"
+      },
+      "recipe": {
+        "type": "String"
+      }
+    }
+  },
+  "grocerySuggestionsEmpty": "Generate a recipe or save a favorite and we'll suggest what to buy.",
+  "grocerySavedListsEmpty": "Lists you save will appear here.",
+  "groceryNeedsMealPlan": "Create a meal plan first — the weekly list is built from it."
 }

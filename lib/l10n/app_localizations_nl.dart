@@ -2049,4 +2049,21 @@ class AppLocalizationsNl extends AppLocalizations {
   @override
   String get mealPlannerNewPlanMessage =>
       'Je huidige maaltijdplan wordt verwijderd.';
+
+  @override
+  String grocerySuggestionForRecipe(String item, String recipe) {
+    return '$item — voor $recipe';
+  }
+
+  @override
+  String get grocerySuggestionsEmpty =>
+      'Genereer een recept of sla een favoriet op en we stellen voor wat je moet kopen.';
+
+  @override
+  String get grocerySavedListsEmpty =>
+      'Lijsten die je opslaat verschijnen hier.';
+
+  @override
+  String get groceryNeedsMealPlan =>
+      'Maak eerst een maaltijdplan: de weeklijst wordt daaruit opgebouwd.';
 }

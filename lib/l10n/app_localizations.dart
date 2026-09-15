@@ -4016,6 +4016,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Your current meal plan will be removed.'**
   String get mealPlannerNewPlanMessage;
+
+  /// No description provided for @grocerySuggestionForRecipe.
+  ///
+  /// In en, this message translates to:
+  /// **'{item} — for {recipe}'**
+  String grocerySuggestionForRecipe(String item, String recipe);
+
+  /// No description provided for @grocerySuggestionsEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Generate a recipe or save a favorite and we\'ll suggest what to buy.'**
+  String get grocerySuggestionsEmpty;
+
+  /// No description provided for @grocerySavedListsEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Lists you save will appear here.'**
+  String get grocerySavedListsEmpty;
+
+  /// No description provided for @groceryNeedsMealPlan.
+  ///
+  /// In en, this message translates to:
+  /// **'Create a meal plan first — the weekly list is built from it.'**
+  String get groceryNeedsMealPlan;
 }
 
 class _AppLocalizationsDelegate

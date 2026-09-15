@@ -2048,4 +2048,20 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get mealPlannerNewPlanMessage => 'Текущий план питания будет удалён.';
+
+  @override
+  String grocerySuggestionForRecipe(String item, String recipe) {
+    return '$item — для: $recipe';
+  }
+
+  @override
+  String get grocerySuggestionsEmpty =>
+      'Создайте рецепт или сохраните в избранное, и мы подскажем, что купить.';
+
+  @override
+  String get grocerySavedListsEmpty => 'Сохранённые списки появятся здесь.';
+
+  @override
+  String get groceryNeedsMealPlan =>
+      'Сначала создайте план питания — недельный список формируется из него.';
 }

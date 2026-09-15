@@ -2058,4 +2058,21 @@ class AppLocalizationsUz extends AppLocalizations {
   @override
   String get mealPlannerNewPlanMessage =>
       'Joriy ovqatlanish rejangiz oʻchiriladi.';
+
+  @override
+  String grocerySuggestionForRecipe(String item, String recipe) {
+    return '$item — $recipe uchun';
+  }
+
+  @override
+  String get grocerySuggestionsEmpty =>
+      'Retsept yarating yoki sevimlilarga saqlang, nima sotib olishni taklif qilamiz.';
+
+  @override
+  String get grocerySavedListsEmpty =>
+      'Saqlagan roʻyxatlaringiz shu yerda koʻrinadi.';
+
+  @override
+  String get groceryNeedsMealPlan =>
+      'Avval ovqatlanish rejasini tuzing — haftalik roʻyxat undan tuziladi.';
 }

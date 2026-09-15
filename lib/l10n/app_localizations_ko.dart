@@ -2006,4 +2006,19 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get mealPlannerNewPlanMessage => '현재 식단 플랜이 삭제됩니다.';
+
+  @override
+  String grocerySuggestionForRecipe(String item, String recipe) {
+    return '$item — $recipe용';
+  }
+
+  @override
+  String get grocerySuggestionsEmpty =>
+      '레시피를 생성하거나 즐겨찾기에 저장하면 구매할 항목을 제안해 드립니다.';
+
+  @override
+  String get grocerySavedListsEmpty => '저장한 목록이 여기에 표시됩니다.';
+
+  @override
+  String get groceryNeedsMealPlan => '먼저 식단 플랜을 만드세요. 주간 목록은 여기서 만들어집니다.';
 }

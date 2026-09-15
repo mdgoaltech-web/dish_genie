@@ -2069,4 +2069,21 @@ class AppLocalizationsFil extends AppLocalizations {
   @override
   String get mealPlannerNewPlanMessage =>
       'Aalisin ang kasalukuyang meal plan mo.';
+
+  @override
+  String grocerySuggestionForRecipe(String item, String recipe) {
+    return '$item — para sa $recipe';
+  }
+
+  @override
+  String get grocerySuggestionsEmpty =>
+      'Gumawa ng recipe o mag-save ng paborito at imumungkahi namin ang bibilhin.';
+
+  @override
+  String get grocerySavedListsEmpty =>
+      'Lalabas dito ang mga listang ise-save mo.';
+
+  @override
+  String get groceryNeedsMealPlan =>
+      'Gumawa muna ng meal plan — mula rito binubuo ang lingguhang listahan.';
 }

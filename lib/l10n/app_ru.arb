@@ -824,5 +824,19 @@
     }
   },
   "mealPlannerNewPlanTitle": "Начать новый план?",
-  "mealPlannerNewPlanMessage": "Текущий план питания будет удалён."
+  "mealPlannerNewPlanMessage": "Текущий план питания будет удалён.",
+  "grocerySuggestionForRecipe": "{item} — для: {recipe}",
+  "@grocerySuggestionForRecipe": {
+    "placeholders": {
+      "item": {
+        "type": "String"
+      },
+      "recipe": {
+        "type": "String"
+      }
+    }
+  },
+  "grocerySuggestionsEmpty": "Создайте рецепт или сохраните в избранное, и мы подскажем, что купить.",
+  "grocerySavedListsEmpty": "Сохранённые списки появятся здесь.",
+  "groceryNeedsMealPlan": "Сначала создайте план питания — недельный список формируется из него."
 }
