@@ -5,8 +5,8 @@ import '../../core/localization/l10n_extension.dart';
 import '../../core/theme/colors.dart';
 import '../../services/voice_service.dart';
 
-/// Shows a Google-style voice input dialog. Returns the transcribed text when
-/// the user finishes speaking, or null if dismissed or on error.
+/// Shows the voice input dialog. Returns the transcribed text when the user
+/// finishes speaking, or null if dismissed or on error.
 Future<String?> showVoiceInputDialog(BuildContext context) async {
   if (!context.mounted) return null;
 
@@ -35,8 +35,9 @@ Future<String?> showVoiceInputDialog(BuildContext context) async {
     barrierDismissible: true,
     builder: (dialogContext) => StatefulBuilder(
       builder: (context, setDialogState) {
+        final theme = Theme.of(context);
         return Dialog(
-          backgroundColor: Colors.white,
+          backgroundColor: theme.dialogTheme.backgroundColor ?? theme.cardColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(24),
           ),
@@ -46,11 +47,11 @@ Future<String?> showVoiceInputDialog(BuildContext context) async {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  'Google',
+                  context.t('grocery.voice.assistant'),
                   style: TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.w500,
-                    color: Colors.grey[800],
+                    color: theme.colorScheme.onSurface,
                   ),
                 ),
                 const SizedBox(height: 32),
@@ -143,7 +144,7 @@ Future<String?> showVoiceInputDialog(BuildContext context) async {
                       finalText.isNotEmpty ? finalText : partialText,
                       style: TextStyle(
                         fontSize: 15,
-                        color: Colors.grey[800],
+                        color: theme.colorScheme.onSurface,
                       ),
                       textAlign: TextAlign.center,
                       maxLines: 4,
@@ -151,13 +152,13 @@ Future<String?> showVoiceInputDialog(BuildContext context) async {
                     ),
                   )
                 else if (isListening)
-                  const _GoogleVoiceAnimatedDots()
+                  const _VoiceAnimatedDots()
                 else
                   Text(
                     context.t('voice.tap.to.start'),
                     style: TextStyle(
                       fontSize: 14,
-                      color: Colors.grey[600],
+                      color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
                     ),
                   ),
                 const SizedBox(height: 16),
@@ -172,16 +173,16 @@ Future<String?> showVoiceInputDialog(BuildContext context) async {
   return resultText;
 }
 
-/// Animated dots indicator for Google-style voice dialog (listening state)
-class _GoogleVoiceAnimatedDots extends StatefulWidget {
-  const _GoogleVoiceAnimatedDots();
+/// Animated dots indicator for the voice dialog (listening state)
+class _VoiceAnimatedDots extends StatefulWidget {
+  const _VoiceAnimatedDots();
 
   @override
-  State<_GoogleVoiceAnimatedDots> createState() =>
-      _GoogleVoiceAnimatedDotsState();
+  State<_VoiceAnimatedDots> createState() =>
+      _VoiceAnimatedDotsState();
 }
 
-class _GoogleVoiceAnimatedDotsState extends State<_GoogleVoiceAnimatedDots>
+class _VoiceAnimatedDotsState extends State<_VoiceAnimatedDots>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
 
@@ -225,7 +226,7 @@ class _GoogleVoiceAnimatedDotsState extends State<_GoogleVoiceAnimatedDots>
                       width: 8,
                       height: 8,
                       decoration: BoxDecoration(
-                        color: Colors.grey[700],
+                        color: Theme.of(context).colorScheme.onSurface,
                         shape: BoxShape.circle,
                       ),
                     ),
