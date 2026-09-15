@@ -1,402 +1,223 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
+
 import '../services/billing_service.dart';
-import '../services/remote_config_service.dart';
+import '../services/entitlement_store.dart';
+import '../services/free_usage.dart';
 import '../services/storage_service.dart';
 
+/// Single source of truth for "is this user Pro" and for the free tier's
+/// daily allowances.
+///
+/// Startup: the last verified entitlement is read from local storage so the
+/// UI is correct immediately, then StoreKit is asked for its current
+/// entitlements and the cache is replaced with whatever it reports. If a
+/// subscription has lapsed, StoreKit no longer lists it and Pro ends.
 class PremiumProvider with ChangeNotifier {
-  static const String _chatCountKey = 'dishgenie_chat_count';
-  static const String _aiChefMessageCountKey = 'dishgenie_ai_chef_message_count';
-  static const String _aiRecipeCountKey = 'dishgenie_ai_recipe_count';
-  static const String _scanCountKey = 'dishgenie_scan_count';
-  static const String _mealPlanCountKey = 'dishgenie_meal_plan_count';
-
-  bool _isPremium = false;
-  int _chatCount = 0;
-  int _maxFreeChats = 5;
-  int _aiChefMessageCount = 0;
-  int _aiRecipeCount = 0;
-  int _scanCount = 0;
-  int _mealPlanCount = 0;
-  bool _isInitialized = false;
-  final Completer<void> _initCompleter = Completer<void>();
-  StreamSubscription? _billingSubscription;
-
-  bool get isPremium => _isPremium || BillingService.hasPremiumEntitlement;
-  int get chatCount => _chatCount;
-  int get maxFreeChats => _maxFreeChats;
-  bool get canUseChat => _isPremium || _chatCount < _maxFreeChats;
-  int get aiChefMessageCount => _aiChefMessageCount;
-  int get aiRecipeCount => _aiRecipeCount;
-  int get scanCount => _scanCount;
-  int get mealPlanCount => _mealPlanCount;
-
-  PremiumProvider() {
-    _init();
-  }
-
-  /// Completes when billing restore and local premium state are ready.
-  Future<void> ensureInitialized() => _initCompleter.future;
-
-  /// Restore subscription on splash before ads/navigation (reinstall flow).
-  Future<bool> restoreSubscriptionForSplash({
-    Duration timeout = const Duration(seconds: 5),
-  }) async {
-    await ensureInitialized();
-    if (isPremium) return true;
-
-    await BillingService.restorePurchases();
-    final found = await BillingService.waitForPremiumEntitlement(
-      timeout: timeout,
-    );
-    if (found) {
-      await setPremium(true);
+  PremiumProvider({
+    bool autoInitialize = true,
+    DateTime Function()? clock,
+  }) : _clock = clock ?? DateTime.now,
+       _entitlements = EntitlementStore(clock: clock),
+       _usage = FreeUsage(clock: clock) {
+    if (autoInitialize) {
+      unawaited(_init());
+    } else {
+      _ready.complete();
     }
-    notifyListeners();
-    return isPremium;
   }
+
+  static const String entitlementCacheKey = 'recipe_keeper_entitlements';
+  static const String usageKey = 'recipe_keeper_free_usage';
+
+  final DateTime Function() _clock;
+  EntitlementStore _entitlements;
+  FreeUsage _usage;
+  StreamSubscription<PurchaseDetails>? _billingEvents;
+  final Completer<void> _ready = Completer<void>();
+  bool _verified = false;
+  bool _purchaseInProgress = false;
+  String? _lastPurchaseError;
+  DateTime? _lastVerification;
+
+  bool get isPro => _entitlements.isPro;
+  ProEntitlement? get activeEntitlement => _entitlements.activeEntitlement;
+
+  /// True once StoreKit has answered at least once this session.
+  bool get isVerified => _verified;
+  bool get purchaseInProgress => _purchaseInProgress;
+  String? get lastPurchaseError => _lastPurchaseError;
+
+  /// Completes when the cached state is loaded and the first StoreKit
+  /// verification has finished (or failed).
+  Future<void> get ready => _ready.future;
+
+  // ---------------------------------------------------------------- limits
+
+  int limitFor(FreeFeature feature) => _usage.limit(feature);
+  int usedToday(FreeFeature feature) => _usage.used(feature);
+  int remainingToday(FreeFeature feature) => _usage.remaining(feature);
+
+  /// Pro users are never limited.
+  bool canUse(FreeFeature feature) => isPro || _usage.canUse(feature);
+
+  /// Counts one use for free users. Returns false when the allowance is
+  /// exhausted. Pro users always get true and nothing is counted.
+  bool recordUse(FreeFeature feature) {
+    if (isPro) return true;
+    final ok = _usage.record(feature);
+    if (ok) {
+      unawaited(StorageService.setValue(usageKey, _usage.toJsonString()));
+      notifyListeners();
+    }
+    return ok;
+  }
+
+  // -------------------------------------------------------------- lifecycle
 
   Future<void> _init() async {
-    if (_isInitialized) {
-      if (!_initCompleter.isCompleted) _initCompleter.complete();
-      return;
-    }
-
     try {
-    await StorageService.initialize();
+      await StorageService.initialize();
+      final cachedEntitlements = await StorageService.getValue<String>(
+        PremiumProvider.entitlementCacheKey,
+        null,
+      );
+      final cachedUsage = await StorageService.getValue<String>(
+        PremiumProvider.usageKey,
+        null,
+      );
+      _entitlements = EntitlementStore.fromJsonString(
+        cachedEntitlements,
+        clock: _clock,
+      );
+      _usage = FreeUsage.fromJsonString(cachedUsage, clock: _clock);
+      notifyListeners();
 
-    // Load from storage
-    final savedPremium = await StorageService.getIsPremium();
-    final savedChatCount = await StorageService.getValue<int>(_chatCountKey, 0) ?? 0;
-    final savedAiChefMessageCount = await StorageService.getValue<int>(_aiChefMessageCountKey, 0) ?? 0;
-    final savedAiRecipeCount = await StorageService.getValue<int>(_aiRecipeCountKey, 0) ?? 0;
-    final savedScanCount = await StorageService.getValue<int>(_scanCountKey, 0) ?? 0;
-    final savedMealPlanCount = await StorageService.getValue<int>(_mealPlanCountKey, 0) ?? 0;
-    
-    // Get max free chats from remote config
-    await RemoteConfigService.initialize();
-    _maxFreeChats = Platform.isIOS
-        ? RemoteConfigService.maxFreeChatsIos
-        : RemoteConfigService.maxFreeChats;
-
-    _isPremium = savedPremium;
-    _chatCount = savedChatCount;
-    _aiChefMessageCount = savedAiChefMessageCount;
-    _aiRecipeCount = savedAiRecipeCount;
-    _scanCount = savedScanCount;
-    _mealPlanCount = savedMealPlanCount;
-
-    // Reflect stored entitlement immediately so premium UI hides before billing restore finishes.
-    notifyListeners();
-
-    // Initialize billing and check for active purchases
-    await _checkBillingStatus();
-
-    // Refresh subscription status on initialization to verify active subscriptions
-    await refreshSubscriptionStatus();
-
-    _isInitialized = true;
-    notifyListeners();
-    } finally {
-      if (!_initCompleter.isCompleted) {
-        _initCompleter.complete();
-      }
-    }
-  }
-
-  Future<void> _checkBillingStatus() async {
-    try {
       await BillingService.initialize();
-
-      // If BillingService already detected an entitlement (from restore stream),
-      // reflect it in local storage/provider state.
-      if (BillingService.hasPremiumEntitlement && !_isPremium) {
-        await setPremium(true);
-      }
-
-      // Listen for new purchases while the app is open.
-      _billingSubscription?.cancel();
-      _billingSubscription = BillingService.purchaseStream.listen((purchase) {
-        if (!BillingService.isPremiumProductId(purchase.productID)) return;
-
-        if (purchase.status == PurchaseStatus.purchased ||
-            purchase.status == PurchaseStatus.restored) {
-          setPremium(true);
-        }
-        notifyListeners();
-      });
+      _billingEvents ??= BillingService.events.listen(_onBillingEvent);
+      await refreshEntitlements();
     } catch (e) {
-      // Handle error
+      if (kDebugMode) debugPrint('[Premium] init failed: $e');
+    } finally {
+      if (!_ready.isCompleted) _ready.complete();
     }
   }
 
-  Future<void> setPremium(bool value) async {
-    if (_isPremium == value) return;
-    
-    _isPremium = value;
-    await StorageService.setIsPremium(value);
-    
-    if (value) {
-      // Reset chat count, AI chef message count, and AI recipe count when becoming premium
-      _chatCount = 0;
-      _aiChefMessageCount = 0;
-      _aiRecipeCount = 0;
-      _scanCount = 0;
-      _mealPlanCount = 0;
-      await StorageService.setValue(_chatCountKey, 0);
-      await StorageService.setValue(_aiChefMessageCountKey, 0);
-      await StorageService.setValue(_aiRecipeCountKey, 0);
-      await StorageService.setValue(_scanCountKey, 0);
-      await StorageService.setValue(_mealPlanCountKey, 0);
+  /// Ask StoreKit for its current entitlements and adopt the answer.
+  /// Keeps the cached state when StoreKit cannot be queried.
+  Future<void> refreshEntitlements() async {
+    final verified = await BillingService.verifyEntitlements();
+    if (verified != null) {
+      _entitlements.replaceWith(verified);
+      // Purchases completed in this session but not yet listed by StoreKit's
+      // entitlement enumeration (rare, right after buying) stay granted.
+      for (final e in BillingService.liveEntitlements.entitlements) {
+        _entitlements.grant(e.productId, expiresAt: e.expiresAt);
+      }
+      _verified = true;
+      _lastVerification = _clock();
+      await _persist();
     }
-    
     notifyListeners();
   }
 
-  /// Verify subscription with the store on app launch only.
-  Future<void> refreshSubscriptionStatus() async {
-    final active = await BillingService.checkSubscriptionStatus();
+  /// Cheap re-check when the app returns to the foreground (throttled).
+  Future<void> refreshIfStale({
+    Duration maxAge = const Duration(minutes: 15),
+  }) async {
+    final last = _lastVerification;
+    if (last != null && _clock().difference(last) < maxAge) return;
+    await refreshEntitlements();
+  }
 
-    if (active) {
-      if (!_isPremium) await setPremium(true);
-    } else if (_isPremium) {
-      await setPremium(false);
+  void _onBillingEvent(PurchaseDetails purchase) {
+    switch (purchase.status) {
+      case PurchaseStatus.purchased:
+        _entitlements.grant(
+          purchase.productID,
+          expiresAt: BillingService.expirationOf(purchase),
+        );
+        _purchaseInProgress = false;
+        _lastPurchaseError = null;
+        unawaited(_persist());
+        break;
+      case PurchaseStatus.restored:
+        // Restores outside an explicit verification also grant.
+        _entitlements.grant(
+          purchase.productID,
+          expiresAt: BillingService.expirationOf(purchase),
+        );
+        unawaited(_persist());
+        break;
+      case PurchaseStatus.error:
+        _purchaseInProgress = false;
+        _lastPurchaseError = purchase.error?.message ?? 'Purchase failed';
+        break;
+      case PurchaseStatus.canceled:
+        _purchaseInProgress = false;
+        _lastPurchaseError = null;
+        break;
+      case PurchaseStatus.pending:
+        _purchaseInProgress = true;
+        break;
     }
     notifyListeners();
+  }
+
+  /// Starts a purchase from the paywall.
+  Future<bool> purchase(ProductDetails product) async {
+    _lastPurchaseError = null;
+    _purchaseInProgress = true;
+    notifyListeners();
+    final started = await BillingService.purchase(product);
+    if (!started) {
+      _purchaseInProgress = false;
+      _lastPurchaseError = BillingService.lastError ?? 'Purchase failed';
+      notifyListeners();
+    }
+    return started;
+  }
+
+  /// "Restore Purchases" from the paywall or Settings. Returns true when a
+  /// Pro entitlement was found.
+  Future<bool> restorePurchases() async {
+    final restored = await BillingService.restorePurchases();
+    if (restored != null) {
+      _entitlements.replaceWith(restored);
+      _verified = true;
+      _lastVerification = _clock();
+      await _persist();
+    }
+    notifyListeners();
+    return isPro;
+  }
+
+  /// Used by tests and by billing-free environments to seed state.
+  @visibleForTesting
+  void applyVerifiedEntitlements(EntitlementStore store) {
+    _entitlements.replaceWith(store);
+    _verified = true;
+    notifyListeners();
+  }
+
+  @visibleForTesting
+  void grantForTest(String productId, {DateTime? expiresAt}) {
+    _entitlements.grant(productId, expiresAt: expiresAt);
+    notifyListeners();
+  }
+
+  Future<void> _persist() async {
+    await StorageService.setValue(
+      entitlementCacheKey,
+      _entitlements.toJsonString(),
+    );
   }
 
   @override
   void dispose() {
-    _billingSubscription?.cancel();
+    _billingEvents?.cancel();
     super.dispose();
-  }
-
-  bool incrementChatCount() {
-    if (_isPremium) {
-      // Premium users have unlimited chats
-      return true;
-    }
-
-    if (_chatCount >= _maxFreeChats) {
-      return false;
-    }
-
-    _chatCount++;
-    StorageService.setValue(_chatCountKey, _chatCount);
-    notifyListeners();
-    return true;
-  }
-
-  void resetChatCount() {
-    _chatCount = 0;
-    StorageService.setValue(_chatCountKey, 0);
-    notifyListeners();
-  }
-
-  /// Get AI Chat limit from remote config (sub_aichat / sub_aichat_ios).
-  /// null = unlimited, else the message limit.
-  int? getAiChatLimit() {
-    final config = (Platform.isIOS
-        ? RemoteConfigService.subAiChatIos
-        : RemoteConfigService.subAiChat)
-        .trim()
-        .toLowerCase();
-    if (config == 'off' || config.isEmpty) return null;
-    if (config == '0') return null;
-    final limit = int.tryParse(config);
-    return (limit != null && limit >= 1) ? limit : null;
-  }
-
-  /// Check if free user can send AI chef messages (sub_aichat: off/0=unlimited, else count limit).
-  bool canSendAiChefMessage() {
-    if (_isPremium) return true;
-    final limit = getAiChatLimit();
-    if (limit == null) return true; // 'off' or '0' = unlimited
-    return _aiChefMessageCount < limit;
-  }
-
-  /// Get the AI chef message limit (sub_aichat). null = unlimited.
-  int? getAiChefMessageLimit() => getAiChatLimit();
-
-  /// Increment AI chef message count for free users
-  /// Returns true if message can be sent, false if limit reached
-  bool incrementAiChefMessageCount() {
-    // Premium users have unlimited messages
-    if (_isPremium) {
-      return true;
-    }
-
-    // Check if user can send message
-    if (!canSendAiChefMessage()) {
-      return false;
-    }
-
-    // Increment count
-    _aiChefMessageCount++;
-    StorageService.setValue(_aiChefMessageCountKey, _aiChefMessageCount);
-    notifyListeners();
-    return true;
-  }
-
-  /// Reset AI chef message count
-  void resetAiChefMessageCount() {
-    _aiChefMessageCount = 0;
-    StorageService.setValue(_aiChefMessageCountKey, 0);
-    notifyListeners();
-  }
-
-  /// Get Start Cooking with AI Chef / Generate Recipe limit (sub_aichef). Separate from scan count.
-  /// null = unlimited, else the generation limit.
-  int? getAiChefRecipeLimit() {
-    final config = (Platform.isIOS
-        ? RemoteConfigService.subAiChefIos
-        : RemoteConfigService.subAiChef)
-        .trim()
-        .toLowerCase();
-    if (config == 'off' || config.isEmpty) return null;
-    if (config == '0') return null;
-    final limit = int.tryParse(config);
-    return (limit != null && limit >= 1) ? limit : null;
-  }
-
-  /// Check if free user can generate AI recipes via Generate Recipe btn (sub_aichef: off/0=unlimited).
-  bool canGenerateAiRecipe() {
-    if (_isPremium) return true;
-    final limit = getAiChefRecipeLimit();
-    if (limit == null) return true; // 'off' or '0' = unlimited
-    return _aiRecipeCount < limit;
-  }
-
-  /// Get the Generate Recipe limit (sub_aichef). null = unlimited. Separate from scan (sub_scancamera).
-  int? getAiRecipeLimit() => getAiChefRecipeLimit();
-
-  /// Increment Generate Recipe count (sub_aichef). Separate from scan count (sub_scancamera).
-  bool incrementAiRecipeCount() {
-    // Premium users have unlimited recipes
-    if (_isPremium) {
-      return true;
-    }
-
-    // Check if user can generate recipe
-    if (!canGenerateAiRecipe()) {
-      return false;
-    }
-
-    // Increment count
-    _aiRecipeCount++;
-    StorageService.setValue(_aiRecipeCountKey, _aiRecipeCount);
-    notifyListeners();
-    return true;
-  }
-
-  /// Reset AI recipe generation count
-  void resetAiRecipeCount() {
-    _aiRecipeCount = 0;
-    StorageService.setValue(_aiRecipeCountKey, 0);
-    notifyListeners();
-  }
-
-  /// Get scan limit from remote config (null = unlimited).
-  /// sub_scancamera / sub_scancamera_ios: 'off' or '0' = unlimited, '1'/'2'/'3' = limit.
-  int? getScannerLimit() {
-    final config = (Platform.isIOS
-        ? RemoteConfigService.subScanCameraIos
-        : RemoteConfigService.subScanCamera)
-        .trim()
-        .toLowerCase();
-    if (config == 'off' || config.isEmpty) return null;
-    if (config == '0') return null;
-    final limit = int.tryParse(config);
-    return (limit != null && limit >= 1 && limit <= 3) ? limit : null;
-  }
-
-  /// Check if user can use scanner (for returning non-premium users).
-  /// Premium and first-time users always allowed. Returning + non-premium: apply limit.
-  Future<bool> canUseScanner() async {
-    if (_isPremium) return true;
-
-    final isFirstLaunch = await StorageService.isFirstLaunch();
-    if (isFirstLaunch) return true; // New users: no limit
-
-    final limit = getScannerLimit();
-    if (limit == null) return true; // 'off' or '0' = unlimited
-    return _scanCount < limit;
-  }
-
-  /// Sync check for scanner access (uses sub_scancamera). Use inside scan screen.
-  /// Same logic as canUseScanner but sync; first-launch users have scanCount 0 so pass when under limit.
-  bool canUseScannerSync() {
-    if (_isPremium) return true;
-    final limit = getScannerLimit();
-    if (limit == null) return true; // 'off' or '0' = unlimited
-    return _scanCount < limit;
-  }
-
-  /// Increment scan count (call when user opens scanner). Returns true if incremented.
-  bool incrementScanCount() {
-    if (_isPremium) return true;
-
-    final limit = getScannerLimit();
-    if (limit == null) return true; // Unlimited, no need to track
-    if (_scanCount >= limit) return false;
-
-    _scanCount++;
-    StorageService.setValue(_scanCountKey, _scanCount);
-    notifyListeners();
-    return true;
-  }
-
-  /// Get meal plan limit from remote config (null = unlimited).
-  /// sub_mealplan / sub_mealplan_ios: 'off' or '0' = unlimited, '1'/'2'/etc = limit.
-  int? getMealPlanLimit() {
-    final config = (Platform.isIOS
-        ? RemoteConfigService.subMealPlanIos
-        : RemoteConfigService.subMealPlan)
-        .trim()
-        .toLowerCase();
-    if (config == 'off' || config.isEmpty) return null;
-    if (config == '0') return null;
-    final limit = int.tryParse(config);
-    return (limit != null && limit >= 1) ? limit : null;
-  }
-
-  /// Check if user can create a new AI meal plan.
-  bool canCreateMealPlan() {
-    if (_isPremium) return true;
-    final limit = getMealPlanLimit();
-    if (limit == null) return true; // 'off' or '0' = unlimited
-    return _mealPlanCount < limit;
-  }
-
-  /// Increment meal plan count (call after successfully creating a plan).
-  bool incrementMealPlanCount() {
-    if (_isPremium) return true;
-
-    final limit = getMealPlanLimit();
-    if (limit == null) return true; // Unlimited, no need to track
-    if (_mealPlanCount >= limit) return false;
-
-    _mealPlanCount++;
-    StorageService.setValue(_mealPlanCountKey, _mealPlanCount);
-    notifyListeners();
-    return true;
-  }
-
-  bool checkPremiumFeature(String feature) {
-    // Check if feature requires premium
-    switch (feature) {
-      case 'unlimited_chat':
-      case 'advanced_recipes':
-      case 'meal_planning':
-      case 'grocery_lists':
-      case 'ingredient_scanner':
-      case 'ad_free':
-        return _isPremium;
-      default:
-        return true; // Free features
-    }
   }
 }

@@ -13,9 +13,11 @@ import '../../data/models/nutrition.dart';
 import '../../data/models/recipe.dart';
 import '../../providers/meal_plan_provider.dart';
 import '../../providers/premium_provider.dart';
+import '../../services/free_usage.dart';
 import '../../widgets/common/floating_sparkles.dart';
 import '../../widgets/common/loading_genie.dart';
 import '../../widgets/common/sticky_header.dart';
+import '../../widgets/premium/pro_widgets.dart';
 
 class MealPlannerScreen extends StatefulWidget {
   const MealPlannerScreen({super.key});
@@ -115,9 +117,9 @@ class _MealPlannerScreenState extends State<MealPlannerScreen> {
   Future<void> _executePlanGeneration() async {
     if (!mounted) return;
 
-    // Check meal plan limit (sub_mealplan remote config)
+    // Free tier: one AI meal plan per day.
     final premiumProvider = context.read<PremiumProvider>();
-    if (!premiumProvider.canCreateMealPlan()) {
+    if (!premiumProvider.canUse(FreeFeature.mealPlan)) {
       ProNavigation.tryOpen(context, replace: false);
       return;
     }
@@ -137,7 +139,7 @@ class _MealPlannerScreenState extends State<MealPlannerScreen> {
       );
 
       if (plan != null && mounted) {
-        premiumProvider.incrementMealPlanCount();
+        premiumProvider.recordUse(FreeFeature.mealPlan);
         setState(() {
           _showForm = false;
           _selectedDayIndex = 0;
@@ -205,8 +207,6 @@ class _MealPlannerScreenState extends State<MealPlannerScreen> {
     final premiumProvider = context.watch<PremiumProvider>();
     final mealPlan = mealPlanProvider.currentMealPlan;
     final isLoading = mealPlanProvider.isLoading;
-    final mealPlanLimit = premiumProvider.getMealPlanLimit();
-    final mealPlanCount = premiumProvider.mealPlanCount;
 
     // If meal plan is loaded and we're still showing form, switch to plan view
     // This handles the case where meal plan loads after initState
@@ -244,34 +244,12 @@ class _MealPlannerScreenState extends State<MealPlannerScreen> {
                       Theme.of(context).brightness == Brightness.dark
                       ? const Color(0xFF1A1F35)
                       : AppColors.genieBlush,
-                  rightContent:
-                      !premiumProvider.isPremium && mealPlanLimit != null
-                      ? Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 10,
-                            vertical: 6,
-                          ),
-                          decoration: BoxDecoration(
-                            color: Theme.of(
-                              context,
-                            ).colorScheme.surface.withOpacity(0.9),
-                            borderRadius: BorderRadius.circular(12),
-                            border: Border.all(
-                              color: Theme.of(
-                                context,
-                              ).dividerColor.withOpacity(0.3),
-                            ),
-                          ),
-                          child: Text(
-                            '$mealPlanCount/$mealPlanLimit',
-                            style: TextStyle(
-                              fontSize: 13,
-                              fontWeight: FontWeight.w600,
-                              color: Theme.of(context).colorScheme.onSurface,
-                            ),
-                          ),
-                        )
-                      : null,
+                  rightContent: premiumProvider.isPro
+                      ? null
+                      : const FreeUsageChip(
+                          feature: FreeFeature.mealPlan,
+                          compact: true,
+                        ),
                 ),
                 Expanded(
                   child: isLoading
@@ -350,7 +328,7 @@ class _MealPlannerScreenState extends State<MealPlannerScreen> {
                                   fontSize: 12,
                                   color: Theme.of(
                                     context,
-                                  ).colorScheme.onSurface.withOpacity(0.6),
+                                  ).colorScheme.onSurface.withValues(alpha: 0.6),
                                 ),
                               ),
                               const SizedBox(height: 8),
@@ -436,7 +414,7 @@ class _MealPlannerScreenState extends State<MealPlannerScreen> {
                                   fontSize: 12,
                                   color: Theme.of(
                                     context,
-                                  ).colorScheme.onSurface.withOpacity(0.6),
+                                  ).colorScheme.onSurface.withValues(alpha: 0.6),
                                 ),
                               ),
                               const SizedBox(height: 8),
@@ -752,7 +730,7 @@ class _MealPlannerScreenState extends State<MealPlannerScreen> {
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: AppColors.primary.withOpacity(0.15),
+            color: AppColors.primary.withValues(alpha: 0.15),
             blurRadius: 24,
             spreadRadius: -4,
             offset: const Offset(0, 4),
@@ -796,7 +774,7 @@ class _MealPlannerScreenState extends State<MealPlannerScreen> {
           borderRadius: BorderRadius.circular(20),
           border: isSelected
               ? null
-              : Border.all(color: AppColors.border.withOpacity(0.8), width: 1),
+              : Border.all(color: AppColors.border.withValues(alpha: 0.8), width: 1),
         ),
         child: Text(
           '$label ${context.t('meal.planner.days')}',
@@ -823,7 +801,7 @@ class _MealPlannerScreenState extends State<MealPlannerScreen> {
           borderRadius: BorderRadius.circular(20),
           border: isSelected
               ? null
-              : Border.all(color: AppColors.border.withOpacity(0.8), width: 1),
+              : Border.all(color: AppColors.border.withValues(alpha: 0.8), width: 1),
         ),
         child: Text(
           label,
@@ -883,11 +861,11 @@ class _MealPlannerScreenState extends State<MealPlannerScreen> {
             margin: const EdgeInsets.symmetric(horizontal: 0, vertical: 8),
             padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
-              color: AppColors.genieLavender.withOpacity(0.2),
+              color: AppColors.genieLavender.withValues(alpha: 0.2),
               borderRadius: BorderRadius.circular(20),
               boxShadow: [
                 BoxShadow(
-                  color: AppColors.primary.withOpacity(0.15),
+                  color: AppColors.primary.withValues(alpha: 0.15),
                   blurRadius: 24,
                   spreadRadius: -4,
                   offset: const Offset(0, 4),
@@ -912,7 +890,7 @@ class _MealPlannerScreenState extends State<MealPlannerScreen> {
                       fontSize: 14,
                       color: Theme.of(
                         context,
-                      ).colorScheme.onSurface.withOpacity(0.7),
+                      ).colorScheme.onSurface.withValues(alpha: 0.7),
                     ),
                   )
                 else
@@ -922,7 +900,7 @@ class _MealPlannerScreenState extends State<MealPlannerScreen> {
                       fontSize: 14,
                       color: Theme.of(
                         context,
-                      ).colorScheme.onSurface.withOpacity(0.7),
+                      ).colorScheme.onSurface.withValues(alpha: 0.7),
                     ),
                   ),
                 const SizedBox(height: 12),
@@ -979,7 +957,7 @@ class _MealPlannerScreenState extends State<MealPlannerScreen> {
                     borderRadius: BorderRadius.circular(20),
                     boxShadow: [
                       BoxShadow(
-                        color: AppColors.primary.withOpacity(0.15),
+                        color: AppColors.primary.withValues(alpha: 0.15),
                         blurRadius: 24,
                         spreadRadius: -4,
                         offset: const Offset(0, 4),
@@ -1053,7 +1031,7 @@ class _MealPlannerScreenState extends State<MealPlannerScreen> {
                   borderRadius: BorderRadius.circular(20),
                   boxShadow: [
                     BoxShadow(
-                      color: AppColors.primary.withOpacity(0.15),
+                      color: AppColors.primary.withValues(alpha: 0.15),
                       blurRadius: 24,
                       spreadRadius: -4,
                       offset: const Offset(0, 4),
@@ -1117,7 +1095,7 @@ class _MealPlannerScreenState extends State<MealPlannerScreen> {
               borderRadius: BorderRadius.circular(20),
               boxShadow: [
                 BoxShadow(
-                  color: AppColors.primary.withOpacity(0.15),
+                  color: AppColors.primary.withValues(alpha: 0.15),
                   blurRadius: 24,
                   spreadRadius: -4,
                   offset: const Offset(0, 4),
@@ -1217,7 +1195,7 @@ class _MealPlannerScreenState extends State<MealPlannerScreen> {
               onPressed: () async {
                 // Check meal plan limit before allowing new plan form (sub_mealplan)
                 final premiumProvider = context.read<PremiumProvider>();
-                if (!premiumProvider.canCreateMealPlan()) {
+                if (!premiumProvider.canUse(FreeFeature.mealPlan)) {
                   ProNavigation.tryOpen(context, replace: false);
                   return;
                 }
@@ -1309,7 +1287,7 @@ class _MealPlannerScreenState extends State<MealPlannerScreen> {
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: AppColors.primary.withOpacity(0.15),
+            color: AppColors.primary.withValues(alpha: 0.15),
             blurRadius: 24,
             spreadRadius: -4,
             offset: const Offset(0, 4),
@@ -1337,7 +1315,7 @@ class _MealPlannerScreenState extends State<MealPlannerScreen> {
             Text(
               '—',
               style: TextStyle(
-                color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+                color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
               ),
             )
           else
@@ -1375,7 +1353,7 @@ class _MealPlannerScreenState extends State<MealPlannerScreen> {
                           fontWeight: FontWeight.w600,
                           color: Theme.of(
                             context,
-                          ).colorScheme.onSurface.withOpacity(0.65),
+                          ).colorScheme.onSurface.withValues(alpha: 0.65),
                         ),
                       ),
                     ],
@@ -1398,7 +1376,7 @@ class _MealPlannerScreenState extends State<MealPlannerScreen> {
         color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(20),
         border: Border.all(
-          color: AppColors.primary.withOpacity(0.55),
+          color: AppColors.primary.withValues(alpha: 0.55),
           width: 2,
         ),
       ),
@@ -1465,7 +1443,7 @@ class _MealPlannerScreenState extends State<MealPlannerScreen> {
           label,
           style: TextStyle(
             fontSize: 11,
-            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+            color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
           ),
         ),
       ],
@@ -1489,7 +1467,7 @@ class _MealPlannerScreenState extends State<MealPlannerScreen> {
         color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(20),
         border: Border.all(
-          color: AppColors.genieGold.withOpacity(0.55),
+          color: AppColors.genieGold.withValues(alpha: 0.55),
           width: 2,
         ),
       ),
@@ -1525,7 +1503,7 @@ class _MealPlannerScreenState extends State<MealPlannerScreen> {
                         height: 1.35,
                         color: Theme.of(
                           context,
-                        ).colorScheme.onSurface.withOpacity(0.85),
+                        ).colorScheme.onSurface.withValues(alpha: 0.85),
                       ),
                     ),
                   ),
@@ -1623,7 +1601,7 @@ class _MealPlannerScreenState extends State<MealPlannerScreen> {
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
-              color: AppColors.primary.withOpacity(0.15),
+              color: AppColors.primary.withValues(alpha: 0.15),
               blurRadius: 24,
               spreadRadius: -4,
               offset: const Offset(0, 4),
@@ -1669,7 +1647,7 @@ class _MealPlannerScreenState extends State<MealPlannerScreen> {
                     tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                     foregroundColor: Theme.of(
                       context,
-                    ).colorScheme.onSurface.withOpacity(0.6),
+                    ).colorScheme.onSurface.withValues(alpha: 0.6),
                   ),
                   icon: provider.swappingMealType == mealTypeKey
                       ? const SizedBox(
@@ -1682,7 +1660,7 @@ class _MealPlannerScreenState extends State<MealPlannerScreen> {
                           size: 18,
                           color: Theme.of(
                             context,
-                          ).colorScheme.onSurface.withOpacity(0.6),
+                          ).colorScheme.onSurface.withValues(alpha: 0.6),
                         ),
                   label: Text(
                     provider.swappingMealType == mealTypeKey
@@ -1692,7 +1670,7 @@ class _MealPlannerScreenState extends State<MealPlannerScreen> {
                       fontSize: 14,
                       color: Theme.of(
                         context,
-                      ).colorScheme.onSurface.withOpacity(0.6),
+                      ).colorScheme.onSurface.withValues(alpha: 0.6),
                     ),
                   ),
                 ),
@@ -1713,7 +1691,7 @@ class _MealPlannerScreenState extends State<MealPlannerScreen> {
                   fontSize: 14,
                   color: Theme.of(
                     context,
-                  ).colorScheme.onSurface.withOpacity(0.7),
+                  ).colorScheme.onSurface.withValues(alpha: 0.7),
                   height: 1.4,
                 ),
               ),

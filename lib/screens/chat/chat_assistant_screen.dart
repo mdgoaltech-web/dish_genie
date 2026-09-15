@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -8,14 +7,14 @@ import 'package:provider/provider.dart';
 
 import '../../core/dialogs/app_dialogs.dart';
 import '../../core/localization/l10n_extension.dart';
-import '../../services/ad_service.dart';
-import '../../services/remote_config_service.dart';
 import '../../core/navigation/pro_navigation.dart';
 import '../../core/theme/colors.dart';
 import '../../data/models/chat_message.dart';
 import '../../data/models/recipe.dart';
 import '../../providers/chat_provider.dart';
 import '../../providers/premium_provider.dart';
+import '../../services/free_usage.dart';
+import '../../widgets/premium/pro_widgets.dart';
 import '../../widgets/voice/voice_input_dialog.dart';
 import '../../widgets/chat/typewriter_text.dart';
 import '../../widgets/common/floating_sparkles.dart';
@@ -133,18 +132,9 @@ class _ChatAssistantScreenState extends State<ChatAssistantScreen> {
     final text = _messageController.text.trim();
     if (text.isEmpty) return;
 
-    // Check if user is premium (premium users don't see ads)
-    final premiumProvider = Provider.of<PremiumProvider>(
-      context,
-      listen: false,
-    );
-
-    // Check if free user can send AI chef messages based on remote config
-    if (!premiumProvider.isPremium) {
-      if (!premiumProvider.canSendAiChefMessage()) {
-        // Don't send message - input is disabled and limit message is shown
-        return;
-      }
+    if (!context.read<PremiumProvider>().canUse(FreeFeature.aiChat)) {
+      _showChatLimitSheet(context);
+      return;
     }
 
     _proceedWithMessage(text);
@@ -154,12 +144,7 @@ class _ChatAssistantScreenState extends State<ChatAssistantScreen> {
     if (!await ensureConnectedAndShowDialog(context)) return;
     _messageController.clear();
 
-    // Increment AI chef message count for free users
-    final premiumProvider = Provider.of<PremiumProvider>(
-      context,
-      listen: false,
-    );
-    premiumProvider.incrementAiChefMessageCount();
+    context.read<PremiumProvider>().recordUse(FreeFeature.aiChat);
 
     final provider = context.read<ChatProvider>();
     await provider.sendMessage(text);
@@ -193,58 +178,22 @@ class _ChatAssistantScreenState extends State<ChatAssistantScreen> {
     final recipe = widget.initialRecipe;
     if (recipe == null) return;
 
-    final premiumProvider = Provider.of<PremiumProvider>(
-      context,
-      listen: false,
-    );
-    if (!premiumProvider.isPremium && !premiumProvider.canSendAiChefMessage()) {
-      // User hit free limit — don't auto-send anything.
-      return;
-    }
+    if (!context.read<PremiumProvider>().canUse(FreeFeature.aiChat)) return;
 
     final prompt = _buildCookingPromptFromRecipe(context, recipe);
     _autoStartedFromRecipe = true;
     await _proceedWithMessage(prompt);
   }
 
-  Future<void> _showChatResetInterThenStartNewChat(
-    BuildContext context,
-    ChatProvider chatProvider,
-  ) async {
-    void doStartNewChat() {
-      if (!context.mounted) return;
-      chatProvider.startNewChat();
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(context.t('chat.new.chat')),
-          backgroundColor: AppColors.primary,
-        ),
-      );
-    }
-
-    try {
-      await RemoteConfigService.initialize();
-      await RemoteConfigService.fetchAndActivate();
-    } catch (_) {}
-
-    final shouldShowAd = Platform.isIOS
-        ? RemoteConfigService.chatResetInterIos
-        : RemoteConfigService.chatResetInter;
-
-    if (shouldShowAd && context.mounted) {
-      try {
-        await AdService.showInterstitialAdForType(
-          adType: 'chatReset',
-          context: context,
-          loadAdFunction: () => AdService.loadChatResetInterstitialAd(),
-          onAdDismissed: doStartNewChat,
-          onAdFailedToShow: (_) => doStartNewChat(),
-        );
-        return;
-      } catch (_) {}
-    }
-
-    doStartNewChat();
+  void _startNewChat(BuildContext context, ChatProvider chatProvider) {
+    if (!context.mounted) return;
+    chatProvider.startNewChat();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(context.t('chat.new.chat')),
+        backgroundColor: AppColors.primary,
+      ),
+    );
   }
 
   Future<void> _showVoiceInputDialog() async {
@@ -268,18 +217,8 @@ class _ChatAssistantScreenState extends State<ChatAssistantScreen> {
     final messages = chatProvider.messages;
     final isLoading = chatProvider.isLoading;
 
-    // Check if user can send AI chef messages
-    final canSendMessage =
-        premiumProvider.isPremium || premiumProvider.canSendAiChefMessage();
-    final aiChefLimit = premiumProvider.getAiChefMessageLimit();
-    final aiChefMessageCount = premiumProvider.aiChefMessageCount;
-
-    // Determine if limit banner should be shown (sub_aichat: off/0=unlimited)
-    // Show banner only when there is a limit AND user has reached it
-    final shouldShowLimitBanner =
-        !premiumProvider.isPremium &&
-        aiChefLimit != null &&
-        aiChefMessageCount >= aiChefLimit;
+    final canSendMessage = premiumProvider.canUse(FreeFeature.aiChat);
+    final shouldShowLimitBanner = !canSendMessage;
 
     // Scroll to bottom when new messages arrive (especially during streaming)
     if (messages.length != _previousMessageCount || isLoading) {
@@ -325,33 +264,10 @@ class _ChatAssistantScreenState extends State<ChatAssistantScreen> {
                     rightContent: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        // Message counter for free users (e.g. 2/5)
-                        if (!premiumProvider.isPremium &&
-                            aiChefLimit != null) ...[
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 10,
-                              vertical: 6,
-                            ),
-                            decoration: BoxDecoration(
-                              color: Theme.of(
-                                context,
-                              ).colorScheme.surface.withOpacity(0.9),
-                              borderRadius: BorderRadius.circular(12),
-                              border: Border.all(
-                                color: Theme.of(
-                                  context,
-                                ).dividerColor.withOpacity(0.3),
-                              ),
-                            ),
-                            child: Text(
-                              '$aiChefMessageCount/$aiChefLimit',
-                              style: TextStyle(
-                                fontSize: 13,
-                                fontWeight: FontWeight.w600,
-                                color: Theme.of(context).colorScheme.onSurface,
-                              ),
-                            ),
+                        if (!premiumProvider.isPro) ...[
+                          const FreeUsageChip(
+                            feature: FreeFeature.aiChat,
+                            compact: true,
                           ),
                           const SizedBox(width: 4),
                         ],
@@ -367,11 +283,11 @@ class _ChatAssistantScreenState extends State<ChatAssistantScreen> {
                                 ? null
                                 : Theme.of(
                                     context,
-                                  ).colorScheme.onSurface.withOpacity(0.4),
+                                  ).colorScheme.onSurface.withValues(alpha: 0.4),
                           ),
                           onPressed: () async {
                             if (!canSendMessage) {
-                              _showChatLimitSheet(context, aiChefLimit);
+                              _showChatLimitSheet(context);
                               return;
                             }
                             final confirmed = await showDialog<bool>(
@@ -398,7 +314,7 @@ class _ChatAssistantScreenState extends State<ChatAssistantScreen> {
                               ),
                             );
                             if (confirmed == true && mounted) {
-                              await _showChatResetInterThenStartNewChat(
+                              _startNewChat(
                                 context,
                                 chatProvider,
                               );
@@ -416,11 +332,7 @@ class _ChatAssistantScreenState extends State<ChatAssistantScreen> {
                   ),
                   // Limit Reached Message
                   if (shouldShowLimitBanner)
-                    _buildLimitReachedBanner(
-                      context,
-                      aiChefLimit,
-                      aiChefMessageCount,
-                    ),
+                    const LimitReachedBanner(feature: FreeFeature.aiChat),
                   // Input Area
                   Builder(
                     builder: (context) {
@@ -447,12 +359,12 @@ class _ChatAssistantScreenState extends State<ChatAssistantScreen> {
                               decoration: BoxDecoration(
                                 color: Theme.of(
                                   context,
-                                ).cardColor.withOpacity(0.7),
+                                ).cardColor.withValues(alpha: 0.7),
                                 borderRadius: BorderRadius.circular(16),
                                 border: Border.all(
                                   color: Theme.of(
                                     context,
-                                  ).dividerColor.withOpacity(0.2),
+                                  ).dividerColor.withValues(alpha: 0.2),
                                   width: 1,
                                 ),
                               ),
@@ -518,7 +430,7 @@ class _ChatAssistantScreenState extends State<ChatAssistantScreen> {
                                             color: Theme.of(context)
                                                 .colorScheme
                                                 .onSurface
-                                                .withOpacity(
+                                                .withValues(alpha: 
                                                   canSendMessage ? 0.5 : 0.3,
                                                 ),
                                             height: 3,
@@ -563,7 +475,7 @@ class _ChatAssistantScreenState extends State<ChatAssistantScreen> {
                                           color: Theme.of(context)
                                               .colorScheme
                                               .onSurface
-                                              .withOpacity(
+                                              .withValues(alpha: 
                                                 canSendMessage ? 1.0 : 0.5,
                                               ),
                                           fontSize: _getResponsiveFontSize(
@@ -652,7 +564,7 @@ class _ChatAssistantScreenState extends State<ChatAssistantScreen> {
           Text(
             context.t('chat.greeting.subtitle'),
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+              color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
               fontSize: _getResponsiveFontSize(context, 14),
             ),
             textAlign: TextAlign.center,
@@ -713,12 +625,12 @@ class _ChatAssistantScreenState extends State<ChatAssistantScreen> {
           color: Theme.of(context).cardColor,
           borderRadius: BorderRadius.circular(20),
           border: Border.all(
-            color: Theme.of(context).dividerColor.withOpacity(0.2),
+            color: Theme.of(context).dividerColor.withValues(alpha: 0.2),
             width: 1,
           ),
           boxShadow: [
             BoxShadow(
-              color: AppColors.primary.withOpacity(0.1),
+              color: AppColors.primary.withValues(alpha: 0.1),
               blurRadius: 8,
               offset: const Offset(0, 2),
             ),
@@ -833,14 +745,14 @@ class _ChatAssistantScreenState extends State<ChatAssistantScreen> {
                       : Border.all(
                           color: Theme.of(
                             context,
-                          ).dividerColor.withOpacity(0.8),
+                          ).dividerColor.withValues(alpha: 0.8),
                           width: 1,
                         ),
                   boxShadow: isUser
                       ? null
                       : [
                           BoxShadow(
-                            color: AppColors.primary.withOpacity(0.15),
+                            color: AppColors.primary.withValues(alpha: 0.15),
                             blurRadius: 24,
                             spreadRadius: -4,
                             offset: const Offset(0, 4),
@@ -904,6 +816,19 @@ class _ChatAssistantScreenState extends State<ChatAssistantScreen> {
               ),
             ),
           ),
+          if (!isStreaming)
+            IconButton(
+              key: ValueKey('message-actions-${message.id}'),
+              tooltip: context.t('chat.copy'),
+              icon: Icon(
+                Icons.more_horiz,
+                size: 18,
+                color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.5),
+              ),
+              padding: EdgeInsets.zero,
+              constraints: const BoxConstraints.tightFor(width: 28, height: 28),
+              onPressed: () => _showMessageActions(context, message),
+            ),
           if (isUser) ...[
             SizedBox(width: screenWidth < 360 ? 6 : 8),
             Container(
@@ -1032,12 +957,12 @@ class _ChatAssistantScreenState extends State<ChatAssistantScreen> {
                 20,
               ).copyWith(bottomLeft: const Radius.circular(4)),
               border: Border.all(
-                color: Theme.of(context).dividerColor.withOpacity(0.8),
+                color: Theme.of(context).dividerColor.withValues(alpha: 0.8),
                 width: 1,
               ),
               boxShadow: [
                 BoxShadow(
-                  color: AppColors.primary.withOpacity(0.15),
+                  color: AppColors.primary.withValues(alpha: 0.15),
                   blurRadius: 24,
                   spreadRadius: -4,
                   offset: const Offset(0, 4),
@@ -1073,178 +998,7 @@ class _ChatAssistantScreenState extends State<ChatAssistantScreen> {
     );
   }
 
-  Widget _buildLimitReachedBanner(
-    BuildContext context,
-    int? limit,
-    int messageCount,
-  ) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final horizontalMargin = screenWidth < 360 ? 12.0 : 16.0;
-    final padding = screenWidth < 360 ? 14.0 : 16.0;
-    final iconSize = _getResponsiveIconSize(context, 24);
-    final fontSize = _getResponsiveFontSize(context, 14);
-    final titleFontSize = _getResponsiveFontSize(context, 16);
-
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: horizontalMargin, vertical: 8),
-      padding: EdgeInsets.all(padding),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            AppColors.geniePurple.withOpacity(0.15),
-            AppColors.primary.withOpacity(0.1),
-          ],
-        ),
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(
-          color: AppColors.primary.withOpacity(0.3),
-          width: 1.5,
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.primary.withOpacity(0.2),
-            blurRadius: 20,
-            spreadRadius: -2,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  gradient: AppColors.gradientPrimary,
-                  borderRadius: BorderRadius.circular(12),
-                  boxShadow: [
-                    BoxShadow(
-                      color: AppColors.primary.withOpacity(0.3),
-                      blurRadius: 8,
-                      offset: const Offset(0, 2),
-                    ),
-                  ],
-                ),
-                child: Icon(
-                  Icons.workspace_premium,
-                  color: Colors.white,
-                  size: iconSize * 0.8,
-                ),
-              ),
-              SizedBox(width: screenWidth < 360 ? 10 : 12),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      context.t('chat.limit.reached'),
-                      style: TextStyle(
-                        fontSize: titleFontSize,
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.onSurface,
-                      ),
-                    ),
-                    if (limit != null) ...[
-                      SizedBox(height: 4),
-                      Text(
-                        context.t('chat.limit.reached.message', {
-                          'limit': limit.toString(),
-                        }),
-                        style: TextStyle(
-                          fontSize: fontSize,
-                          color: Theme.of(
-                            context,
-                          ).colorScheme.onSurface.withOpacity(0.7),
-                        ),
-                      ),
-                    ] else ...[
-                      SizedBox(height: 4),
-                      Text(
-                        context.t('chat.ai.chef.disabled'),
-                        style: TextStyle(
-                          fontSize: fontSize,
-                          color: Theme.of(
-                            context,
-                          ).colorScheme.onSurface.withOpacity(0.7),
-                        ),
-                      ),
-                    ],
-                  ],
-                ),
-              ),
-            ],
-          ),
-          SizedBox(height: screenWidth < 360 ? 12 : 14),
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: () {
-                // Always allow opening the upgrade screen from a hard paywall.
-                ProNavigation.tryOpen(
-                  context,
-                  replace: false,
-                  // source: 'chat_limit',
-                  // forceOpen: true,
-                );
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.transparent,
-                shadowColor: Colors.transparent,
-                padding: EdgeInsets.symmetric(
-                  vertical: screenWidth < 360 ? 10 : 12,
-                  horizontal: 16,
-                ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
-                ),
-              ).copyWith(elevation: WidgetStateProperty.all(0)),
-              child: Container(
-                decoration: BoxDecoration(
-                  gradient: AppColors.gradientPrimary,
-                  borderRadius: BorderRadius.circular(16),
-                  boxShadow: [
-                    BoxShadow(
-                      color: AppColors.primary.withOpacity(0.4),
-                      blurRadius: 12,
-                      offset: const Offset(0, 4),
-                    ),
-                  ],
-                ),
-                padding: EdgeInsets.symmetric(
-                  vertical: screenWidth < 360 ? 10 : 12,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.star_rounded,
-                      color: Colors.white,
-                      size: _getResponsiveIconSize(context, 18),
-                    ),
-                    SizedBox(width: 8),
-                    Text(
-                      context.t('common.upgrade'),
-                      style: TextStyle(
-                        fontSize: titleFontSize,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  void _showChatLimitSheet(BuildContext context, int? limit) {
+  void _showChatLimitSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
@@ -1269,13 +1023,12 @@ class _ChatAssistantScreenState extends State<ChatAssistantScreen> {
               ),
               const SizedBox(height: 8),
               Text(
-                limit != null
-                    ? ctx.t('chat.limit.reached.message', {
-                        'limit': limit.toString(),
-                      })
-                    : ctx.t('chat.ai.chef.disabled'),
+                ctx.t('free.limit.reached.message', {
+                  'limit': '${FreeLimits.aiChatMessagesPerDay}',
+                  'feature': ctx.t('free.feature.chat'),
+                }),
                 style: Theme.of(ctx).textTheme.bodyMedium?.copyWith(
-                  color: Theme.of(ctx).colorScheme.onSurface.withOpacity(0.7),
+                  color: Theme.of(ctx).colorScheme.onSurface.withValues(alpha: 0.7),
                 ),
                 textAlign: TextAlign.center,
               ),

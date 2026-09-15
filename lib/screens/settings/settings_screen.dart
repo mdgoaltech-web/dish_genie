@@ -1,156 +1,61 @@
-import 'dart:io';
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../config/app_store_config.dart';
+import '../../config/app_links.dart';
 import '../../core/localization/l10n_extension.dart';
 import '../../core/localization/language_config.dart';
+import '../../core/navigation/pro_navigation.dart';
 import '../../core/theme/colors.dart';
-import '../../providers/chat_provider.dart';
-import '../../providers/grocery_provider.dart';
 import '../../providers/language_provider.dart';
-import '../../providers/meal_plan_provider.dart';
 import '../../providers/premium_provider.dart';
 import '../../providers/theme_provider.dart';
-import '../../services/remote_config_service.dart';
-import '../../widgets/common/premium_card.dart';
+import '../../services/entitlement_store.dart';
 import '../../widgets/common/rtl_icon.dart';
 import '../../widgets/common/sticky_header.dart';
+import '../../widgets/premium/pro_widgets.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
+
+  static const Key upgradeKey = Key('settings-upgrade');
+  static const Key restoreKey = Key('settings-restore');
+  static const Key manageSubscriptionKey = Key('settings-manage-subscription');
 
   @override
   State<SettingsScreen> createState() => _SettingsScreenState();
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  // Kept for when "Clear all data" section is uncommented
-  // ignore: unused_element
-  Future<void> _clearAllData() async {
-    final confirmed = await showDialog<bool>(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text(context.t('settings.clear.data.confirm')),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(context.t('settings.clear.data.warning')),
-            const SizedBox(height: 12),
-            Text('• ${context.t('settings.saved.recipes')}'),
-            Text('• ${context.t('settings.meal.plans')}'),
-            Text('• ${context.t('settings.grocery.lists')}'),
-            Text('• ${context.t('settings.chat.history')}'),
-            Text('• ${context.t('settings.preferences.settings')}'),
-            const SizedBox(height: 12),
-            Text(
-              context.t('settings.cannot.undo'),
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: AppColors.destructive,
-              ),
-            ),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context, false),
-            child: Text(context.t('common.cancel')),
-          ),
-          ElevatedButton(
-            onPressed: () => Navigator.pop(context, true),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.destructive,
-              foregroundColor: Colors.white,
-            ),
-            child: Text(context.t('common.delete')),
-          ),
-        ],
+  bool _restoring = false;
+
+  void _snack(String message, {bool error = false}) {
+    if (!mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        backgroundColor: error ? AppColors.destructive : AppColors.primary,
       ),
     );
-
-    if (confirmed == true) {
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.clear();
-      await Provider.of<MealPlanProvider>(
-        context,
-        listen: false,
-      ).clearMealPlan();
-      await Provider.of<GroceryProvider>(context, listen: false).clearList();
-      Provider.of<ChatProvider>(context, listen: false).clearMessages();
-
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(context.t('settings.data.cleared')),
-            backgroundColor: AppColors.primary,
-          ),
-        );
-      }
-    }
   }
 
-  /// Open email app directly with feedback address (like web app).
-  /// No dialog - just launches mailto:support@dishgenie.app.
+  /// Opens the mail app with the support address pre-filled.
   Future<void> _openFeedbackEmail() async {
-    const email = 'support@dishgenie.app';
-    const subject = 'Smart Chef Feedback';
-    // Use %20 for spaces so Gmail shows "Smart Chef Feedback" instead of "Smart Chef+Feedback"
     final emailUri = Uri.parse(
-      'mailto:$email?subject=${Uri.encodeComponent(subject)}',
+      'mailto:${AppLinks.supportEmail}?subject=${Uri.encodeComponent('Recipe Keeper feedback')}',
     );
-
     try {
-      // Try externalApplication first (opens default email client)
-      final launched = await launchUrl(
-        emailUri,
-        mode: LaunchMode.externalApplication,
-      );
-      if (launched && mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(context.t('settings.feedback.sent')),
-            backgroundColor: AppColors.primary,
-          ),
-        );
+      if (await launchUrl(emailUri, mode: LaunchMode.externalApplication)) {
         return;
       }
     } catch (_) {}
-
-    // Fallback: try without explicit mode (platform default)
-    try {
-      if (await canLaunchUrl(emailUri)) {
-        await launchUrl(emailUri);
-        if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(context.t('settings.feedback.sent')),
-              backgroundColor: AppColors.primary,
-            ),
-          );
-        }
-        return;
-      }
-    } catch (_) {}
-
-    if (mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            'Email app not available. Please send feedback to $email',
-          ),
-          backgroundColor: AppColors.destructive,
-        ),
-      );
-    }
+    _snack(
+      '${context.t('settings.feedback')}: ${AppLinks.supportEmail}',
+      error: true,
+    );
   }
 
   void _showHelpDialog() {
@@ -163,29 +68,21 @@ class _SettingsScreenState extends State<SettingsScreen> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildFAQItem(
-                context,
-                context.t('settings.faq1.q'),
-                context.t('settings.faq1.a'),
-              ),
-              const SizedBox(height: 16),
-              _buildFAQItem(
-                context,
-                context.t('settings.faq2.q'),
-                context.t('settings.faq2.a'),
-              ),
-              const SizedBox(height: 16),
-              _buildFAQItem(
-                context,
-                context.t('settings.faq3.q'),
-                context.t('settings.faq3.a'),
-              ),
-              const SizedBox(height: 16),
-              _buildFAQItem(
-                context,
-                context.t('settings.faq4.q'),
-                context.t('settings.faq4.a'),
-              ),
+              for (final i in [1, 2, 3, 4]) ...[
+                Text(
+                  context.t('settings.faq$i.q'),
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  context.t('settings.faq$i.a'),
+                  style: TextStyle(fontSize: 12, color: Colors.grey[600]),
+                ),
+                if (i != 4) const SizedBox(height: 16),
+              ],
             ],
           ),
         ),
@@ -199,120 +96,40 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
-  Widget _buildFAQItem(BuildContext context, String question, String answer) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          question,
-          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-        ),
-        const SizedBox(height: 4),
-        Text(answer, style: TextStyle(fontSize: 12, color: Colors.grey[600])),
-      ],
-    );
-  }
-
   Future<void> _shareApp() async {
     try {
       final size = MediaQuery.of(context).size;
-      // Use platform-specific store link: Play Store on Android, App Store on iOS
-      final appLink = Platform.isAndroid
-          ? 'https://play.google.com/store/apps/details?id=com.dishgenie.recipeapp'
-          : (AppStoreConfig.appStoreUrl ??
-                'https://apps.apple.com/search?term=Dish+Genie+AI');
       await Share.share(
-        'Check out Smart Chef AI - Your magical kitchen assistant! $appLink',
-        subject: 'Smart Chef AI',
+        'Recipe Keeper: AI meal ideas from the ingredients you already have. ${AppLinks.appStoreUrl}',
+        subject: 'Recipe Keeper',
         sharePositionOrigin: Rect.fromLTWH(0, 0, size.width, size.height),
       );
     } catch (e) {
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(
-              context.t('commonErrorMessage', {'error': e.toString()}),
-            ),
-            backgroundColor: AppColors.destructive,
-          ),
-        );
-      }
+      _snack(context.t('commonErrorMessage', {'error': e.toString()}),
+          error: true);
     }
   }
 
   Future<void> _launchURL(String url) async {
     final uri = Uri.parse(url);
-    if (await canLaunchUrl(uri)) {
-      await launchUrl(uri, mode: LaunchMode.externalApplication);
-    } else {
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(context.t('commonCouldNotOpenUrl', {'url': url})),
-            backgroundColor: AppColors.destructive,
-          ),
-        );
-      }
-    }
+    try {
+      if (await launchUrl(uri, mode: LaunchMode.externalApplication)) return;
+    } catch (_) {}
+    _snack(context.t('commonCouldNotOpenUrl', {'url': url}), error: true);
   }
 
-  Future<void> _rateApp() async {
-    try {
-      String url;
-      if (Platform.isAndroid) {
-        // Try to open Play Store directly
-        url = 'market://details?id=com.dishgenie.recipeapp';
-        final uri = Uri.parse(url);
-        if (await canLaunchUrl(uri)) {
-          await launchUrl(uri, mode: LaunchMode.externalApplication);
-          return;
-        }
-        // Fallback to web URL if market:// doesn't work
-        url =
-            'https://play.google.com/store/apps/details?id=com.dishgenie.recipeapp';
-      } else if (Platform.isIOS) {
-        // Use direct App Store link if appStoreId is set in AppStoreConfig
-        url =
-            AppStoreConfig.appStoreUrl ??
-            'https://apps.apple.com/search?term=Dish+Genie+AI';
-      } else {
-        // For other platforms, show a message
-        if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text('Rating is only available on mobile devices'),
-              backgroundColor: AppColors.destructive,
-            ),
-          );
-        }
-        return;
-      }
-
-      final uri = Uri.parse(url);
-      if (await canLaunchUrl(uri)) {
-        await launchUrl(uri, mode: LaunchMode.externalApplication);
-      } else {
-        if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(context.t('commonCouldNotOpenUrl', {'url': url})),
-              backgroundColor: AppColors.destructive,
-            ),
-          );
-        }
-      }
-    } catch (e) {
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(
-              context.t('commonErrorMessage', {'error': e.toString()}),
-            ),
-            backgroundColor: AppColors.destructive,
-          ),
-        );
-      }
-    }
+  Future<void> _restorePurchases() async {
+    if (_restoring) return;
+    setState(() => _restoring = true);
+    final found = await context.read<PremiumProvider>().restorePurchases();
+    if (!mounted) return;
+    setState(() => _restoring = false);
+    _snack(
+      found
+          ? context.t('premium.purchases.restored')
+          : context.t('paywall.nothing.to.restore'),
+      error: !found,
+    );
   }
 
   Future<void> _showRateUsDialog() async {
@@ -323,49 +140,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
       builder: (ctx) {
         final theme = Theme.of(ctx);
         final isDark = theme.brightness == Brightness.dark;
-
         const gradientA = Color(0xFF40CFB2);
         const gradientB = Color(0xFF57A2F3);
-        const textBody = Color(0xFF3E484D);
-        const maybeLaterColor = Color(0xFF6E797D);
         const starOn = Color(0xFFFFC107);
         const starOff = Color(0xFFD6D6D6);
-
-        TextStyle titleStyle() => GoogleFonts.plusJakartaSans(
-          fontSize: 20,
-          fontWeight: FontWeight.w600,
-          color: Colors.white,
-          height: 1.1,
-        );
-        TextStyle subtitleStyle() => GoogleFonts.plusJakartaSans(
-          fontSize: 12.5,
-          fontWeight: FontWeight.w400,
-          color: Colors.white.withOpacity(0.95),
-          height: 1.2,
-        );
-        TextStyle bodyStyle() => GoogleFonts.plusJakartaSans(
-          fontSize: 13,
-          fontWeight: FontWeight.w400,
-          color: textBody,
-          height: 1.25,
-        );
 
         Future<void> handlePrimary(int currentRating) async {
           Navigator.of(ctx).pop();
           if (currentRating <= 3) {
-            if (kDebugMode) {
-              debugPrint(
-                '[Settings] Rate dialog -> feedback rating=$currentRating',
-              );
-            }
             await _openFeedbackEmail();
           } else {
-            if (kDebugMode) {
-              debugPrint(
-                '[Settings] Rate dialog -> store rating=$currentRating',
-              );
-            }
-            await _rateApp();
+            await _launchURL(AppLinks.appStoreUrl);
           }
         }
 
@@ -375,22 +160,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ? ctx.t('rate.dialog.feedback')
                 : ctx.t('rate.dialog.rate.now');
             final screenW = MediaQuery.sizeOf(ctx).width;
-            final dialogInsetH = screenW < 360 ? 12.0 : 24.0;
             final starIconSize = screenW < 340 ? 30.0 : 38.0;
-            final starSplash = starIconSize * 0.55;
 
             return Dialog(
-              insetPadding: EdgeInsets.symmetric(
-                horizontal: dialogInsetH,
+              insetPadding: const EdgeInsets.symmetric(
+                horizontal: 24,
                 vertical: 24,
               ),
               backgroundColor: Colors.transparent,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(22),
                 child: ConstrainedBox(
-                  constraints: BoxConstraints(
-                    maxWidth: (screenW - dialogInsetH * 2).clamp(0.0, 420),
-                  ),
+                  constraints: const BoxConstraints(maxWidth: 420),
                   child: Container(
                     color: isDark ? theme.cardColor : Colors.white,
                     child: Column(
@@ -402,39 +183,34 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           padding: const EdgeInsets.fromLTRB(16, 18, 16, 18),
                           decoration: const BoxDecoration(
                             gradient: LinearGradient(
-                              begin: Alignment.centerLeft,
-                              end: Alignment.centerRight,
                               colors: [gradientA, gradientB],
                             ),
                           ),
                           child: Column(
                             children: [
-                              Container(
-                                width: 44,
-                                height: 44,
-                                decoration: BoxDecoration(
-                                  color: Colors.white.withOpacity(0.18),
-                                  shape: BoxShape.circle,
-                                ),
-                                child: const Center(
-                                  child: Icon(
-                                    Icons.restaurant,
-                                    color: Colors.white,
-                                    size: 22,
-                                  ),
-                                ),
+                              const Icon(
+                                Icons.restaurant,
+                                color: Colors.white,
+                                size: 28,
                               ),
                               const SizedBox(height: 10),
                               Text(
                                 ctx.t('rate.dialog.title'),
-                                style: titleStyle(),
                                 textAlign: TextAlign.center,
+                                style: const TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.white,
+                                ),
                               ),
                               const SizedBox(height: 6),
                               Text(
                                 ctx.t('rate.dialog.subtitle'),
-                                style: subtitleStyle(),
                                 textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 12.5,
+                                  color: Colors.white.withValues(alpha: 0.95),
+                                ),
                               ),
                             ],
                           ),
@@ -443,99 +219,60 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           padding: const EdgeInsets.fromLTRB(18, 18, 18, 10),
                           child: Column(
                             children: [
-                              Center(
-                                child: FittedBox(
-                                  fit: BoxFit.scaleDown,
-                                  alignment: Alignment.center,
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: List.generate(5, (i) {
-                                      final idx = i + 1;
-                                      final active = idx <= rating;
-                                      return IconButton(
-                                        onPressed: () =>
-                                            setLocal(() => rating = idx),
-                                        splashRadius: starSplash,
-                                        constraints: BoxConstraints.tightFor(
-                                          width: starIconSize + 18,
-                                          height: starIconSize + 18,
-                                        ),
-                                        padding: EdgeInsets.zero,
-                                        icon: Icon(
-                                          active
-                                              ? Icons.star
-                                              : Icons.star_border,
-                                          color: active ? starOn : starOff,
-                                          size: starIconSize,
-                                        ),
-                                      );
-                                    }),
-                                  ),
+                              FittedBox(
+                                fit: BoxFit.scaleDown,
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: List.generate(5, (i) {
+                                    final idx = i + 1;
+                                    final active = idx <= rating;
+                                    return IconButton(
+                                      onPressed: () =>
+                                          setLocal(() => rating = idx),
+                                      icon: Icon(
+                                        active ? Icons.star : Icons.star_border,
+                                        color: active ? starOn : starOff,
+                                        size: starIconSize,
+                                      ),
+                                    );
+                                  }),
                                 ),
                               ),
                               const SizedBox(height: 6),
                               Text(
                                 ctx.t('rate.dialog.body'),
-                                style: bodyStyle(),
                                 textAlign: TextAlign.center,
+                                style: const TextStyle(
+                                  fontSize: 13,
+                                  color: Color(0xFF3E484D),
+                                ),
                               ),
                               const SizedBox(height: 16),
                               SizedBox(
                                 width: double.infinity,
                                 height: 48,
-                                child: DecoratedBox(
-                                  decoration: const BoxDecoration(
-                                    gradient: LinearGradient(
-                                      begin: Alignment.centerLeft,
-                                      end: Alignment.centerRight,
-                                      colors: [gradientA, gradientB],
-                                    ),
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(28),
+                                child: ElevatedButton(
+                                  onPressed: () => handlePrimary(rating),
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: gradientB,
+                                    foregroundColor: Colors.white,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(28),
                                     ),
                                   ),
-                                  child: ElevatedButton(
-                                    onPressed: () => handlePrimary(rating),
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.transparent,
-                                      shadowColor: Colors.transparent,
-                                      padding: const EdgeInsets.symmetric(
-                                        horizontal: 10,
-                                        vertical: 8,
-                                      ),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(28),
-                                      ),
-                                    ),
-                                    child: FittedBox(
-                                      fit: BoxFit.scaleDown,
-                                      child: Text(
-                                        primaryText,
-                                        maxLines: 2,
-                                        textAlign: TextAlign.center,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: GoogleFonts.plusJakartaSans(
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.w600,
-                                          color: Colors.white,
-                                        ),
-                                      ),
+                                  child: Text(
+                                    primaryText,
+                                    textAlign: TextAlign.center,
+                                    style: const TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w600,
                                     ),
                                   ),
                                 ),
                               ),
-                              const SizedBox(height: 10),
                               TextButton(
                                 onPressed: () => Navigator.of(ctx).pop(),
-                                child: Text(
-                                  ctx.t('rate.dialog.maybe.later'),
-                                  style: GoogleFonts.plusJakartaSans(
-                                    fontSize: 13.5,
-                                    fontWeight: FontWeight.w500,
-                                    color: maybeLaterColor,
-                                  ),
-                                ),
+                                child: Text(ctx.t('rate.dialog.maybe.later')),
                               ),
                             ],
                           ),
@@ -552,8 +289,22 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
+  String _planName(BuildContext context, ProEntitlement e) {
+    switch (e.productId) {
+      case ProProducts.weekly:
+        return context.t('premium.plan.weekly');
+      case ProProducts.yearly:
+        return context.t('premium.plan.yearly');
+      default:
+        return context.t('premium.plan.lifetime');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final premium = context.watch<PremiumProvider>();
+    final active = premium.activeEntitlement;
+
     return Scaffold(
       body: Stack(
         children: [
@@ -583,241 +334,174 @@ class _SettingsScreenState extends State<SettingsScreen> {
               Expanded(
                 child: ListView(
                   padding: EdgeInsets.only(
-                    left: 0,
-                    right: 0,
                     top: 12,
                     bottom: 12 + MediaQuery.of(context).padding.bottom,
                   ),
                   children: [
-                    // Premium Card (only if remote config enables it and user is not premium)
-                    if (!context.watch<PremiumProvider>().isPremium &&
-                        (Platform.isIOS
-                            ? RemoteConfigService.subCardIos
-                            : RemoteConfigService.subCard)) ...[
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        child: const PremiumCard(),
+                    _section(context.t('settings.pro.section')),
+                    if (!premium.isPro)
+                      _item(
+                        key: SettingsScreen.upgradeKey,
+                        icon: Icons.workspace_premium,
+                        title: context.t('settings.upgrade'),
+                        subtitle: context.t('settings.upgrade.subtitle'),
+                        rightElement: const ProBadge(),
+                        onTap: () => ProNavigation.tryOpen(context),
+                      )
+                    else
+                      _item(
+                        icon: Icons.verified,
+                        title: context.t('settings.pro.active'),
+                        subtitle: active == null
+                            ? null
+                            : [
+                                context.t('settings.pro.active.subtitle', {
+                                  'plan': _planName(context, active),
+                                }),
+                                if (active.expiresAt != null)
+                                  context.t('settings.pro.expires', {
+                                    'date': DateFormat.yMMMd(
+                                      Localizations.localeOf(
+                                        context,
+                                      ).toString(),
+                                    ).format(active.expiresAt!),
+                                  }),
+                              ].join('\n'),
+                        rightElement: const ProBadge(),
                       ),
-                      const SizedBox(height: 8),
-                    ],
-                    // Favorites / Favourite (navigate to saved items screen)
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: _buildSettingsItem(
-                        context,
-                        icon: Icons.favorite_border,
-                        title: context.t('common.favorites'),
-                        subtitle: context.t('favorites.subtitle'),
-                        onTap: () => context.push('/favorites'),
+                    _gap(),
+                    _item(
+                      key: SettingsScreen.restoreKey,
+                      icon: Icons.restore,
+                      title: context.t('premium.restore.purchases'),
+                      subtitle: context.t('settings.restore.purchases.subtitle'),
+                      rightElement: _restoring
+                          ? const SizedBox(
+                              width: 18,
+                              height: 18,
+                              child: CircularProgressIndicator(strokeWidth: 2),
+                            )
+                          : null,
+                      onTap: _restorePurchases,
+                    ),
+                    _gap(),
+                    _item(
+                      key: SettingsScreen.manageSubscriptionKey,
+                      icon: Icons.autorenew,
+                      title: context.t('settings.manage.subscription'),
+                      subtitle: context.t(
+                        'settings.manage.subscription.subtitle',
                       ),
+                      onTap: () => _launchURL(AppLinks.manageSubscriptionsUrl),
+                    ),
+                    const SizedBox(height: 16),
+                    _item(
+                      icon: Icons.favorite_border,
+                      title: context.t('common.favorites'),
+                      subtitle: context.t('favorites.subtitle'),
+                      onTap: () => context.push('/favorites'),
                     ),
                     const SizedBox(height: 12),
-                    // Language Section (first)
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: _buildSectionHeader(
-                        context,
-                        context.t('settings.language'),
-                      ),
-                    ),
-                    const SizedBox(height: 6),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: Consumer<LanguageProvider>(
-                        builder: (context, languageProvider, _) {
-                          final currentLanguageCode =
-                              languageProvider.locale.languageCode;
-                          final currentLanguage =
-                              LanguageConfig.getLanguageByCode(
-                                currentLanguageCode,
-                              );
-                          final languageName =
-                              currentLanguage?.name ?? 'English';
-
-                          return _buildSettingsItem(
-                            context,
-                            icon: Icons.language,
-                            title: context.t('settings.language'),
-                            subtitle: languageName,
-                            onTap: () => context.push('/language-picker'),
-                          );
-                        },
-                      ),
+                    _section(context.t('settings.language')),
+                    Consumer<LanguageProvider>(
+                      builder: (context, languageProvider, _) {
+                        final code = languageProvider.locale.languageCode;
+                        final name =
+                            LanguageConfig.getLanguageByCode(code)?.name ??
+                            'English';
+                        return _item(
+                          icon: Icons.language,
+                          title: context.t('settings.language'),
+                          subtitle: name,
+                          onTap: () => context.push('/language-picker'),
+                        );
+                      },
                     ),
                     const SizedBox(height: 16),
-                    // Appearance Section (second)
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: _buildSectionHeader(
-                        context,
-                        context.t('settingsAppearance'),
-                      ),
-                    ),
-                    const SizedBox(height: 6),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: Consumer<ThemeProvider>(
-                        builder: (context, themeProvider, _) {
-                          return Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              _buildThemeOptionCard(
-                                context,
-                                themeMode: ThemeMode.light,
-                                label: context.t('settingsThemeLight'),
-                                icon: Icons.light_mode,
-                                isSelected:
-                                    themeProvider.themeMode == ThemeMode.light,
+                    _section(context.t('settingsAppearance')),
+                    Consumer<ThemeProvider>(
+                      builder: (context, themeProvider, _) {
+                        return Column(
+                          children: [
+                            for (final entry in {
+                              ThemeMode.light: (
+                                context.t('settingsThemeLight'),
+                                Icons.light_mode,
+                              ),
+                              ThemeMode.dark: (
+                                context.t('settingsThemeDark'),
+                                Icons.dark_mode,
+                              ),
+                              ThemeMode.system: (
+                                context.t('settingsThemeSystem'),
+                                Icons.brightness_auto,
+                              ),
+                            }.entries) ...[
+                              _themeOption(
+                                label: entry.value.$1,
+                                icon: entry.value.$2,
+                                isSelected: themeProvider.themeMode == entry.key,
                                 onTap: () =>
-                                    themeProvider.setThemeMode(ThemeMode.light),
+                                    themeProvider.setThemeMode(entry.key),
                               ),
                               const SizedBox(height: 8),
-                              _buildThemeOptionCard(
-                                context,
-                                themeMode: ThemeMode.dark,
-                                label: context.t('settingsThemeDark'),
-                                icon: Icons.dark_mode,
-                                isSelected:
-                                    themeProvider.themeMode == ThemeMode.dark,
-                                onTap: () =>
-                                    themeProvider.setThemeMode(ThemeMode.dark),
-                              ),
-                              const SizedBox(height: 8),
-                              _buildThemeOptionCard(
-                                context,
-                                themeMode: ThemeMode.system,
-                                label: context.t('settingsThemeSystem'),
-                                icon: Icons.brightness_auto,
-                                isSelected:
-                                    themeProvider.themeMode == ThemeMode.system,
-                                onTap: () => themeProvider.setThemeMode(
-                                  ThemeMode.system,
-                                ),
-                              ),
                             ],
-                          );
-                        },
-                      ),
+                          ],
+                        );
+                      },
+                    ),
+                    const SizedBox(height: 8),
+                    _section(context.t('settings.support')),
+                    _item(
+                      icon: Icons.feedback,
+                      title: context.t('settings.feedback'),
+                      subtitle: context.t('settings.feedback.subtitle'),
+                      onTap: _openFeedbackEmail,
+                    ),
+                    _gap(),
+                    _item(
+                      icon: Icons.star,
+                      title: context.t('settings.rate.us'),
+                      subtitle: context.t('settings.rate.us.subtitle'),
+                      onTap: _showRateUsDialog,
+                    ),
+                    _gap(),
+                    _item(
+                      icon: Icons.share,
+                      title: context.t('settings.share.app'),
+                      subtitle: context.t('settings.share.app.subtitle'),
+                      onTap: _shareApp,
+                    ),
+                    _gap(),
+                    _item(
+                      icon: Icons.help_outline,
+                      title: context.t('settings.help.support'),
+                      subtitle: context.t('settings.help.support.subtitle'),
+                      onTap: _showHelpDialog,
                     ),
                     const SizedBox(height: 16),
-                    // Support Section
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: _buildSectionHeader(
-                        context,
-                        context.t('settings.support'),
-                      ),
+                    _section(context.t('settings.legal')),
+                    _item(
+                      icon: Icons.privacy_tip,
+                      title: context.t('settings.privacy.policy'),
+                      onTap: () => _launchURL(AppLinks.privacyPolicyUrl),
                     ),
-                    const SizedBox(height: 6),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: _buildSettingsItem(
-                        context,
-                        icon: Icons.feedback,
-                        title: context.t('settings.feedback'),
-                        subtitle: context.t('settings.feedback.subtitle'),
-                        onTap: _openFeedbackEmail,
-                      ),
+                    _gap(),
+                    _item(
+                      icon: Icons.description,
+                      title: context.t('premium.terms.of.use'),
+                      onTap: () => _launchURL(AppLinks.termsOfUseUrl),
                     ),
-                    const SizedBox(height: 6),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: _buildSettingsItem(
-                        context,
-                        icon: Icons.star,
-                        title: context.t('settings.rate.us'),
-                        subtitle: context.t('settings.rate.us.subtitle'),
-                        onTap: _showRateUsDialog,
-                      ),
-                    ),
-                    const SizedBox(height: 6),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: _buildSettingsItem(
-                        context,
-                        icon: Icons.share,
-                        title: context.t('settings.share.app'),
-                        subtitle: context.t('settings.share.app.subtitle'),
-                        onTap: _shareApp,
-                      ),
-                    ),
-                    const SizedBox(height: 6),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: _buildSettingsItem(
-                        context,
-                        icon: Icons.help_outline,
-                        title: context.t('settings.help.support'),
-                        subtitle: context.t('settings.help.support.subtitle'),
-                        onTap: _showHelpDialog,
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-                    // Legal Section
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: _buildSectionHeader(
-                        context,
-                        context.t('settings.legal'),
-                      ),
-                    ),
-                    const SizedBox(height: 6),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: _buildSettingsItem(
-                        context,
-                        icon: Icons.privacy_tip,
-                        title: context.t('settings.privacy.policy'),
-                        onTap: () => _launchURL(
-                          'https://sites.google.com/view/dodishgenie/home',
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 6),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: _buildSettingsItem(
-                        context,
-                        icon: Icons.description,
-                        title: context.t('settings.terms.conditions'),
-                        onTap: () => _launchURL(
-                          'https://sites.google.com/view/dodishgenieterms/home',
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-                    // Clear all data section - commented out for now
-                    // Padding(
-                    //   padding: const EdgeInsets.symmetric(horizontal: 16),
-                    //   child: _buildSectionHeader(
-                    //     context,
-                    //     context.t('settings.data'),
-                    //   ),
-                    // ),
-                    // const SizedBox(height: 6),
-                    // Padding(
-                    //   padding: const EdgeInsets.symmetric(horizontal: 16),
-                    //   child: _buildSettingsItem(
-                    //     context,
-                    //     icon: Icons.delete_forever,
-                    //     title: context.t('settings.clear.all.data'),
-                    //     subtitle: context.t('settings.clear.data.subtitle'),
-                    //     onTap: _clearAllData,
-                    //     isDestructive: true,
-                    //   ),
-                    // ),
-                    // const SizedBox(height: 16),
-                    // App Version
                     Center(
                       child: Padding(
                         padding: const EdgeInsets.all(16),
                         child: Text(
-                          '${context.t('common.version')} 1.0.0',
+                          '${context.t('common.version')} ${AppLinks.version}',
                           style: TextStyle(
                             fontSize: 10,
                             color: Theme.of(
                               context,
-                            ).colorScheme.onSurface.withOpacity(0.6),
+                            ).colorScheme.onSurface.withValues(alpha: 0.6),
                           ),
                         ),
                       ),
@@ -832,185 +516,161 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
-  Widget _buildSectionHeader(BuildContext context, String title) {
+  Widget _gap() => const SizedBox(height: 6);
+
+  Widget _section(String title) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 6),
+      padding: const EdgeInsets.fromLTRB(20, 6, 20, 12),
       child: Text(
         title.toUpperCase(),
         style: TextStyle(
           fontSize: 10,
           fontWeight: FontWeight.w600,
-          color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+          color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
           letterSpacing: 0.5,
         ),
       ),
     );
   }
 
-  Widget _buildThemeOptionCard(
-    BuildContext context, {
-    required ThemeMode themeMode,
+  BoxDecoration _cardDecoration() {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    return BoxDecoration(
+      color: Theme.of(context).cardColor,
+      borderRadius: BorderRadius.circular(12),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.black.withValues(alpha: isDark ? 0.3 : 0.05),
+          blurRadius: 10,
+          offset: const Offset(0, 2),
+        ),
+      ],
+    );
+  }
+
+  Widget _themeOption({
     required String label,
     required IconData icon,
     required bool isSelected,
     required VoidCallback onTap,
   }) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-    return Material(
-      color: Colors.transparent,
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(12),
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-          decoration: BoxDecoration(
-            color: Theme.of(context).cardColor,
-            borderRadius: BorderRadius.circular(12),
-            boxShadow: [
-              BoxShadow(
-                color: isDark
-                    ? Colors.black.withOpacity(0.3)
-                    : Colors.black.withOpacity(0.05),
-                blurRadius: 10,
-                offset: const Offset(0, 2),
-              ),
-            ],
-          ),
-          child: Row(
-            textDirection: Directionality.of(context),
-            children: [
-              Container(
-                width: 32,
-                height: 32,
-                decoration: BoxDecoration(
-                  color: AppColors.muted.withOpacity(0.5),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Icon(
-                  icon,
-                  size: 18,
-                  color: Theme.of(
-                    context,
-                  ).colorScheme.onSurface.withOpacity(0.7),
-                ),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Text(
-                  label,
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    color: Theme.of(context).colorScheme.onSurface,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(12),
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+            decoration: _cardDecoration(),
+            child: Row(
+              children: [
+                _iconBox(icon),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Text(
+                    label,
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      color: Theme.of(context).colorScheme.onSurface,
+                    ),
                   ),
-                  textDirection: Directionality.of(context),
                 ),
-              ),
-              Checkbox(
-                value: isSelected,
-                onChanged: (_) => onTap(),
-                activeColor: AppColors.primary,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(4),
+                Checkbox(
+                  value: isSelected,
+                  onChanged: (_) => onTap(),
+                  activeColor: AppColors.primary,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(4),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
     );
   }
 
-  Widget _buildSettingsItem(
-    BuildContext context, {
+  Widget _iconBox(IconData icon) {
+    return Container(
+      width: 32,
+      height: 32,
+      decoration: BoxDecoration(
+        color: AppColors.muted.withValues(alpha: 0.5),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Icon(
+        icon,
+        size: 16,
+        color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
+      ),
+    );
+  }
+
+  Widget _item({
+    Key? key,
     required IconData icon,
     required String title,
     String? subtitle,
     VoidCallback? onTap,
     Widget? rightElement,
-    bool isDestructive = false,
   }) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-    return Material(
-      color: Colors.transparent,
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(12),
-        child: Container(
-          padding: const EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color: Theme.of(context).cardColor,
-            borderRadius: BorderRadius.circular(12),
-            boxShadow: [
-              BoxShadow(
-                color: isDark
-                    ? Colors.black.withOpacity(0.3)
-                    : Colors.black.withOpacity(0.05),
-                blurRadius: 10,
-                offset: const Offset(0, 2),
-              ),
-            ],
-          ),
-          child: Row(
-            textDirection: Directionality.of(context),
-            children: [
-              Container(
-                width: 32,
-                height: 32,
-                decoration: BoxDecoration(
-                  color: AppColors.muted.withOpacity(0.5),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Icon(
-                  icon,
-                  size: 16,
-                  color: isDestructive
-                      ? Theme.of(context).colorScheme.error
-                      : Theme.of(
-                          context,
-                        ).colorScheme.onSurface.withOpacity(0.6),
-                ),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      title,
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                        color: isDestructive
-                            ? Theme.of(context).colorScheme.error
-                            : Theme.of(context).colorScheme.onSurface,
-                      ),
-                      textDirection: Directionality.of(context),
-                    ),
-                    if (subtitle != null) ...[
-                      const SizedBox(height: 2),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          key: key,
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(12),
+          child: Container(
+            padding: const EdgeInsets.all(12),
+            decoration: _cardDecoration(),
+            child: Row(
+              children: [
+                _iconBox(icon),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
                       Text(
-                        subtitle,
+                        title,
                         style: TextStyle(
-                          fontSize: 11,
-                          color: Theme.of(
-                            context,
-                          ).colorScheme.onSurface.withOpacity(0.6),
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                          color: Theme.of(context).colorScheme.onSurface,
                         ),
-                        textDirection: Directionality.of(context),
                       ),
+                      if (subtitle != null) ...[
+                        const SizedBox(height: 2),
+                        Text(
+                          subtitle,
+                          style: TextStyle(
+                            fontSize: 11,
+                            color: Theme.of(
+                              context,
+                            ).colorScheme.onSurface.withValues(alpha: 0.6),
+                          ),
+                        ),
+                      ],
                     ],
-                  ],
-                ),
-              ),
-              rightElement ??
-                  RtlChevronRight(
-                    size: 20,
-                    color: Theme.of(
-                      context,
-                    ).colorScheme.onSurface.withOpacity(0.6),
                   ),
-            ],
+                ),
+                rightElement ??
+                    (onTap == null
+                        ? const SizedBox.shrink()
+                        : RtlChevronRight(
+                            size: 20,
+                            color: Theme.of(
+                              context,
+                            ).colorScheme.onSurface.withValues(alpha: 0.6),
+                          )),
+              ],
+            ),
           ),
         ),
       ),

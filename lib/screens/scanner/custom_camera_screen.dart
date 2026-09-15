@@ -7,6 +7,7 @@ import '../../core/localization/l10n_extension.dart';
 import '../../core/navigation/pro_navigation.dart';
 import '../../core/theme/colors.dart';
 import '../../providers/premium_provider.dart';
+import '../../services/free_usage.dart';
 import 'package:provider/provider.dart';
 
 /// Simple custom camera screen:
@@ -66,7 +67,7 @@ class _CustomCameraScreenState extends State<CustomCameraScreen> {
 
   Future<void> _ensureScannerAccess() async {
     final premiumProvider = context.read<PremiumProvider>();
-    if (!premiumProvider.canUseScannerSync()) {
+    if (!premiumProvider.canUse(FreeFeature.scan)) {
       ProNavigation.tryOpen(context, replace: false);
       throw Exception('scanner_limit');
     }
@@ -207,8 +208,8 @@ class _CustomCameraScreenState extends State<CustomCameraScreen> {
               padding: const EdgeInsets.fromLTRB(24, 16, 24, 24),
               decoration: BoxDecoration(
                 color: isDark
-                    ? Colors.black.withOpacity(0.6)
-                    : Colors.black.withOpacity(0.75),
+                    ? Colors.black.withValues(alpha: 0.6)
+                    : Colors.black.withValues(alpha: 0.75),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

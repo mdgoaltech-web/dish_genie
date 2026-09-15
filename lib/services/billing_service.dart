@@ -1,497 +1,269 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
-import 'package:in_app_purchase_android/billing_client_wrappers.dart';
-import 'package:in_app_purchase_android/in_app_purchase_android.dart';
 import 'package:in_app_purchase_storekit/in_app_purchase_storekit.dart';
+import 'package:in_app_purchase_storekit/store_kit_2_wrappers.dart';
 import 'package:in_app_purchase_storekit/store_kit_wrappers.dart';
 
-/// In-app subscription (weekly). Product ID in code must match Play Console exactly.
+import 'entitlement_store.dart';
+
+/// Thin StoreKit wrapper around `in_app_purchase`.
 ///
-/// If subscription doesn't work, check:
-/// 1. Play Console → Your app → Monetize → Subscriptions: create a subscription with
-///    product ID exactly "weekly_sub" (no extra characters).
-/// 2. Upload the app to at least Internal testing (Setup → App integrity). Products
-///    often don't load for draft-only or unsigned debug builds.
-/// 3. Activate the subscription (not Draft) and wait a few hours if just created.
-/// 4. On device: use a Google account that is a License tester (Setup → License testing)
-///    or install the app from the Internal testing track.
-/// 5. App package name must match: com.dishgenie.recipeapp
+/// Responsibilities:
+///  * load the three Pro products and expose their store prices;
+///  * start purchases;
+///  * listen to the purchase stream and translate verified transactions into
+///    [EntitlementStore] grants;
+///  * re-verify the entitlement from StoreKit's current entitlements on
+///    demand ([verifyEntitlements]) and on explicit "Restore Purchases".
+///
+/// No receipt is sent to any server. StoreKit 2 only reports transactions it
+/// has verified itself, and `restorePurchases` enumerates
+/// `Transaction.currentEntitlements`, which excludes expired subscriptions.
 class BillingService {
+  BillingService._();
+
   static final InAppPurchase _iap = InAppPurchase.instance;
   static StreamSubscription<List<PurchaseDetails>>? _subscription;
-  static bool _isAvailable = false;
-  static bool _isInitialized = false;
-  static bool _hasPremiumEntitlement = false;
-
-  // Android — Google Play Console product IDs.
-  static const String weeklySubscriptionIdAndroid = 'weekly_sub';
-  static const String yearlySubscriptionIdAndroid = 'yearly_sub';
-  static const String lifetimeSubscriptionIdAndroid = 'lifetime_premium';
-
-  // iOS — App Store Connect product IDs (hardcoded; not from Remote Config).
-  static const String weeklySubscriptionIdIos = 'weekly_sub_chef';
-  static const String yearlySubscriptionIdIos = 'yearly_sub_chef';
-  static const String lifetimeSubscriptionIdIos = 'lifetime_purchase_chef';
-
-  /// Active weekly product ID for the current platform.
-  static String get weeklySubscriptionId =>
-      Platform.isIOS ? weeklySubscriptionIdIos : weeklySubscriptionIdAndroid;
-
-  /// Active yearly product ID for the current platform.
-  static String get yearlySubscriptionId =>
-      Platform.isIOS ? yearlySubscriptionIdIos : yearlySubscriptionIdAndroid;
-
-  /// Active lifetime product ID for the current platform.
-  static String get lifetimeSubscriptionId => Platform.isIOS
-      ? lifetimeSubscriptionIdIos
-      : lifetimeSubscriptionIdAndroid;
-
-  static List<String> get _productIds => [
-    weeklySubscriptionId,
-    yearlySubscriptionId,
-    lifetimeSubscriptionId,
-  ];
-
-  static const Set<String> _allPremiumProductIds = {
-    weeklySubscriptionIdAndroid,
-    yearlySubscriptionIdAndroid,
-    lifetimeSubscriptionIdAndroid,
-    weeklySubscriptionIdIos,
-    yearlySubscriptionIdIos,
-    lifetimeSubscriptionIdIos,
-  };
-
-  static List<ProductDetails> _products = [];
-  static final StreamController<PurchaseDetails> _purchaseController =
-      StreamController<PurchaseDetails>.broadcast();
-  static final StreamController<String?> _errorController =
-      StreamController<String?>.broadcast();
-
-  static Stream<PurchaseDetails> get purchaseStream =>
-      _purchaseController.stream;
-  static Stream<String?> get errorStream => _errorController.stream;
-  static List<ProductDetails> get products => _products;
-  static bool get isAvailable => _isAvailable;
-  static bool get hasPremiumEntitlement => _hasPremiumEntitlement;
-  static bool get isLoadingProducts => _isLoadingProducts;
-  static bool isPremiumProductId(String productId) =>
-      _allPremiumProductIds.contains(productId);
-
-  static bool _isLoadingProducts = false;
+  static bool _initialized = false;
+  static bool _available = false;
+  static List<ProductDetails> _products = const [];
   static String? _lastError;
-  static bool _isVerifyingSubscription = false;
 
-  /// True while [verifyActiveSubscription] is waiting on the purchase stream.
-  static bool get isVerifyingSubscription => _isVerifyingSubscription;
+  /// Entitlements granted by events observed while the app runs (purchases
+  /// and restores). Merged into the provider's store.
+  static final EntitlementStore _live = EntitlementStore();
+
+  /// Collects restore events during [verifyEntitlements].
+  static EntitlementStore? _verifying;
+
+  static final StreamController<PurchaseDetails> _events =
+      StreamController<PurchaseDetails>.broadcast();
+
+  /// Every purchase-stream event for Pro products, after entitlement
+  /// bookkeeping has been applied.
+  static Stream<PurchaseDetails> get events => _events.stream;
+
+  static bool get isAvailable => _available;
+  static bool get isInitialized => _initialized;
+  static List<ProductDetails> get products => _products;
+  static String? get lastError => _lastError;
+  static EntitlementStore get liveEntitlements => _live;
+
+  static ProductDetails? product(String id) {
+    for (final p in _products) {
+      if (p.id == id) return p;
+    }
+    return null;
+  }
 
   static Future<void> initialize() async {
-    if (_isInitialized) return;
-
-    _isAvailable = await _iap.isAvailable();
-
-    if (kDebugMode) {
-      if (!_isAvailable) {
-        print(
-          '[BillingService] In-App Purchase not available (device/Play Services). Install from Play or use Internal testing build.',
-        );
-      } else {
-        print('[BillingService] IAP available, loading products...');
-      }
-    }
-
-    // Listen to purchase updates
-    _subscription = _iap.purchaseStream.listen(
-      (purchases) {
-        for (var purchase in purchases) {
-          _handlePurchaseUpdate(purchase);
-        }
-      },
-      onDone: () {
-        _subscription?.cancel();
-      },
-      onError: (error) {
-        if (kDebugMode) {
-          print('Purchase stream error: $error');
-        }
-      },
-    );
-
-    // Load products
-    await loadProducts();
-
-    _isInitialized = true;
-  }
-
-  static Future<bool> loadProducts({bool retry = false}) async {
-    if (!_isAvailable) {
-      _lastError = 'In-App Purchase is not available on this device';
-      _errorController.add(_lastError);
-      return false;
-    }
-
-    if (_isLoadingProducts && !retry) {
-      return false; // Already loading
-    }
-
-    _isLoadingProducts = true;
-    _lastError = null;
-    _errorController.add(null);
-
+    if (_initialized) return;
+    _initialized = true;
     try {
-      final productDetailsResponse = await _iap.queryProductDetails(
-        _productIds.toSet(),
+      _available = await _iap.isAvailable();
+      _subscription ??= _iap.purchaseStream.listen(
+        (purchases) {
+          for (final p in purchases) {
+            _handle(p);
+          }
+        },
+        onError: (Object error) {
+          _lastError = error.toString();
+        },
       );
-
-      if (kDebugMode) {
-        final notFound = productDetailsResponse.notFoundIDs;
-        if (notFound.isNotEmpty) {
-          print(
-            '[BillingService] ⚠️ Product IDs NOT FOUND in Play Console: $notFound',
-          );
-          print(
-            '[BillingService] → Create a subscription with ID exactly: $weeklySubscriptionId',
-          );
-        }
-      }
-
-      if (productDetailsResponse.error != null) {
-        final err = productDetailsResponse.error!;
-        final errorMessage = err.message.isNotEmpty
-            ? err.message
-            : 'Failed to load subscription plans';
-        _lastError = errorMessage;
-        _errorController.add(_lastError);
-
-        if (kDebugMode) {
-          print(
-            '[BillingService] Error: code=${err.code} message=${err.message} details=${err.details}',
-          );
-        }
-        _isLoadingProducts = false;
-        return false;
-      }
-
-      _products = productDetailsResponse.productDetails;
-
-      if (_products.isEmpty) {
-        _lastError =
-            'No subscription found. In Play Console use product ID "$weeklySubscriptionId" and upload app to Internal testing.';
-        _errorController.add(_lastError);
-        if (kDebugMode) {
-          print(
-            '[BillingService] No products for IDs: $_productIds; notFoundIDs: ${productDetailsResponse.notFoundIDs}',
-          );
-        }
-        _isLoadingProducts = false;
-        return false;
-      }
-
-      if (kDebugMode) {
-        print(
-          '[BillingService] Successfully loaded ${_products.length} product(s)',
-        );
-        for (var product in _products) {
-          print(
-            '[BillingService] Product: ${product.id} - ${product.title} - ${product.price}',
-          );
-        }
-      }
-
-      // Restore previous purchases
-      await _restorePurchases();
-
-      _isLoadingProducts = false;
-      return true;
     } catch (e) {
-      final errorMessage = 'Failed to load subscription plans: ${e.toString()}';
-      _lastError = errorMessage;
-      _errorController.add(_lastError);
-
-      if (kDebugMode) {
-        print('[BillingService] Exception loading products: $e');
-      }
-      _isLoadingProducts = false;
-      return false;
+      // No StoreKit (e.g. unit tests): the app keeps working as free tier.
+      _available = false;
+      _lastError = e.toString();
+    }
+    if (_available) {
+      await loadProducts();
     }
   }
 
-  static Future<void> _restorePurchases() async {
-    await _iap.restorePurchases();
-  }
-
-  static Future<void> restorePurchases() async {
-    await _restorePurchases();
-  }
-
-  /// Waits for the purchase stream to set [hasPremiumEntitlement] after restore.
-  static Future<bool> waitForPremiumEntitlement({
-    Duration timeout = const Duration(seconds: 5),
-    Duration pollInterval = const Duration(milliseconds: 100),
-  }) async {
-    if (_hasPremiumEntitlement) return true;
-    if (!_isAvailable) return false;
-
-    final deadline = DateTime.now().add(timeout);
-    while (DateTime.now().isBefore(deadline)) {
-      if (_hasPremiumEntitlement) return true;
-      await Future.delayed(pollInterval);
-    }
-    return _hasPremiumEntitlement;
-  }
-
-  static Future<bool> purchaseProduct(ProductDetails product) async {
-    if (!_isAvailable) {
-      _lastError = 'In-App Purchase is not available on this device';
-      _errorController.add(_lastError);
-      if (kDebugMode) {
-        print('[BillingService] In-App Purchase not available');
-      }
-      return false;
-    }
-
+  static Future<bool> loadProducts() async {
+    if (!_available) return false;
     try {
-      final purchaseParam = PurchaseParam(productDetails: product);
-
-      // For subscriptions, the in_app_purchase package uses buyNonConsumable
-      // The actual subscription type is determined by how the product is configured
-      // in Google Play Console (for Android) or App Store Connect (for iOS)
-      // Subscriptions must be configured as subscription products in the store
-      if (isPremiumProductId(product.id)) {
-        await _iap.buyNonConsumable(purchaseParam: purchaseParam);
-      } else {
-        await _iap.buyConsumable(purchaseParam: purchaseParam);
+      final response = await _iap.queryProductDetails(ProProducts.all);
+      if (response.error != null) {
+        _lastError = response.error!.message;
       }
-
-      if (kDebugMode) {
-        print('[BillingService] Purchase initiated for: ${product.id}');
+      _products = response.productDetails;
+      if (kDebugMode && response.notFoundIDs.isNotEmpty) {
+        debugPrint('[Billing] products not found: ${response.notFoundIDs}');
       }
-      return true;
+      return _products.isNotEmpty;
     } catch (e) {
-      final errorMessage = 'Failed to initiate purchase: ${e.toString()}';
-      _lastError = errorMessage;
-      _errorController.add(_lastError);
-
-      if (kDebugMode) {
-        print('[BillingService] Purchase error: $e');
-      }
+      _lastError = e.toString();
       return false;
     }
   }
 
-  static void _handlePurchaseUpdate(PurchaseDetails purchase) {
+  /// Starts a StoreKit purchase. Returns false if the sheet could not be
+  /// presented; the outcome arrives on [events].
+  static Future<bool> purchase(ProductDetails product) async {
+    if (!_available) {
+      _lastError = 'In-App Purchase is not available on this device.';
+      return false;
+    }
+    try {
+      _lastError = null;
+      final param = PurchaseParam(productDetails: product);
+      // Subscriptions and the non-consumable lifetime unlock both go through
+      // buyNonConsumable; StoreKit decides the product type.
+      return await _iap.buyNonConsumable(purchaseParam: param);
+    } catch (e) {
+      _lastError = e.toString();
+      return false;
+    }
+  }
+
+  /// Re-reads StoreKit's current entitlements. Returns a store containing
+  /// only what StoreKit reports right now, or null when StoreKit could not
+  /// be queried (caller should then keep its cached state).
+  static Future<EntitlementStore?> verifyEntitlements({
+    Duration timeout = const Duration(seconds: 6),
+  }) async {
+    if (!_initialized) await initialize();
+    if (!_available) return null;
+    final collector = EntitlementStore();
+    _verifying = collector;
+    try {
+      await _iap.restorePurchases().timeout(timeout);
+      // Transactions are delivered on the purchase stream slightly after the
+      // restore call returns; give them a moment to land.
+      await Future<void>.delayed(const Duration(milliseconds: 600));
+      return collector;
+    } catch (e) {
+      _lastError = e.toString();
+      return null;
+    } finally {
+      if (identical(_verifying, collector)) _verifying = null;
+    }
+  }
+
+  /// User-initiated "Restore Purchases". Syncs with the App Store (may ask
+  /// the user to sign in) and then re-verifies.
+  static Future<EntitlementStore?> restorePurchases() async {
+    if (!_initialized) await initialize();
+    if (!_available) return null;
+    try {
+      await InAppPurchaseStoreKitPlatformAddition().sync();
+    } catch (e) {
+      // sync() is best effort; verification below still works offline.
+      if (kDebugMode) debugPrint('[Billing] sync failed: $e');
+    }
+    return verifyEntitlements();
+  }
+
+  static void _handle(PurchaseDetails purchase) {
+    final id = purchase.productID;
+    if (!ProProducts.isPro(id)) {
+      _finishIfNeeded(purchase);
+      return;
+    }
     switch (purchase.status) {
-      case PurchaseStatus.pending:
-        if (kDebugMode) {
-          print('Purchase pending: ${purchase.productID}');
-        }
-        _purchaseController.add(purchase);
-        break;
       case PurchaseStatus.purchased:
-        if (kDebugMode) {
-          print('Purchase successful: ${purchase.productID}');
-        }
-        if (isPremiumProductId(purchase.productID) && _isPurchaseActive(purchase)) {
-          // Grant entitlement immediately so splash/ads can react before async verify.
-          _hasPremiumEntitlement = true;
-          _verifyPurchase(purchase).then((isValid) {
-            if (!isValid) _hasPremiumEntitlement = false;
-          });
-        }
-        _purchaseController.add(purchase);
+        _live.grant(id, expiresAt: expirationOf(purchase));
         break;
       case PurchaseStatus.restored:
-        if (kDebugMode) {
-          print('Purchase restored: ${purchase.productID}');
+        final expires = expirationOf(purchase);
+        final target = _verifying;
+        if (target != null) {
+          target.grant(id, expiresAt: expires);
+        } else {
+          _live.grant(id, expiresAt: expires);
         }
-        if (isPremiumProductId(purchase.productID) && _isPurchaseActive(purchase)) {
-          // Grant entitlement immediately so reinstall restore works on splash.
-          _hasPremiumEntitlement = true;
-          _verifyPurchase(purchase).then((isValid) {
-            if (!isValid) _hasPremiumEntitlement = false;
-          });
-        }
-        _purchaseController.add(purchase);
         break;
       case PurchaseStatus.error:
-        if (kDebugMode) {
-          print('Purchase error: ${purchase.error}');
-        }
-        if (isPremiumProductId(purchase.productID) && !_isVerifyingSubscription) {
-          _hasPremiumEntitlement = false;
-        }
-        _purchaseController.add(purchase);
+        _lastError = purchase.error?.message;
         break;
+      case PurchaseStatus.pending:
       case PurchaseStatus.canceled:
-        if (kDebugMode) {
-          print('Purchase canceled: ${purchase.productID}');
-        }
-        if (isPremiumProductId(purchase.productID) && !_isVerifyingSubscription) {
-          _hasPremiumEntitlement = false;
-        }
-        _purchaseController.add(purchase);
         break;
     }
+    _finishIfNeeded(purchase);
+    _events.add(purchase);
+  }
 
-    // Complete the purchase if it's not pending
+  static void _finishIfNeeded(PurchaseDetails purchase) {
     if (purchase.pendingCompletePurchase) {
-      _iap.completePurchase(purchase);
+      unawaited(_iap.completePurchase(purchase));
     }
   }
 
-  /// Verify purchase with backend server
-  /// Returns true if purchase is valid, false otherwise
-  ///
-  /// TODO: Implement server-side verification
-  /// 1. Send purchase.verificationData to your backend
-  /// 2. Backend should verify with Google Play/App Store APIs
-  /// 3. Backend should check subscription status and expiry
-  /// 4. Return verification result
-  static Future<bool> _verifyPurchase(PurchaseDetails purchase) async {
-    if (kDebugMode) {
-      print('Verifying purchase: ${purchase.productID}');
-      print('Transaction date: ${purchase.transactionDate}');
-      print('Verification data source: ${purchase.verificationData.source}');
+  /// Subscription expiry as reported by StoreKit 2, null for the lifetime
+  /// purchase or when StoreKit gives no date.
+  static DateTime? expirationOf(PurchaseDetails purchase) {
+    if (purchase is SK2PurchaseDetails) {
+      return parseExpiration(purchase.expirationDate);
     }
+    return null;
+  }
 
-    // TODO: Implement server-side verification
-    // Example structure:
-    // try {
-    //   final response = await http.post(
-    //     Uri.parse('https://your-backend.com/verify-purchase'),
-    //     body: {
-    //       'verification_data': purchase.verificationData.serverVerificationData,
-    //       'product_id': purchase.productID,
-    //       'transaction_date': purchase.transactionDate,
-    //     },
-    //   );
-    //   return response.statusCode == 200 && jsonDecode(response.body)['valid'] == true;
-    // } catch (e) {
-    //   if (kDebugMode) print('Verification error: $e');
-    //   return false;
-    // }
-
-    // For now, accept local verification for subscriptions
-    // In production, this should always verify with backend
-    if (purchase.status == PurchaseStatus.purchased ||
-        purchase.status == PurchaseStatus.restored) {
-      // Check if subscription is still active (for subscriptions)
-      // For subscriptions, you should check expiry date from server
-      return true;
+  /// StoreKit 2 reports the expiry as milliseconds since epoch in a string.
+  @visibleForTesting
+  static DateTime? parseExpiration(String? raw) {
+    if (raw == null || raw.isEmpty) return null;
+    final asNumber = double.tryParse(raw);
+    if (asNumber != null) {
+      // Values around 1e12 are milliseconds; around 1e9 are seconds.
+      final ms = asNumber > 1e11 ? asNumber : asNumber * 1000;
+      return DateTime.fromMillisecondsSinceEpoch(ms.round(), isUtc: true)
+          .toLocal();
     }
+    return DateTime.tryParse(raw);
+  }
 
+  /// True only when StoreKit reports a free-trial introductory offer for the
+  /// product. Used to decide whether trial wording may be shown at all.
+  static bool hasFreeTrial(ProductDetails product) {
+    if (product is AppStoreProduct2Details) {
+      final offers = product.sk2Product.subscription?.promotionalOffers ?? [];
+      return offers.any(
+        (o) =>
+            o.type == SK2SubscriptionOfferType.introductory &&
+            o.paymentMode == SK2SubscriptionOfferPaymentMode.freeTrial,
+      );
+    }
+    if (product is AppStoreProductDetails) {
+      final intro = product.skProduct.introductoryPrice;
+      return intro != null &&
+          intro.paymentMode == SKProductDiscountPaymentMode.freeTrail;
+    }
     return false;
   }
 
-  /// Client-side check: purchase is purchased/restored and (Android) still owned.
-  static bool _isPurchaseActive(PurchaseDetails purchase) {
-    if (purchase.status != PurchaseStatus.purchased &&
-        purchase.status != PurchaseStatus.restored) {
-      return false;
-    }
-
-    if (Platform.isAndroid && purchase is GooglePlayPurchaseDetails) {
-      if (purchase.billingClientPurchase.purchaseState !=
-          PurchaseStateWrapper.purchased) {
-        return false;
-      }
-    }
-
-    return true;
-  }
-
-  /// Re-query Play/App Store and return whether an active premium purchase exists.
-  /// Resets entitlement first, then waits for restore stream (ignores stale cancel
-  /// events during the verification window).
-  static Future<bool> verifyActiveSubscription({
-    Duration timeout = const Duration(seconds: 4),
-  }) async {
-    if (!_isAvailable) return _hasPremiumEntitlement;
-
-    if (!_isInitialized) {
-      await initialize();
-    }
-
-    _isVerifyingSubscription = true;
-    final previousEntitlement = _hasPremiumEntitlement;
-    _hasPremiumEntitlement = false;
-
-    try {
-      await _restorePurchases();
-      await waitForPremiumEntitlement(timeout: timeout);
-      if (kDebugMode) {
-        print(
-          '[BillingService] verifyActiveSubscription → $_hasPremiumEntitlement',
-        );
-      }
-      return _hasPremiumEntitlement;
-    } catch (e) {
-      if (kDebugMode) {
-        print('[BillingService] verifyActiveSubscription error: $e');
-      }
-      // Avoid false revoke on transient network errors.
-      _hasPremiumEntitlement = previousEntitlement;
-      return previousEntitlement;
-    } finally {
-      _isVerifyingSubscription = false;
-    }
-  }
-
-  /// Check subscription status periodically
-  /// This should be called on app start and periodically to verify active subscriptions
-  static Future<bool> checkSubscriptionStatus() async {
-    if (!_isAvailable || !_isInitialized) return _hasPremiumEntitlement;
-
-    try {
-      return await verifyActiveSubscription();
-    } catch (e) {
-      if (kDebugMode) {
-        print('Error checking subscription status: $e');
-      }
-      return _hasPremiumEntitlement;
-    }
-  }
-
-  static ProductDetails? getProduct(String productId) {
-    try {
-      return _products.firstWhere((p) => p.id == productId);
-    } catch (e) {
-      return null;
-    }
-  }
-
-  /// Returns true if the product has a free trial (from Play Console / App Store).
-  static bool hasFreeTrial(ProductDetails productDetails) {
-    if (productDetails is GooglePlayProductDetails) {
-      final offerDetails =
-          productDetails.productDetails.subscriptionOfferDetails ?? [];
-      for (final offer in offerDetails) {
-        for (final phase in offer.pricingPhases) {
-          if (phase.priceAmountMicros == 0) {
-            return true;
-          }
+  /// Human-readable trial length ("3 days") when [hasFreeTrial] is true.
+  static String? freeTrialDescription(ProductDetails product) {
+    if (product is AppStoreProduct2Details) {
+      final offers = product.sk2Product.subscription?.promotionalOffers ?? [];
+      for (final o in offers) {
+        if (o.type == SK2SubscriptionOfferType.introductory &&
+            o.paymentMode == SK2SubscriptionOfferPaymentMode.freeTrial) {
+          final n = o.period.value * o.periodCount;
+          final unit = o.period.unit.name;
+          return '$n $unit${n == 1 ? '' : 's'}';
         }
       }
     }
-
-    if (productDetails is AppStoreProductDetails) {
-      final intro = productDetails.skProduct.introductoryPrice;
+    if (product is AppStoreProductDetails) {
+      final intro = product.skProduct.introductoryPrice;
       if (intro != null &&
           intro.paymentMode == SKProductDiscountPaymentMode.freeTrail) {
-        return true;
+        final n = intro.subscriptionPeriod.numberOfUnits *
+            intro.numberOfPeriods;
+        final unit = intro.subscriptionPeriod.unit.name;
+        return '$n $unit${n == 1 ? '' : 's'}';
       }
     }
-
-    return false;
+    return null;
   }
 
-  static String? get lastError => _lastError;
-
-  static void dispose() {
-    _subscription?.cancel();
-    _purchaseController.close();
-    _errorController.close();
+  static Future<void> dispose() async {
+    await _subscription?.cancel();
+    _subscription = null;
   }
 }

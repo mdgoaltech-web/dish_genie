@@ -13,12 +13,14 @@ import '../../core/theme/colors.dart';
 import '../../data/models/recipe.dart';
 import '../../providers/premium_provider.dart';
 import '../../providers/recipe_provider.dart';
+import '../../services/free_usage.dart';
 import '../../services/recipe_service.dart';
 import '../../services/scanner_service.dart';
 import '../../widgets/common/floating_sparkles.dart';
 import '../../widgets/common/genie_mascot.dart';
 import '../../widgets/common/loading_genie.dart';
 import '../../widgets/common/sticky_header.dart';
+import '../../widgets/premium/pro_widgets.dart';
 import '../../widgets/recipe/recipe_image_widget.dart';
 
 enum ScannerViewMode { camera, ingredients, recipes, recipeDetail }
@@ -69,10 +71,9 @@ class _IngredientScannerScreenState extends State<IngredientScannerScreen> {
   }
 
   Future<void> _processImage(XFile image) async {
-    // Check if user can use scanner (sub_scancamera limit)
     final premiumProvider = context.read<PremiumProvider>();
-    if (!premiumProvider.canUseScannerSync()) {
-      if (mounted) ProNavigation.tryOpen(context, replace: false);
+    if (!premiumProvider.canUse(FreeFeature.scan)) {
+      ProNavigation.tryOpen(context);
       return;
     }
 
@@ -104,6 +105,7 @@ class _IngredientScannerScreenState extends State<IngredientScannerScreen> {
         setState(() {
           _isAnalyzing = false;
           if (result != null && result.ingredients.isNotEmpty) {
+            premiumProvider.recordUse(FreeFeature.scan);
             _scanResult = result;
             _editableIngredients = List.from(result.ingredients);
             // If recipes are available, go to recipes view, otherwise ingredients view
@@ -157,32 +159,8 @@ class _IngredientScannerScreenState extends State<IngredientScannerScreen> {
       return;
     }
 
-    // Check if user can use scanner (sub_scancamera limit)
-    final premiumProvider = context.read<PremiumProvider>();
-    if (!premiumProvider.canUseScannerSync()) {
-      if (mounted) {
-        final limit = premiumProvider.getScannerLimit();
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(
-              limit != null
-                  ? context.t('scanner.limit.reached', {
-                      'limit': limit.toString(),
-                    })
-                  : context.t('scanner.ai.disabled'),
-            ),
-            backgroundColor: AppColors.destructive,
-            duration: const Duration(seconds: 4),
-            action: SnackBarAction(
-              label: context.t('premium.upgrade'),
-              textColor: Colors.white,
-              onPressed: () {
-                ProNavigation.tryOpen(context, replace: false);
-              },
-            ),
-          ),
-        );
-      }
+    if (!context.read<PremiumProvider>().canUse(FreeFeature.scan)) {
+      ProNavigation.tryOpen(context);
       return;
     }
 
@@ -231,7 +209,7 @@ class _IngredientScannerScreenState extends State<IngredientScannerScreen> {
               _imageBase64, // Pass image to recipe generation (matching web app behavior)
         );
       } catch (e) {
-        print('Error in recipe generation: $e');
+        debugPrint('Error in recipe generation: $e');
         // Error will be handled below
       }
 
@@ -270,7 +248,7 @@ class _IngredientScannerScreenState extends State<IngredientScannerScreen> {
         setState(() {
           _isAnalyzing = false;
         });
-        print('Error in _regenerateRecipes: $e');
+        debugPrint('Error in _regenerateRecipes: $e');
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('${context.t('common.error')}: ${e.toString()}'),
@@ -390,15 +368,14 @@ class _IngredientScannerScreenState extends State<IngredientScannerScreen> {
   @override
   Widget build(BuildContext context) {
     final premiumProvider = context.watch<PremiumProvider>();
-    // Use sub_scancamera only - no other remote keys inside scan screen
-    final canUseScanner = premiumProvider.canUseScannerSync();
-    final scanLimit = premiumProvider.getScannerLimit();
-    final scanCount = premiumProvider.scanCount;
+    final canUseScanner = premiumProvider.canUse(FreeFeature.scan);
+    final int? scanLimit = premiumProvider.limitFor(FreeFeature.scan);
+    final scanCount = premiumProvider.usedToday(FreeFeature.scan);
 
     if (_isAnalyzing) {
       return PopScope(
         canPop: false,
-        onPopInvoked: (didPop) async {
+        onPopInvokedWithResult: (didPop, _) async {
           if (didPop) return;
           // Show confirmation before going back during analysis
           final confirmed = await showDialog<bool>(
@@ -440,7 +417,7 @@ class _IngredientScannerScreenState extends State<IngredientScannerScreen> {
 
     return PopScope(
       canPop: false,
-      onPopInvoked: (didPop) async {
+      onPopInvokedWithResult: (didPop, _) async {
         if (didPop) return;
         if (_viewMode == ScannerViewMode.camera) {
           // If user opens scan directly (e.g. from Home),
@@ -697,7 +674,7 @@ class _IngredientScannerScreenState extends State<IngredientScannerScreen> {
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                         color: Theme.of(
                           context,
-                        ).colorScheme.onSurface.withOpacity(0.6),
+                        ).colorScheme.onSurface.withValues(alpha: 0.6),
                       ),
                     ),
                   ],
@@ -706,11 +683,14 @@ class _IngredientScannerScreenState extends State<IngredientScannerScreen> {
             ],
           ),
           const SizedBox(height: 32),
-          // Limit Reached Banner (if scan limit reached - sub_scancamera)
-          if (!canUseScanner && !premiumProvider.isPremium)
-            _buildLimitReachedBanner(context, scanLimit, scanCount),
-          if (!canUseScanner && !premiumProvider.isPremium)
+          if (!premiumProvider.isPro) ...[
+            const FreeUsageChip(feature: FreeFeature.scan),
+            const SizedBox(height: 12),
+          ],
+          if (!canUseScanner) ...[
+            const LimitReachedBanner(feature: FreeFeature.scan),
             const SizedBox(height: 16),
+          ],
           // Preferences Card (before camera section)
           _buildPreferencesCard(context),
           const SizedBox(height: 32),
@@ -1141,7 +1121,7 @@ class _IngredientScannerScreenState extends State<IngredientScannerScreen> {
                   style: TextStyle(
                     color: Theme.of(
                       context,
-                    ).colorScheme.onSurface.withOpacity(0.6),
+                    ).colorScheme.onSurface.withValues(alpha: 0.6),
                     fontSize: 12,
                   ),
                 ),
@@ -1152,10 +1132,10 @@ class _IngredientScannerScreenState extends State<IngredientScannerScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
             decoration: BoxDecoration(
               color: ingredient.freshness == 'fresh'
-                  ? Colors.green.withOpacity(0.1)
+                  ? Colors.green.withValues(alpha: 0.1)
                   : ingredient.freshness == 'expiring_soon'
-                  ? Colors.orange.withOpacity(0.1)
-                  : Theme.of(context).colorScheme.onSurface.withOpacity(0.1),
+                  ? Colors.orange.withValues(alpha: 0.1)
+                  : Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Text(
@@ -1168,7 +1148,7 @@ class _IngredientScannerScreenState extends State<IngredientScannerScreen> {
                     ? Colors.green
                     : ingredient.freshness == 'expiring_soon'
                     ? Colors.orange
-                    : Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+                    : Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
               ),
             ),
           ),
@@ -1194,7 +1174,7 @@ class _IngredientScannerScreenState extends State<IngredientScannerScreen> {
             Icon(
               Icons.restaurant_menu,
               size: 64,
-              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.4),
+              color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.4),
             ),
             const SizedBox(height: 16),
             Text(
@@ -1324,7 +1304,7 @@ class _IngredientScannerScreenState extends State<IngredientScannerScreen> {
                           style: TextStyle(
                             color: Theme.of(
                               context,
-                            ).colorScheme.onSurface.withOpacity(0.6),
+                            ).colorScheme.onSurface.withValues(alpha: 0.6),
                             fontSize: 12,
                           ),
                           maxLines: 2,
@@ -1343,7 +1323,7 @@ class _IngredientScannerScreenState extends State<IngredientScannerScreen> {
                     size: 14,
                     color: Theme.of(
                       context,
-                    ).colorScheme.onSurface.withOpacity(0.6),
+                    ).colorScheme.onSurface.withValues(alpha: 0.6),
                   ),
                   const SizedBox(width: 4),
                   Text(
@@ -1352,7 +1332,7 @@ class _IngredientScannerScreenState extends State<IngredientScannerScreen> {
                       fontSize: 12,
                       color: Theme.of(
                         context,
-                      ).colorScheme.onSurface.withOpacity(0.6),
+                      ).colorScheme.onSurface.withValues(alpha: 0.6),
                     ),
                   ),
                   const SizedBox(width: 16),
@@ -1368,7 +1348,7 @@ class _IngredientScannerScreenState extends State<IngredientScannerScreen> {
                       fontSize: 12,
                       color: Theme.of(
                         context,
-                      ).colorScheme.onSurface.withOpacity(0.6),
+                      ).colorScheme.onSurface.withValues(alpha: 0.6),
                     ),
                   ),
                 ],
@@ -1466,7 +1446,7 @@ class _IngredientScannerScreenState extends State<IngredientScannerScreen> {
           Text(
             recipe.description,
             style: TextStyle(
-              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+              color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
             ),
           ),
           const SizedBox(height: 16),
@@ -1564,7 +1544,7 @@ class _IngredientScannerScreenState extends State<IngredientScannerScreen> {
         Container(
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
-            color: color.withOpacity(0.1),
+            color: color.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(12),
           ),
           child: Text(
@@ -1581,7 +1561,7 @@ class _IngredientScannerScreenState extends State<IngredientScannerScreen> {
           label,
           style: TextStyle(
             fontSize: 10,
-            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+            color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
           ),
         ),
       ],
@@ -1688,155 +1668,4 @@ class _IngredientScannerScreenState extends State<IngredientScannerScreen> {
     );
   }
 
-  Widget _buildLimitReachedBanner(
-    BuildContext context,
-    int? limit,
-    int scanCount,
-  ) {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            AppColors.geniePurple.withOpacity(0.15),
-            AppColors.primary.withOpacity(0.1),
-          ],
-        ),
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.primary.withOpacity(0.2),
-            blurRadius: 20,
-            spreadRadius: -2,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  gradient: AppColors.gradientPrimary,
-                  borderRadius: BorderRadius.circular(12),
-                  boxShadow: [
-                    BoxShadow(
-                      color: AppColors.primary.withOpacity(0.3),
-                      blurRadius: 8,
-                      offset: const Offset(0, 2),
-                    ),
-                  ],
-                ),
-                child: const Icon(
-                  Icons.workspace_premium,
-                  color: Colors.white,
-                  size: 20,
-                ),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      context.t('scanner.limit.reached.title'),
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.onSurface,
-                      ),
-                    ),
-                    if (limit != null) ...[
-                      const SizedBox(height: 4),
-                      Text(
-                        context.t('scanner.limit.reached', {
-                          'limit': limit.toString(),
-                        }),
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Theme.of(
-                            context,
-                          ).colorScheme.onSurface.withOpacity(0.7),
-                        ),
-                      ),
-                    ] else ...[
-                      const SizedBox(height: 4),
-                      Text(
-                        context.t('scanner.ai.disabled'),
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Theme.of(
-                            context,
-                          ).colorScheme.onSurface.withOpacity(0.7),
-                        ),
-                      ),
-                    ],
-                  ],
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 14),
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: () {
-                ProNavigation.tryOpen(context, replace: false);
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.transparent,
-                shadowColor: Colors.transparent,
-                padding: const EdgeInsets.symmetric(
-                  vertical: 12,
-                  horizontal: 16,
-                ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
-                ),
-              ).copyWith(elevation: WidgetStateProperty.all(0)),
-              child: Container(
-                decoration: BoxDecoration(
-                  gradient: AppColors.gradientPrimary,
-                  borderRadius: BorderRadius.circular(16),
-                  boxShadow: [
-                    BoxShadow(
-                      color: AppColors.primary.withOpacity(0.4),
-                      blurRadius: 12,
-                      offset: const Offset(0, 4),
-                    ),
-                  ],
-                ),
-                padding: const EdgeInsets.symmetric(vertical: 12),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Icon(
-                      Icons.star_rounded,
-                      color: Colors.white,
-                      size: 18,
-                    ),
-                    const SizedBox(width: 8),
-                    Text(
-                      context.t('common.upgrade'),
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
 }

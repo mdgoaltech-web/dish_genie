@@ -4,7 +4,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
@@ -15,6 +14,8 @@ import '../../core/theme/colors.dart';
 import '../../data/models/recipe.dart';
 import '../../providers/premium_provider.dart';
 import '../../providers/recipe_provider.dart';
+import '../../services/free_usage.dart';
+import '../../widgets/premium/pro_widgets.dart';
 import '../../widgets/common/floating_sparkles.dart';
 import '../../widgets/common/genie_mascot.dart';
 import '../../widgets/common/loading_genie.dart';
@@ -111,9 +112,8 @@ class _RecipeGeneratorScreenState extends State<RecipeGeneratorScreen>
   }
 
   Future<void> _pickScanFromGallery() async {
-    final premiumProvider = context.read<PremiumProvider>();
-    if (!premiumProvider.canUseScannerSync()) {
-      ProNavigation.tryOpen(context, replace: false);
+    if (!context.read<PremiumProvider>().canUse(FreeFeature.scan)) {
+      ProNavigation.tryOpen(context);
       return;
     }
 
@@ -146,11 +146,8 @@ class _RecipeGeneratorScreenState extends State<RecipeGeneratorScreen>
     if (!await ensureConnectedAndShowDialog(context)) return;
 
     final premiumProvider = context.read<PremiumProvider>();
-    if (!premiumProvider.isPremium && !premiumProvider.canGenerateAiRecipe()) {
-      if (kDebugMode) {
-        debugPrint('[RecipeGeneratorScreen] blocked by premium gate');
-      }
-      ProNavigation.tryOpen(context, replace: false);
+    if (!premiumProvider.canUse(FreeFeature.aiRecipe)) {
+      ProNavigation.tryOpen(context);
       return;
     }
 
@@ -168,13 +165,8 @@ class _RecipeGeneratorScreenState extends State<RecipeGeneratorScreen>
       language: languageCode,
     );
 
-    if (generatedRecipe != null && !premiumProvider.isPremium) {
-      premiumProvider.incrementAiRecipeCount();
-      if (kDebugMode) {
-        debugPrint('[RecipeGeneratorScreen] generate success (free) count++');
-      }
-      if (mounted) setState(() => _showGeneratedOnly = true);
-      return;
+    if (generatedRecipe != null) {
+      premiumProvider.recordUse(FreeFeature.aiRecipe);
     }
 
     if (generatedRecipe != null && mounted) {
@@ -267,7 +259,7 @@ class _RecipeGeneratorScreenState extends State<RecipeGeneratorScreen>
                       ? context.t('smartChefTitle')
                       : context.t('recipes.title'),
                   titleStyle: widget.showAsHomeTab
-                      ? GoogleFonts.inter(
+                      ? TextStyle(
                           fontSize: 26,
                           height: 34 / 26,
                           fontWeight: FontWeight.w700,
@@ -291,52 +283,8 @@ class _RecipeGeneratorScreenState extends State<RecipeGeneratorScreen>
                       ? Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            if (!premiumProvider.isPremium) ...[
-                              GestureDetector(
-                                onTap: () => ProNavigation.tryOpen(
-                                  context,
-                                  replace: false,
-                                ),
-                                child: SizedBox(
-                                  width: 70,
-                                  height: 32,
-                                  child: DecoratedBox(
-                                    decoration: BoxDecoration(
-                                      gradient: const LinearGradient(
-                                        begin: Alignment.centerLeft,
-                                        end: Alignment.centerRight,
-                                        colors: [
-                                          Color(0xFFFFB301),
-                                          Color(0xFFFD5C17),
-                                        ],
-                                      ),
-                                      borderRadius: BorderRadius.circular(16),
-                                    ),
-                                    child: Center(
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          const Icon(
-                                            Icons.auto_awesome,
-                                            size: 14,
-                                            color: Colors.white,
-                                          ),
-                                          const SizedBox(width: 6),
-                                          Text(
-                                            context.t('smartChefPro'),
-                                            style: GoogleFonts.inter(
-                                              fontSize: 12.5,
-                                              height: 1.0,
-                                              fontWeight: FontWeight.w700,
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
+                            if (!premiumProvider.isPro) ...[
+                              const ProButton(),
                               const SizedBox(width: 2),
                             ],
                             IconButton(
@@ -525,7 +473,7 @@ class _RecipeGeneratorScreenState extends State<RecipeGeneratorScreen>
                       width: 24,
                       height: 24,
                       decoration: BoxDecoration(
-                        color: AppColors.muted.withOpacity(0.5),
+                        color: AppColors.muted.withValues(alpha: 0.5),
                         shape: BoxShape.circle,
                       ),
                       child: Icon(
@@ -566,7 +514,7 @@ class _RecipeGeneratorScreenState extends State<RecipeGeneratorScreen>
                       fontSize: 14,
                       color: Theme.of(
                         context,
-                      ).colorScheme.onSurface.withOpacity(0.6),
+                      ).colorScheme.onSurface.withValues(alpha: 0.6),
                     ),
                     textAlign: TextAlign.center,
                   ),
@@ -761,18 +709,18 @@ class _RecipeGeneratorScreenState extends State<RecipeGeneratorScreen>
     final isDark = theme.brightness == Brightness.dark;
     final fillColor = isDark ? AppColors.inputDark : AppColors.input;
     final textColor = isDark
-        ? Colors.white.withOpacity(0.92)
-        : theme.colorScheme.onSurface.withOpacity(0.9);
+        ? Colors.white.withValues(alpha: 0.92)
+        : theme.colorScheme.onSurface.withValues(alpha: 0.9);
     final hintColor = isDark
-        ? Colors.white.withOpacity(0.65)
-        : theme.colorScheme.onSurface.withOpacity(0.6);
+        ? Colors.white.withValues(alpha: 0.65)
+        : theme.colorScheme.onSurface.withValues(alpha: 0.6);
     final showClear = _searchText.trim().isNotEmpty;
 
     final hint = context.t('home.search.placeholder');
 
     final border = OutlineInputBorder(
       borderRadius: BorderRadius.circular(14),
-      borderSide: BorderSide(color: theme.dividerColor.withOpacity(0.25)),
+      borderSide: BorderSide(color: theme.dividerColor.withValues(alpha: 0.25)),
     );
 
     final mic = GestureDetector(
@@ -800,10 +748,10 @@ class _RecipeGeneratorScreenState extends State<RecipeGeneratorScreen>
         width: 28,
         height: 28,
         decoration: BoxDecoration(
-          color: theme.cardColor.withOpacity(isDark ? 0.35 : 0.85),
+          color: theme.cardColor.withValues(alpha: isDark ? 0.35 : 0.85),
           shape: BoxShape.circle,
           border: Border.all(
-            color: theme.dividerColor.withOpacity(isDark ? 0.25 : 0.35),
+            color: theme.dividerColor.withValues(alpha: isDark ? 0.25 : 0.35),
             width: 1,
           ),
         ),
@@ -812,7 +760,7 @@ class _RecipeGeneratorScreenState extends State<RecipeGeneratorScreen>
             Icons.close,
             size: 16,
             color: (isDark ? Colors.white : theme.colorScheme.onSurface)
-                .withOpacity(0.75),
+                .withValues(alpha: 0.75),
           ),
         ),
       ),
@@ -847,7 +795,7 @@ class _RecipeGeneratorScreenState extends State<RecipeGeneratorScreen>
             enabledBorder: border,
             focusedBorder: border.copyWith(
               borderSide: BorderSide(
-                color: AppColors.primary.withOpacity(0.55),
+                color: AppColors.primary.withValues(alpha: 0.55),
               ),
             ),
             isDense: true,
@@ -872,12 +820,9 @@ class _RecipeGeneratorScreenState extends State<RecipeGeneratorScreen>
   ) {
     final isLoading = recipeProvider.isLoading;
     final recipe = recipeProvider.recipe;
-    final canGenerateRecipe =
-        premiumProvider.isPremium || premiumProvider.canGenerateAiRecipe();
+    final canGenerateRecipe = premiumProvider.canUse(FreeFeature.aiRecipe);
     final hasIngredients = _ingredientsController.text.trim().isNotEmpty;
     final showGenerateButton = hasIngredients && !_showGeneratedOnly;
-    final aiRecipeLimit = premiumProvider.getAiRecipeLimit();
-    final aiRecipeCount = premiumProvider.aiRecipeCount;
 
     if (isLoading) {
       return Center(
@@ -913,7 +858,7 @@ class _RecipeGeneratorScreenState extends State<RecipeGeneratorScreen>
                       fontSize: 13,
                       color: Theme.of(
                         context,
-                      ).colorScheme.onSurface.withOpacity(0.65),
+                      ).colorScheme.onSurface.withValues(alpha: 0.65),
                     ),
                   ),
                 ],
@@ -989,6 +934,12 @@ class _RecipeGeneratorScreenState extends State<RecipeGeneratorScreen>
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _buildSmartChefIngredientsCard(context),
+                if (!premiumProvider.isPro) ...[
+                  const SizedBox(height: 12),
+                  const Center(
+                    child: FreeUsageChip(feature: FreeFeature.aiRecipe),
+                  ),
+                ],
                 const SizedBox(height: 24),
                 Text(
                   context.t('recipes.what.craving'),
@@ -1380,12 +1331,8 @@ class _RecipeGeneratorScreenState extends State<RecipeGeneratorScreen>
                     ),
                   ],
                 ),
-                if (!canGenerateRecipe && !premiumProvider.isPremium)
-                  _buildLimitReachedBanner(
-                    context,
-                    aiRecipeLimit,
-                    aiRecipeCount,
-                  ),
+                if (!canGenerateRecipe)
+                  const LimitReachedBanner(feature: FreeFeature.aiRecipe),
                 const SizedBox(height: 12),
                 if (recipe != null)
                   RecipeCard(
@@ -1419,7 +1366,7 @@ class _RecipeGeneratorScreenState extends State<RecipeGeneratorScreen>
                           : null,
                       color: canGenerateRecipe
                           ? null
-                          : Theme.of(context).cardColor.withOpacity(0.5),
+                          : Theme.of(context).cardColor.withValues(alpha: 0.5),
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Material(
@@ -1438,7 +1385,7 @@ class _RecipeGeneratorScreenState extends State<RecipeGeneratorScreen>
                                     ? Theme.of(context).colorScheme.onPrimary
                                     : Theme.of(
                                         context,
-                                      ).colorScheme.onSurface.withOpacity(0.4),
+                                      ).colorScheme.onSurface.withValues(alpha: 0.4),
                                 size: 20,
                               ),
                               const SizedBox(width: 8),
@@ -1450,7 +1397,7 @@ class _RecipeGeneratorScreenState extends State<RecipeGeneratorScreen>
                                   color: canGenerateRecipe
                                       ? Theme.of(context).colorScheme.onPrimary
                                       : Theme.of(context).colorScheme.onSurface
-                                            .withOpacity(0.4),
+                                            .withValues(alpha: 0.4),
                                 ),
                               ),
                             ],
@@ -1484,7 +1431,7 @@ class _RecipeGeneratorScreenState extends State<RecipeGeneratorScreen>
           border: isSelected
               ? null
               : Border.all(
-                  color: Theme.of(context).dividerColor.withOpacity(0.8),
+                  color: Theme.of(context).dividerColor.withValues(alpha: 0.8),
                   width: 1,
                 ),
         ),
@@ -1630,7 +1577,7 @@ class _RecipeGeneratorScreenState extends State<RecipeGeneratorScreen>
                           children: [
                             titleLine(
                               context.t('smartChefWhatIngredientsLine1'),
-                              GoogleFonts.inter(
+                              TextStyle(
                                 fontSize: 18,
                                 height: 1.15,
                                 letterSpacing: -0.15,
@@ -1642,7 +1589,7 @@ class _RecipeGeneratorScreenState extends State<RecipeGeneratorScreen>
                             ),
                             titleLine(
                               context.t('smartChefWhatIngredientsLine2'),
-                              GoogleFonts.inter(
+                              TextStyle(
                                 fontSize: 18,
                                 height: 1.15,
                                 letterSpacing: -0.15,
@@ -1665,11 +1612,11 @@ class _RecipeGeneratorScreenState extends State<RecipeGeneratorScreen>
                         child: Text(
                           context.t('smartChefSubtitle'),
                           textAlign: isRtl ? TextAlign.right : TextAlign.left,
-                          style: GoogleFonts.inter(
+                          style: TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w500,
                             color: isDark
-                                ? Colors.white.withOpacity(0.75)
+                                ? Colors.white.withValues(alpha: 0.75)
                                 : const Color(0xFF6264A0),
                             height: 1.2,
                           ),
@@ -1719,7 +1666,7 @@ class _RecipeGeneratorScreenState extends State<RecipeGeneratorScreen>
                                       ? Colors.white
                                       : const Color(0xFF1E1E3A);
                                   final inputHintColor = isDark
-                                      ? Colors.white.withOpacity(0.65)
+                                      ? Colors.white.withValues(alpha: 0.65)
                                       : const Color(0xFF8A8FB0);
                                   return Stack(
                                     children: [
@@ -1758,13 +1705,13 @@ class _RecipeGeneratorScreenState extends State<RecipeGeneratorScreen>
                                             top: 14,
                                             bottom: 14,
                                           ),
-                                          hintStyle: GoogleFonts.inter(
+                                          hintStyle: TextStyle(
                                             fontSize: 14,
                                             fontWeight: FontWeight.w500,
                                             color: inputHintColor,
                                           ),
                                         ),
-                                        style: GoogleFonts.inter(
+                                        style: TextStyle(
                                           fontSize: 14,
                                           fontWeight: FontWeight.w600,
                                           color: inputTextColor,
@@ -1867,7 +1814,7 @@ class _RecipeGeneratorScreenState extends State<RecipeGeneratorScreen>
           elevation: elevation,
           shadowColor: const Color(0x33000000),
           side: outlined
-              ? BorderSide(color: background.withOpacity(0.35), width: 1.2)
+              ? BorderSide(color: background.withValues(alpha: 0.35), width: 1.2)
               : BorderSide.none,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(radius),
@@ -1888,7 +1835,7 @@ class _RecipeGeneratorScreenState extends State<RecipeGeneratorScreen>
             const SizedBox(width: 6),
             Text(
               label,
-              style: GoogleFonts.inter(
+              style: TextStyle(
                 fontSize: 13,
                 fontWeight: FontWeight.w600,
                 color: fg,
@@ -1901,146 +1848,6 @@ class _RecipeGeneratorScreenState extends State<RecipeGeneratorScreen>
     );
   }
 
-  Widget _buildLimitReachedBanner(
-    BuildContext context,
-    int? limit,
-    int recipeCount,
-  ) {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            AppColors.geniePurple.withOpacity(0.15),
-            AppColors.primary.withOpacity(0.1),
-          ],
-        ),
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.primary.withOpacity(0.2),
-            blurRadius: 20,
-            spreadRadius: -2,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  gradient: AppColors.gradientPrimary,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: const Icon(
-                  Icons.workspace_premium,
-                  color: Colors.white,
-                  size: 20,
-                ),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      context.t('recipes.limitReached') !=
-                              'recipes.limitReached'
-                          ? context.t('recipes.limitReached')
-                          : context.t('scanner.limit.reached.title'),
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.onSurface,
-                      ),
-                    ),
-                    if (limit != null) ...[
-                      const SizedBox(height: 4),
-                      Text(
-                        context.t('recipes.limit.reached.message', {
-                          'limit': limit.toString(),
-                        }),
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Theme.of(
-                            context,
-                          ).colorScheme.onSurface.withOpacity(0.7),
-                        ),
-                      ),
-                    ],
-                  ],
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 14),
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: () => ProNavigation.tryOpen(context, replace: false),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.transparent,
-                shadowColor: Colors.transparent,
-                padding: const EdgeInsets.symmetric(
-                  vertical: 12,
-                  horizontal: 16,
-                ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
-                ),
-              ).copyWith(elevation: WidgetStateProperty.all(0)),
-              child: Container(
-                decoration: BoxDecoration(
-                  gradient: AppColors.gradientPrimary,
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                padding: const EdgeInsets.symmetric(vertical: 12),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Icon(
-                      Icons.star_rounded,
-                      color: Colors.white,
-                      size: 18,
-                    ),
-                    const SizedBox(width: 8),
-                    Text(
-                      context.t('common.upgrade'),
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          if (limit != null)
-            Padding(
-              padding: const EdgeInsets.only(top: 8),
-              child: Text(
-                '$recipeCount/$limit',
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Theme.of(
-                    context,
-                  ).colorScheme.onSurface.withOpacity(0.6),
-                ),
-              ),
-            ),
-        ],
-      ),
-    );
-  }
 }
 
 class _CategoryChip extends StatelessWidget {
