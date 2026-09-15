@@ -1702,7 +1702,9 @@ class _GroceryListScreenState extends State<GroceryListScreen> {
               provider.removeItem(item.id);
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text('${item.name} ${context.t('common.remove')}'),
+                  content: Text(
+                    context.t('grocery.item.removed', {'item': item.name}),
+                  ),
                   backgroundColor: AppColors.destructive,
                 ),
               );

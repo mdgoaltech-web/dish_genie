@@ -198,7 +198,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
       await StorageService.removeRecipeDataForSlug(widget.slug);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(context.t('common.remove')),
+          content: Text(context.t('favorites.removed')),
           backgroundColor: AppColors.destructive,
         ),
       );
@@ -210,9 +210,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
       );
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(
-            '${context.t('common.add')} ${context.t('common.favorites')}! ❤️',
-          ),
+          content: Text('${context.t('favorites.added')} ❤️'),
           backgroundColor: AppColors.primary,
         ),
       );
@@ -553,8 +551,10 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                                     _StatChip(
                                       icon: Icons.people_outline,
                                       iconColor: AppColors.geniePink,
-                                      label:
-                                          '${recipe.servings} ${context.t('recipe.detail.servings')}',
+                                      label: context.t(
+                                        'recipe.servings.count',
+                                        {'count': '${recipe.servings}'},
+                                      ),
                                     ),
                                     _StatChip(
                                       icon:

@@ -674,6 +674,28 @@ class _RecipeGeneratorScreenState extends State<RecipeGeneratorScreen>
               ),
             ),
           if (searchText.isEmpty) const SizedBox(height: 8),
+          // Empty category: say so instead of leaving the page blank.
+          if (searchText.isEmpty &&
+              _selectedCategory != null &&
+              displayRecipes.isEmpty)
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 32),
+              child: Column(
+                children: [
+                  const GenieMascot(size: GenieMascotSize.md),
+                  const SizedBox(height: 12),
+                  Text(
+                    context.t('recipes.no.results'),
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      color: Theme.of(context).colorScheme.onSurface,
+                    ),
+                  ),
+                ],
+              ),
+            ),
           // Recipes Grid
           if (displayRecipes.isNotEmpty)
             LayoutBuilder(

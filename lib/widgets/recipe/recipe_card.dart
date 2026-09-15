@@ -244,8 +244,9 @@ class _RecipeCardState extends State<RecipeCard>
                               const SizedBox(width: 16),
                               _StatItem(
                                 icon: Icons.people,
-                                value:
-                                    '${widget.servings} ${context.t('recipe.detail.servings')}',
+                                value: context.t('recipe.servings.count', {
+                                  'count': '${widget.servings}',
+                                }),
                                 color: AppColors.geniePink,
                               ),
                               const SizedBox(width: 16),
