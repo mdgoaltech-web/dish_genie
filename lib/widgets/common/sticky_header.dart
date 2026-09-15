@@ -101,17 +101,23 @@ class StickyHeader extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Text(
-                          title,
-                          style: titleStyle ??
-                              TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                color: theme.colorScheme.onSurface,
-                              ),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          textDirection: textDirection,
+                        // Shrink a long title slightly instead of cutting
+                        // it to "AI Chef C..." when the free-usage chip and
+                        // action icons leave little room.
+                        FittedBox(
+                          fit: BoxFit.scaleDown,
+                          alignment: AlignmentDirectional.centerStart,
+                          child: Text(
+                            title,
+                            style: titleStyle ??
+                                TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: theme.colorScheme.onSurface,
+                                ),
+                            maxLines: 1,
+                            textDirection: textDirection,
+                          ),
                         ),
                         if (subtitle != null)
                           Text(
