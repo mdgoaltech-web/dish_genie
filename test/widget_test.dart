@@ -170,11 +170,11 @@ void main() {
       expect(find.byKey(SettingsScreen.restoreKey), findsOneWidget);
       expect(find.byKey(SettingsScreen.manageSubscriptionKey), findsOneWidget);
       await tester.dragUntilVisible(
-        find.textContaining('Version 1.0.9'),
+        find.textContaining('Version 1.1.0'),
         find.byType(ListView),
         const Offset(0, -300),
       );
-      expect(find.textContaining('Version 1.0.9'), findsOneWidget);
+      expect(find.textContaining('Version 1.1.0'), findsOneWidget);
     });
 
     testWidgets('shows the active plan instead of Upgrade for Pro users',

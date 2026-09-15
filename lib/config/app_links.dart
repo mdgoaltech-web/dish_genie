@@ -4,7 +4,7 @@ class AppLinks {
 
   /// Marketing version shown in Settings. Kept in sync with pubspec.yaml by
   /// `test/app_info_test.dart`.
-  static const String version = '1.0.9';
+  static const String version = '1.1.0';
 
   static const String appStoreId = '6757077403';
   static const String appStoreUrl = 'https://apps.apple.com/app/id$appStoreId';

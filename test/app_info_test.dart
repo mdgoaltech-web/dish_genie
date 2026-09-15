@@ -10,7 +10,7 @@ void main() {
         .firstMatch(pubspec);
     expect(match, isNotNull);
     expect(match!.group(1), AppLinks.version);
-    expect(match.group(1), '1.0.9');
+    expect(match.group(1), '1.1.0');
     expect(match.group(2), '21');
   });
 
