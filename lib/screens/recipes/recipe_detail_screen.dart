@@ -4,11 +4,11 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 
+import '../../config/app_links.dart';
 import '../../core/localization/l10n_extension.dart';
 import '../../core/theme/colors.dart';
 import '../../data/models/recipe.dart';
 import '../../providers/recipe_provider.dart';
-import '../../services/interstitial_ad_helper.dart';
 import '../../services/storage_service.dart';
 import '../../widgets/common/genie_mascot.dart';
 import '../../widgets/common/standard_back_button.dart';
@@ -108,7 +108,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
               (theme.brightness == Brightness.dark
                       ? AppColors.geniePurple
                       : AppColors.genieLavender)
-                  .withOpacity(0.2),
+                  .withValues(alpha: 0.2),
             ],
           ),
         ),
@@ -128,7 +128,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
               (theme.brightness == Brightness.dark
                       ? AppColors.geniePurple
                       : AppColors.genieLavender)
-                  .withOpacity(0.15),
+                  .withValues(alpha: 0.15),
             ],
           ),
         ),
@@ -136,7 +136,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
           child: Icon(
             Icons.restaurant_menu_rounded,
             size: 80,
-            color: colorScheme.onSurface.withOpacity(0.3),
+            color: colorScheme.onSurface.withValues(alpha: 0.3),
           ),
         ),
       ),
@@ -153,27 +153,14 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
       _loadRecipe();
     }
     _loadFavorites();
-    _trackCardOpen();
   }
 
-  /// Track card open (ads removed - reserved for future ad plan)
-  Future<void> _trackCardOpen() async {}
-
-  /// System back, PopScope, or app bar — optional interstitial then pop.
+  /// System back, PopScope, or app bar.
   Future<void> _handleBack() async {
     if (!mounted || _recipeBackInProgress) return;
     _recipeBackInProgress = true;
-    await InterstitialAdHelper.showRecipeDetailBackInterstitial(
-      context: context,
-      onLeave: () {
-        if (!mounted) {
-          _recipeBackInProgress = false;
-          return;
-        }
-        _recipeBackInProgress = false;
-        _popOrGoRecipes();
-      },
-    );
+    _popOrGoRecipes();
+    _recipeBackInProgress = false;
   }
 
   void _loadRecipe() {
@@ -268,14 +255,12 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
   Future<void> _shareRecipe() async {
     if (_recipe == null) return;
 
-    final shareText =
-        '${context.t('recipe.detail.ingredients')}: ${_recipe!.title} - ${_recipe!.description}';
-    final shareUrl = 'https://dishgenie.app/recipe/${widget.slug}';
+    final shareText = '${_recipe!.title}\n${_recipe!.description}';
 
     try {
       final size = MediaQuery.of(context).size;
       await Share.share(
-        '$shareText\n$shareUrl',
+        '$shareText\n\nRecipe Keeper: ${AppLinks.appStoreUrl}',
         subject: _recipe!.title,
         sharePositionOrigin: Rect.fromLTWH(0, 0, size.width, size.height),
       );
@@ -297,7 +282,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
     if (_isLoading) {
       return PopScope(
         canPop: false,
-        onPopInvoked: (didPop) async {
+        onPopInvokedWithResult: (didPop, _) async {
           if (!didPop) {
             await _handleBack();
           }
@@ -313,7 +298,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
     if (_recipe == null) {
       return PopScope(
         canPop: false,
-        onPopInvoked: (didPop) async {
+        onPopInvokedWithResult: (didPop, _) async {
           if (!didPop) {
             await _handleBack();
           }
@@ -342,7 +327,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                       Text(
                         context.t('recipe.detail.generate.custom'),
                         style: theme.textTheme.bodyMedium?.copyWith(
-                          color: colorScheme.onSurface.withOpacity(0.7),
+                          color: colorScheme.onSurface.withValues(alpha: 0.7),
                         ),
                         textAlign: TextAlign.center,
                       ),
@@ -380,7 +365,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
 
     return PopScope(
       canPop: false,
-      onPopInvoked: (didPop) async {
+      onPopInvokedWithResult: (didPop, _) async {
         if (!didPop) {
           await _handleBack();
         }
@@ -410,11 +395,11 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
                         colors: [
-                          Colors.black.withOpacity(
+                          Colors.black.withValues(alpha: 
                             0.3,
                           ), // Darker at top for status bar
                           Colors.transparent,
-                          Colors.black.withOpacity(0.1),
+                          Colors.black.withValues(alpha: 0.1),
                         ],
                       ),
                     ),
@@ -440,7 +425,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                         ),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withOpacity(0.1),
+                            color: Colors.black.withValues(alpha: 0.1),
                             blurRadius: 10,
                             offset: const Offset(0, -5),
                           ),
@@ -461,7 +446,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                                     width: 40,
                                     height: 4,
                                     decoration: BoxDecoration(
-                                      color: colorScheme.onSurface.withOpacity(
+                                      color: colorScheme.onSurface.withValues(alpha: 
                                         0.1,
                                       ),
                                       borderRadius: BorderRadius.circular(2),
@@ -517,7 +502,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                                       style: TextStyle(
                                         fontSize: 12,
                                         color: colorScheme.onSurface
-                                            .withOpacity(0.4),
+                                            .withValues(alpha: 0.4),
                                       ),
                                     ),
                                     Text(
@@ -525,7 +510,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                                       style: TextStyle(
                                         fontSize: 12,
                                         color: colorScheme.onSurface
-                                            .withOpacity(0.6),
+                                            .withValues(alpha: 0.6),
                                       ),
                                     ),
                                   ],
@@ -547,7 +532,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                                 Text(
                                   recipe.description,
                                   style: theme.textTheme.bodyMedium?.copyWith(
-                                    color: colorScheme.onSurface.withOpacity(
+                                    color: colorScheme.onSurface.withValues(alpha: 
                                       0.7,
                                     ),
                                     height: 1.5,
@@ -668,11 +653,11 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                                           margin: const EdgeInsets.only(top: 2),
                                           decoration: BoxDecoration(
                                             color: AppColors.primary
-                                                .withOpacity(0.1),
+                                                .withValues(alpha: 0.1),
                                             shape: BoxShape.circle,
                                             border: Border.all(
                                               color: AppColors.primary
-                                                  .withOpacity(0.5),
+                                                  .withValues(alpha: 0.5),
                                               width: 1.5,
                                             ),
                                           ),
@@ -740,7 +725,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                                             boxShadow: [
                                               BoxShadow(
                                                 color: AppColors.primary
-                                                    .withOpacity(0.3),
+                                                    .withValues(alpha: 0.3),
                                                 blurRadius: 8,
                                                 offset: const Offset(0, 4),
                                               ),
@@ -781,7 +766,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                                                   decoration: BoxDecoration(
                                                     color: colorScheme
                                                         .surfaceContainerHighest
-                                                        .withOpacity(0.5),
+                                                        .withValues(alpha: 0.5),
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                           8,
@@ -796,7 +781,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                                                         size: 14,
                                                         color: colorScheme
                                                             .onSurface
-                                                            .withOpacity(0.7),
+                                                            .withValues(alpha: 0.7),
                                                       ),
                                                       const SizedBox(width: 4),
                                                       Text(
@@ -805,7 +790,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                                                           fontSize: 12,
                                                           color: colorScheme
                                                               .onSurface
-                                                              .withOpacity(0.7),
+                                                              .withValues(alpha: 0.7),
                                                           fontWeight:
                                                               FontWeight.w500,
                                                         ),
@@ -836,10 +821,10 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                               child: Container(
                                 padding: const EdgeInsets.all(_pad),
                                 decoration: BoxDecoration(
-                                  color: AppColors.genieGold.withOpacity(0.1),
+                                  color: AppColors.genieGold.withValues(alpha: 0.1),
                                   borderRadius: BorderRadius.circular(20),
                                   border: Border.all(
-                                    color: AppColors.genieGold.withOpacity(0.3),
+                                    color: AppColors.genieGold.withValues(alpha: 0.3),
                                   ),
                                 ),
                                 child: Column(
@@ -869,7 +854,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                                       style: theme.textTheme.bodyMedium
                                           ?.copyWith(
                                             color: colorScheme.onSurface
-                                                .withOpacity(0.8),
+                                                .withValues(alpha: 0.8),
                                             height: 1.5,
                                           ),
                                     ),
@@ -892,7 +877,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                                       borderRadius: BorderRadius.circular(20),
                                       boxShadow: [
                                         BoxShadow(
-                                          color: AppColors.primary.withOpacity(
+                                          color: AppColors.primary.withValues(alpha: 
                                             0.3,
                                           ),
                                           blurRadius: 12,
@@ -958,7 +943,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                                   padding: const EdgeInsets.all(_space),
                                   decoration: BoxDecoration(
                                     color: colorScheme.surfaceContainerHighest
-                                        .withOpacity(0.5),
+                                        .withValues(alpha: 0.5),
                                     borderRadius: BorderRadius.circular(20),
                                   ),
                                   child: Row(
@@ -973,7 +958,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                                           style: theme.textTheme.bodySmall
                                               ?.copyWith(
                                                 color: colorScheme.onSurface
-                                                    .withOpacity(0.7),
+                                                    .withValues(alpha: 0.7),
                                                 height: 1.4,
                                               ),
                                         ),
@@ -1072,7 +1057,7 @@ class _CircleButton extends StatelessWidget {
         shape: BoxShape.circle,
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: Colors.black.withValues(alpha: 0.1),
             blurRadius: 8,
             offset: const Offset(0, 2),
           ),
@@ -1124,7 +1109,7 @@ class _StatChip extends StatelessWidget {
               label,
               style: theme.textTheme.bodySmall?.copyWith(
                 fontWeight: FontWeight.w600,
-                color: colorScheme.onSurface.withOpacity(0.85),
+                color: colorScheme.onSurface.withValues(alpha: 0.85),
               ),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
@@ -1177,7 +1162,7 @@ class _NutritionItem extends StatelessWidget {
           Text(
             label,
             style: theme.textTheme.labelSmall?.copyWith(
-              color: colorScheme.onSurface.withOpacity(0.7),
+              color: colorScheme.onSurface.withValues(alpha: 0.7),
               fontWeight: FontWeight.w600,
             ),
             textAlign: TextAlign.center,

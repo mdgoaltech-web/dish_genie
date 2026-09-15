@@ -2,10 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CADisableMinimumFrameDurationOnPhone</key>
+	<true/>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Smart Chef</string>
+	<string>Recipe Keeper</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -13,7 +15,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>Smart Chef</string>
+	<string>Recipe Keeper</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -22,7 +24,44 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>mailto</string>
+		<string>itms-apps</string>
+		<string>https</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>Recipe Keeper uses the camera so you can photograph ingredients; the photo is analysed to suggest recipes.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Recipe Keeper uses the microphone for voice input when you dictate ingredients or a question to the AI chef.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Recipe Keeper uses your photo library so you can pick an existing photo of ingredients to scan for recipe ideas.</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>Recipe Keeper uses speech recognition to turn your dictated ingredients or questions into text.</string>
+	<key>UIApplicationSceneManifest</key>
+	<dict>
+		<key>UIApplicationSupportsMultipleScenes</key>
+		<false/>
+		<key>UISceneConfigurations</key>
+		<dict>
+			<key>UIWindowSceneSessionRoleApplication</key>
+			<array>
+				<dict>
+					<key>UISceneClassName</key>
+					<string>UIWindowScene</string>
+					<key>UISceneConfigurationName</key>
+					<string>flutter</string>
+					<key>UISceneDelegateClassName</key>
+					<string>FlutterSceneDelegate</string>
+					<key>UISceneStoryboardFile</key>
+					<string>Main</string>
+				</dict>
+			</array>
+		</dict>
+	</dict>
+	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
@@ -41,33 +80,5 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>CADisableMinimumFrameDurationOnPhone</key>
-	<true/>
-	<key>UIApplicationSupportsIndirectInputEvents</key>
-	<true/>
-	<!-- Camera Permission -->
-	<key>NSCameraUsageDescription</key>
-	<string>Smart Chef needs access to your camera to scan ingredients and take photos of food items for recipe generation.</string>
-	<!-- Photo Library Permission -->
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Smart Chef needs access to your photo library to select images of ingredients for recipe generation.</string>
-	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>Smart Chef needs permission to save recipe images and generated content to your photo library.</string>
-	<!-- Microphone Permission -->
-	<key>NSMicrophoneUsageDescription</key>
-	<string>Smart Chef needs access to your microphone for voice input to search for recipes and interact with the AI assistant.</string>
-	<!-- Required for url_launcher mailto (feedback email); canLaunchUrl checks these -->
-	<key>NSSpeechRecognitionUsageDescription</key>
-<string>This app uses speech recognition to convert your voice into text.</string>
-
-	<key>LSApplicationQueriesSchemes</key>
-	<array>
-		<string>mailto</string>
-		<string>itms-apps</string>
-		<string>https</string>
-	</array>
-	<!-- Google Mobile Ads App ID -->
-	<key>GADApplicationIdentifier</key>
-	<string>ca-app-pub-6882687050623219~4480893062</string>
 </dict>
 </plist>

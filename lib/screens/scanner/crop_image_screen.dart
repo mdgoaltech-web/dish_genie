@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../core/localization/l10n_extension.dart';
-import '../../services/app_open_ad_manager.dart';
 
 class CropImageScreen extends StatefulWidget {
   const CropImageScreen({super.key, required this.image});
@@ -32,10 +31,6 @@ class _CropImageScreenState extends State<CropImageScreen> {
     if (_isCropping) return;
     setState(() => _isCropping = true);
     try {
-      // Cropper launches an external Activity on Android.
-      // Suppress resume-triggered App Open Ads for this flow.
-      AppOpenAdManager.instance.suppressNextResume(reason: 'image_cropper');
-
       final theme = Theme.of(context);
       final isDark = theme.brightness == Brightness.dark;
 

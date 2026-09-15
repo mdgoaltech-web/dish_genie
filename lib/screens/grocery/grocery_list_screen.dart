@@ -11,7 +11,6 @@ import '../../data/models/grocery_list.dart';
 import '../../providers/grocery_provider.dart';
 import '../../providers/meal_plan_provider.dart';
 import '../../services/grocery_service.dart';
-import '../../services/interstitial_ad_helper.dart';
 import '../../services/storage_service.dart';
 import '../../widgets/voice/voice_input_dialog.dart';
 import '../../widgets/common/floating_sparkles.dart';
@@ -765,7 +764,7 @@ class _GroceryListScreenState extends State<GroceryListScreen> {
             Icon(
               Icons.shopping_cart_outlined,
               size: 80,
-              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.4),
+              color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.4),
             ),
             const SizedBox(height: 24),
             Text(
@@ -779,7 +778,7 @@ class _GroceryListScreenState extends State<GroceryListScreen> {
             Text(
               context.t('grocery.no.items.hint'),
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+                color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
               ),
               textAlign: TextAlign.center,
             ),
@@ -898,7 +897,7 @@ class _GroceryListScreenState extends State<GroceryListScreen> {
                                   ? Theme.of(context).colorScheme.onPrimary
                                   : Theme.of(
                                       context,
-                                    ).colorScheme.onSurface.withOpacity(0.6),
+                                    ).colorScheme.onSurface.withValues(alpha: 0.6),
                             ),
                             const SizedBox(width: 6),
                             Text(
@@ -955,7 +954,7 @@ class _GroceryListScreenState extends State<GroceryListScreen> {
                         fontSize: 12,
                         color: Theme.of(
                           context,
-                        ).colorScheme.onSurface.withOpacity(0.6),
+                        ).colorScheme.onSurface.withValues(alpha: 0.6),
                       ),
                     ),
                     Text(
@@ -964,7 +963,7 @@ class _GroceryListScreenState extends State<GroceryListScreen> {
                         fontSize: 12,
                         color: Theme.of(
                           context,
-                        ).colorScheme.onSurface.withOpacity(0.6),
+                        ).colorScheme.onSurface.withValues(alpha: 0.6),
                       ),
                     ),
                   ],
@@ -1125,7 +1124,7 @@ class _GroceryListScreenState extends State<GroceryListScreen> {
                       return Padding(
                         padding: const EdgeInsets.only(top: 10),
                         child: Material(
-                          color: AppColors.destructive.withOpacity(0.08),
+                          color: AppColors.destructive.withValues(alpha: 0.08),
                           borderRadius: BorderRadius.circular(12),
                           child: InkWell(
                             borderRadius: BorderRadius.circular(12),
@@ -1190,10 +1189,10 @@ class _GroceryListScreenState extends State<GroceryListScreen> {
                       margin: const EdgeInsets.only(bottom: 8),
                       padding: const EdgeInsets.all(12),
                       decoration: BoxDecoration(
-                        color: AppColors.genieGold.withOpacity(0.1),
+                        color: AppColors.genieGold.withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(12),
                         border: Border.all(
-                          color: AppColors.genieGold.withOpacity(0.3),
+                          color: AppColors.genieGold.withValues(alpha: 0.3),
                         ),
                       ),
                       child: Row(
@@ -1324,7 +1323,7 @@ class _GroceryListScreenState extends State<GroceryListScreen> {
                     Icon(
                       Icons.check_circle_outline,
                       size: 64,
-                      color: AppColors.primary.withOpacity(0.6),
+                      color: AppColors.primary.withValues(alpha: 0.6),
                     ),
                     const SizedBox(height: 16),
                     Text(
@@ -1343,7 +1342,7 @@ class _GroceryListScreenState extends State<GroceryListScreen> {
                         fontSize: 14,
                         color: Theme.of(
                           context,
-                        ).colorScheme.onSurface.withOpacity(0.6),
+                        ).colorScheme.onSurface.withValues(alpha: 0.6),
                       ),
                       textAlign: TextAlign.center,
                     ),
@@ -1387,10 +1386,10 @@ class _GroceryListScreenState extends State<GroceryListScreen> {
                 vertical: MediaQuery.of(context).size.width < 360 ? 12 : 14,
               ),
               decoration: BoxDecoration(
-                color: AppColors.genieGold.withOpacity(0.1),
+                color: AppColors.genieGold.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(20),
                 border: Border.all(
-                  color: AppColors.genieGold.withOpacity(0.3),
+                  color: AppColors.genieGold.withValues(alpha: 0.3),
                   width: 2,
                 ),
               ),
@@ -1502,7 +1501,7 @@ class _GroceryListScreenState extends State<GroceryListScreen> {
                             fontSize: isSmallScreen ? 11 : 12,
                             color: Theme.of(
                               context,
-                            ).colorScheme.onSurface.withOpacity(0.6),
+                            ).colorScheme.onSurface.withValues(alpha: 0.6),
                           ),
                         ),
                       ],
@@ -1514,7 +1513,7 @@ class _GroceryListScreenState extends State<GroceryListScreen> {
                       vertical: isSmallScreen ? 3 : 4,
                     ),
                     decoration: BoxDecoration(
-                      color: AppColors.primary.withOpacity(0.1),
+                      color: AppColors.primary.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Text(
@@ -1531,7 +1530,7 @@ class _GroceryListScreenState extends State<GroceryListScreen> {
                     isExpanded ? Icons.expand_less : Icons.expand_more,
                     color: Theme.of(
                       context,
-                    ).colorScheme.onSurface.withOpacity(0.6),
+                    ).colorScheme.onSurface.withValues(alpha: 0.6),
                     size: 20,
                   ),
                 ],
@@ -1647,7 +1646,7 @@ class _GroceryListScreenState extends State<GroceryListScreen> {
       decoration: BoxDecoration(
         border: Border(
           top: BorderSide(
-            color: Theme.of(context).dividerColor.withOpacity(0.1),
+            color: Theme.of(context).dividerColor.withValues(alpha: 0.1),
           ),
         ),
       ),
@@ -1678,7 +1677,7 @@ class _GroceryListScreenState extends State<GroceryListScreen> {
                     color: item.checked
                         ? Theme.of(
                             context,
-                          ).colorScheme.onSurface.withOpacity(0.5)
+                          ).colorScheme.onSurface.withValues(alpha: 0.5)
                         : Theme.of(context).colorScheme.onSurface,
                   ),
                 ),
@@ -1688,7 +1687,7 @@ class _GroceryListScreenState extends State<GroceryListScreen> {
                     fontSize: isSmallScreen ? 11 : 12,
                     color: Theme.of(
                       context,
-                    ).colorScheme.onSurface.withOpacity(0.6),
+                    ).colorScheme.onSurface.withValues(alpha: 0.6),
                   ),
                 ),
               ],
@@ -1696,7 +1695,7 @@ class _GroceryListScreenState extends State<GroceryListScreen> {
           ),
           IconButton(
             icon: const Icon(Icons.delete_outline, size: 20),
-            color: AppColors.destructive.withOpacity(0.7),
+            color: AppColors.destructive.withValues(alpha: 0.7),
             padding: EdgeInsets.zero,
             constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
             onPressed: () {
@@ -1798,10 +1797,7 @@ class _GroceryListScreenState extends State<GroceryListScreen> {
     }
 
     Future<void> addSuggestion(String itemName) async {
-      await InterstitialAdHelper.showGrocerySmartSuggestionAddInterstitial(
-        context: context,
-        afterAdOrSkip: () => _addSuggestedGroceryItem(provider, itemName),
-      );
+      _addSuggestedGroceryItem(provider, itemName);
     }
 
     return Column(
@@ -1955,10 +1951,7 @@ class _GroceryListScreenState extends State<GroceryListScreen> {
     }
 
     Future<void> addSuggestion(String itemName) async {
-      await InterstitialAdHelper.showGrocerySmartSuggestionAddInterstitial(
-        context: context,
-        afterAdOrSkip: () => _addSuggestedGroceryItem(provider, itemName),
-      );
+      _addSuggestedGroceryItem(provider, itemName);
     }
 
     return SingleChildScrollView(
@@ -2295,14 +2288,14 @@ class _GroceryListScreenState extends State<GroceryListScreen> {
         gradient: LinearGradient(
           colors: [
             Theme.of(context).cardColor,
-            Theme.of(context).cardColor.withOpacity(0.95),
+            Theme.of(context).cardColor.withValues(alpha: 0.95),
           ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
         borderRadius: BorderRadius.circular(24),
         boxShadow: AppColors.getCardShadow(context),
-        border: Border.all(color: AppColors.primary.withOpacity(0.1), width: 1),
+        border: Border.all(color: AppColors.primary.withValues(alpha: 0.1), width: 1),
       ),
       child: Row(
         children: [
@@ -2324,7 +2317,7 @@ class _GroceryListScreenState extends State<GroceryListScreen> {
                     fontSize: 13,
                     color: Theme.of(
                       context,
-                    ).colorScheme.onSurface.withOpacity(0.6),
+                    ).colorScheme.onSurface.withValues(alpha: 0.6),
                   ),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
@@ -2345,7 +2338,7 @@ class _GroceryListScreenState extends State<GroceryListScreen> {
                   shape: BoxShape.circle,
                   boxShadow: [
                     BoxShadow(
-                      color: AppColors.primary.withOpacity(0.3),
+                      color: AppColors.primary.withValues(alpha: 0.3),
                       blurRadius: 8,
                       offset: const Offset(0, 4),
                     ),
@@ -2416,7 +2409,7 @@ class _GroceryListScreenState extends State<GroceryListScreen> {
             boxShadow: isSelected
                 ? [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.05),
+                      color: Colors.black.withValues(alpha: 0.05),
                       blurRadius: 4,
                       offset: const Offset(0, 2),
                     ),
@@ -2428,7 +2421,7 @@ class _GroceryListScreenState extends State<GroceryListScreen> {
             size: 20,
             color: isSelected
                 ? Theme.of(context).colorScheme.primary
-                : Theme.of(context).colorScheme.onSurface.withOpacity(0.4),
+                : Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.4),
           ),
         ),
       ),
@@ -2460,7 +2453,7 @@ class _GroceryListScreenState extends State<GroceryListScreen> {
               Container(
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
-                  color: color.withOpacity(0.1),
+                  color: color.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Text(emoji, style: const TextStyle(fontSize: 24)),
@@ -2498,7 +2491,7 @@ class _GroceryListScreenState extends State<GroceryListScreen> {
               Icon(
                 Icons.chevron_right,
                 size: 20,
-                color: Theme.of(context).colorScheme.onSurface.withOpacity(0.4),
+                color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.4),
               ),
             ],
           ),
@@ -2610,7 +2603,7 @@ class _GroceryListScreenState extends State<GroceryListScreen> {
             width: 40,
             height: 40,
             decoration: BoxDecoration(
-              color: iconColor.withOpacity(0.12),
+              color: iconColor.withValues(alpha: 0.12),
               borderRadius: BorderRadius.circular(14),
             ),
             child: Icon(icon, color: iconColor, size: 20),
@@ -2690,7 +2683,7 @@ class _GroceryListScreenState extends State<GroceryListScreen> {
             borderRadius: BorderRadius.circular(16),
             boxShadow: [
               BoxShadow(
-                color: AppColors.primary.withOpacity(0.1),
+                color: AppColors.primary.withValues(alpha: 0.1),
                 blurRadius: 12,
                 offset: const Offset(0, 4),
               ),
@@ -2717,7 +2710,7 @@ class _GroceryListScreenState extends State<GroceryListScreen> {
                   fontSize: 10,
                   color: Theme.of(
                     context,
-                  ).colorScheme.onSurface.withOpacity(0.55),
+                  ).colorScheme.onSurface.withValues(alpha: 0.55),
                 ),
               ),
             ],
@@ -2836,7 +2829,7 @@ class _GroceryListScreenState extends State<GroceryListScreen> {
           label,
           style: TextStyle(
             fontSize: 11,
-            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.55),
+            color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.55),
           ),
         ),
       ],
@@ -2873,7 +2866,7 @@ class _GroceryListScreenState extends State<GroceryListScreen> {
   Widget _buildAddTab(BuildContext context, GroceryProvider provider) {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
-    final onSurfaceMuted = theme.colorScheme.onSurface.withOpacity(0.55);
+    final onSurfaceMuted = theme.colorScheme.onSurface.withValues(alpha: 0.55);
 
     final searchFill = isDark ? const Color(0xFF1C2433) : const Color(0xFFF3F6F9);
     final searchBorder = isDark ? const Color(0xFF2A3446) : const Color(0xFFE6EEF6);
@@ -3193,7 +3186,7 @@ class _GroceryListScreenState extends State<GroceryListScreen> {
                         size: 48,
                         color: Theme.of(
                           context,
-                        ).colorScheme.onSurface.withOpacity(0.4),
+                        ).colorScheme.onSurface.withValues(alpha: 0.4),
                       ),
                       const SizedBox(height: 16),
                       Text(
@@ -3201,7 +3194,7 @@ class _GroceryListScreenState extends State<GroceryListScreen> {
                         style: TextStyle(
                           color: Theme.of(
                             context,
-                          ).colorScheme.onSurface.withOpacity(0.6),
+                          ).colorScheme.onSurface.withValues(alpha: 0.6),
                         ),
                         textAlign: TextAlign.center,
                       ),
@@ -3251,7 +3244,7 @@ class _GroceryListScreenState extends State<GroceryListScreen> {
                               fontSize: 12,
                               color: Theme.of(
                                 context,
-                              ).colorScheme.onSurface.withOpacity(0.6),
+                              ).colorScheme.onSurface.withValues(alpha: 0.6),
                             ),
                           ),
                           const SizedBox(width: 8),
@@ -3290,7 +3283,7 @@ class _GroceryListScreenState extends State<GroceryListScreen> {
                       size: 48,
                       color: Theme.of(
                         context,
-                      ).colorScheme.onSurface.withOpacity(0.4),
+                      ).colorScheme.onSurface.withValues(alpha: 0.4),
                     ),
                     const SizedBox(height: 16),
                     Text(
@@ -3298,7 +3291,7 @@ class _GroceryListScreenState extends State<GroceryListScreen> {
                       style: TextStyle(
                         color: Theme.of(
                           context,
-                        ).colorScheme.onSurface.withOpacity(0.6),
+                        ).colorScheme.onSurface.withValues(alpha: 0.6),
                       ),
                       textAlign: TextAlign.center,
                     ),
@@ -3341,7 +3334,7 @@ class _GroceryListScreenState extends State<GroceryListScreen> {
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: isAlreadyAdded
-                        ? AppColors.primary.withOpacity(0.2)
+                        ? AppColors.primary.withValues(alpha: 0.2)
                         : Theme.of(context).cardColor,
                     foregroundColor: isAlreadyAdded
                         ? AppColors.primary
@@ -3395,7 +3388,7 @@ class _GroceryListScreenState extends State<GroceryListScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         decoration: BoxDecoration(
           color: isSelected
-              ? AppColors.primary.withOpacity(0.2)
+              ? AppColors.primary.withValues(alpha: 0.2)
               : Theme.of(context).cardColor,
           borderRadius: BorderRadius.circular(20),
           border: Border.all(
@@ -3411,7 +3404,7 @@ class _GroceryListScreenState extends State<GroceryListScreen> {
               size: 16,
               color: isSelected
                   ? AppColors.primary
-                  : Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+                  : Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
             ),
             const SizedBox(width: 6),
             Text(

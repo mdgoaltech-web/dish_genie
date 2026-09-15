@@ -6,7 +6,7 @@ import '../../providers/recipe_provider.dart';
 import 'back_button_handler.dart';
 import 'bottom_nav.dart';
 
-/// Hosts the five main tabs with a single persistent bottom bar + banner ([GlobalKey] on banner).
+/// Hosts the five main tabs with a single persistent bottom bar.
 ///
 /// [PopScope] lives here (inside the shell [ModalRoute]) so the system back button
 /// is handled correctly. Ancestor-only handlers (e.g. wrapping [MaterialApp.router]'s
@@ -21,10 +21,7 @@ class MainTabShell extends StatefulWidget {
 }
 
 class _MainTabShellState extends State<MainTabShell> {
-  /// Keeps [BottomBannerAdWidget] state (and one [AdWidget]) across tab index changes.
-  final GlobalKey _bottomBannerKey = GlobalKey();
-
-  /// Measures [BottomNav] height so the exit sheet clears tab + banner controls.
+  /// Measures [BottomNav] height so the exit sheet clears the tab bar.
   final GlobalKey _bottomNavBarMeasureKey = GlobalKey();
 
   bool _isExitSheetOpen = false;
@@ -117,7 +114,6 @@ class _MainTabShellState extends State<MainTabShell> {
         body: widget.navigationShell,
         bottomNavigationBar: BottomNav(
           navigationShell: widget.navigationShell,
-          bannerKey: _bottomBannerKey,
           bottomBarMeasureKey: _bottomNavBarMeasureKey,
         ),
       ),

@@ -6,10 +6,7 @@ import '../../core/localization/l10n_extension.dart';
 import '../../core/localization/language_config.dart';
 import '../../core/theme/colors.dart';
 import '../../providers/language_provider.dart';
-import '../../services/splash_sub_iap_gate.dart';
 import '../../services/storage_service.dart';
-import '../../widgets/ads/custom_native_ad_widget.dart';
-import '../../widgets/ads/screen_native_ad_widget.dart';
 import '../../widgets/common/sticky_header.dart';
 
 class LanguageSelectionScreen extends StatefulWidget {
@@ -81,15 +78,10 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
         }
         return;
       }
-      // First-time: onboarding if needed; else home or Pro when splash_sub RC allows
+      // First run: onboarding once, then Home.
       final onboardingComplete = await StorageService.isOnboardingComplete();
       if (!mounted) return;
-      if (!onboardingComplete) {
-        context.go('/onboarding');
-        return;
-      }
-      final proRoute = await splashSubProRouteBeforeHomeIfNeeded();
-      if (mounted) context.go(proRoute ?? '/');
+      context.go(onboardingComplete ? '/' : '/onboarding');
     });
   }
 
@@ -187,18 +179,9 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
                         (language) =>
                             _buildLanguageOption(context, language, isDark),
                       ),
-                      // Bottom padding for fixed ad
                       const SizedBox(height: 20),
                     ],
                   ),
-                ),
-              ),
-              // Fixed native ad at bottom (medium)
-              SafeArea(
-                top: false,
-                child: const ScreenNativeAdWidget(
-                  screenKey: 'language',
-                  size: CustomNativeAdSize.medium,
                 ),
               ),
             ],
@@ -221,7 +204,7 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
     final languageTextColor =
         isDark ? Colors.white : const Color(0xFF111827);
     final nativeLanguageTextColor = isDark
-        ? Colors.white.withOpacity(0.65)
+        ? Colors.white.withValues(alpha: 0.65)
         : const Color(0xFF6B7280);
 
     return Padding(
@@ -238,7 +221,7 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 18),
             decoration: BoxDecoration(
               color: isDark
-                  ? Theme.of(context).colorScheme.surface.withOpacity(0.65)
+                  ? Theme.of(context).colorScheme.surface.withValues(alpha: 0.65)
                   : (isSelected ? selectedFill : Colors.white),
               borderRadius: BorderRadius.circular(30),
               border: Border.all(

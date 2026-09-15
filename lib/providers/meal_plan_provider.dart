@@ -36,7 +36,7 @@ class MealPlanProvider with ChangeNotifier {
         notifyListeners();
       }
     } catch (e) {
-      print('Error loading meal plan: $e');
+      debugPrint('Error loading meal plan: $e');
     }
   }
 
@@ -56,18 +56,14 @@ class MealPlanProvider with ChangeNotifier {
 
     try {
       if (!SupabaseService.isInitialized) {
-        throw Exception(
-          'Meal plan service is not configured. Set supabase_url and supabase_anon_key in Firebase Remote Config, or in lib/config/supabase_config.dart (use your Supabase project URL and anon key from the Dashboard).',
-        );
+        throw Exception('error.no.internet');
       }
 
       final supabaseUrl = SupabaseService.url;
       final supabaseKey = SupabaseService.anonKey;
 
       if (supabaseUrl == null || supabaseKey == null) {
-        throw Exception(
-          'Supabase credentials are missing. Add supabase_anon_key in Firebase Remote Config or in lib/config/supabase_config.dart.',
-        );
+        throw Exception('error.no.internet');
       }
 
       // Get current language (matching web app pattern)
@@ -92,8 +88,8 @@ class MealPlanProvider with ChangeNotifier {
       };
 
       if (kDebugMode) {
-        print('📤 [MealPlan] Request URL: $functionUrl');
-        print('📤 [MealPlan] Request body: ${json.encode(requestBody)}');
+        debugPrint('📤 [MealPlan] Request URL: $functionUrl');
+        debugPrint('📤 [MealPlan] Request body: ${json.encode(requestBody)}');
       }
 
       final httpResponse = await http.post(
@@ -107,8 +103,8 @@ class MealPlanProvider with ChangeNotifier {
       );
 
       if (kDebugMode) {
-        print('📥 [MealPlan] Response status: ${httpResponse.statusCode}');
-        print('📥 [MealPlan] Response body: ${httpResponse.body}');
+        debugPrint('📥 [MealPlan] Response status: ${httpResponse.statusCode}');
+        debugPrint('📥 [MealPlan] Response body: ${httpResponse.body}');
       }
 
       if (httpResponse.statusCode != 200) {
@@ -305,8 +301,8 @@ class MealPlanProvider with ChangeNotifier {
       notifyListeners();
       return plan;
     } catch (e, stackTrace) {
-      print('Error generating meal plan: $e');
-      print('Stack trace: $stackTrace');
+      debugPrint('Error generating meal plan: $e');
+      debugPrint('Stack trace: $stackTrace');
       _isLoading = false;
       notifyListeners();
 
@@ -395,8 +391,8 @@ class MealPlanProvider with ChangeNotifier {
 
       if (httpResponse.statusCode != 200) {
         if (kDebugMode) {
-          print('❌ [MealPlan] Swap meal failed: ${httpResponse.statusCode}');
-          print('❌ [MealPlan] Response: ${httpResponse.body}');
+          debugPrint('❌ [MealPlan] Swap meal failed: ${httpResponse.statusCode}');
+          debugPrint('❌ [MealPlan] Response: ${httpResponse.body}');
         }
         return;
       }
@@ -478,7 +474,7 @@ class MealPlanProvider with ChangeNotifier {
         }
       }
     } catch (e) {
-      print('Error swapping meal: $e');
+      debugPrint('Error swapping meal: $e');
     } finally {
       _swappingMealType = null;
       notifyListeners();
@@ -489,7 +485,7 @@ class MealPlanProvider with ChangeNotifier {
     try {
       await StorageService.saveMealPlan(json.encode(plan.toJson()));
     } catch (e) {
-      print('Error saving meal plan: $e');
+      debugPrint('Error saving meal plan: $e');
     }
   }
 
@@ -507,7 +503,7 @@ class MealPlanProvider with ChangeNotifier {
     try {
       await StorageService.clearMealPlan();
     } catch (e) {
-      print('Error clearing meal plan storage: $e');
+      debugPrint('Error clearing meal plan storage: $e');
     }
     // Note: Grocery list clearing should be handled by the caller
     // to avoid circular dependencies between providers

@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
@@ -8,8 +6,6 @@ import 'package:provider/provider.dart';
 import '../../core/localization/l10n_extension.dart';
 import '../../core/theme/colors.dart';
 import '../../providers/recipe_provider.dart';
-import '../../services/ad_service.dart';
-import '../../services/remote_config_service.dart';
 
 /// Global back button handler.
 ///
@@ -149,7 +145,7 @@ class _BackButtonHandlerState extends State<BackButtonHandler> {
     // canPop determines if we can pop naturally (if true, allow pop; if false, intercept)
     return PopScope(
       canPop: false, // Always intercept to handle custom logic
-      onPopInvoked: (didPop) {
+      onPopInvokedWithResult: (didPop, _) {
         if (!didPop) {
           // Check immediately if exit sheet is open
           if (_isExitSheetOpen) {
@@ -289,7 +285,7 @@ class ExitConfirmationBottomSheet extends StatelessWidget {
                 width: 40,
                 height: 4,
                 decoration: BoxDecoration(
-                  color: theme.dividerColor.withOpacity(0.3),
+                  color: theme.dividerColor.withValues(alpha: 0.3),
                   borderRadius: BorderRadius.circular(2),
                 ),
               ),
@@ -307,7 +303,7 @@ class ExitConfirmationBottomSheet extends StatelessWidget {
             Text(
               context.t('exit.dialog.message'),
               style: theme.textTheme.bodyMedium?.copyWith(
-                color: theme.colorScheme.onSurface.withOpacity(0.7),
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
               ),
               textAlign: TextAlign.center,
             ),
@@ -325,7 +321,7 @@ class ExitConfirmationBottomSheet extends StatelessWidget {
                         borderRadius: BorderRadius.circular(12),
                       ),
                       side: BorderSide(
-                        color: theme.dividerColor.withOpacity(0.5),
+                        color: theme.dividerColor.withValues(alpha: 0.5),
                       ),
                     ),
                     child: Text(
@@ -341,45 +337,8 @@ class ExitConfirmationBottomSheet extends StatelessWidget {
                 // Exit button
                 Expanded(
                   child: ElevatedButton(
-                    onPressed: () async {
-                      try {
-                        await RemoteConfigService.initialize();
-                        await RemoteConfigService.fetchAndActivate();
-                      } catch (_) {}
-                      final shouldShowExitAd = Platform.isIOS
-                          ? RemoteConfigService.exitInterIos
-                          : RemoteConfigService.exitInter;
-
-                      if (shouldShowExitAd) {
-                        try {
-                          if (context.mounted) {
-                            await AdService.showInterstitialAdForType(
-                              adType: 'exit',
-                              context: context,
-                              loadAdFunction: () =>
-                                  AdService.loadExitInterstitialAd(),
-                              onAdDismissed: () {
-                                // App closes ONLY after user dismisses the ad
-                                if (context.mounted) {
-                                  Navigator.of(context).pop();
-                                }
-                                SystemNavigator.pop();
-                              },
-                              onAdFailedToShow: (_) {
-                                // Ad failed to load/show - exit without waiting
-                                if (context.mounted) {
-                                  Navigator.of(context).pop();
-                                }
-                                SystemNavigator.pop();
-                              },
-                            );
-                            return; // Do NOT fall through - exit happens in callbacks only
-                          }
-                        } catch (_) {}
-                      }
-
-                      // No ad shown - close sheet and exit
-                      if (context.mounted) Navigator.of(context).pop();
+                    onPressed: () {
+                      Navigator.of(context).pop();
                       SystemNavigator.pop();
                     },
                     style: ElevatedButton.styleFrom(

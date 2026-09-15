@@ -1,20 +1,18 @@
 import 'dart:async';
-import 'dart:io';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-import '../../config/pro_config.dart';
 import '../../core/localization/l10n_extension.dart';
 import '../../core/theme/colors.dart';
 import '../../providers/premium_provider.dart';
-import '../../services/ad_service.dart';
-import '../../services/remote_config_service.dart';
 import '../../services/startup_service.dart';
 import '../../services/storage_service.dart';
 
+/// Launch screen. Waits for start-up work, then goes to language selection
+/// (first run) or straight to Home. It never opens the paywall.
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
@@ -24,10 +22,8 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen>
     with TickerProviderStateMixin {
-  static const Duration _minSplashDuration = Duration(milliseconds: 2500);
-  // Testing helper: when true, always reopen onboarding as a first-launch flow.
-  // Keep false for production behavior.
-  static const bool _forceShowOnboardingAsFirstLaunch = false;
+  static const Duration _minSplashDuration = Duration(milliseconds: 1500);
+  static const Duration _maxWait = Duration(seconds: 4);
 
   late AnimationController _stageController;
   late AnimationController _bounceController;
@@ -35,29 +31,20 @@ class _SplashScreenState extends State<SplashScreen>
   late Animation<double> _scaleAnimation;
   late Animation<double> _fadeAnimation;
   late Animation<double> _translateAnimation;
-  late Animation<double> _glowAnimation;
   int _stage = 0;
-  final bool _isVisible = true;
-  bool _restoreCompleted = false;
 
   @override
   void initState() {
     super.initState();
 
-    // Stage controller for sequential animations
     _stageController = AnimationController(
-      // Keep animation aligned with desired splash duration.
       duration: _minSplashDuration,
       vsync: this,
     );
-
-    // Bounce controller for mascot
     _bounceController = AnimationController(
       duration: const Duration(milliseconds: 2000),
       vsync: this,
     )..repeat(reverse: true);
-
-    // Dots animation controller for loading indicator
     _dotsController = AnimationController(
       duration: const Duration(milliseconds: 1200),
       vsync: this,
@@ -69,14 +56,12 @@ class _SplashScreenState extends State<SplashScreen>
         curve: const Interval(0.0, 0.3, curve: Curves.easeOut),
       ),
     );
-
     _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(
         parent: _stageController,
         curve: const Interval(0.2, 0.5, curve: Curves.easeOut),
       ),
     );
-
     _translateAnimation = Tween<double>(begin: 16.0, end: 0.0).animate(
       CurvedAnimation(
         parent: _stageController,
@@ -84,331 +69,40 @@ class _SplashScreenState extends State<SplashScreen>
       ),
     );
 
-    _glowAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(
-        parent: _stageController,
-        curve: const Interval(0.2, 0.6, curve: Curves.easeOut),
-      ),
-    );
-
-    // Stage progression
     Future.delayed(const Duration(milliseconds: 100), () {
       if (mounted) setState(() => _stage = 1);
     });
-    Future.delayed(const Duration(milliseconds: 600), () {
+    Future.delayed(const Duration(milliseconds: 500), () {
       if (mounted) setState(() => _stage = 2);
     });
-    Future.delayed(const Duration(milliseconds: 1000), () {
+    Future.delayed(const Duration(milliseconds: 800), () {
       if (mounted) setState(() => _stage = 3);
     });
 
     _stageController.forward();
-    _bounceController.repeat(reverse: true);
-    _navigateNext();
+    unawaited(_navigateNext());
   }
 
   Future<void> _navigateNext() async {
-    final premiumProvider = context.read<PremiumProvider>();
+    final premium = context.read<PremiumProvider>();
 
-    // Ensure splash is visible for proper minimum duration and wait for critical initialization
-    const minSplash = _minSplashDuration; // 2.5 seconds minimum
-    const maxTotalWait = Duration(seconds: 4); // Maximum 4 seconds total wait
+    // Start-up work and the StoreKit entitlement check run in parallel with
+    // the splash animation; neither may block the user for long.
+    final work = Future.wait<void>([
+      StartupService.start(),
+      premium.ready,
+    ]).timeout(_maxWait, onTimeout: () => <void>[]);
 
-    final startTime = DateTime.now();
-    bool? isFirstLaunchResult;
-    bool? languageSelectedResult;
-
-    // Restore subscription in parallel with splash (reinstall: local premium is false).
-    final restoreFuture = premiumProvider.restoreSubscriptionForSplash().then((
-      _,
-    ) {
-      if (mounted) setState(() => _restoreCompleted = true);
-    });
-
-    // Initialize StorageService first to ensure SharedPreferences is ready
-    await StorageService.initialize();
-
-    // GDPR/UMP consent MUST complete before leaving splash.
-    // Start gathering immediately (runs in parallel with other startup work).
-    final consentFuture = AdService.initialize();
-
-    // Start all async operations in parallel
-    final firstLaunchCheck = StorageService.isFirstLaunch()
-        .then((v) {
-          isFirstLaunchResult = v;
-          debugPrint('[SplashScreen] ✅ First launch check: $v');
-        })
-        .catchError((e) {
-          debugPrint('[SplashScreen] ❌ First launch check error: $e');
-          isFirstLaunchResult =
-              true; // Default to true on error (assume first launch)
-        });
-
-    final languageCheck = StorageService.isLanguageSelected().then(
-      (v) => languageSelectedResult = v,
-    );
-
-    // Wait for critical startup tasks (with timeout to avoid blocking too long)
-    final startupCheck = StartupService.start()
-        .timeout(
-          const Duration(seconds: 3),
-          onTimeout: () {
-            debugPrint(
-              '[SplashScreen] ⚠️ StartupService timeout, continuing...',
-            );
-          },
-        )
-        .catchError((e) {
-          debugPrint('[SplashScreen] ⚠️ StartupService error: $e');
-        });
-
-    // Wait for minimum splash duration AND critical tasks to complete
-    await Future.wait([
-      // Ensure minimum display time
-      Future.delayed(minSplash),
-      // Wait for critical checks (with timeout)
-      Future.any([
-        Future.wait([firstLaunchCheck, languageCheck, startupCheck]),
-        Future.delayed(maxTotalWait),
-      ]),
-    ]);
-
-    // Block navigation until consent form is completed/dismissed.
-    // This prevents user from reaching next screens (and seeing ads) before consenting.
-    await consentFuture;
-
-    // Wait for subscription restore before ads, Pro, or navigation.
-    await restoreFuture;
-
-    // Calculate elapsed time and ensure we've waited at least the minimum
-    final elapsed = DateTime.now().difference(startTime);
-    if (elapsed < minSplash) {
-      final remaining = minSplash - elapsed;
-      await Future.delayed(remaining);
-    }
-
+    await Future.wait([Future.delayed(_minSplashDuration), work]);
     if (!mounted) return;
 
-    // CRITICAL: Ensure first launch check has completed
-    // If it's still null, wait a bit more or default to true
-    if (isFirstLaunchResult == null) {
-      debugPrint('[SplashScreen] ⚠️ First launch check still null, waiting...');
-      try {
-        isFirstLaunchResult = await StorageService.isFirstLaunch().timeout(
-          const Duration(milliseconds: 500),
-          onTimeout: () => true, // Default to true (first launch) if timeout
-        );
-        debugPrint(
-          '[SplashScreen] ✅ First launch check after wait: $isFirstLaunchResult',
-        );
-      } catch (e) {
-        debugPrint('[SplashScreen] ❌ Error getting first launch: $e');
-        isFirstLaunchResult = true; // Default to true on error
-      }
-    }
-
-    if (!mounted) return;
-
-    // Increment app session count (for sub_splash logic)
-    final sessionCount = await StorageService.incrementAppSessionCount();
-    if (!mounted) return;
-
-    // First launch flow: Splash → (1st-time ad if RC) → Language → Onboarding → (Pro if splash_sub*) → Home
-    final isFirstLaunch =
-        isFirstLaunchResult ?? true; // Default to true for first launch
-    debugPrint(
-      '[SplashScreen] 🚀 Navigation decision - isFirstLaunch: $isFirstLaunch, languageSelected: $languageSelectedResult',
-    );
-
-    if (!mounted) return;
-
-    if (_forceShowOnboardingAsFirstLaunch) {
-      debugPrint(
-        '[SplashScreen] 🧪 Forced first-launch onboarding for testing',
-      );
-      await _showSplashFirstTimeInterstitialThenGo('/onboarding');
-      return;
-    }
-
-    if (isFirstLaunch) {
-      if (premiumProvider.isPremium) {
-        debugPrint(
-          '[SplashScreen] ✅ Premium restored on splash (reinstall) — skipping ads',
-        );
-        final isLanguageSelected = languageSelectedResult ?? false;
-        final route = !isLanguageSelected ? '/language-selection' : '/';
-        if (mounted) context.go(route);
-        return;
-      }
-      // First launch: Splash → (App Open Ad if RC) → Language → Onboarding
-      debugPrint('[SplashScreen] 📱 First launch: language then onboarding');
-      await _showSplashFirstTimeInterstitialThenGo('/language-selection');
-      return;
-    }
-
-    // Premium restored on splash: skip ads and Pro, go straight home.
-    if (premiumProvider.isPremium) {
-      debugPrint(
-        '[SplashScreen] ✅ Premium restored on splash — skipping ads and Pro',
-      );
-      final isLanguageSelected = languageSelectedResult ?? false;
-      final route = !isLanguageSelected ? '/language-selection' : '/';
-      if (mounted) context.go(route);
-      return;
-    }
-
-    // After first launch: Splash → (App Open) → Pro or Home (sub_splash controls when to show Pro)
-    final openPro = await _shouldOpenProAfterSplash(sessionCount);
-    if (!mounted) return;
-    if (openPro) {
-      // On iOS, skip Pro screen when showProOnIos is false
-      if (Platform.isIOS && !ProConfig.showProOnIos) {
-        final isLanguageSelected = languageSelectedResult ?? false;
-        if (!mounted) return;
-        final route = !isLanguageSelected ? '/language-selection' : '/';
-        await _showSplashReturningUserInterstitialThenGo(route);
-        return;
-      }
-      await _showSplashReturningUserInterstitialThenGo('/pro?src=splash');
-      return;
-    }
-
-    // If Pro is disabled remotely (weekly_sub false), show returning user ad then continue.
+    bool languageSelected = false;
     try {
-      final isLanguageSelected = languageSelectedResult ?? false;
-      if (!mounted) return;
-      final route = !isLanguageSelected ? '/language-selection' : '/';
-      await _showSplashReturningUserInterstitialThenGo(route);
-    } catch (e) {
-      debugPrint('[SplashScreen] ❌ Error checking language: $e');
-      if (mounted) {
-        await _showSplashReturningUserInterstitialThenGo('/language-selection');
-      }
-    }
-  }
-
-  /// First launch: show splash interstitial if RC allows (Android: `splash_inter_1sttime`, iOS: `splash_inter_1sttime_ios`), then navigate.
-  Future<void> _showSplashFirstTimeInterstitialThenGo(String route) async {
-    if (!mounted) return;
-    if (context.read<PremiumProvider>().isPremium) {
-      context.go(route);
-      return;
-    }
-    try {
-      await RemoteConfigService.initialize().timeout(
-        const Duration(seconds: 3),
-        onTimeout: () => false,
-      );
-      await RemoteConfigService.fetchAndActivate().timeout(
-        const Duration(seconds: 5),
-        onTimeout: () {},
-      );
+      languageSelected = await StorageService.isLanguageSelected();
     } catch (_) {}
     if (!mounted) return;
 
-    final shouldShow = Platform.isIOS
-        ? RemoteConfigService.splashInter1stTimeIos
-        : RemoteConfigService.splashInter1stTime;
-
-    if (!shouldShow) {
-      if (mounted) context.go(route);
-      return;
-    }
-
-    await AdService.loadAndShowSplashFirstTimeInterstitialAd(
-      context: context,
-      onComplete: () {
-        if (mounted) context.go(route);
-      },
-    );
-  }
-
-  /// Returning user: show splash interstitial if RC allows (Android: `splash_inter_2ndtime`, iOS: `splash_inter_2ndtime_ios`), then navigate.
-  Future<void> _showSplashReturningUserInterstitialThenGo(String route) async {
-    if (!mounted) return;
-    if (context.read<PremiumProvider>().isPremium) {
-      context.go(route);
-      return;
-    }
-    try {
-      await RemoteConfigService.initialize().timeout(
-        const Duration(seconds: 3),
-        onTimeout: () => false,
-      );
-      await RemoteConfigService.fetchAndActivate().timeout(
-        const Duration(seconds: 5),
-        onTimeout: () {},
-      );
-    } catch (_) {}
-    if (!mounted) return;
-
-    final shouldShow = Platform.isIOS
-        ? RemoteConfigService.splashInter2ndTimeIos
-        : RemoteConfigService.splashInter2ndTime;
-
-    if (!shouldShow) {
-      if (mounted) context.go(route);
-      return;
-    }
-
-    await AdService.loadAndShowSplashReturningUserInterstitialAd(
-      context: context,
-      onComplete: () {
-        if (mounted) context.go(route);
-      },
-    );
-  }
-
-  // _navigateAfterAd removed: interstitial is now after Pro, not on splash.
-
-  /// Show Pro after splash when [RemoteConfigService.splashSub] / [splashSubIos] is true,
-  /// plus [weekly_sub] / [weekly_sub_ios] and [sub_splash] / [sub_splash_ios] session rules.
-  Future<bool> _shouldOpenProAfterSplash(int sessionCount) async {
-    if (context.read<PremiumProvider>().isPremium) return false;
-
-    try {
-      final ok = await RemoteConfigService.initialize().timeout(
-        const Duration(seconds: 3),
-        onTimeout: () => false,
-      );
-      if (!ok) {
-        return Platform.isIOS
-            ? RemoteConfigService.weeklySubIos
-            : RemoteConfigService.weeklySub;
-      }
-
-      await RemoteConfigService.fetchAndActivate().timeout(
-        const Duration(seconds: 5),
-        onTimeout: () {},
-      );
-
-      final weeklyOk = Platform.isIOS
-          ? RemoteConfigService.weeklySubIos
-          : RemoteConfigService.weeklySub;
-      if (!weeklyOk) return false;
-
-      final splashSubOk = Platform.isIOS
-          ? RemoteConfigService.splashSubIos
-          : RemoteConfigService.splashSub;
-      if (!splashSubOk) return false;
-
-      final config =
-          (Platform.isIOS
-                  ? RemoteConfigService.subSplashIos
-                  : RemoteConfigService.subSplash)
-              .trim()
-              .toLowerCase();
-      if (config == 'off' || config.isEmpty) return true;
-      if (config == '0') return true;
-
-      final n = int.tryParse(config);
-      if (n == null || n < 1) return true;
-      return sessionCount >= n && sessionCount % n == 0;
-    } catch (_) {
-      return Platform.isIOS
-          ? RemoteConfigService.weeklySubIos
-          : RemoteConfigService.weeklySub;
-    }
+    context.go(languageSelected ? '/' : '/language-selection');
   }
 
   @override
@@ -421,277 +115,177 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
-    if (!_isVisible) {
-      return const SizedBox.shrink();
-    }
-
-    final isPremiumUser = context.watch<PremiumProvider>().isPremium;
-
+    final size = MediaQuery.sizeOf(context);
     return Scaffold(
-      body: AnimatedOpacity(
-        opacity: _isVisible ? 1.0 : 0.0,
-        duration: const Duration(milliseconds: 500),
-        child: Container(
-          decoration: BoxDecoration(
-            gradient: AppColors.getGradientHero(context),
-          ),
-          child: Stack(
-            children: [
-              // Floating sparkles background
-              ...List.generate(8, (i) {
-                return Positioned(
-                  left: (10 + i * 12) * MediaQuery.of(context).size.width / 100,
-                  top:
-                      (20 + (i % 3) * 25) *
-                      MediaQuery.of(context).size.height /
-                      100,
-                  child: AnimatedOpacity(
-                    opacity: _stage >= 1 ? 0.4 : 0.0,
-                    duration: const Duration(milliseconds: 500),
-                    child: Container(
-                      width: 8,
-                      height: 8,
-                      decoration: BoxDecoration(
-                        color: AppColors.geniePurple.withOpacity(0.4),
-                        shape: BoxShape.circle,
-                      ),
+      body: Container(
+        decoration: BoxDecoration(gradient: AppColors.getGradientHero(context)),
+        child: Stack(
+          children: [
+            ...List.generate(8, (i) {
+              return Positioned(
+                left: (10 + i * 12) * size.width / 100,
+                top: (20 + (i % 3) * 25) * size.height / 100,
+                child: AnimatedOpacity(
+                  opacity: _stage >= 1 ? 0.4 : 0.0,
+                  duration: const Duration(milliseconds: 500),
+                  child: Container(
+                    width: 8,
+                    height: 8,
+                    decoration: BoxDecoration(
+                      color: AppColors.geniePurple.withValues(alpha: 0.4),
+                      shape: BoxShape.circle,
                     ),
                   ),
-                );
-              }),
-              // Main content
-              Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    // App Icon with animation
-                    AnimatedBuilder(
-                      animation: Listenable.merge([
-                        _scaleAnimation,
-                        _bounceController,
-                      ]),
-                      builder: (context, child) {
-                        return Transform.scale(
-                          scale: _stage >= 1 ? _scaleAnimation.value : 0.0,
-                          child: Transform.rotate(
-                            angle: _stage >= 1 ? 0.0 : -3.14159,
-                            child: Opacity(
-                              opacity: _stage >= 1 ? 1.0 : 0.0,
-                              child: Stack(
-                                alignment: Alignment.center,
-                                children: [
-                                  // Glow effect
-                                  AnimatedBuilder(
-                                    animation: _glowAnimation,
-                                    builder: (context, child) {
-                                      return Container(
-                                        width: 256,
-                                        height: 256,
-                                        decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color: AppColors.geniePurple
-                                                  .withOpacity(
-                                                    _stage >= 2 ? 0.6 : 0.0,
-                                                  ),
-                                              blurRadius: 72,
-                                              spreadRadius: _stage >= 2
-                                                  ? 36
-                                                  : 0,
-                                            ),
-                                          ],
-                                        ),
-                                      );
-                                    },
-                                  ),
-                                  // Mascot image with bounce
-                                  Transform.translate(
-                                    offset: Offset(
-                                      0,
-                                      _stage >= 1
-                                          ? (math.sin(
-                                                  _bounceController.value *
-                                                      2 *
-                                                      math.pi,
-                                                ) *
-                                                8)
-                                          : 0,
-                                    ),
-                                    child: Image.asset(
-                                      'assets/pro_top_new.png',
-                                      width: 176,
-                                      height: 176,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                    const SizedBox(height: 24),
-                    // App Name
-                    AnimatedBuilder(
-                      animation: _fadeAnimation,
-                      builder: (context, child) {
-                        return Opacity(
-                          opacity: _stage >= 2 ? _fadeAnimation.value : 0.0,
-                          child: Transform.translate(
-                            offset: Offset(
-                              0,
-                              _stage >= 2
-                                  ? (1 - _translateAnimation.value)
-                                  : 16,
-                            ),
-                            child: Column(
-                              children: [
-                                ShaderMask(
-                                  shaderCallback: (bounds) => AppColors
-                                      .gradientPrimary
-                                      .createShader(bounds),
-                                  child: Text(
-                                    context.t('splashAppName'),
-                                    style: const TextStyle(
-                                      fontSize: 36,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white,
-                                      letterSpacing: -0.5,
-                                    ),
-                                    textDirection: Directionality.of(context),
-                                  ),
-                                ),
-                                AnimatedOpacity(
-                                  opacity: _stage >= 3 ? 1.0 : 0.0,
-                                  duration: const Duration(milliseconds: 500),
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(top: 8),
-                                    child: Text(
-                                      context.t('splashSubtitle'),
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        color: Colors.grey[600],
+                ),
+              );
+            }),
+            Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  AnimatedBuilder(
+                    animation: Listenable.merge([
+                      _scaleAnimation,
+                      _bounceController,
+                    ]),
+                    builder: (context, child) {
+                      return Transform.scale(
+                        scale: _stage >= 1 ? _scaleAnimation.value : 0.0,
+                        child: Opacity(
+                          opacity: _stage >= 1 ? 1.0 : 0.0,
+                          child: Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              Container(
+                                width: 256,
+                                height: 256,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: AppColors.geniePurple.withValues(alpha: 
+                                        _stage >= 2 ? 0.6 : 0.0,
                                       ),
-                                      textDirection: Directionality.of(context),
+                                      blurRadius: 72,
+                                      spreadRadius: _stage >= 2 ? 36 : 0,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Transform.translate(
+                                offset: Offset(
+                                  0,
+                                  _stage >= 1
+                                      ? math.sin(
+                                              _bounceController.value *
+                                                  2 *
+                                                  math.pi,
+                                            ) *
+                                            8
+                                      : 0,
+                                ),
+                                child: Image.asset(
+                                  'assets/pro_top_new.png',
+                                  width: 176,
+                                  height: 176,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                  const SizedBox(height: 24),
+                  AnimatedBuilder(
+                    animation: _fadeAnimation,
+                    builder: (context, child) {
+                      return Opacity(
+                        opacity: _stage >= 2 ? _fadeAnimation.value : 0.0,
+                        child: Transform.translate(
+                          offset: Offset(
+                            0,
+                            _stage >= 2 ? (1 - _translateAnimation.value) : 16,
+                          ),
+                          child: Column(
+                            children: [
+                              ShaderMask(
+                                shaderCallback: (bounds) => AppColors
+                                    .gradientPrimary
+                                    .createShader(bounds),
+                                child: Text(
+                                  context.t('splashAppName'),
+                                  style: const TextStyle(
+                                    fontSize: 36,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                    letterSpacing: -0.5,
+                                  ),
+                                ),
+                              ),
+                              AnimatedOpacity(
+                                opacity: _stage >= 3 ? 1.0 : 0.0,
+                                duration: const Duration(milliseconds: 500),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(top: 8),
+                                  child: Text(
+                                    context.t('splashSubtitle'),
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      color: Colors.grey[600],
                                     ),
                                   ),
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
-                        );
-                      },
-                    ),
-                    const SizedBox(height: 32),
-                    // Loading indicator with animated dots (left to right)
-                    AnimatedOpacity(
-                      opacity: _stage >= 3 ? 1.0 : 0.0,
-                      duration: const Duration(milliseconds: 500),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: List.generate(3, (i) {
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 3),
-                            child: _stage >= 3
-                                ? AnimatedBuilder(
-                                    animation: _dotsController,
-                                    builder: (context, child) {
-                                      // Create left-to-right wave effect
-                                      // Each dot animates in sequence from left (0) to right (2)
-                                      final totalDots = 3;
-                                      final cycleProgress =
-                                          _dotsController.value; // 0.0 to 1.0
-
-                                      // Calculate the wave position (0.0 to 1.0 across all dots)
-                                      final wavePosition =
-                                          cycleProgress *
-                                          (totalDots + 1); // 0.0 to 4.0
-
-                                      // Calculate distance from wave position to this dot
-                                      final dotIndex = i.toDouble();
-                                      final distance = (wavePosition - dotIndex)
-                                          .abs();
-
-                                      // Create a smooth pulse effect as wave passes
-                                      double activeValue;
-                                      if (distance < 1.0) {
-                                        // Wave is near this dot - create smooth pulse
-                                        activeValue =
-                                            1.0 -
-                                            distance; // 1.0 when wave is at dot, 0.0 when 1.0 away
-                                      } else {
-                                        // Wave is far from this dot
-                                        activeValue = 0.0;
-                                      }
-
-                                      // Apply smooth easing
-                                      activeValue = activeValue.clamp(0.0, 1.0);
-                                      final scale =
-                                          0.6 +
-                                          (activeValue * 0.4); // 0.6 to 1.0
-                                      final opacity =
-                                          0.5 +
-                                          (activeValue * 0.5); // 0.5 to 1.0
-
-                                      return Transform.scale(
-                                        scale: scale,
-                                        child: Opacity(
-                                          opacity: opacity,
-                                          child: Container(
-                                            width: 8,
-                                            height: 8,
-                                            decoration: BoxDecoration(
-                                              color: AppColors.geniePurple,
-                                              shape: BoxShape.circle,
-                                            ),
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                  )
-                                : Container(
+                        ),
+                      );
+                    },
+                  ),
+                  const SizedBox(height: 32),
+                  AnimatedOpacity(
+                    opacity: _stage >= 3 ? 1.0 : 0.0,
+                    duration: const Duration(milliseconds: 500),
+                    child: AnimatedBuilder(
+                      animation: _dotsController,
+                      builder: (context, child) {
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: List.generate(3, (i) {
+                            final wave = _dotsController.value * 4;
+                            final distance = (wave - i).abs();
+                            final active = distance < 1.0
+                                ? (1.0 - distance).clamp(0.0, 1.0)
+                                : 0.0;
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 3,
+                              ),
+                              child: Transform.scale(
+                                scale: 0.6 + active * 0.4,
+                                child: Opacity(
+                                  opacity: 0.5 + active * 0.5,
+                                  child: Container(
                                     width: 8,
                                     height: 8,
-                                    decoration: BoxDecoration(
-                                      color: AppColors.geniePurple.withOpacity(
-                                        0.3,
-                                      ),
+                                    decoration: const BoxDecoration(
+                                      color: AppColors.geniePurple,
                                       shape: BoxShape.circle,
                                     ),
                                   ),
-                          );
-                        }),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              // Ad disclaimer — only after restore, and only for non-premium users.
-              if (_restoreCompleted && !isPremiumUser)
-                Positioned(
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  child: SafeArea(
-                    top: false,
-                    child: Padding(
-                      padding: const EdgeInsets.only(bottom: 12),
-                      child: Center(
-                        child: Text(
-                          context.t('splashActionMayContainAd'),
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: Colors.grey[600],
-                          ),
-                          textDirection: Directionality.of(context),
-                        ),
-                      ),
+                                ),
+                              ),
+                            );
+                          }),
+                        );
+                      },
                     ),
                   ),
-                ),
-            ],
-          ),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );

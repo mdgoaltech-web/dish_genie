@@ -1,24 +1,16 @@
 import 'dart:async';
 
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import 'app.dart';
-import 'firebase_options.dart';
 import 'services/startup_service.dart';
 
-void main() async {
+void main() {
   WidgetsFlutterBinding.ensureInitialized();
-
-  // Initialize Firebase before any Firebase-dependent code (e.g. Remote Config).
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-
   runApp(const App());
 
-  // Kick off heavy init after the first frame so the OS launcher screen
-  // disappears quickly.
+  // Heavy initialisation runs after the first frame so the launch screen
+  // disappears quickly; the splash screen awaits it.
   WidgetsBinding.instance.addPostFrameCallback((_) {
     unawaited(StartupService.start());
   });

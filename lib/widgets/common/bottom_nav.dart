@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../core/theme/colors.dart';
 import '../../core/localization/l10n_extension.dart';
-import '../../services/interstitial_ad_helper.dart';
-import '../ads/bottom_banner_ad_widget.dart';
 
-/// Shared lock to prevent double interstitial when tapping bottom nav rapidly
+/// Shared lock to prevent double navigation when tapping bottom nav rapidly
 bool _bottomNavProcessing = false;
 
 class BottomNav extends StatelessWidget {
@@ -13,10 +11,8 @@ class BottomNav extends StatelessWidget {
   final StatefulNavigationShell? navigationShell;
   final String activeTab;
   final bool hideWhenKeyboardVisible;
-  /// Stable key for the bottom banner when using [navigationShell] (main tab shell).
-  final GlobalKey? bannerKey;
 
-  /// Optional key on the outer bar (tabs + banner) for measuring height (e.g. exit sheet padding).
+  /// Optional key on the outer bar for measuring height (e.g. exit sheet padding).
   final Key? bottomBarMeasureKey;
 
   const BottomNav({
@@ -24,12 +20,8 @@ class BottomNav extends StatelessWidget {
     this.navigationShell,
     this.activeTab = 'home',
     this.hideWhenKeyboardVisible = true,
-    this.bannerKey,
     this.bottomBarMeasureKey,
-  }) : assert(
-          navigationShell == null || bannerKey != null,
-          'Use bannerKey with navigationShell so the banner keeps one AdWidget.',
-        );
+  });
 
   static const List<String> _tabIds = [
     'home',
@@ -79,9 +71,7 @@ class BottomNav extends StatelessWidget {
     final keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
     final isKeyboardVisible = keyboardHeight > 0;
     final screenWidth = MediaQuery.of(context).size.width;
-    final textScaleFactor = MediaQuery.of(
-      context,
-    ).textScaleFactor.clamp(0.8, 1.2);
+    final textScaleFactor = MediaQuery.textScalerOf(context).scale(1.0).clamp(0.8, 1.2);
 
     // Hide bottom nav when keyboard is visible
     if (hideWhenKeyboardVisible && isKeyboardVisible) {
@@ -101,10 +91,10 @@ class BottomNav extends StatelessWidget {
     return Container(
       key: bottomBarMeasureKey,
       decoration: BoxDecoration(
-        color: theme.scaffoldBackgroundColor.withOpacity(0.95),
+        color: theme.scaffoldBackgroundColor.withValues(alpha: 0.95),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.08),
+            color: Colors.black.withValues(alpha: 0.08),
             blurRadius: 8,
             offset: const Offset(0, -2),
           ),
@@ -176,10 +166,6 @@ class BottomNav extends StatelessWidget {
                 ],
               ),
             ),
-            if (navigationShell == null)
-              const BottomBannerAdWidget()
-            else
-              BottomBannerAdWidget(key: bannerKey),
           ],
         ),
       ),
@@ -223,11 +209,7 @@ class _NavItemState extends State<_NavItem> {
     });
 
     try {
-      final switchingTab = !widget.isActive;
       widget.onTap();
-      if (switchingTab) {
-        InterstitialAdHelper.showBottomTabInterstitial(context: context);
-      }
     } finally {
       // Reset both flags after a delay to prevent rapid taps
       Future.delayed(const Duration(milliseconds: 600), () {
@@ -278,7 +260,7 @@ class _NavItemState extends State<_NavItem> {
           boxShadow: widget.isActive
               ? [
                   BoxShadow(
-                    color: AppColors.primary.withOpacity(0.3),
+                    color: AppColors.primary.withValues(alpha: 0.3),
                     blurRadius: 8,
                     offset: const Offset(0, 2),
                   ),
@@ -297,7 +279,7 @@ class _NavItemState extends State<_NavItem> {
                 size: iconSize,
                 color: widget.isActive
                     ? Theme.of(context).colorScheme.onPrimary
-                    : Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+                    : Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
               ),
             ),
             SizedBox(height: spacing),
@@ -308,7 +290,7 @@ class _NavItemState extends State<_NavItem> {
                 fontWeight: FontWeight.w600,
                 color: widget.isActive
                     ? Theme.of(context).colorScheme.onPrimary
-                    : Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+                    : Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
               ),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:permission_handler/permission_handler.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../core/localization/l10n_extension.dart';
 import '../../services/network_service.dart';
@@ -46,7 +46,7 @@ void showPermissionDeniedDialog(BuildContext context) {
         TextButton(
           onPressed: () {
             Navigator.of(ctx).pop();
-            openAppSettings();
+            launchUrl(Uri.parse('app-settings:'));
           },
           child: Text(ctx.t('permission.open.settings')),
         ),

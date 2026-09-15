@@ -1,4 +1,3 @@
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -38,18 +37,12 @@ class StickyHeader extends StatelessWidget {
     );
   }
 
-  bool _isAndroid() {
-    return Platform.isAndroid;
-  }
-
   @override
   Widget build(BuildContext context) {
     final safeAreaTop = MediaQuery.of(context).padding.top;
     // Always respect the real safe-area inset (status bar). Only fall back to a
     // small padding if the inset is unexpectedly 0 (some fullscreen cases).
-    final topPadding = safeAreaTop > 0
-        ? safeAreaTop
-        : (_isAndroid() ? 8.0 : 0.0);
+    final topPadding = safeAreaTop > 0 ? safeAreaTop : 0.0;
 
     final theme = Theme.of(context);
     // If backgroundColor is provided, use it; otherwise make it transparent to show gradient

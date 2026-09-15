@@ -1,36 +1,30 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-import '../../services/analytics_service.dart';
-import '../../screens/splash/splash_screen.dart';
+
+import '../../data/models/recipe.dart';
+import '../../providers/language_provider.dart';
 import '../../providers/premium_provider.dart';
-import '../../screens/onboarding/onboarding_screen.dart';
-import '../../screens/language/language_selection_screen.dart';
-import '../../screens/language/language_picker_screen.dart';
-import '../../screens/auth/auth_screen.dart';
-import '../../screens/home/home_screen.dart';
-import '../../screens/recipes/recipe_generator_screen.dart';
-import '../../screens/recipes/recipe_detail_screen.dart';
-// import '../../screens/recipes/ai_recipe_detail_screen.dart';
-import '../../screens/meal_planner/meal_planner_screen.dart';
-import '../../screens/grocery/grocery_list_screen.dart';
-import '../../screens/grocery/saved_list_detail_screen.dart';
 import '../../screens/chat/chat_assistant_screen.dart';
 import '../../screens/chat/chat_history_screen.dart';
-import '../../screens/scanner/ingredient_scanner_screen.dart';
-import '../../screens/scanner/custom_camera_screen.dart';
-import '../../screens/scanner/crop_image_screen.dart';
-import 'package:image_picker/image_picker.dart';
 import '../../screens/favorites/favorites_screen.dart';
-import '../../screens/settings/settings_screen.dart';
-import '../../screens/search/search_screen.dart';
+import '../../screens/grocery/grocery_list_screen.dart';
+import '../../screens/grocery/saved_list_detail_screen.dart';
+import '../../screens/language/language_picker_screen.dart';
+import '../../screens/language/language_selection_screen.dart';
+import '../../screens/meal_planner/meal_planner_screen.dart';
 import '../../screens/not_found/not_found_screen.dart';
-import '../../screens/landing/landing_screen.dart';
+import '../../screens/onboarding/onboarding_screen.dart';
 import '../../screens/premium/pro_screen.dart';
-import '../../screens/app_open_ad_loader_screen.dart';
-import '../../providers/language_provider.dart';
-import '../../data/models/recipe.dart';
+import '../../screens/recipes/recipe_detail_screen.dart';
+import '../../screens/recipes/recipe_generator_screen.dart';
+import '../../screens/scanner/crop_image_screen.dart';
+import '../../screens/scanner/custom_camera_screen.dart';
+import '../../screens/scanner/ingredient_scanner_screen.dart';
+import '../../screens/search/search_screen.dart';
+import '../../screens/settings/settings_screen.dart';
+import '../../screens/splash/splash_screen.dart';
 import '../../widgets/common/main_tab_shell.dart';
 
 class AppRouter {
@@ -41,63 +35,40 @@ class AppRouter {
   static final RouteObserver<ModalRoute<void>> routeObserver =
       RouteObserver<ModalRoute<void>>();
 
-  /// Get the root navigator key for accessing navigator context
-  static GlobalKey<NavigatorState>? getNavigatorKey() {
-    return _rootNavigatorKey;
-  }
+  static GlobalKey<NavigatorState>? getNavigatorKey() => _rootNavigatorKey;
+
+  /// Route of the paywall. It is only ever pushed by an explicit user tap
+  /// (Pro badge, Home crown, Settings > Upgrade) or when a free limit is hit.
+  static const String proRoute = '/pro';
 
   static GoRouter createRouter(LanguageProvider languageProvider) {
     return GoRouter(
       navigatorKey: _rootNavigatorKey,
       initialLocation: '/splash',
-      observers: [
-        _SafeAnalyticsRouteObserver(),
-        routeObserver,
-      ],
+      observers: [routeObserver],
       errorBuilder: (context, state) => const NotFoundScreen(),
       redirect: (context, state) {
-        try {
-          final path = state.matchedLocation;
+        final path = state.matchedLocation;
 
-          // Premium users should never land on the Pro screen
-          if (path == '/pro') {
-            try {
-              if (context.mounted) {
-                final premiumProvider = Provider.of<PremiumProvider>(
-                  context,
-                  listen: false,
-                );
-                if (premiumProvider.isPremium) {
-                  return '/';
-                }
-              }
-            } catch (_) {}
-            return null;
-          }
-
-          // Skip guard for these routes
-          if (path == '/splash' ||
-              path == '/language-selection' ||
-              path == '/language-picker' ||
-              path == '/onboarding' ||
-              path == '/landing' ||
-              path == '/app-open-ad-loader') {
-            return null;
-          }
-
-          // Check language selection
-          if (!languageProvider.isLanguageSelected) {
-            return '/language-selection';
-          }
-
-          // Check onboarding
-          // Note: Check async in screen itself
-          return null;
-        } catch (e) {
-          // If any error occurs during redirect, allow navigation to proceed
-          // This prevents red screens during navigation
+        // Pro users never need the paywall.
+        if (path == proRoute) {
+          try {
+            if (context.read<PremiumProvider>().isPro) return '/';
+          } catch (_) {}
           return null;
         }
+
+        if (path == '/splash' ||
+            path == '/language-selection' ||
+            path == '/language-picker' ||
+            path == '/onboarding') {
+          return null;
+        }
+
+        if (!languageProvider.isLanguageSelected) {
+          return '/language-selection';
+        }
+        return null;
       },
       routes: [
         GoRoute(
@@ -119,11 +90,6 @@ class AppRouter {
           path: '/onboarding',
           name: 'onboarding',
           builder: (context, state) => const OnboardingScreen(),
-        ),
-        GoRoute(
-          path: '/auth',
-          name: 'auth',
-          builder: (context, state) => const AuthScreen(),
         ),
         StatefulShellRoute.indexedStack(
           builder: (context, state, navigationShell) {
@@ -201,12 +167,6 @@ class AppRouter {
               ],
             ),
           ],
-        ),
-        GoRoute(
-          parentNavigatorKey: _rootNavigatorKey,
-          path: '/home',
-          name: 'home-old',
-          builder: (context, state) => const HomeScreen(),
         ),
         GoRoute(
           parentNavigatorKey: _rootNavigatorKey,
@@ -294,21 +254,9 @@ class AppRouter {
         ),
         GoRoute(
           parentNavigatorKey: _rootNavigatorKey,
-          path: '/pro',
+          path: proRoute,
           name: 'pro',
           builder: (context, state) => const ProScreen(),
-        ),
-        GoRoute(
-          parentNavigatorKey: _rootNavigatorKey,
-          path: '/landing',
-          name: 'landing',
-          builder: (context, state) => const LandingScreen(),
-        ),
-        GoRoute(
-          parentNavigatorKey: _rootNavigatorKey,
-          path: '/app-open-ad-loader',
-          name: 'app-open-ad-loader',
-          builder: (context, state) => const AppOpenAdLoaderScreen(),
         ),
         GoRoute(
           parentNavigatorKey: _rootNavigatorKey,
@@ -318,43 +266,5 @@ class AppRouter {
         ),
       ],
     );
-  }
-}
-
-/// Logs screen views to Firebase Analytics without using Firebase's observer,
-/// so analytics works even if the native observer would crash (e.g. with GoRouter).
-class _SafeAnalyticsRouteObserver extends NavigatorObserver {
-  @override
-  void didPush(Route<dynamic> route, Route<dynamic>? previousRoute) {
-    super.didPush(route, previousRoute);
-    _logRoute(route);
-  }
-
-  @override
-  void didReplace({Route<dynamic>? newRoute, Route<dynamic>? oldRoute}) {
-    super.didReplace(newRoute: newRoute, oldRoute: oldRoute);
-    if (newRoute != null) _logRoute(newRoute);
-  }
-
-  void _logRoute(Route<dynamic> route) {
-    try {
-      final name = route.settings.name ?? route.settings.toString();
-      if (name.isNotEmpty) {
-        final screenName = name.startsWith('/') ? name : '/$name';
-        if (kDebugMode) {
-          print('📊 [Analytics] triggering screen_view for route: $screenName');
-        }
-        AnalyticsService.logScreenView(
-          screenName: screenName,
-          screenClass: route.runtimeType.toString(),
-        );
-      }
-    } catch (e, st) {
-      // Never let analytics crash the app
-      if (kDebugMode) {
-        print('📊 [Analytics] _logRoute error (ignored): $e');
-        print('   $st');
-      }
-    }
   }
 }

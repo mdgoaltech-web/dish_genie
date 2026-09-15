@@ -34,43 +34,18 @@ class SupabaseService {
       url: url,
       anonKey: anonKey,
       authOptions: const FlutterAuthClientOptions(
-        authFlowType: AuthFlowType.pkce,
-        autoRefreshToken: true,
+        // No accounts: the app only ever uses the anon key.
+        autoRefreshToken: false,
       ),
     );
     _isInitialized = true;
     _initController.add(true);
   }
   
-  // Auth methods
-  static Future<AuthResponse> signUp({
-    required String email,
-    required String password,
-    required String fullName,
-  }) async {
-    return await client.auth.signUp(
-      email: email,
-      password: password,
-      data: {'full_name': fullName},
-    );
+  /// Tears the client down (tests). The app never calls this.
+  static Future<void> dispose() async {
+    if (!_isInitialized) return;
+    _isInitialized = false;
+    await Supabase.instance.dispose();
   }
-  
-  static Future<AuthResponse> signIn({
-    required String email,
-    required String password,
-  }) async {
-    return await client.auth.signInWithPassword(
-      email: email,
-      password: password,
-    );
-  }
-  
-  static Future<void> signOut() async {
-    await client.auth.signOut();
-  }
-  
-  static User? get currentUser => client.auth.currentUser;
-  
-  static Stream<AuthState> get authStateChanges => 
-      client.auth.onAuthStateChange;
 }

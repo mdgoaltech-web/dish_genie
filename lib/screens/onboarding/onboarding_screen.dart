@@ -3,10 +3,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../core/localization/l10n_extension.dart';
 import '../../core/theme/colors.dart';
-import '../../services/splash_sub_iap_gate.dart';
 import '../../services/storage_service.dart';
-import '../../widgets/ads/custom_native_ad_widget.dart';
-import '../../widgets/ads/screen_native_ad_widget.dart';
 import '../../widgets/common/floating_sparkles.dart';
 import '../../widgets/common/genie_mascot.dart';
 import '../../widgets/common/rtl_icon.dart';
@@ -113,11 +110,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   Future<void> _completeOnboardingAndContinue() async {
     await StorageService.setOnboardingComplete(true);
     if (!mounted) return;
-
-    // On first-install completion, optionally open Pro before home based on RC gate.
-    final proRoute = await splashSubProRouteBeforeHomeIfNeeded();
-    if (!mounted) return;
-    context.go(proRoute ?? '/');
+    context.go('/');
   }
 
   @override
@@ -216,7 +209,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                                                   color:
                                                       (step['gradient']
                                                               as List<Color>)[0]
-                                                          .withOpacity(0.3),
+                                                          .withValues(alpha: 0.3),
                                                   blurRadius: 20,
                                                   spreadRadius: 2,
                                                 ),
@@ -332,7 +325,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                                 color: isActive
                                     ? null
                                     : isPast
-                                    ? AppColors.primary.withOpacity(0.6)
+                                    ? AppColors.primary.withValues(alpha: 0.6)
                                     : Colors.grey[300],
                                 borderRadius: BorderRadius.circular(4),
                               ),
@@ -379,12 +372,6 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                           ),
                         ),
                         const SizedBox(height: 16),
-                        // Onboarding Native Ad (Medium) - keep at the full end
-                        const ScreenNativeAdWidget(
-                          screenKey: 'onboarding',
-                          size: CustomNativeAdSize.medium,
-                        ),
-                        const SizedBox(height: 8),
                       ],
                     ),
                   ),
