@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'chat_markdown.dart';
+
 /// A widget that displays text with a typewriter effect (character by character animation)
 class TypewriterText extends StatefulWidget {
   final String text;
@@ -95,9 +97,9 @@ class _TypewriterTextState extends State<TypewriterText> {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      _displayedText,
-      style: widget.style,
+    final style = widget.style ?? DefaultTextStyle.of(context).style;
+    return Text.rich(
+      TextSpan(children: ChatMarkdown.spans(_displayedText, style)),
     );
   }
 }

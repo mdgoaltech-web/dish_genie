@@ -245,11 +245,16 @@ class ChatProvider with ChangeNotifier {
     }
   }
 
-  Future<void> sendMessage(String content) async {
+  /// Sends [content] to the assistant. Returns true when a reply was
+  /// received, false when nothing was sent (a send is already in progress)
+  /// or the request failed, so callers only count successful messages
+  /// against the free allowance.
+  Future<bool> sendMessage(String content) async {
     // Prevent double-send (e.g. rapid tap)
-    if (_isLoading || _isSendingMessage) return;
+    if (_isLoading || _isSendingMessage) return false;
 
     _isSendingMessage = true;
+    var delivered = false;
 
     // Create conversation ID if new chat
     _conversationId ??= DateTime.now().millisecondsSinceEpoch.toString();
@@ -317,6 +322,8 @@ class ChatProvider with ChangeNotifier {
         rethrow;
       }
 
+      delivered = fullResponse.isNotEmpty;
+
       // Save conversation after receiving response
       await _saveConversation();
 
@@ -359,6 +366,7 @@ class ChatProvider with ChangeNotifier {
       _sendCompletedAt = DateTime.now();
       notifyListeners();
     }
+    return delivered;
   }
 
   void clearMessages() {

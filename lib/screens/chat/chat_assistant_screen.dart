@@ -16,6 +16,7 @@ import '../../providers/premium_provider.dart';
 import '../../services/free_usage.dart';
 import '../../widgets/premium/pro_widgets.dart';
 import '../../widgets/voice/voice_input_dialog.dart';
+import '../../widgets/chat/chat_markdown.dart';
 import '../../widgets/chat/typewriter_text.dart';
 import '../../widgets/common/floating_sparkles.dart';
 import '../../widgets/common/genie_mascot.dart';
@@ -141,17 +142,24 @@ class _ChatAssistantScreenState extends State<ChatAssistantScreen> {
   }
 
   Future<void> _proceedWithMessage(String text) async {
+    final provider = context.read<ChatProvider>();
+    // A reply is still streaming: the send button is disabled, but the
+    // keyboard's Send key is not. Ignore instead of dropping the message.
+    if (provider.isLoading) return;
     if (!await ensureConnectedAndShowDialog(context)) return;
+    if (!mounted) return;
     _messageController.clear();
 
-    context.read<PremiumProvider>().recordUse(FreeFeature.aiChat);
-
-    final provider = context.read<ChatProvider>();
-    await provider.sendMessage(text);
     // Scroll to bottom after a short delay to ensure message is rendered
     Future.delayed(const Duration(milliseconds: 100), () {
       _scrollToBottom();
     });
+    final delivered = await provider.sendMessage(text);
+    // Only a delivered message counts against the daily free allowance; a
+    // failed request (network, server) does not burn one.
+    if (delivered && mounted) {
+      context.read<PremiumProvider>().recordUse(FreeFeature.aiChat);
+    }
   }
 
   String _buildCookingPromptFromRecipe(BuildContext context, Recipe recipe) {
@@ -252,7 +260,9 @@ class _ChatAssistantScreenState extends State<ChatAssistantScreen> {
               child: Column(
                 children: [
                   StickyHeader(
-                    title: context.t('chat.title'),
+                    // Shorter than "Recipe Keeper Chat": with the free-usage
+                    // chip and two icons beside it the long title truncated.
+                    title: context.t('home.ai.chef.chat'),
                     titleStyle: StickyHeader.shellTabTitleStyle(context),
                     showBack: false,
                     onBack: null,
@@ -806,11 +816,15 @@ class _ChatAssistantScreenState extends State<ChatAssistantScreen> {
                               speed: const Duration(milliseconds: 15),
                               animate: false,
                             ))
-                    : SelectableText(
-                        _getMessageContent(context, message.content),
-                        style: TextStyle(
-                          fontSize: messageFontSize,
-                          color: Theme.of(context).colorScheme.onSurface,
+                    : SelectableText.rich(
+                        TextSpan(
+                          children: ChatMarkdown.spans(
+                            _getMessageContent(context, message.content),
+                            TextStyle(
+                              fontSize: messageFontSize,
+                              color: Theme.of(context).colorScheme.onSurface,
+                            ),
+                          ),
                         ),
                       ),
               ),
@@ -865,7 +879,9 @@ class _ChatAssistantScreenState extends State<ChatAssistantScreen> {
                 Navigator.pop(context);
                 await Clipboard.setData(
                   ClipboardData(
-                    text: _getMessageContent(context, message.content),
+                    text: ChatMarkdown.toPlainText(
+                      _getMessageContent(context, message.content),
+                    ),
                   ),
                 );
                 if (mounted) {
