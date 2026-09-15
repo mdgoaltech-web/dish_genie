@@ -60,9 +60,6 @@ class AppLocalizationsTr extends AppLocalizations {
   String get commonLoading => 'Yükleniyor...';
 
   @override
-  String get adLoading => 'Reklam yükleniyor';
-
-  @override
   String get commonError => 'Hata';
 
   @override
@@ -207,56 +204,6 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get homeFeaturedRecipes => 'Öne Çıkan Tarifler';
-
-  @override
-  String get authSignIn => 'Giriş Yap';
-
-  @override
-  String get authSignUp => 'Kayıt Ol';
-
-  @override
-  String get authEmail => 'E-posta';
-
-  @override
-  String get authPassword => 'Şifre';
-
-  @override
-  String get authFullName => 'Tam Ad';
-
-  @override
-  String get authCreateAccount => 'Hesap Oluştur';
-
-  @override
-  String get authNoAccount => 'Hesabınız yok mu?';
-
-  @override
-  String get authHasAccount => 'Zaten hesabınız var mı?';
-
-  @override
-  String get authWelcomeBack => 'Smart Chef\'ye tekrar hoş geldiniz!';
-
-  @override
-  String get authWelcomeNew =>
-      'Smart Chef\'ye hoş geldiniz! Hesabınız oluşturuldu.';
-
-  @override
-  String get authInvalidCredentials => 'Geçersiz e-posta veya şifre';
-
-  @override
-  String get authAlreadyRegistered =>
-      'Bu e-posta zaten kayıtlı. Giriş yapmayı deneyin.';
-
-  @override
-  String get authEnterName => 'Lütfen adınızı girin';
-
-  @override
-  String get authSigningIn => 'Giriş yapılıyor...';
-
-  @override
-  String get authCreatingAccount => 'Hesap oluşturuluyor...';
-
-  @override
-  String get authMagicalAssistant => 'Sihirli mutfak asistanınız';
 
   @override
   String get recipesTitle => 'Yapay Zeka Tarifleri';
@@ -997,13 +944,13 @@ class AppLocalizationsTr extends AppLocalizations {
   String get savedListAiOptimizing => 'Yapay zeka listenizi optimize ediyor...';
 
   @override
-  String get chatTitle => 'Smart Chef Sohbet';
+  String get chatTitle => 'Recipe Keeper Sohbet';
 
   @override
   String get chatSubtitle => 'Yapay zeka yemek asistanınız';
 
   @override
-  String get chatGreeting => 'Merhaba, ben Smart Chef!';
+  String get chatGreeting => 'Merhaba, ben Recipe Keeper!';
 
   @override
   String get chatGreetingSubtitle =>
@@ -1202,7 +1149,7 @@ class AppLocalizationsTr extends AppLocalizations {
       'Uygulamayı beğendiniz mi? Değerlendirin!';
 
   @override
-  String get rateDialogTitle => 'Smart Chef\'i seviyor musunuz?';
+  String get rateDialogTitle => 'Recipe Keeper\'i seviyor musunuz?';
 
   @override
   String get rateDialogSubtitle =>
@@ -1669,13 +1616,10 @@ class AppLocalizationsTr extends AppLocalizations {
   String get savedMealPlanContinuePlan => 'Plana Devam Et';
 
   @override
-  String get splashAppName => 'Smart Chef';
+  String get splashAppName => 'Recipe Keeper';
 
   @override
   String get splashSubtitle => 'Yapay Zekalı Mutfak Arkadaşınız';
-
-  @override
-  String get splashActionMayContainAd => 'Bu işlem reklam içerebilir';
 
   @override
   String commonErrorMessage(
@@ -1730,62 +1674,18 @@ class AppLocalizationsTr extends AppLocalizations {
   String get settingsThemeSystem => 'Sistem';
 
   @override
-  String get landingAppName => 'Smart Chef AI';
-
-  @override
-  String get landingDownloadForIOS => 'iOS için indirin';
-
-  @override
-  String get landingGetOnAndroid => 'Android\'i edinin';
-
-  @override
-  String get landingFreeToDownload =>
-      'İndirmesi ücretsiz • Kredi kartı gerekmez';
-
-  @override
-  String get premiumSuccess => 'Başarı!';
-
-  @override
   String get premiumWelcomeMessage =>
-      'Smart Chef Pro\'ya hoş geldiniz! Tüm premium özelliklerin keyfini çıkarın.';
+      'Recipe Keeper Pro\'ya hoş geldiniz! Tüm premium özelliklerin keyfini çıkarın.';
 
   @override
   String get premiumPurchasesRestored =>
       'Satın alınanlar başarıyla geri yüklendi';
 
   @override
-  String get premiumSubscriptionLoading =>
-      'Abonelik planları yükleniyor. Lütfen kısa bir süre sonra tekrar deneyin.';
-
-  @override
-  String get premiumYouArePro => 'Sen Pro\'sun!';
-
-  @override
-  String get premiumUnlockTitle => 'Smart Chef Pro\'nun kilidini açın';
-
-  @override
-  String get premiumSubtitle => 'Kişisel AI Pişirme Asistanınız';
-
-  @override
-  String get premiumFeature => 'Özellik';
-
-  @override
   String get premiumPro => 'PRO';
 
   @override
-  String get premiumBasic => 'Temel';
-
-  @override
-  String get premiumFullAccess => 'Tam Premium Erişim';
-
-  @override
-  String get premiumSubscribeNow => 'Şimdi Abone Ol';
-
-  @override
   String get premiumRestorePurchases => 'Satın Alınanları Geri Yükle';
-
-  @override
-  String get premiumContinueWithAd => 'Reklamla devam et';
 
   @override
   String get premiumPrivacyPolicy => 'Gizlilik Politikası';
@@ -1794,50 +1694,13 @@ class AppLocalizationsTr extends AppLocalizations {
   String get premiumTermsOfUse => 'Kullanım Koşulları';
 
   @override
-  String get premiumCancelAnyTime => 'İstediğiniz zaman iptal edin';
-
-  @override
-  String get premiumFailedToInitiatePurchase =>
-      'Satın alma işlemi başlatılamadı';
-
-  @override
-  String premiumError(
-    String error,
-    Object erreur,
-    Object errore,
-    Object fout,
-    Object hata,
-    Object kesalahan,
-  ) {
-    return 'Hata: $hata';
-  }
-
-  @override
-  String get premiumFeatureUnlimitedRecipes => 'Sınırsız Yapay Zeka Tarifi';
-
-  @override
-  String get premiumFeatureNutritionAnalytics => 'Tam Beslenme Analitiği';
-
-  @override
-  String get premiumFeatureVoiceAssistant => 'Sesli Pişirme Asistanı';
-
-  @override
-  String get premiumFeatureImageAnalysis => 'Tarif Görüntüsü Analizi';
-
-  @override
-  String get premiumFeatureGroceryList => 'Akıllı Market Listesi';
-
-  @override
-  String get premiumFeatureAdFree => 'Reklamsız Deneyim';
-
-  @override
   String get scannerMin => 'dk.';
 
   @override
   String get scannerKcal => 'kcal';
 
   @override
-  String get appTitle => 'Smart Chef';
+  String get appTitle => 'Recipe Keeper';
 
   @override
   String get searchTitle => 'Aramak';
@@ -1895,15 +1758,6 @@ class AppLocalizationsTr extends AppLocalizations {
   String get premiumUpgrade => 'Güncelleme';
 
   @override
-  String scannerLimitReached(String limit) {
-    return '$limit ücretsiz tarif oluşturma sınırınıza ulaştınız. Sınırsız erişim için premium\'a yükseltin!';
-  }
-
-  @override
-  String get scannerAiDisabled =>
-      'AI tarifi oluşturma şu anda devre dışı. Sınırsız erişim için premium\'a yükseltin!';
-
-  @override
   String get scannerAddIngredient => 'İçerik Ekle';
 
   @override
@@ -1956,15 +1810,6 @@ class AppLocalizationsTr extends AppLocalizations {
   String get chatLimitReached => 'Sınırına ulaştın';
 
   @override
-  String chatLimitReachedMessage(String limit) {
-    return '$limit ücretsiz mesajın tamamını kullandınız. Sınırsız erişim için premium\'a yükseltin!';
-  }
-
-  @override
-  String get chatAiChefDisabled =>
-      'AI Chef sohbeti şu anda devre dışı. Sınırsız erişim için premium\'a yükseltin!';
-
-  @override
   String get commonUpgrade => 'Premium\'a Yükselt';
 
   @override
@@ -1974,23 +1819,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get backButtonExit => 'Çıkış';
 
   @override
-  String get appHeaderTitle => 'Smart Chef';
-
-  @override
-  String get premiumCardUnlock => 'Kilidi Aç ';
-
-  @override
-  String get premiumCardSmartChefPro => 'Smart Chef Pro';
-
-  @override
-  String get premiumCardSubtitle =>
-      'Reklamsız Deneyim ve Sınırsız AI Özellikleri';
-
-  @override
-  String get premiumCardTryPlus => 'Smart Chef Plus\'ı Deneyin';
-
-  @override
-  String get premiumCardGetPlus => 'Plus Al';
+  String get appHeaderTitle => 'Recipe Keeper';
 
   @override
   String get scannerCookingTimeLabel => 'Pişirme Süresi';
@@ -2065,222 +1894,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get scannerLimitReachedTitle => 'Sınırına ulaştın';
 
   @override
-  String get landingHeroTitle =>
-      'Yapay Zeka Şefinizle Tanışın — Anında Tarifler, Yemek Planları ve Akıllı Alışveriş Listeleri Oluşturun';
-
-  @override
-  String get landingHeroSubtitle =>
-      'Yapay zeka destekli kişisel mutfak asistanınız. Sağlıklı tarifler oluşturun, haftalık yemek planlayın ve akıllı alışveriş listeleri oluşturun; bunların tümü zevkinize, bütçenize ve hedeflerinize göre uyarlanmıştır.';
-
-  @override
-  String get landingWhySmartChef => 'Neden Smart Chef?';
-
-  @override
-  String get landingKitchenSupercharged => 'Mutfağınız Güçlendirilmiş';
-
-  @override
-  String get landingFeatureRecipeBuilderTitle => 'Akıllı Tarif Oluşturucu';
-
-  @override
-  String get landingFeatureRecipeBuilderDesc =>
-      'Yapay zekayı kullanarak evinizdeki malzemelerden kişiselleştirilmiş tarifler oluşturun';
-
-  @override
-  String get landingFeatureMealPlansTitle =>
-      'Kişiselleştirilmiş Yemek Planları';
-
-  @override
-  String get landingFeatureMealPlansDesc =>
-      'Hedeflerinize göre uyarlanmış, yapay zeka destekli haftalık ve aylık yemek planları';
-
-  @override
-  String get landingFeatureGroceryTitle => 'Akıllı Market Listesi';
-
-  @override
-  String get landingFeatureGroceryDesc =>
-      'Bütçe seçenekleriyle kategoriye göre düzenlenmiş alışveriş listelerini otomatik olarak oluşturun';
-
-  @override
-  String get landingSimpleEasy => 'Basit ve Kolay';
-
-  @override
-  String get landingHowItWorks => 'Nasıl Çalışır?';
-
-  @override
-  String get landingStep1Title => 'Tercihlerinizi Ayarlayın';
-
-  @override
-  String get landingStep1Desc =>
-      'Bize diyet hedeflerinizi, alerjilerinizi ve mutfak tercihlerinizi bildirin';
-
-  @override
-  String get landingStep2Title => 'Yapay Zeka Önerileri Alın';
-
-  @override
-  String get landingStep2Desc =>
-      'Kişiselleştirilmiş tarifleri ve yemek planlarını anında alın';
-
-  @override
-  String get landingStep3Title => 'Yemek Yap ve Takip Et';
-
-  @override
-  String get landingStep3Desc =>
-      'Adım adım kılavuzları takip edin ve beslenme ilerlemenizi takip edin';
-
-  @override
-  String get landingLovedByThousands => 'Binlerce Kişinin Sevdiği';
-
-  @override
-  String get landingWhatUsersSay => 'Kullanıcılarımız Ne Diyor?';
-
-  @override
-  String get landingTestimonial1Name => 'Sarah M.';
-
-  @override
-  String get landingTestimonial1Role => 'Meşgul Anne';
-
-  @override
-  String get landingTestimonial1Quote =>
-      'Smart Chef yemek planlamamı değiştirdi. Her hafta 5 saatten fazla tasarruf ediyorum!';
-
-  @override
-  String get landingTestimonial2Name => 'Ahmet K.';
-
-  @override
-  String get landingTestimonial2Role => 'Fitness Meraklısı';
-
-  @override
-  String get landingTestimonial2Quote =>
-      'Kalori takibi ve yüksek proteinli tarifler tam ihtiyacım olan şeydi.';
-
-  @override
-  String get landingTestimonial3Name => 'Priya S.';
-
-  @override
-  String get landingTestimonial3Role => 'Öğrenci';
-
-  @override
-  String get landingTestimonial3Quote =>
-      'Ev tadında, bütçe dostu desi tarifleri. Kesinlikle onu seviyorum!';
-
-  @override
-  String get landingStartCookingSmarter =>
-      'Bugün Daha Akıllı Yemek Pişirmeye Başlayın';
-
-  @override
-  String get landingJoinThousands =>
-      'Yapay zeka destekli yemek planlamayla mutfak deneyimlerini dönüştüren binlerce ev aşçısına katılın.';
-
-  @override
-  String get landingCopyright => '© 2024 Smart Chef AI. Her hakkı saklıdır.';
-
-  @override
   String get recipesLimitReached => 'Sınırına ulaştın';
-
-  @override
-  String recipesLimitReachedMessage(String limit) {
-    return '$limit ücretsiz tarif neslinin tamamını kullandınız. Sınırsız erişim için premium\'a yükseltin!';
-  }
-
-  @override
-  String get recipesAiRecipeDisabled =>
-      'AI tarifi oluşturma şu anda devre dışı. Sınırsız erişim için premium\'a yükseltin!';
-
-  @override
-  String get premiumPerWeek => '/Hafta';
-
-  @override
-  String get premiumTitleLine1 => 'Daha akıllı pişirin';
-
-  @override
-  String get premiumTitleLine2 => 'Smart Chef Premium ile.';
-
-  @override
-  String get premiumSeeMorePlans => 'Daha fazla plan gör';
-
-  @override
-  String get premiumSeeLessPlans => 'Daha az plan göster';
-
-  @override
-  String get premiumMostPopular => 'En popüler';
-
-  @override
-  String get premiumAnnualPlan => 'Yıllık Plan';
-
-  @override
-  String get premiumAnnualPriceOriginal => '\$140.99/yıl';
-
-  @override
-  String get premiumAnnualPrice => '\$124.99';
-
-  @override
-  String get premiumPerYear => '/yıl';
-
-  @override
-  String get premiumWeeklyPlan => 'Haftalık Plan';
-
-  @override
-  String get premiumThreeDaysFreeTrial => '3 Gün Ücretsiz Deneme';
-
-  @override
-  String get premiumWhyGoPremium => '🔥 Neden Premium?';
-
-  @override
-  String get premiumTrustedByTitle => '⭐ Yemek severler\ntarafından güvenilir';
-
-  @override
-  String get premiumTestimonialName => 'Imogen Davies';
-
-  @override
-  String get premiumTestimonialRole => 'Haftalar içinde ev aşçısı';
-
-  @override
-  String get premiumTestimonialQuote =>
-      'Artık çevrimiçi tarif aramakla zaman harcamıyorum. Smart Chef buzdolabımdakilerden anında yemek oluşturuyor.';
-
-  @override
-  String get premiumSocialStats => '📊 Sosyal istatistikler';
-
-  @override
-  String get premiumAverageRating => '⭐ Ortalama puan 4.8';
-
-  @override
-  String get premiumHomeCooks => '🌎 200K+ ev aşçısı';
-
-  @override
-  String get premiumRecipesGenerated => '👨‍🍳 1000+ tarif oluşturuldu';
-
-  @override
-  String get premiumPaymentDisclaimer =>
-      'Satın alma sırasında ödeme Google hesabınızdan çekilecektir. Faturalama dönemi bitmeden iptal edilmediği sürece abonelik otomatik olarak yenilenir.';
-
-  @override
-  String get premiumCookSmarterWithAi => 'Yapay zekâ ile daha akıllı pişirin';
-
-  @override
-  String get premiumGeniusCookingPlan => 'Dâhi Pişirme Planı';
-
-  @override
-  String get premiumFeatureDailyAiRecipeSuggestions =>
-      'Günlük AI tarif\nönerileri';
-
-  @override
-  String get premiumFeatureIngredientBasedCooking => 'Malzeme\ntabanlı pişirme';
-
-  @override
-  String get premiumFeatureSmartMealPlanning => 'Akıllı öğün\nplanlama';
-
-  @override
-  String get premiumFeatureNutritionInsights => 'Beslenme\niçgörüleri';
-
-  @override
-  String get premiumChooseYourPlanNew => 'Planınızı seçin';
-
-  @override
-  String get premiumUnlimitedRecipes => 'Sınırsız tarif, ';
-
-  @override
-  String get premiumBestValue => 'En iyi değer';
 
   @override
   String get premiumPlanWeekly => 'Haftalık';
@@ -2292,38 +1906,125 @@ class AppLocalizationsTr extends AppLocalizations {
   String get premiumPlanLifetime => 'Ömür boyu';
 
   @override
-  String get premiumLifetimeFullAccessIncluded =>
-      'Tek seferlik satın alma • Tam erişim dahil';
-
-  @override
-  String get premiumStartFreeTrialTitle => 'Ücretsiz denemenizi başlatın';
-
-  @override
-  String premiumTrialThenPrice(String price) {
-    return '3-day trial, then $price';
+  String freeLeftToday(String remaining, String limit) {
+    return '$remaining of $limit free today';
   }
 
   @override
-  String get premiumUnlockNow => 'Şimdi aç';
+  String get freeLimitReachedTitle => 'Daily free limit reached';
 
   @override
-  String get premiumBestOffer => 'En iyi teklif';
-
-  @override
-  String premiumStartFreeTrial(String price) {
-    return '3 günlük ücretsiz denemeyi başlatın $price';
+  String freeLimitReachedMessage(String limit, String feature) {
+    return 'You have used today\'s $limit free $feature. Upgrade to Pro for unlimited access, or come back tomorrow.';
   }
 
   @override
-  String get premiumUnlockUnlimitedRecipesNow =>
-      'Sınırsız tarifleri şimdi açın';
+  String get freeFeatureRecipes => 'AI recipes';
 
   @override
-  String get premiumBestValueRibbon => 'EN İYİ DEĞER';
+  String get freeFeatureChat => 'chat messages';
 
   @override
-  String get discountPopupTitle => '🔥 Smart Chef PRO\'nuzu\nAçın';
+  String get freeFeatureScans => 'ingredient scans';
 
   @override
-  String get discountPopupPerMonth => 'Aylık';
+  String get freeFeaturePlans => 'AI meal plans';
+
+  @override
+  String get paywallTitle => 'Recipe Keeper Pro';
+
+  @override
+  String get paywallSubtitle => 'Unlimited AI cooking help, every day';
+
+  @override
+  String get paywallFeatureRecipes => 'Unlimited AI recipe generations';
+
+  @override
+  String get paywallFeatureChat => 'Unlimited AI Chef chat messages';
+
+  @override
+  String get paywallFeatureScans => 'Unlimited ingredient scans';
+
+  @override
+  String get paywallFeaturePlans => 'Unlimited AI meal plans';
+
+  @override
+  String paywallFreeTierNote(
+    String recipes,
+    String chat,
+    String scans,
+    String plans,
+  ) {
+    return 'Free every day: $recipes AI recipes, $chat chat messages, $scans scans and $plans meal plan. Saved recipes, favorites and grocery lists are always free.';
+  }
+
+  @override
+  String get paywallPerWeek => 'per week, auto-renewing';
+
+  @override
+  String get paywallPerYear => 'per year, auto-renewing';
+
+  @override
+  String get paywallOneTime => 'one-time purchase, yours forever';
+
+  @override
+  String get paywallContinue => 'Continue';
+
+  @override
+  String paywallTrialThen(String trial, String price) {
+    return '$trial free, then $price';
+  }
+
+  @override
+  String get paywallAutoRenewDisclosure =>
+      'Payment is charged to your Apple ID account at confirmation of purchase. The subscription renews automatically at the price shown unless it is cancelled at least 24 hours before the end of the current period. You can manage or cancel it in your App Store account settings.';
+
+  @override
+  String get paywallLifetimeDisclosure =>
+      'One-time payment charged to your Apple ID account at confirmation of purchase. Not a subscription; nothing renews.';
+
+  @override
+  String get paywallLoadError =>
+      'Plans could not be loaded from the App Store. Check your connection and try again.';
+
+  @override
+  String get paywallRetry => 'Retry';
+
+  @override
+  String get paywallNothingToRestore =>
+      'No previous purchase was found for this Apple ID.';
+
+  @override
+  String get settingsProSection => 'Recipe Keeper Pro';
+
+  @override
+  String get settingsUpgrade => 'Upgrade to Pro';
+
+  @override
+  String get settingsUpgradeSubtitle =>
+      'Unlimited AI recipes, chat, scans and meal plans';
+
+  @override
+  String get settingsProActive => 'Pro is active';
+
+  @override
+  String settingsProActiveSubtitle(String plan) {
+    return '$plan - thank you for supporting Recipe Keeper';
+  }
+
+  @override
+  String settingsProExpires(String date) {
+    return 'Renews or ends $date';
+  }
+
+  @override
+  String get settingsManageSubscription => 'Manage Subscription';
+
+  @override
+  String get settingsManageSubscriptionSubtitle =>
+      'Change or cancel your plan in the App Store';
+
+  @override
+  String get settingsRestorePurchasesSubtitle =>
+      'Already bought Pro? Restore it on this device';
 }

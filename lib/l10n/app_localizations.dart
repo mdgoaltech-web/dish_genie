@@ -248,12 +248,6 @@ abstract class AppLocalizations {
   /// **'Loading...'**
   String get commonLoading;
 
-  /// No description provided for @adLoading.
-  ///
-  /// In en, this message translates to:
-  /// **'Loading ad'**
-  String get adLoading;
-
   /// No description provided for @commonError.
   ///
   /// In en, this message translates to:
@@ -536,102 +530,6 @@ abstract class AppLocalizations {
   /// **'Featured Recipes'**
   String get homeFeaturedRecipes;
 
-  /// No description provided for @authSignIn.
-  ///
-  /// In en, this message translates to:
-  /// **'Sign In'**
-  String get authSignIn;
-
-  /// No description provided for @authSignUp.
-  ///
-  /// In en, this message translates to:
-  /// **'Sign Up'**
-  String get authSignUp;
-
-  /// No description provided for @authEmail.
-  ///
-  /// In en, this message translates to:
-  /// **'Email'**
-  String get authEmail;
-
-  /// No description provided for @authPassword.
-  ///
-  /// In en, this message translates to:
-  /// **'Password'**
-  String get authPassword;
-
-  /// No description provided for @authFullName.
-  ///
-  /// In en, this message translates to:
-  /// **'Full Name'**
-  String get authFullName;
-
-  /// No description provided for @authCreateAccount.
-  ///
-  /// In en, this message translates to:
-  /// **'Create Account'**
-  String get authCreateAccount;
-
-  /// No description provided for @authNoAccount.
-  ///
-  /// In en, this message translates to:
-  /// **'Don\'t have an account?'**
-  String get authNoAccount;
-
-  /// No description provided for @authHasAccount.
-  ///
-  /// In en, this message translates to:
-  /// **'Already have an account?'**
-  String get authHasAccount;
-
-  /// No description provided for @authWelcomeBack.
-  ///
-  /// In en, this message translates to:
-  /// **'Welcome back to Smart Chef!'**
-  String get authWelcomeBack;
-
-  /// No description provided for @authWelcomeNew.
-  ///
-  /// In en, this message translates to:
-  /// **'Welcome to Smart Chef! Your account has been created.'**
-  String get authWelcomeNew;
-
-  /// No description provided for @authInvalidCredentials.
-  ///
-  /// In en, this message translates to:
-  /// **'Invalid email or password'**
-  String get authInvalidCredentials;
-
-  /// No description provided for @authAlreadyRegistered.
-  ///
-  /// In en, this message translates to:
-  /// **'This email is already registered. Try logging in.'**
-  String get authAlreadyRegistered;
-
-  /// No description provided for @authEnterName.
-  ///
-  /// In en, this message translates to:
-  /// **'Please enter your name'**
-  String get authEnterName;
-
-  /// No description provided for @authSigningIn.
-  ///
-  /// In en, this message translates to:
-  /// **'Signing in...'**
-  String get authSigningIn;
-
-  /// No description provided for @authCreatingAccount.
-  ///
-  /// In en, this message translates to:
-  /// **'Creating account...'**
-  String get authCreatingAccount;
-
-  /// No description provided for @authMagicalAssistant.
-  ///
-  /// In en, this message translates to:
-  /// **'Your magical kitchen assistant'**
-  String get authMagicalAssistant;
-
   /// No description provided for @recipesTitle.
   ///
   /// In en, this message translates to:
@@ -779,7 +677,7 @@ abstract class AppLocalizations {
   /// No description provided for @smartChefTitle.
   ///
   /// In en, this message translates to:
-  /// **'Smart Chef'**
+  /// **'Recipe Keeper'**
   String get smartChefTitle;
 
   /// No description provided for @smartGroceryTitle.
@@ -2063,7 +1961,7 @@ abstract class AppLocalizations {
   /// No description provided for @chatTitle.
   ///
   /// In en, this message translates to:
-  /// **'Smart Chef Chat'**
+  /// **'Recipe Keeper Chat'**
   String get chatTitle;
 
   /// No description provided for @chatSubtitle.
@@ -2075,7 +1973,7 @@ abstract class AppLocalizations {
   /// No description provided for @chatGreeting.
   ///
   /// In en, this message translates to:
-  /// **'Hi, I\'m Smart Chef!'**
+  /// **'Hi, I\'m Recipe Keeper!'**
   String get chatGreeting;
 
   /// No description provided for @chatGreetingSubtitle.
@@ -2453,7 +2351,7 @@ abstract class AppLocalizations {
   /// No description provided for @rateDialogTitle.
   ///
   /// In en, this message translates to:
-  /// **'Enjoying Smart Chef?'**
+  /// **'Enjoying Recipe Keeper?'**
   String get rateDialogTitle;
 
   /// No description provided for @rateDialogSubtitle.
@@ -3335,7 +3233,7 @@ abstract class AppLocalizations {
   /// No description provided for @splashAppName.
   ///
   /// In en, this message translates to:
-  /// **'Smart Chef'**
+  /// **'Recipe Keeper'**
   String get splashAppName;
 
   /// No description provided for @splashSubtitle.
@@ -3343,12 +3241,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Your AI Kitchen Companion'**
   String get splashSubtitle;
-
-  /// No description provided for @splashActionMayContainAd.
-  ///
-  /// In en, this message translates to:
-  /// **'This action may contain ads'**
-  String get splashActionMayContainAd;
 
   /// No description provided for @commonErrorMessage.
   ///
@@ -3436,40 +3328,10 @@ abstract class AppLocalizations {
   /// **'System'**
   String get settingsThemeSystem;
 
-  /// No description provided for @landingAppName.
-  ///
-  /// In en, this message translates to:
-  /// **'Smart Chef AI'**
-  String get landingAppName;
-
-  /// No description provided for @landingDownloadForIOS.
-  ///
-  /// In en, this message translates to:
-  /// **'Download for iOS'**
-  String get landingDownloadForIOS;
-
-  /// No description provided for @landingGetOnAndroid.
-  ///
-  /// In en, this message translates to:
-  /// **'Get on Android'**
-  String get landingGetOnAndroid;
-
-  /// No description provided for @landingFreeToDownload.
-  ///
-  /// In en, this message translates to:
-  /// **'Free to download • No credit card required'**
-  String get landingFreeToDownload;
-
-  /// No description provided for @premiumSuccess.
-  ///
-  /// In en, this message translates to:
-  /// **'Success!'**
-  String get premiumSuccess;
-
   /// No description provided for @premiumWelcomeMessage.
   ///
   /// In en, this message translates to:
-  /// **'Welcome to Smart Chef Pro! Enjoy all premium features.'**
+  /// **'Welcome to Recipe Keeper Pro! Enjoy unlimited AI features.'**
   String get premiumWelcomeMessage;
 
   /// No description provided for @premiumPurchasesRestored.
@@ -3478,71 +3340,17 @@ abstract class AppLocalizations {
   /// **'Purchases restored successfully'**
   String get premiumPurchasesRestored;
 
-  /// No description provided for @premiumSubscriptionLoading.
-  ///
-  /// In en, this message translates to:
-  /// **'Subscription plans are loading. Please try again in a moment.'**
-  String get premiumSubscriptionLoading;
-
-  /// No description provided for @premiumYouArePro.
-  ///
-  /// In en, this message translates to:
-  /// **'You are Pro!'**
-  String get premiumYouArePro;
-
-  /// No description provided for @premiumUnlockTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Unlock Smart Chef Pro'**
-  String get premiumUnlockTitle;
-
-  /// No description provided for @premiumSubtitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Your Personal AI Cooking Assistant'**
-  String get premiumSubtitle;
-
-  /// No description provided for @premiumFeature.
-  ///
-  /// In en, this message translates to:
-  /// **'Feature'**
-  String get premiumFeature;
-
   /// No description provided for @premiumPro.
   ///
   /// In en, this message translates to:
   /// **'PRO'**
   String get premiumPro;
 
-  /// No description provided for @premiumBasic.
-  ///
-  /// In en, this message translates to:
-  /// **'Basic'**
-  String get premiumBasic;
-
-  /// No description provided for @premiumFullAccess.
-  ///
-  /// In en, this message translates to:
-  /// **'Full Premium Access'**
-  String get premiumFullAccess;
-
-  /// No description provided for @premiumSubscribeNow.
-  ///
-  /// In en, this message translates to:
-  /// **'Subscribe Now'**
-  String get premiumSubscribeNow;
-
   /// No description provided for @premiumRestorePurchases.
   ///
   /// In en, this message translates to:
   /// **'Restore Purchases'**
   String get premiumRestorePurchases;
-
-  /// No description provided for @premiumContinueWithAd.
-  ///
-  /// In en, this message translates to:
-  /// **'Continue with ad'**
-  String get premiumContinueWithAd;
 
   /// No description provided for @premiumPrivacyPolicy.
   ///
@@ -3555,67 +3363,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Terms of Use'**
   String get premiumTermsOfUse;
-
-  /// No description provided for @premiumCancelAnyTime.
-  ///
-  /// In en, this message translates to:
-  /// **'Cancel any time'**
-  String get premiumCancelAnyTime;
-
-  /// No description provided for @premiumFailedToInitiatePurchase.
-  ///
-  /// In en, this message translates to:
-  /// **'Failed to initiate purchase'**
-  String get premiumFailedToInitiatePurchase;
-
-  /// No description provided for @premiumError.
-  ///
-  /// In en, this message translates to:
-  /// **'Error: {error}'**
-  String premiumError(
-    String error,
-    Object erreur,
-    Object errore,
-    Object fout,
-    Object hata,
-    Object kesalahan,
-  );
-
-  /// No description provided for @premiumFeatureUnlimitedRecipes.
-  ///
-  /// In en, this message translates to:
-  /// **'Unlimited AI Recipes'**
-  String get premiumFeatureUnlimitedRecipes;
-
-  /// No description provided for @premiumFeatureNutritionAnalytics.
-  ///
-  /// In en, this message translates to:
-  /// **'Full Nutrition Analytics'**
-  String get premiumFeatureNutritionAnalytics;
-
-  /// No description provided for @premiumFeatureVoiceAssistant.
-  ///
-  /// In en, this message translates to:
-  /// **'Voice Cooking Assistant'**
-  String get premiumFeatureVoiceAssistant;
-
-  /// No description provided for @premiumFeatureImageAnalysis.
-  ///
-  /// In en, this message translates to:
-  /// **'Recipe Image Analysis'**
-  String get premiumFeatureImageAnalysis;
-
-  /// No description provided for @premiumFeatureGroceryList.
-  ///
-  /// In en, this message translates to:
-  /// **'Smart Grocery List'**
-  String get premiumFeatureGroceryList;
-
-  /// No description provided for @premiumFeatureAdFree.
-  ///
-  /// In en, this message translates to:
-  /// **'Ad Free Experience'**
-  String get premiumFeatureAdFree;
 
   /// No description provided for @scannerMin.
   ///
@@ -3632,7 +3379,7 @@ abstract class AppLocalizations {
   /// No description provided for @appTitle.
   ///
   /// In en, this message translates to:
-  /// **'Smart Chef'**
+  /// **'Recipe Keeper'**
   String get appTitle;
 
   /// No description provided for @searchTitle.
@@ -3737,18 +3484,6 @@ abstract class AppLocalizations {
   /// **'Upgrade'**
   String get premiumUpgrade;
 
-  /// No description provided for @scannerLimitReached.
-  ///
-  /// In en, this message translates to:
-  /// **'You have reached your limit of {limit} free recipe generations. Upgrade to premium for unlimited access!'**
-  String scannerLimitReached(String limit);
-
-  /// No description provided for @scannerAiDisabled.
-  ///
-  /// In en, this message translates to:
-  /// **'AI recipe generation is currently disabled. Upgrade to premium for unlimited access!'**
-  String get scannerAiDisabled;
-
   /// No description provided for @scannerAddIngredient.
   ///
   /// In en, this message translates to:
@@ -3848,25 +3583,13 @@ abstract class AppLocalizations {
   /// No description provided for @chatLimitReached.
   ///
   /// In en, this message translates to:
-  /// **'You have reached your limit'**
+  /// **'Daily free limit reached'**
   String get chatLimitReached;
-
-  /// No description provided for @chatLimitReachedMessage.
-  ///
-  /// In en, this message translates to:
-  /// **'You\'ve used all {limit} free messages. Upgrade to premium for unlimited access!'**
-  String chatLimitReachedMessage(String limit);
-
-  /// No description provided for @chatAiChefDisabled.
-  ///
-  /// In en, this message translates to:
-  /// **'AI Chef chat is currently disabled. Upgrade to premium for unlimited access!'**
-  String get chatAiChefDisabled;
 
   /// No description provided for @commonUpgrade.
   ///
   /// In en, this message translates to:
-  /// **'Upgrade to Premium'**
+  /// **'Upgrade to Pro'**
   String get commonUpgrade;
 
   /// No description provided for @backButtonCancel.
@@ -3884,38 +3607,8 @@ abstract class AppLocalizations {
   /// No description provided for @appHeaderTitle.
   ///
   /// In en, this message translates to:
-  /// **'Smart Chef'**
+  /// **'Recipe Keeper'**
   String get appHeaderTitle;
-
-  /// No description provided for @premiumCardUnlock.
-  ///
-  /// In en, this message translates to:
-  /// **'Unlock '**
-  String get premiumCardUnlock;
-
-  /// No description provided for @premiumCardSmartChefPro.
-  ///
-  /// In en, this message translates to:
-  /// **'Smart Chef Pro'**
-  String get premiumCardSmartChefPro;
-
-  /// No description provided for @premiumCardSubtitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Ad Free Experience, & Unlimited AI Features'**
-  String get premiumCardSubtitle;
-
-  /// No description provided for @premiumCardTryPlus.
-  ///
-  /// In en, this message translates to:
-  /// **'Try Smart Chef Plus'**
-  String get premiumCardTryPlus;
-
-  /// No description provided for @premiumCardGetPlus.
-  ///
-  /// In en, this message translates to:
-  /// **'Get Plus'**
-  String get premiumCardGetPlus;
 
   /// No description provided for @scannerCookingTimeLabel.
   ///
@@ -4058,404 +3751,14 @@ abstract class AppLocalizations {
   /// No description provided for @scannerLimitReachedTitle.
   ///
   /// In en, this message translates to:
-  /// **'You have reached your limit'**
+  /// **'Daily free limit reached'**
   String get scannerLimitReachedTitle;
-
-  /// No description provided for @landingHeroTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Meet Your AI Chef — Create Recipes, Meal Plans & Smart Grocery Lists Instantly'**
-  String get landingHeroTitle;
-
-  /// No description provided for @landingHeroSubtitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Your personal AI-powered kitchen assistant. Generate healthy recipes, plan meals for the week, and create smart grocery lists — all tailored to your taste, budget, and goals.'**
-  String get landingHeroSubtitle;
-
-  /// No description provided for @landingWhySmartChef.
-  ///
-  /// In en, this message translates to:
-  /// **'Why Smart Chef?'**
-  String get landingWhySmartChef;
-
-  /// No description provided for @landingKitchenSupercharged.
-  ///
-  /// In en, this message translates to:
-  /// **'Your Kitchen, Supercharged'**
-  String get landingKitchenSupercharged;
-
-  /// No description provided for @landingFeatureRecipeBuilderTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Smart Recipe Builder'**
-  String get landingFeatureRecipeBuilderTitle;
-
-  /// No description provided for @landingFeatureRecipeBuilderDesc.
-  ///
-  /// In en, this message translates to:
-  /// **'Generate personalized recipes from ingredients you have at home using AI'**
-  String get landingFeatureRecipeBuilderDesc;
-
-  /// No description provided for @landingFeatureMealPlansTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Personalized Meal Plans'**
-  String get landingFeatureMealPlansTitle;
-
-  /// No description provided for @landingFeatureMealPlansDesc.
-  ///
-  /// In en, this message translates to:
-  /// **'AI-powered weekly and monthly meal plans tailored to your goals'**
-  String get landingFeatureMealPlansDesc;
-
-  /// No description provided for @landingFeatureGroceryTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Smart Grocery List'**
-  String get landingFeatureGroceryTitle;
-
-  /// No description provided for @landingFeatureGroceryDesc.
-  ///
-  /// In en, this message translates to:
-  /// **'Auto-generate shopping lists organized by category with budget options'**
-  String get landingFeatureGroceryDesc;
-
-  /// No description provided for @landingSimpleEasy.
-  ///
-  /// In en, this message translates to:
-  /// **'Simple & Easy'**
-  String get landingSimpleEasy;
-
-  /// No description provided for @landingHowItWorks.
-  ///
-  /// In en, this message translates to:
-  /// **'How It Works'**
-  String get landingHowItWorks;
-
-  /// No description provided for @landingStep1Title.
-  ///
-  /// In en, this message translates to:
-  /// **'Set Your Preferences'**
-  String get landingStep1Title;
-
-  /// No description provided for @landingStep1Desc.
-  ///
-  /// In en, this message translates to:
-  /// **'Tell us your dietary goals, allergies, and cuisine preferences'**
-  String get landingStep1Desc;
-
-  /// No description provided for @landingStep2Title.
-  ///
-  /// In en, this message translates to:
-  /// **'Get AI Recommendations'**
-  String get landingStep2Title;
-
-  /// No description provided for @landingStep2Desc.
-  ///
-  /// In en, this message translates to:
-  /// **'Receive personalized recipes and meal plans instantly'**
-  String get landingStep2Desc;
-
-  /// No description provided for @landingStep3Title.
-  ///
-  /// In en, this message translates to:
-  /// **'Cook & Track'**
-  String get landingStep3Title;
-
-  /// No description provided for @landingStep3Desc.
-  ///
-  /// In en, this message translates to:
-  /// **'Follow step-by-step guides and track your nutrition progress'**
-  String get landingStep3Desc;
-
-  /// No description provided for @landingLovedByThousands.
-  ///
-  /// In en, this message translates to:
-  /// **'Loved by Thousands'**
-  String get landingLovedByThousands;
-
-  /// No description provided for @landingWhatUsersSay.
-  ///
-  /// In en, this message translates to:
-  /// **'What Our Users Say'**
-  String get landingWhatUsersSay;
-
-  /// No description provided for @landingTestimonial1Name.
-  ///
-  /// In en, this message translates to:
-  /// **'Sarah M.'**
-  String get landingTestimonial1Name;
-
-  /// No description provided for @landingTestimonial1Role.
-  ///
-  /// In en, this message translates to:
-  /// **'Busy Mom'**
-  String get landingTestimonial1Role;
-
-  /// No description provided for @landingTestimonial1Quote.
-  ///
-  /// In en, this message translates to:
-  /// **'Smart Chef transformed my meal planning. I save 5+ hours every week!'**
-  String get landingTestimonial1Quote;
-
-  /// No description provided for @landingTestimonial2Name.
-  ///
-  /// In en, this message translates to:
-  /// **'Ahmed K.'**
-  String get landingTestimonial2Name;
-
-  /// No description provided for @landingTestimonial2Role.
-  ///
-  /// In en, this message translates to:
-  /// **'Fitness Enthusiast'**
-  String get landingTestimonial2Role;
-
-  /// No description provided for @landingTestimonial2Quote.
-  ///
-  /// In en, this message translates to:
-  /// **'The calorie tracking and high-protein recipes are exactly what I needed.'**
-  String get landingTestimonial2Quote;
-
-  /// No description provided for @landingTestimonial3Name.
-  ///
-  /// In en, this message translates to:
-  /// **'Priya S.'**
-  String get landingTestimonial3Name;
-
-  /// No description provided for @landingTestimonial3Role.
-  ///
-  /// In en, this message translates to:
-  /// **'Student'**
-  String get landingTestimonial3Role;
-
-  /// No description provided for @landingTestimonial3Quote.
-  ///
-  /// In en, this message translates to:
-  /// **'Budget-friendly desi recipes that taste like home. Absolutely love it!'**
-  String get landingTestimonial3Quote;
-
-  /// No description provided for @landingStartCookingSmarter.
-  ///
-  /// In en, this message translates to:
-  /// **'Start Cooking Smarter Today'**
-  String get landingStartCookingSmarter;
-
-  /// No description provided for @landingJoinThousands.
-  ///
-  /// In en, this message translates to:
-  /// **'Join thousands of home cooks who\'ve transformed their kitchen experience with AI-powered meal planning.'**
-  String get landingJoinThousands;
-
-  /// No description provided for @landingCopyright.
-  ///
-  /// In en, this message translates to:
-  /// **'© 2024 Smart Chef AI. All rights reserved.'**
-  String get landingCopyright;
 
   /// No description provided for @recipesLimitReached.
   ///
   /// In en, this message translates to:
-  /// **'You have reached your limit'**
+  /// **'Daily free limit reached'**
   String get recipesLimitReached;
-
-  /// No description provided for @recipesLimitReachedMessage.
-  ///
-  /// In en, this message translates to:
-  /// **'You\'ve used all {limit} free recipe generations. Upgrade to premium for unlimited access!'**
-  String recipesLimitReachedMessage(String limit);
-
-  /// No description provided for @recipesAiRecipeDisabled.
-  ///
-  /// In en, this message translates to:
-  /// **'AI recipe generation is currently disabled. Upgrade to premium for unlimited access!'**
-  String get recipesAiRecipeDisabled;
-
-  /// No description provided for @premiumPerWeek.
-  ///
-  /// In en, this message translates to:
-  /// **'/Week'**
-  String get premiumPerWeek;
-
-  /// No description provided for @premiumTitleLine1.
-  ///
-  /// In en, this message translates to:
-  /// **'Cook Smarter with'**
-  String get premiumTitleLine1;
-
-  /// No description provided for @premiumTitleLine2.
-  ///
-  /// In en, this message translates to:
-  /// **'Smart Chef Premium.'**
-  String get premiumTitleLine2;
-
-  /// No description provided for @premiumSeeMorePlans.
-  ///
-  /// In en, this message translates to:
-  /// **'See more plans'**
-  String get premiumSeeMorePlans;
-
-  /// No description provided for @premiumSeeLessPlans.
-  ///
-  /// In en, this message translates to:
-  /// **'See less plans'**
-  String get premiumSeeLessPlans;
-
-  /// No description provided for @premiumMostPopular.
-  ///
-  /// In en, this message translates to:
-  /// **'Most Popular'**
-  String get premiumMostPopular;
-
-  /// No description provided for @premiumAnnualPlan.
-  ///
-  /// In en, this message translates to:
-  /// **'Annual Plan'**
-  String get premiumAnnualPlan;
-
-  /// No description provided for @premiumAnnualPriceOriginal.
-  ///
-  /// In en, this message translates to:
-  /// **'\$140.99/year'**
-  String get premiumAnnualPriceOriginal;
-
-  /// No description provided for @premiumAnnualPrice.
-  ///
-  /// In en, this message translates to:
-  /// **'\$124.99'**
-  String get premiumAnnualPrice;
-
-  /// No description provided for @premiumPerYear.
-  ///
-  /// In en, this message translates to:
-  /// **'/year'**
-  String get premiumPerYear;
-
-  /// No description provided for @premiumWeeklyPlan.
-  ///
-  /// In en, this message translates to:
-  /// **'Weekly Plan'**
-  String get premiumWeeklyPlan;
-
-  /// No description provided for @premiumThreeDaysFreeTrial.
-  ///
-  /// In en, this message translates to:
-  /// **'3 Days Free Trial'**
-  String get premiumThreeDaysFreeTrial;
-
-  /// No description provided for @premiumWhyGoPremium.
-  ///
-  /// In en, this message translates to:
-  /// **'🔥 Why Go Premium?'**
-  String get premiumWhyGoPremium;
-
-  /// No description provided for @premiumTrustedByTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'⭐ Trusted by Food\nLovers'**
-  String get premiumTrustedByTitle;
-
-  /// No description provided for @premiumTestimonialName.
-  ///
-  /// In en, this message translates to:
-  /// **'Imogen Davies'**
-  String get premiumTestimonialName;
-
-  /// No description provided for @premiumTestimonialRole.
-  ///
-  /// In en, this message translates to:
-  /// **'Home Cook in weeks'**
-  String get premiumTestimonialRole;
-
-  /// No description provided for @premiumTestimonialQuote.
-  ///
-  /// In en, this message translates to:
-  /// **'I stopped wasting time searching recipes online. Smart Chef instantly creates meals from what I have in my fridge.'**
-  String get premiumTestimonialQuote;
-
-  /// No description provided for @premiumSocialStats.
-  ///
-  /// In en, this message translates to:
-  /// **'📊 Social Stats'**
-  String get premiumSocialStats;
-
-  /// No description provided for @premiumAverageRating.
-  ///
-  /// In en, this message translates to:
-  /// **'⭐ 4.8 Average Rating'**
-  String get premiumAverageRating;
-
-  /// No description provided for @premiumHomeCooks.
-  ///
-  /// In en, this message translates to:
-  /// **'🌎 200K+ Home Cooks'**
-  String get premiumHomeCooks;
-
-  /// No description provided for @premiumRecipesGenerated.
-  ///
-  /// In en, this message translates to:
-  /// **'👨‍🍳 1000+ Recipes Generated'**
-  String get premiumRecipesGenerated;
-
-  /// No description provided for @premiumPaymentDisclaimer.
-  ///
-  /// In en, this message translates to:
-  /// **'Payment will be charged to your Google Account at purchase. Subscription renews automatically unless canceled before the billing period ends.'**
-  String get premiumPaymentDisclaimer;
-
-  /// No description provided for @premiumCookSmarterWithAi.
-  ///
-  /// In en, this message translates to:
-  /// **'Cook Smarter with AI'**
-  String get premiumCookSmarterWithAi;
-
-  /// No description provided for @premiumGeniusCookingPlan.
-  ///
-  /// In en, this message translates to:
-  /// **'Genius Cooking Plan'**
-  String get premiumGeniusCookingPlan;
-
-  /// No description provided for @premiumFeatureDailyAiRecipeSuggestions.
-  ///
-  /// In en, this message translates to:
-  /// **'Daily AI recipe suggestions'**
-  String get premiumFeatureDailyAiRecipeSuggestions;
-
-  /// No description provided for @premiumFeatureIngredientBasedCooking.
-  ///
-  /// In en, this message translates to:
-  /// **'Ingredient-based cooking'**
-  String get premiumFeatureIngredientBasedCooking;
-
-  /// No description provided for @premiumFeatureSmartMealPlanning.
-  ///
-  /// In en, this message translates to:
-  /// **'Smart meal planning'**
-  String get premiumFeatureSmartMealPlanning;
-
-  /// No description provided for @premiumFeatureNutritionInsights.
-  ///
-  /// In en, this message translates to:
-  /// **'Nutrition insights'**
-  String get premiumFeatureNutritionInsights;
-
-  /// No description provided for @premiumChooseYourPlanNew.
-  ///
-  /// In en, this message translates to:
-  /// **'Choose your Plan'**
-  String get premiumChooseYourPlanNew;
-
-  /// No description provided for @premiumUnlimitedRecipes.
-  ///
-  /// In en, this message translates to:
-  /// **'Unlimited Recipes, '**
-  String get premiumUnlimitedRecipes;
-
-  /// No description provided for @premiumBestValue.
-  ///
-  /// In en, this message translates to:
-  /// **'Best value'**
-  String get premiumBestValue;
 
   /// No description provided for @premiumPlanWeekly.
   ///
@@ -4475,65 +3778,208 @@ abstract class AppLocalizations {
   /// **'Lifetime'**
   String get premiumPlanLifetime;
 
-  /// No description provided for @premiumLifetimeFullAccessIncluded.
+  /// No description provided for @freeLeftToday.
   ///
   /// In en, this message translates to:
-  /// **'One-time purchase • Full access included'**
-  String get premiumLifetimeFullAccessIncluded;
+  /// **'{remaining} of {limit} free today'**
+  String freeLeftToday(String remaining, String limit);
 
-  /// No description provided for @premiumStartFreeTrialTitle.
+  /// No description provided for @freeLimitReachedTitle.
   ///
   /// In en, this message translates to:
-  /// **'Start your free trial'**
-  String get premiumStartFreeTrialTitle;
+  /// **'Daily free limit reached'**
+  String get freeLimitReachedTitle;
 
-  /// No description provided for @premiumTrialThenPrice.
+  /// No description provided for @freeLimitReachedMessage.
   ///
   /// In en, this message translates to:
-  /// **'3-day trial, then {price}'**
-  String premiumTrialThenPrice(String price);
+  /// **'You have used today\'s {limit} free {feature}. Upgrade to Pro for unlimited access, or come back tomorrow.'**
+  String freeLimitReachedMessage(String limit, String feature);
 
-  /// No description provided for @premiumUnlockNow.
+  /// No description provided for @freeFeatureRecipes.
   ///
   /// In en, this message translates to:
-  /// **'Unlock now'**
-  String get premiumUnlockNow;
+  /// **'AI recipes'**
+  String get freeFeatureRecipes;
 
-  /// No description provided for @premiumBestOffer.
+  /// No description provided for @freeFeatureChat.
   ///
   /// In en, this message translates to:
-  /// **'Best offer'**
-  String get premiumBestOffer;
+  /// **'chat messages'**
+  String get freeFeatureChat;
 
-  /// No description provided for @premiumStartFreeTrial.
+  /// No description provided for @freeFeatureScans.
   ///
   /// In en, this message translates to:
-  /// **'Start 3-days free trial {price}'**
-  String premiumStartFreeTrial(String price);
+  /// **'ingredient scans'**
+  String get freeFeatureScans;
 
-  /// No description provided for @premiumUnlockUnlimitedRecipesNow.
+  /// No description provided for @freeFeaturePlans.
   ///
   /// In en, this message translates to:
-  /// **'Unlock Unlimited Recipes Now'**
-  String get premiumUnlockUnlimitedRecipesNow;
+  /// **'AI meal plans'**
+  String get freeFeaturePlans;
 
-  /// No description provided for @premiumBestValueRibbon.
+  /// No description provided for @paywallTitle.
   ///
   /// In en, this message translates to:
-  /// **'BEST VALUE'**
-  String get premiumBestValueRibbon;
+  /// **'Recipe Keeper Pro'**
+  String get paywallTitle;
 
-  /// No description provided for @discountPopupTitle.
+  /// No description provided for @paywallSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'🔥 Unlock Your\nSmart Chef PRO'**
-  String get discountPopupTitle;
+  /// **'Unlimited AI cooking help, every day'**
+  String get paywallSubtitle;
 
-  /// No description provided for @discountPopupPerMonth.
+  /// No description provided for @paywallFeatureRecipes.
   ///
   /// In en, this message translates to:
-  /// **'Per Month'**
-  String get discountPopupPerMonth;
+  /// **'Unlimited AI recipe generations'**
+  String get paywallFeatureRecipes;
+
+  /// No description provided for @paywallFeatureChat.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlimited AI Chef chat messages'**
+  String get paywallFeatureChat;
+
+  /// No description provided for @paywallFeatureScans.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlimited ingredient scans'**
+  String get paywallFeatureScans;
+
+  /// No description provided for @paywallFeaturePlans.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlimited AI meal plans'**
+  String get paywallFeaturePlans;
+
+  /// No description provided for @paywallFreeTierNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Free every day: {recipes} AI recipes, {chat} chat messages, {scans} scans and {plans} meal plan. Saved recipes, favorites and grocery lists are always free.'**
+  String paywallFreeTierNote(
+    String recipes,
+    String chat,
+    String scans,
+    String plans,
+  );
+
+  /// No description provided for @paywallPerWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'per week, auto-renewing'**
+  String get paywallPerWeek;
+
+  /// No description provided for @paywallPerYear.
+  ///
+  /// In en, this message translates to:
+  /// **'per year, auto-renewing'**
+  String get paywallPerYear;
+
+  /// No description provided for @paywallOneTime.
+  ///
+  /// In en, this message translates to:
+  /// **'one-time purchase, yours forever'**
+  String get paywallOneTime;
+
+  /// No description provided for @paywallContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get paywallContinue;
+
+  /// No description provided for @paywallTrialThen.
+  ///
+  /// In en, this message translates to:
+  /// **'{trial} free, then {price}'**
+  String paywallTrialThen(String trial, String price);
+
+  /// No description provided for @paywallAutoRenewDisclosure.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment is charged to your Apple ID account at confirmation of purchase. The subscription renews automatically at the price shown unless it is cancelled at least 24 hours before the end of the current period. You can manage or cancel it in your App Store account settings.'**
+  String get paywallAutoRenewDisclosure;
+
+  /// No description provided for @paywallLifetimeDisclosure.
+  ///
+  /// In en, this message translates to:
+  /// **'One-time payment charged to your Apple ID account at confirmation of purchase. Not a subscription; nothing renews.'**
+  String get paywallLifetimeDisclosure;
+
+  /// No description provided for @paywallLoadError.
+  ///
+  /// In en, this message translates to:
+  /// **'Plans could not be loaded from the App Store. Check your connection and try again.'**
+  String get paywallLoadError;
+
+  /// No description provided for @paywallRetry.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry'**
+  String get paywallRetry;
+
+  /// No description provided for @paywallNothingToRestore.
+  ///
+  /// In en, this message translates to:
+  /// **'No previous purchase was found for this Apple ID.'**
+  String get paywallNothingToRestore;
+
+  /// No description provided for @settingsProSection.
+  ///
+  /// In en, this message translates to:
+  /// **'Recipe Keeper Pro'**
+  String get settingsProSection;
+
+  /// No description provided for @settingsUpgrade.
+  ///
+  /// In en, this message translates to:
+  /// **'Upgrade to Pro'**
+  String get settingsUpgrade;
+
+  /// No description provided for @settingsUpgradeSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlimited AI recipes, chat, scans and meal plans'**
+  String get settingsUpgradeSubtitle;
+
+  /// No description provided for @settingsProActive.
+  ///
+  /// In en, this message translates to:
+  /// **'Pro is active'**
+  String get settingsProActive;
+
+  /// No description provided for @settingsProActiveSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'{plan} - thank you for supporting Recipe Keeper'**
+  String settingsProActiveSubtitle(String plan);
+
+  /// No description provided for @settingsProExpires.
+  ///
+  /// In en, this message translates to:
+  /// **'Renews or ends {date}'**
+  String settingsProExpires(String date);
+
+  /// No description provided for @settingsManageSubscription.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage Subscription'**
+  String get settingsManageSubscription;
+
+  /// No description provided for @settingsManageSubscriptionSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Change or cancel your plan in the App Store'**
+  String get settingsManageSubscriptionSubtitle;
+
+  /// No description provided for @settingsRestorePurchasesSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Already bought Pro? Restore it on this device'**
+  String get settingsRestorePurchasesSubtitle;
 }
 
 class _AppLocalizationsDelegate

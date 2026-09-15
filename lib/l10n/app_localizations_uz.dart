@@ -60,9 +60,6 @@ class AppLocalizationsUz extends AppLocalizations {
   String get commonLoading => 'Yuklanmoqda...';
 
   @override
-  String get adLoading => 'Reklama yuklanmoqda';
-
-  @override
   String get commonError => 'Xato';
 
   @override
@@ -206,56 +203,6 @@ class AppLocalizationsUz extends AppLocalizations {
 
   @override
   String get homeFeaturedRecipes => 'Tanlangan retseptlar';
-
-  @override
-  String get authSignIn => 'Kirish';
-
-  @override
-  String get authSignUp => 'Ro\'yxatdan o\'tish';
-
-  @override
-  String get authEmail => 'Elektron pochta';
-
-  @override
-  String get authPassword => 'Parol';
-
-  @override
-  String get authFullName => 'To\'liq ism';
-
-  @override
-  String get authCreateAccount => 'Hisob yaratish';
-
-  @override
-  String get authNoAccount => 'Hisobingiz yo\'qmi?';
-
-  @override
-  String get authHasAccount => 'Allaqachon hisobingiz bormi?';
-
-  @override
-  String get authWelcomeBack => 'Smart Chef\'ga xush kelibsiz!';
-
-  @override
-  String get authWelcomeNew =>
-      'Smart Chef\'ga xush kelibsiz! Hisobingiz yaratildi.';
-
-  @override
-  String get authInvalidCredentials => 'Noto\'g\'ri email yoki parol';
-
-  @override
-  String get authAlreadyRegistered =>
-      'Bu email allaqachon ro\'yxatdan o\'tgan. Kirishga urinib ko\'ring.';
-
-  @override
-  String get authEnterName => 'Iltimos, ismingizni kiriting';
-
-  @override
-  String get authSigningIn => 'Kirish...';
-
-  @override
-  String get authCreatingAccount => 'Hisob yaratilmoqda...';
-
-  @override
-  String get authMagicalAssistant => 'Sizning sehrli oshxona yordamchingiz';
 
   @override
   String get recipesTitle => 'SI Retseptlar';
@@ -1000,13 +947,13 @@ class AppLocalizationsUz extends AppLocalizations {
       'AI sizning ro\'yxatingizni optimallashtirmoqda...';
 
   @override
-  String get chatTitle => 'Smart Chef Chat';
+  String get chatTitle => 'Recipe Keeper Chat';
 
   @override
   String get chatSubtitle => 'Sizning SI oshpazlik yordamchingiz';
 
   @override
-  String get chatGreeting => 'Salom, men Smart Chef!';
+  String get chatGreeting => 'Salom, men Recipe Keeper!';
 
   @override
   String get chatGreetingSubtitle =>
@@ -1204,7 +1151,7 @@ class AppLocalizationsUz extends AppLocalizations {
   String get settingsRateUsSubtitle => 'Ilova yoqdimi? Baholang!';
 
   @override
-  String get rateDialogTitle => 'Smart Chef yoqayaptimi?';
+  String get rateDialogTitle => 'Recipe Keeper yoqayaptimi?';
 
   @override
   String get rateDialogSubtitle =>
@@ -1675,14 +1622,10 @@ class AppLocalizationsUz extends AppLocalizations {
   String get savedMealPlanContinuePlan => 'Rejani davom ettirish';
 
   @override
-  String get splashAppName => 'Smart Chef';
+  String get splashAppName => 'Recipe Keeper';
 
   @override
   String get splashSubtitle => 'Sizning AI oshxona hamrohingiz';
-
-  @override
-  String get splashActionMayContainAd =>
-      'Ushbu harakat reklamalar o\'z ichiga olishi mumkin';
 
   @override
   String commonErrorMessage(
@@ -1737,61 +1680,17 @@ class AppLocalizationsUz extends AppLocalizations {
   String get settingsThemeSystem => 'Tizim';
 
   @override
-  String get landingAppName => 'Smart Chef AI';
-
-  @override
-  String get landingDownloadForIOS => 'IOS uchun yuklab olish';
-
-  @override
-  String get landingGetOnAndroid => 'Androidga kiring';
-
-  @override
-  String get landingFreeToDownload =>
-      'Yuklab olish bepul • Kredit karta talab qilinmaydi';
-
-  @override
-  String get premiumSuccess => 'Muvaffaqiyat!';
-
-  @override
   String get premiumWelcomeMessage =>
-      'Smart Chef Pro-ga xush kelibsiz! Barcha premium funksiyalardan rohatlaning.';
+      'Recipe Keeper Pro-ga xush kelibsiz! Barcha premium funksiyalardan rohatlaning.';
 
   @override
   String get premiumPurchasesRestored => 'Xaridlar muvaffaqiyatli tiklandi';
 
   @override
-  String get premiumSubscriptionLoading =>
-      'Obuna rejalari yuklanmoqda. Birozdan keyin qayta urinib ko‘ring.';
-
-  @override
-  String get premiumYouArePro => 'Siz Prosiz!';
-
-  @override
-  String get premiumUnlockTitle => 'Smart Chef Pro qulfini oching';
-
-  @override
-  String get premiumSubtitle => 'Sizning shaxsiy AI pishirish yordamchingiz';
-
-  @override
-  String get premiumFeature => 'Xususiyat';
-
-  @override
   String get premiumPro => 'PRO';
 
   @override
-  String get premiumBasic => 'Asosiy';
-
-  @override
-  String get premiumFullAccess => 'To\'liq Premium kirish';
-
-  @override
-  String get premiumSubscribeNow => 'Hozir obuna bo\'ling';
-
-  @override
   String get premiumRestorePurchases => 'Xaridlarni tiklash';
-
-  @override
-  String get premiumContinueWithAd => 'Reklama bilan davom etish';
 
   @override
   String get premiumPrivacyPolicy => 'Maxfiylik siyosati';
@@ -1800,50 +1699,13 @@ class AppLocalizationsUz extends AppLocalizations {
   String get premiumTermsOfUse => 'Foydalanish shartlari';
 
   @override
-  String get premiumCancelAnyTime => 'Istalgan vaqtda bekor qiling';
-
-  @override
-  String get premiumFailedToInitiatePurchase =>
-      'Xaridni boshlash amalga oshmadi';
-
-  @override
-  String premiumError(
-    String error,
-    Object erreur,
-    Object errore,
-    Object fout,
-    Object hata,
-    Object kesalahan,
-  ) {
-    return 'Xato: $error';
-  }
-
-  @override
-  String get premiumFeatureUnlimitedRecipes => 'Cheksiz AI retseptlari';
-
-  @override
-  String get premiumFeatureNutritionAnalytics => 'To\'liq ovqatlanish tahlili';
-
-  @override
-  String get premiumFeatureVoiceAssistant => 'Ovozli pishirish yordamchisi';
-
-  @override
-  String get premiumFeatureImageAnalysis => 'Retsept tasvirini tahlil qilish';
-
-  @override
-  String get premiumFeatureGroceryList => 'Aqlli oziq-ovqat ro\'yxati';
-
-  @override
-  String get premiumFeatureAdFree => 'Reklamasiz tajriba';
-
-  @override
   String get scannerMin => 'min';
 
   @override
   String get scannerKcal => 'kkal';
 
   @override
-  String get appTitle => 'Smart Chef';
+  String get appTitle => 'Recipe Keeper';
 
   @override
   String get searchTitle => 'Qidiruv';
@@ -1902,15 +1764,6 @@ class AppLocalizationsUz extends AppLocalizations {
   String get premiumUpgrade => 'Yangilash';
 
   @override
-  String scannerLimitReached(String limit) {
-    return '$limit ta bepul retsept avlodi limitiga yetdingiz. Cheksiz kirish uchun premiumga yangilang!';
-  }
-
-  @override
-  String get scannerAiDisabled =>
-      'AI retseptlarini yaratish hozirda oʻchirib qoʻyilgan. Cheksiz kirish uchun premiumga yangilang!';
-
-  @override
   String get scannerAddIngredient => 'Ingredient qo\'shing';
 
   @override
@@ -1963,15 +1816,6 @@ class AppLocalizationsUz extends AppLocalizations {
   String get chatLimitReached => 'Siz chegarangizga yetdingiz';
 
   @override
-  String chatLimitReachedMessage(String limit) {
-    return 'Siz $limit ta bepul xabardan foydalandingiz. Cheksiz kirish uchun premiumga yangilang!';
-  }
-
-  @override
-  String get chatAiChefDisabled =>
-      'AI Chef suhbati hozirda o‘chirib qo‘yilgan. Cheksiz kirish uchun premiumga yangilang!';
-
-  @override
   String get commonUpgrade => 'Premiumga yangilang';
 
   @override
@@ -1981,23 +1825,7 @@ class AppLocalizationsUz extends AppLocalizations {
   String get backButtonExit => 'Chiqish';
 
   @override
-  String get appHeaderTitle => 'Smart Chef';
-
-  @override
-  String get premiumCardUnlock => 'Qulfni ochish ';
-
-  @override
-  String get premiumCardSmartChefPro => 'Smart Chef Pro';
-
-  @override
-  String get premiumCardSubtitle =>
-      'Reklamasiz tajriba va cheksiz AI funksiyalari';
-
-  @override
-  String get premiumCardTryPlus => 'Smart Chef Plus ni sinab ko\'ring';
-
-  @override
-  String get premiumCardGetPlus => 'Plus oling';
+  String get appHeaderTitle => 'Recipe Keeper';
 
   @override
   String get scannerCookingTimeLabel => 'Pishirish vaqti';
@@ -2073,227 +1901,7 @@ class AppLocalizationsUz extends AppLocalizations {
   String get scannerLimitReachedTitle => 'Siz chegarangizga yetdingiz';
 
   @override
-  String get landingHeroTitle =>
-      'AI oshpazingiz bilan tanishing - darhol retseptlar, ovqatlanish rejalari va aqlli oziq-ovqat ro\'yxatlarini yarating';
-
-  @override
-  String get landingHeroSubtitle =>
-      'Sizning shaxsiy AI bilan ishlaydigan oshxona yordamchingiz. Sog\'lom retseptlar yarating, hafta davomida ovqatlanishni rejalashtiring va aqlli oziq-ovqat ro\'yxatlarini yarating - barchasi sizning didingiz, byudjetingiz va maqsadlaringizga moslashtirilgan.';
-
-  @override
-  String get landingWhySmartChef => 'Nima uchun Smart Chef?';
-
-  @override
-  String get landingKitchenSupercharged =>
-      'Sizning oshxonangiz, super zaryadlangan';
-
-  @override
-  String get landingFeatureRecipeBuilderTitle =>
-      'Aqlli retseptlar yaratuvchisi';
-
-  @override
-  String get landingFeatureRecipeBuilderDesc =>
-      'AI yordamida uyda mavjud bo\'lgan ingredientlardan moslashtirilgan retseptlar yarating';
-
-  @override
-  String get landingFeatureMealPlansTitle =>
-      'Shaxsiylashtirilgan ovqatlanish rejalari';
-
-  @override
-  String get landingFeatureMealPlansDesc =>
-      'Maqsadlaringizga moslashtirilgan sun\'iy intellekt asosidagi haftalik va oylik ovqatlanish rejalari';
-
-  @override
-  String get landingFeatureGroceryTitle => 'Aqlli oziq-ovqat ro\'yxati';
-
-  @override
-  String get landingFeatureGroceryDesc =>
-      'Budjet variantlari bilan toifalar bo‘yicha tartiblangan xarid ro‘yxatlarini avtomatik yaratish';
-
-  @override
-  String get landingSimpleEasy => 'Oddiy va oson';
-
-  @override
-  String get landingHowItWorks => 'U qanday ishlaydi';
-
-  @override
-  String get landingStep1Title => 'O\'z afzalliklaringizni o\'rnating';
-
-  @override
-  String get landingStep1Desc =>
-      'Bizga parhez maqsadlaringiz, allergiyangiz va oshxona afzalliklaringizni ayting';
-
-  @override
-  String get landingStep2Title => 'AI tavsiyalarini oling';
-
-  @override
-  String get landingStep2Desc =>
-      'Shaxsiylashtirilgan retseptlar va ovqatlanish rejalarini darhol oling';
-
-  @override
-  String get landingStep3Title => 'Ovqat pishirish va kuzatish';
-
-  @override
-  String get landingStep3Desc =>
-      'Bosqichma-bosqich ko\'rsatmalarga rioya qiling va ovqatlanish jarayonini kuzatib boring';
-
-  @override
-  String get landingLovedByThousands => 'Minglab odamlar tomonidan sevilgan';
-
-  @override
-  String get landingWhatUsersSay => 'Foydalanuvchilarimiz nima deyishadi';
-
-  @override
-  String get landingTestimonial1Name => 'Sara M.';
-
-  @override
-  String get landingTestimonial1Role => 'Band onam';
-
-  @override
-  String get landingTestimonial1Quote =>
-      'Smart Chef mening ovqatlanishni rejalashtirishimni o\'zgartirdi. Men har hafta 5+ soatni tejayman!';
-
-  @override
-  String get landingTestimonial2Name => 'Ahmad K.';
-
-  @override
-  String get landingTestimonial2Role => 'Fitnes ishqibozi';
-
-  @override
-  String get landingTestimonial2Quote =>
-      'Kaloriyani kuzatish va yuqori proteinli retseptlar menga kerak bo\'lgan narsadir.';
-
-  @override
-  String get landingTestimonial3Name => 'Priya S.';
-
-  @override
-  String get landingTestimonial3Role => 'Talaba';
-
-  @override
-  String get landingTestimonial3Quote =>
-      'Uyga o\'xshash byudjetga mos desi retseptlari. Mutlaqo seving!';
-
-  @override
-  String get landingStartCookingSmarter =>
-      'Bugundanoq ovqat pishirishni boshlang';
-
-  @override
-  String get landingJoinThousands =>
-      'Oshxona tajribasini sun\'iy intellekt asosidagi ovqatlanishni rejalashtirish orqali o\'zgartirgan minglab uy oshpazlariga qo\'shiling.';
-
-  @override
-  String get landingCopyright =>
-      '© 2024 Smart Chef AI. Barcha huquqlar himoyalangan.';
-
-  @override
   String get recipesLimitReached => 'Siz chegarangizga yetdingiz';
-
-  @override
-  String recipesLimitReachedMessage(String limit) {
-    return 'Siz barcha $limit ta bepul retsept avlodlaridan foydalangansiz. Cheksiz kirish uchun premiumga yangilang!';
-  }
-
-  @override
-  String get recipesAiRecipeDisabled =>
-      'AI retseptlarini yaratish hozirda oʻchirib qoʻyilgan. Cheksiz kirish uchun premiumga yangilang!';
-
-  @override
-  String get premiumPerWeek => '/Hafta';
-
-  @override
-  String get premiumTitleLine1 => 'Aqlliroq pishiring';
-
-  @override
-  String get premiumTitleLine2 => 'Smart Chef Premium bilan.';
-
-  @override
-  String get premiumSeeMorePlans => 'Ko\'proq rejalarni ko\'ring';
-
-  @override
-  String get premiumSeeLessPlans => 'Rejalarni yoping';
-
-  @override
-  String get premiumMostPopular => 'Eng mashhur';
-
-  @override
-  String get premiumAnnualPlan => 'Yillik reja';
-
-  @override
-  String get premiumAnnualPriceOriginal => '\$140.99/yil';
-
-  @override
-  String get premiumAnnualPrice => '\$124.99';
-
-  @override
-  String get premiumPerYear => '/yil';
-
-  @override
-  String get premiumWeeklyPlan => 'Haftalik reja';
-
-  @override
-  String get premiumThreeDaysFreeTrial => '3 kun bepul sinov';
-
-  @override
-  String get premiumWhyGoPremium => '🔥 Premium nima uchun?';
-
-  @override
-  String get premiumTrustedByTitle =>
-      '⭐ Oziq-ovqat ishqibozlari\ntomonidan ishonchli';
-
-  @override
-  String get premiumTestimonialName => 'Imogen Davies';
-
-  @override
-  String get premiumTestimonialRole => 'Haftalar ichida uy oshpazi';
-
-  @override
-  String get premiumTestimonialQuote =>
-      'Men endi onlayn retsept qidirishga vaqt sarflamayman. Smart Chef muzlatgichimdagi mahsulotlardan darhol taomlar yaratadi.';
-
-  @override
-  String get premiumSocialStats => '📊 Ijtimoiy statistika';
-
-  @override
-  String get premiumAverageRating => '⭐ O\'rtacha reyting 4.8';
-
-  @override
-  String get premiumHomeCooks => '🌎 200K+ uy oshpazi';
-
-  @override
-  String get premiumRecipesGenerated => '👨‍🍳 1000+ retsept yaratildi';
-
-  @override
-  String get premiumPaymentDisclaimer =>
-      'Sotib olishda to\'lov Google hisobingizdan olinadi. To\'lov muddati tugashidan oldin bekor qilinmasa, obuna avtomatik yangilanadi.';
-
-  @override
-  String get premiumCookSmarterWithAi => 'AI bilan aqlliroq pishiring';
-
-  @override
-  String get premiumGeniusCookingPlan => 'Genius pishirish rejasi';
-
-  @override
-  String get premiumFeatureDailyAiRecipeSuggestions =>
-      'Har kungi AI retsept\ntakliflari';
-
-  @override
-  String get premiumFeatureIngredientBasedCooking =>
-      'Ingredientlarga\nasoslangan pishirish';
-
-  @override
-  String get premiumFeatureSmartMealPlanning => 'Aqlli ovqat\nrejalash';
-
-  @override
-  String get premiumFeatureNutritionInsights => 'Oziqlanish\ninsaytlari';
-
-  @override
-  String get premiumChooseYourPlanNew => 'Rejangizni tanlang';
-
-  @override
-  String get premiumUnlimitedRecipes => 'Cheksiz retseptlar, ';
-
-  @override
-  String get premiumBestValue => 'Eng yaxshi qiymat';
 
   @override
   String get premiumPlanWeekly => 'Haftalik';
@@ -2305,38 +1913,125 @@ class AppLocalizationsUz extends AppLocalizations {
   String get premiumPlanLifetime => 'Umrbod';
 
   @override
-  String get premiumLifetimeFullAccessIncluded =>
-      'Bir martalik xarid • To‘liq kirish kiritilgan';
-
-  @override
-  String get premiumStartFreeTrialTitle => 'Bepul sinov davrini boshlang';
-
-  @override
-  String premiumTrialThenPrice(String price) {
-    return '3-day trial, then $price';
+  String freeLeftToday(String remaining, String limit) {
+    return '$remaining of $limit free today';
   }
 
   @override
-  String get premiumUnlockNow => 'Hozir ochish';
+  String get freeLimitReachedTitle => 'Daily free limit reached';
 
   @override
-  String get premiumBestOffer => 'Eng yaxshi taklif';
-
-  @override
-  String premiumStartFreeTrial(String price) {
-    return '3 kunlik bepul sinovni boshlang $price';
+  String freeLimitReachedMessage(String limit, String feature) {
+    return 'You have used today\'s $limit free $feature. Upgrade to Pro for unlimited access, or come back tomorrow.';
   }
 
   @override
-  String get premiumUnlockUnlimitedRecipesNow =>
-      'Cheksiz retseptlarni hozir oching';
+  String get freeFeatureRecipes => 'AI recipes';
 
   @override
-  String get premiumBestValueRibbon => 'ENG YAXSHI';
+  String get freeFeatureChat => 'chat messages';
 
   @override
-  String get discountPopupTitle => '🔥 Smart Chef PRO-ni\noching';
+  String get freeFeatureScans => 'ingredient scans';
 
   @override
-  String get discountPopupPerMonth => 'Oylik';
+  String get freeFeaturePlans => 'AI meal plans';
+
+  @override
+  String get paywallTitle => 'Recipe Keeper Pro';
+
+  @override
+  String get paywallSubtitle => 'Unlimited AI cooking help, every day';
+
+  @override
+  String get paywallFeatureRecipes => 'Unlimited AI recipe generations';
+
+  @override
+  String get paywallFeatureChat => 'Unlimited AI Chef chat messages';
+
+  @override
+  String get paywallFeatureScans => 'Unlimited ingredient scans';
+
+  @override
+  String get paywallFeaturePlans => 'Unlimited AI meal plans';
+
+  @override
+  String paywallFreeTierNote(
+    String recipes,
+    String chat,
+    String scans,
+    String plans,
+  ) {
+    return 'Free every day: $recipes AI recipes, $chat chat messages, $scans scans and $plans meal plan. Saved recipes, favorites and grocery lists are always free.';
+  }
+
+  @override
+  String get paywallPerWeek => 'per week, auto-renewing';
+
+  @override
+  String get paywallPerYear => 'per year, auto-renewing';
+
+  @override
+  String get paywallOneTime => 'one-time purchase, yours forever';
+
+  @override
+  String get paywallContinue => 'Continue';
+
+  @override
+  String paywallTrialThen(String trial, String price) {
+    return '$trial free, then $price';
+  }
+
+  @override
+  String get paywallAutoRenewDisclosure =>
+      'Payment is charged to your Apple ID account at confirmation of purchase. The subscription renews automatically at the price shown unless it is cancelled at least 24 hours before the end of the current period. You can manage or cancel it in your App Store account settings.';
+
+  @override
+  String get paywallLifetimeDisclosure =>
+      'One-time payment charged to your Apple ID account at confirmation of purchase. Not a subscription; nothing renews.';
+
+  @override
+  String get paywallLoadError =>
+      'Plans could not be loaded from the App Store. Check your connection and try again.';
+
+  @override
+  String get paywallRetry => 'Retry';
+
+  @override
+  String get paywallNothingToRestore =>
+      'No previous purchase was found for this Apple ID.';
+
+  @override
+  String get settingsProSection => 'Recipe Keeper Pro';
+
+  @override
+  String get settingsUpgrade => 'Upgrade to Pro';
+
+  @override
+  String get settingsUpgradeSubtitle =>
+      'Unlimited AI recipes, chat, scans and meal plans';
+
+  @override
+  String get settingsProActive => 'Pro is active';
+
+  @override
+  String settingsProActiveSubtitle(String plan) {
+    return '$plan - thank you for supporting Recipe Keeper';
+  }
+
+  @override
+  String settingsProExpires(String date) {
+    return 'Renews or ends $date';
+  }
+
+  @override
+  String get settingsManageSubscription => 'Manage Subscription';
+
+  @override
+  String get settingsManageSubscriptionSubtitle =>
+      'Change or cancel your plan in the App Store';
+
+  @override
+  String get settingsRestorePurchasesSubtitle =>
+      'Already bought Pro? Restore it on this device';
 }

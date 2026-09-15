@@ -16,7 +16,6 @@
   "commonSearch": "Search",
   "commonGallery": "Gallery",
   "commonLoading": "Loading...",
-  "adLoading": "Loading ad",
   "commonError": "Error",
   "commonSuccess": "Success",
   "commonFavorites": "Favorites",
@@ -64,22 +63,6 @@
   "homeAiChefChat": "AI Chef Chat",
   "homeAskQuestions": "Ask questions",
   "homeFeaturedRecipes": "Featured Recipes",
-  "authSignIn": "Sign In",
-  "authSignUp": "Sign Up",
-  "authEmail": "Email",
-  "authPassword": "Password",
-  "authFullName": "Full Name",
-  "authCreateAccount": "Create Account",
-  "authNoAccount": "Don't have an account?",
-  "authHasAccount": "Already have an account?",
-  "authWelcomeBack": "Welcome back to Smart Chef!",
-  "authWelcomeNew": "Welcome to Smart Chef! Your account has been created.",
-  "authInvalidCredentials": "Invalid email or password",
-  "authAlreadyRegistered": "This email is already registered. Try logging in.",
-  "authEnterName": "Please enter your name",
-  "authSigningIn": "Signing in...",
-  "authCreatingAccount": "Creating account...",
-  "authMagicalAssistant": "Your magical kitchen assistant",
   "recipesTitle": "AI Recipes",
   "recipesSubtitle": "Discover & create",
   "recipesBrowse": "Browse",
@@ -104,7 +87,7 @@
   "recipesScan": "Scan",
   "recipesVoice": "Voice",
   "scannerCameraNotAvailable": "Camera not available",
-  "smartChefTitle": "Smart Chef",
+  "smartChefTitle": "Recipe Keeper",
   "smartGroceryTitle": "Smart Grocery",
   "smartChefPro": "Pro",
   "smartChefWhatIngredientsLine1": "What ingredients",
@@ -351,9 +334,9 @@
   "savedListTotalProtein": "Total Protein",
   "savedListEstCalories": "Est. Calories",
   "savedListAiOptimizing": "AI is optimizing your list...",
-  "chatTitle": "Smart Chef Chat",
+  "chatTitle": "Recipe Keeper Chat",
   "chatSubtitle": "Your AI cooking assistant",
-  "chatGreeting": "Hi, I'm Smart Chef!",
+  "chatGreeting": "Hi, I'm Recipe Keeper!",
   "chatGreetingSubtitle": "Ask me anything about cooking, recipes, nutrition, or meal planning.",
   "chatPlaceholder": "Ask me anything...",
   "chatListening": "Listening...",
@@ -416,7 +399,7 @@
   "settingsFeedbackSubtitle": "Send us your thoughts",
   "settingsRateUs": "Rate Us",
   "settingsRateUsSubtitle": "Love the app? Rate us!",
-  "rateDialogTitle": "Enjoying Smart Chef?",
+  "rateDialogTitle": "Enjoying Recipe Keeper?",
   "rateDialogSubtitle": "Help us improve your cooking experience 🍳",
   "rateDialogBody": "Your feedback helps us create\nbetter recipes for you",
   "rateDialogRateNow": "Rate Now",
@@ -480,7 +463,7 @@
   "scannerUploadPhoto": "Upload Photo",
   "scannerRecipePreferences": "Recipe Preferences",
   "scannerDietType": "Diet Type",
-  "scannerCookingTime": "Cooking Time: {time} min",
+  "scannerCookingTime": "Cooking Time",
   "@scannerCookingTime": {
     "placeholders": {
       "time": {
@@ -488,7 +471,7 @@
       }
     }
   },
-  "scannerTargetCalories": "Target Calories: {calories} kcal",
+  "scannerTargetCalories": "Target Calories",
   "@scannerTargetCalories": {
     "placeholders": {
       "calories": {
@@ -605,9 +588,8 @@
   "weeklyPlanGenerateAIMealPlan": "Generate AI Meal Plan",
   "savedMealPlanTitle": "Saved Meal Plan",
   "savedMealPlanContinuePlan": "Continue Plan",
-  "splashAppName": "Smart Chef",
+  "splashAppName": "Recipe Keeper",
   "splashSubtitle": "Your AI Kitchen Companion",
-  "splashActionMayContainAd": "This action may contain ads",
   "commonErrorMessage": "Error: {error}",
   "@commonErrorMessage": {
     "placeholders": {
@@ -637,46 +619,15 @@
   "settingsThemeLight": "Light",
   "settingsThemeDark": "Dark",
   "settingsThemeSystem": "System",
-  "landingAppName": "Smart Chef AI",
-  "landingDownloadForIOS": "Download for iOS",
-  "landingGetOnAndroid": "Get on Android",
-  "landingFreeToDownload": "Free to download • No credit card required",
-  "premiumSuccess": "Success!",
-  "premiumWelcomeMessage": "Welcome to Smart Chef Pro! Enjoy all premium features.",
+  "premiumWelcomeMessage": "Welcome to Recipe Keeper Pro! Enjoy unlimited AI features.",
   "premiumPurchasesRestored": "Purchases restored successfully",
-  "premiumSubscriptionLoading": "Subscription plans are loading. Please try again in a moment.",
-  "premiumYouArePro": "You are Pro!",
-  "premiumUnlockTitle": "Unlock Smart Chef Pro",
-  "premiumSubtitle": "Your Personal AI Cooking Assistant",
-  "premiumFeature": "Feature",
   "premiumPro": "PRO",
-  "premiumBasic": "Basic",
-  "premiumFullAccess": "Full Premium Access",
-  "premiumSubscribeNow": "Subscribe Now",
   "premiumRestorePurchases": "Restore Purchases",
-  "premiumContinueWithAd": "Continue with ad",
   "premiumPrivacyPolicy": "Privacy Policy",
   "premiumTermsOfUse": "Terms of Use",
-  "premiumCancelAnyTime": "Cancel any time",
-  "premiumFailedToInitiatePurchase": "Failed to initiate purchase",
-  "premiumError": "Error: {error}",
-  "@premiumError": {
-    "placeholders": {
-      "error": {
-        "type": "String",
-        "format": "none"
-      }
-    }
-  },
-  "premiumFeatureUnlimitedRecipes": "Unlimited AI Recipes",
-  "premiumFeatureNutritionAnalytics": "Full Nutrition Analytics",
-  "premiumFeatureVoiceAssistant": "Voice Cooking Assistant",
-  "premiumFeatureImageAnalysis": "Recipe Image Analysis",
-  "premiumFeatureGroceryList": "Smart Grocery List",
-  "premiumFeatureAdFree": "Ad Free Experience",
   "scannerMin": "min",
   "scannerKcal": "kcal",
-  "appTitle": "Smart Chef",
+  "appTitle": "Recipe Keeper",
   "searchTitle": "Search",
   "searchSubtitle": "Find recipes and ingredients",
   "searchHint": "Search recipes, ingredients.",
@@ -694,16 +645,6 @@
   "errorNoInternet": "No internet connection. Please check your connection and try again.",
   "premiumPurchaseFailed": "Purchase failed",
   "premiumUpgrade": "Upgrade",
-  "scannerLimitReached": "You have reached your limit of {limit} free recipe generations. Upgrade to premium for unlimited access!",
-  "@scannerLimitReached": {
-    "placeholders": {
-      "limit": {
-        "type": "String",
-        "format": "none"
-      }
-    }
-  },
-  "scannerAiDisabled": "AI recipe generation is currently disabled. Upgrade to premium for unlimited access!",
   "scannerAddIngredient": "Add Ingredient",
   "scannerIngredientName": "Ingredient Name",
   "scannerIngredientNameHint": "e.g., Tomatoes",
@@ -717,31 +658,14 @@
   "scannerDietKeto": "Keto",
   "scannerDietVegetarian": "Vegetarian",
   "scannerDietVegan": "Vegan",
-  "scannerCookingTime": "Cooking Time",
-  "scannerTargetCalories": "Target Calories",
   "scannerDetectedIngredients": "Detected Ingredients",
   "scannerIngredients": "Ingredients",
   "scannerInstructions": "Instructions",
-  "chatLimitReached": "You have reached your limit",
-  "chatLimitReachedMessage": "You've used all {limit} free messages. Upgrade to premium for unlimited access!",
-  "@chatLimitReachedMessage": {
-    "placeholders": {
-      "limit": {
-        "type": "String",
-        "format": "none"
-      }
-    }
-  },
-  "chatAiChefDisabled": "AI Chef chat is currently disabled. Upgrade to premium for unlimited access!",
-  "commonUpgrade": "Upgrade to Premium",
+  "chatLimitReached": "Daily free limit reached",
+  "commonUpgrade": "Upgrade to Pro",
   "backButtonCancel": "Cancel",
   "backButtonExit": "Exit",
-  "appHeaderTitle": "Smart Chef",
-  "premiumCardUnlock": "Unlock ",
-  "premiumCardSmartChefPro": "Smart Chef Pro",
-  "premiumCardSubtitle": "Ad Free Experience, & Unlimited AI Features",
-  "premiumCardTryPlus": "Try Smart Chef Plus",
-  "premiumCardGetPlus": "Get Plus",
+  "appHeaderTitle": "Recipe Keeper",
   "scannerCookingTimeLabel": "Cooking Time",
   "scannerTargetCaloriesLabel": "Target Calories",
   "groceryDemoRecipeChickenBiryani": "Chicken Biryani",
@@ -751,7 +675,6 @@
   "groceryPlaceholderMonthlyStock": "Monthly Stock",
   "groceryPlaceholderHighProteinDiet": "High Protein Diet",
   "groceryVoiceHintExample": "Say \"Add chicken, tomatoes...\"",
-  "groceryAdded": "Added",
   "searchPlaceholder1": "✨ Ask the genie anything...",
   "searchPlaceholder2": "🍳 What's cooking today?",
   "searchPlaceholder3": "🌟 Your wish is my command...",
@@ -766,108 +689,114 @@
   "ingredientEggs": "Eggs",
   "ingredientBread": "Bread",
   "ingredientOil": "Oil",
-  "scannerLimitReachedTitle": "You have reached your limit",
-  "landingHeroTitle": "Meet Your AI Chef — Create Recipes, Meal Plans & Smart Grocery Lists Instantly",
-  "landingHeroSubtitle": "Your personal AI-powered kitchen assistant. Generate healthy recipes, plan meals for the week, and create smart grocery lists — all tailored to your taste, budget, and goals.",
-  "landingWhySmartChef": "Why Smart Chef?",
-  "landingKitchenSupercharged": "Your Kitchen, Supercharged",
-  "landingFeatureRecipeBuilderTitle": "Smart Recipe Builder",
-  "landingFeatureRecipeBuilderDesc": "Generate personalized recipes from ingredients you have at home using AI",
-  "landingFeatureMealPlansTitle": "Personalized Meal Plans",
-  "landingFeatureMealPlansDesc": "AI-powered weekly and monthly meal plans tailored to your goals",
-  "landingFeatureGroceryTitle": "Smart Grocery List",
-  "landingFeatureGroceryDesc": "Auto-generate shopping lists organized by category with budget options",
-  "landingSimpleEasy": "Simple & Easy",
-  "landingHowItWorks": "How It Works",
-  "landingStep1Title": "Set Your Preferences",
-  "landingStep1Desc": "Tell us your dietary goals, allergies, and cuisine preferences",
-  "landingStep2Title": "Get AI Recommendations",
-  "landingStep2Desc": "Receive personalized recipes and meal plans instantly",
-  "landingStep3Title": "Cook & Track",
-  "landingStep3Desc": "Follow step-by-step guides and track your nutrition progress",
-  "landingLovedByThousands": "Loved by Thousands",
-  "landingWhatUsersSay": "What Our Users Say",
-  "landingTestimonial1Name": "Sarah M.",
-  "landingTestimonial1Role": "Busy Mom",
-  "landingTestimonial1Quote": "Smart Chef transformed my meal planning. I save 5+ hours every week!",
-  "landingTestimonial2Name": "Ahmed K.",
-  "landingTestimonial2Role": "Fitness Enthusiast",
-  "landingTestimonial2Quote": "The calorie tracking and high-protein recipes are exactly what I needed.",
-  "landingTestimonial3Name": "Priya S.",
-  "landingTestimonial3Role": "Student",
-  "landingTestimonial3Quote": "Budget-friendly desi recipes that taste like home. Absolutely love it!",
-  "landingStartCookingSmarter": "Start Cooking Smarter Today",
-  "landingJoinThousands": "Join thousands of home cooks who've transformed their kitchen experience with AI-powered meal planning.",
-  "landingCopyright": "© 2024 Smart Chef AI. All rights reserved.",
-  "recipesLimitReached": "You have reached your limit",
-  "recipesLimitReachedMessage": "You've used all {limit} free recipe generations. Upgrade to premium for unlimited access!",
-  "@recipesLimitReachedMessage": {
+  "scannerLimitReachedTitle": "Daily free limit reached",
+  "recipesLimitReached": "Daily free limit reached",
+  "premiumPlanWeekly": "Weekly",
+  "premiumPlanYearly": "Yearly",
+  "premiumPlanLifetime": "Lifetime",
+  "freeLeftToday": "{remaining} of {limit} free today",
+  "@freeLeftToday": {
     "placeholders": {
+      "remaining": {
+        "type": "String",
+        "format": "none"
+      },
       "limit": {
         "type": "String",
         "format": "none"
       }
     }
   },
-  "recipesAiRecipeDisabled": "AI recipe generation is currently disabled. Upgrade to premium for unlimited access!",
-  "premiumPerWeek": "/Week",
-  "premiumTitleLine1": "Cook Smarter with",
-  "premiumTitleLine2": "Smart Chef Premium.",
-  "premiumSeeMorePlans": "See more plans",
-  "premiumSeeLessPlans": "See less plans",
-  "premiumMostPopular": "Most Popular",
-  "premiumAnnualPlan": "Annual Plan",
-  "premiumAnnualPriceOriginal": "$140.99/year",
-  "premiumAnnualPrice": "$124.99",
-  "premiumPerYear": "/year",
-  "premiumWeeklyPlan": "Weekly Plan",
-  "premiumThreeDaysFreeTrial": "3 Days Free Trial",
-  "premiumWhyGoPremium": "🔥 Why Go Premium?",
-  "premiumTrustedByTitle": "⭐ Trusted by Food\nLovers",
-  "premiumTestimonialName": "Imogen Davies",
-  "premiumTestimonialRole": "Home Cook in weeks",
-  "premiumTestimonialQuote": "I stopped wasting time searching recipes online. Smart Chef instantly creates meals from what I have in my fridge.",
-  "premiumSocialStats": "📊 Social Stats",
-  "premiumAverageRating": "⭐ 4.8 Average Rating",
-  "premiumHomeCooks": "🌎 200K+ Home Cooks",
-  "premiumRecipesGenerated": "👨‍🍳 1000+ Recipes Generated",
-  "premiumPaymentDisclaimer": "Payment will be charged to your Google Account at purchase. Subscription renews automatically unless canceled before the billing period ends.",
-  "premiumCookSmarterWithAi": "Cook Smarter with AI",
-  "premiumGeniusCookingPlan": "Genius Cooking Plan",
-  "premiumFeatureDailyAiRecipeSuggestions": "Daily AI recipe suggestions",
-  "premiumFeatureIngredientBasedCooking": "Ingredient-based cooking",
-  "premiumFeatureSmartMealPlanning": "Smart meal planning",
-  "premiumFeatureNutritionInsights": "Nutrition insights",
-  "premiumChooseYourPlanNew": "Choose your Plan",
-  "premiumUnlimitedRecipes": "Unlimited Recipes, ",
-  "premiumBestValue": "Best value",
-  "premiumPlanWeekly": "Weekly",
-  "premiumPlanYearly": "Yearly",
-  "premiumPlanLifetime": "Lifetime",
-  "premiumLifetimeFullAccessIncluded": "One-time purchase • Full access included",
-  "premiumStartFreeTrialTitle": "Start your free trial",
-  "premiumTrialThenPrice": "3-day trial, then {price}",
-  "@premiumTrialThenPrice": {
+  "freeLimitReachedTitle": "Daily free limit reached",
+  "freeLimitReachedMessage": "You have used today's {limit} free {feature}. Upgrade to Pro for unlimited access, or come back tomorrow.",
+  "@freeLimitReachedMessage": {
     "placeholders": {
+      "limit": {
+        "type": "String",
+        "format": "none"
+      },
+      "feature": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "freeFeatureRecipes": "AI recipes",
+  "freeFeatureChat": "chat messages",
+  "freeFeatureScans": "ingredient scans",
+  "freeFeaturePlans": "AI meal plans",
+  "paywallTitle": "Recipe Keeper Pro",
+  "paywallSubtitle": "Unlimited AI cooking help, every day",
+  "paywallFeatureRecipes": "Unlimited AI recipe generations",
+  "paywallFeatureChat": "Unlimited AI Chef chat messages",
+  "paywallFeatureScans": "Unlimited ingredient scans",
+  "paywallFeaturePlans": "Unlimited AI meal plans",
+  "paywallFreeTierNote": "Free every day: {recipes} AI recipes, {chat} chat messages, {scans} scans and {plans} meal plan. Saved recipes, favorites and grocery lists are always free.",
+  "@paywallFreeTierNote": {
+    "placeholders": {
+      "recipes": {
+        "type": "String",
+        "format": "none"
+      },
+      "chat": {
+        "type": "String",
+        "format": "none"
+      },
+      "scans": {
+        "type": "String",
+        "format": "none"
+      },
+      "plans": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "paywallPerWeek": "per week, auto-renewing",
+  "paywallPerYear": "per year, auto-renewing",
+  "paywallOneTime": "one-time purchase, yours forever",
+  "paywallContinue": "Continue",
+  "paywallTrialThen": "{trial} free, then {price}",
+  "@paywallTrialThen": {
+    "placeholders": {
+      "trial": {
+        "type": "String",
+        "format": "none"
+      },
       "price": {
         "type": "String",
         "format": "none"
       }
     }
   },
-  "premiumUnlockNow": "Unlock now",
-  "premiumBestOffer": "Best offer",
-  "premiumStartFreeTrial": "Start 3-days free trial {price}",
-  "@premiumStartFreeTrial": {
+  "paywallAutoRenewDisclosure": "Payment is charged to your Apple ID account at confirmation of purchase. The subscription renews automatically at the price shown unless it is cancelled at least 24 hours before the end of the current period. You can manage or cancel it in your App Store account settings.",
+  "paywallLifetimeDisclosure": "One-time payment charged to your Apple ID account at confirmation of purchase. Not a subscription; nothing renews.",
+  "paywallLoadError": "Plans could not be loaded from the App Store. Check your connection and try again.",
+  "paywallRetry": "Retry",
+  "paywallNothingToRestore": "No previous purchase was found for this Apple ID.",
+  "settingsProSection": "Recipe Keeper Pro",
+  "settingsUpgrade": "Upgrade to Pro",
+  "settingsUpgradeSubtitle": "Unlimited AI recipes, chat, scans and meal plans",
+  "settingsProActive": "Pro is active",
+  "settingsProActiveSubtitle": "{plan} - thank you for supporting Recipe Keeper",
+  "@settingsProActiveSubtitle": {
     "placeholders": {
-      "price": {
+      "plan": {
         "type": "String",
         "format": "none"
       }
     }
   },
-  "premiumUnlockUnlimitedRecipesNow": "Unlock Unlimited Recipes Now",
-  "premiumBestValueRibbon": "BEST VALUE",
-  "discountPopupTitle": "🔥 Unlock Your\nSmart Chef PRO",
-  "discountPopupPerMonth": "Per Month"
+  "settingsProExpires": "Renews or ends {date}",
+  "@settingsProExpires": {
+    "placeholders": {
+      "date": {
+        "type": "String",
+        "format": "none"
+      }
+    }
+  },
+  "settingsManageSubscription": "Manage Subscription",
+  "settingsManageSubscriptionSubtitle": "Change or cancel your plan in the App Store",
+  "settingsRestorePurchasesSubtitle": "Already bought Pro? Restore it on this device"
 }
