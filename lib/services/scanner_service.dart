@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'dart:typed_data';
 import 'package:http/http.dart' as http;
 import '../data/models/recipe.dart';
@@ -134,7 +135,7 @@ class ScanResult {
         try {
           parsedRecipes.add(Recipe.fromJson(convertedRecipe));
         } catch (e) {
-          print('Error parsing recipe: $e');
+          debugPrint('Error parsing recipe: $e');
         }
       }
     }
@@ -170,7 +171,7 @@ class ScannerService {
     try {
       // Check if Supabase is initialized
       if (!SupabaseService.isInitialized) {
-        print('Error: Supabase is not initialized');
+        debugPrint('Error: Supabase is not initialized');
         return null;
       }
 
@@ -216,7 +217,7 @@ class ScannerService {
       }
       return null;
     } catch (e) {
-      print('Error analyzing image: $e');
+      debugPrint('Error analyzing image: $e');
       return null;
     }
   }
@@ -225,7 +226,7 @@ class ScannerService {
     try {
       return base64Encode(imageBytes);
     } catch (e) {
-      print('Error converting image to base64: $e');
+      debugPrint('Error converting image to base64: $e');
       return null;
     }
   }

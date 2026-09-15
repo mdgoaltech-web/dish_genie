@@ -54,7 +54,7 @@ class GroceryProvider with ChangeNotifier {
         }
       }
     } catch (e) {
-      print('Error loading grocery list: $e');
+      debugPrint('Error loading grocery list: $e');
     } finally {
       _isLoadingFromStorage = false;
       // Only notify after load completes - UI will update smoothly
@@ -69,7 +69,7 @@ class GroceryProvider with ChangeNotifier {
           jsonEncode(_groceryList!.toJson()),
         );
       } catch (e) {
-        print('Error saving grocery list to storage: $e');
+        debugPrint('Error saving grocery list to storage: $e');
         rethrow; // Let caller handle the error
       }
     }
@@ -197,7 +197,7 @@ class GroceryProvider with ChangeNotifier {
     try {
       await _saveToStorage();
     } catch (e) {
-      print('Error saving after adding item: $e');
+      debugPrint('Error saving after adding item: $e');
     }
     notifyListeners();
     return true;
@@ -243,7 +243,7 @@ class GroceryProvider with ChangeNotifier {
     try {
       await _saveToStorage();
     } catch (e) {
-      print('Error saving after adding items: $e');
+      debugPrint('Error saving after adding items: $e');
       // Continue to update UI even if save fails
     }
     notifyListeners();
@@ -283,7 +283,7 @@ class GroceryProvider with ChangeNotifier {
       try {
         await _saveToStorage();
       } catch (e) {
-        print('Error saving after removing item: $e');
+        debugPrint('Error saving after removing item: $e');
         // Continue to update UI even if save fails
       }
       notifyListeners();
@@ -302,7 +302,7 @@ class GroceryProvider with ChangeNotifier {
       try {
         await _saveToStorage();
       } catch (e) {
-        print('Error saving after toggling item: $e');
+        debugPrint('Error saving after toggling item: $e');
         // Continue to update UI even if save fails
       }
       notifyListeners();
@@ -451,7 +451,7 @@ class GroceryProvider with ChangeNotifier {
     try {
       await _saveToStorage();
     } catch (e) {
-      print('Error saving after setting grocery list: $e');
+      debugPrint('Error saving after setting grocery list: $e');
       // Continue to update UI even if save fails
     }
     notifyListeners();
@@ -471,7 +471,7 @@ class GroceryProvider with ChangeNotifier {
         notifyListeners();
       }
     } catch (e) {
-      print('Error loading saved lists: $e');
+      debugPrint('Error loading saved lists: $e');
     }
   }
 
@@ -490,7 +490,7 @@ class GroceryProvider with ChangeNotifier {
           final data = jsonDecode(savedListsJson) as List<dynamic>;
           lists = data.map((e) => e as Map<String, dynamic>).toList();
         } catch (e) {
-          print('Error parsing saved lists, starting fresh: $e');
+          debugPrint('Error parsing saved lists, starting fresh: $e');
           lists = [];
         }
       }
@@ -537,7 +537,7 @@ class GroceryProvider with ChangeNotifier {
       // Reload to ensure consistency
       await loadSavedLists();
     } catch (e) {
-      print('Error saving list: $e');
+      debugPrint('Error saving list: $e');
       rethrow; // Re-throw to let UI handle the error
     }
   }

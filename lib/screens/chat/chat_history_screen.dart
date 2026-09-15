@@ -59,7 +59,7 @@ class _ChatHistoryScreenState extends State<ChatHistoryScreen> {
           .map((json) => ChatConversation.fromJson(json))
           .toList();
     } catch (e) {
-      print('Error loading chat history: $e');
+      debugPrint('Error loading chat history: $e');
     }
 
     setState(() {
@@ -195,7 +195,7 @@ class _ChatHistoryScreenState extends State<ChatHistoryScreen> {
       final conversationsJson = _conversations.map((c) => c.toJson()).toList();
       await StorageService.saveChatConversations(conversationsJson);
     } catch (e) {
-      print('Error saving chat history: $e');
+      debugPrint('Error saving chat history: $e');
     }
   }
 
@@ -214,7 +214,7 @@ class _ChatHistoryScreenState extends State<ChatHistoryScreen> {
   Widget build(BuildContext context) {
     return PopScope(
       canPop: false,
-      onPopInvoked: (didPop) {
+      onPopInvokedWithResult: (didPop, _) {
         if (!didPop) {
           _handleBack();
         }
@@ -252,10 +252,10 @@ class _ChatHistoryScreenState extends State<ChatHistoryScreen> {
                 margin: const EdgeInsets.all(16),
                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
                 decoration: BoxDecoration(
-                  color: Theme.of(context).cardColor.withOpacity(0.7),
+                  color: Theme.of(context).cardColor.withValues(alpha: 0.7),
                   borderRadius: BorderRadius.circular(12),
                   border: Border.all(
-                    color: Theme.of(context).dividerColor.withOpacity(0.2),
+                    color: Theme.of(context).dividerColor.withValues(alpha: 0.2),
                     width: 1,
                   ),
                 ),
@@ -271,13 +271,13 @@ class _ChatHistoryScreenState extends State<ChatHistoryScreen> {
                     disabledBorder: InputBorder.none,
                     prefixIcon: Icon(
                       Icons.search,
-                      color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+                      color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
                     ),
                     suffixIcon: _searchQuery.isNotEmpty
                         ? IconButton(
                             icon: Icon(
                               Icons.clear,
-                              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+                              color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
                             ),
                             onPressed: () {
                               _searchController.clear();
@@ -285,7 +285,7 @@ class _ChatHistoryScreenState extends State<ChatHistoryScreen> {
                           )
                         : null,
                     hintStyle: TextStyle(
-                      color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+                      color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
                     ),
                   ),
                   style: TextStyle(
@@ -335,7 +335,7 @@ class _ChatHistoryScreenState extends State<ChatHistoryScreen> {
                   ? context.t('chatHistory.tryDifferent')
                   : context.t('chatHistory.emptyHint'),
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+                    color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
                   ),
               textAlign: TextAlign.center,
             ),
@@ -387,7 +387,7 @@ class _ChatHistoryScreenState extends State<ChatHistoryScreen> {
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: AppColors.primary.withOpacity(0.3),
+            color: AppColors.primary.withValues(alpha: 0.3),
             blurRadius: 24,
             spreadRadius: -4,
             offset: const Offset(0, 4),
@@ -444,7 +444,7 @@ class _ChatHistoryScreenState extends State<ChatHistoryScreen> {
                           lastMessage.content,
                           style: TextStyle(
                             fontSize: 12,
-                            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+                            color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
                           ),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
@@ -454,7 +454,7 @@ class _ChatHistoryScreenState extends State<ChatHistoryScreen> {
                           context.t('chatHistory.noMessages'),
                           style: TextStyle(
                             fontSize: 12,
-                            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.4),
+                            color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.4),
                           ),
                         ),
                     ],
@@ -468,7 +468,7 @@ class _ChatHistoryScreenState extends State<ChatHistoryScreen> {
                       _formatDate(conversation.updatedAt),
                       style: TextStyle(
                         fontSize: 10,
-                        color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+                        color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
                       ),
                     ),
                     const SizedBox(height: 4),
@@ -479,7 +479,7 @@ class _ChatHistoryScreenState extends State<ChatHistoryScreen> {
                           vertical: 2,
                         ),
                         decoration: BoxDecoration(
-                          color: AppColors.primary.withOpacity(0.1),
+                          color: AppColors.primary.withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: Text(

@@ -45,7 +45,7 @@ class RecipeProvider with ChangeNotifier {
       _recipesLoaded = true;
       notifyListeners();
     } catch (e) {
-      print('Error loading recipes: $e');
+      debugPrint('Error loading recipes: $e');
       // Fall back to sample recipes on error
       _authenticRecipes = _createSampleRecipes();
       _recipesLoaded = true;

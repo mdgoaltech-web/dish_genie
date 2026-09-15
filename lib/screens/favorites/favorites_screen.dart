@@ -131,7 +131,7 @@ class _FavoritesScreenState extends State<FavoritesScreen>
 
     return PopScope(
       canPop: true,
-      onPopInvoked: (didPop) {
+      onPopInvokedWithResult: (didPop, _) {
         if (!didPop) {
           // If Favorites was opened via push(), pop back. Otherwise fall back to Home.
           if (context.canPop()) {
@@ -196,7 +196,7 @@ class _FavoritesScreenState extends State<FavoritesScreen>
                         unselectedLabelColor: Theme.of(context)
                             .colorScheme
                             .onSurface
-                            .withOpacity(
+                            .withValues(alpha: 
                               Theme.of(context).brightness == Brightness.dark
                                   ? 0.9
                                   : 0.7,
@@ -529,7 +529,7 @@ class _FavoritesScreenState extends State<FavoritesScreen>
                         style: TextStyle(
                           fontSize: 12,
                           color: Theme.of(context).colorScheme.onSurface
-                              .withOpacity(
+                              .withValues(alpha: 
                                 Theme.of(context).brightness == Brightness.dark
                                     ? 0.85
                                     : 0.6,
@@ -548,7 +548,7 @@ class _FavoritesScreenState extends State<FavoritesScreen>
                   'Est. ${groceryList.estimatedCost}',
                   style: TextStyle(
                     fontSize: 14,
-                    color: Theme.of(context).colorScheme.onSurface.withOpacity(
+                    color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 
                       Theme.of(context).brightness == Brightness.dark
                           ? 0.85
                           : 0.6,
@@ -560,7 +560,7 @@ class _FavoritesScreenState extends State<FavoritesScreen>
                   '•',
                   style: TextStyle(
                     fontSize: 14,
-                    color: Theme.of(context).colorScheme.onSurface.withOpacity(
+                    color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 
                       Theme.of(context).brightness == Brightness.dark
                           ? 0.85
                           : 0.6,
@@ -572,7 +572,7 @@ class _FavoritesScreenState extends State<FavoritesScreen>
                   '$totalItems ${context.t('grocery.items')}',
                   style: TextStyle(
                     fontSize: 14,
-                    color: Theme.of(context).colorScheme.onSurface.withOpacity(
+                    color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 
                       Theme.of(context).brightness == Brightness.dark
                           ? 0.85
                           : 0.6,
@@ -629,7 +629,7 @@ class _FavoritesScreenState extends State<FavoritesScreen>
                   style: OutlinedButton.styleFrom(
                     foregroundColor: AppColors.destructive,
                     side: BorderSide(
-                      color: AppColors.destructive.withOpacity(0.3),
+                      color: AppColors.destructive.withValues(alpha: 0.3),
                     ),
                     padding: const EdgeInsets.all(12),
                   ),
@@ -736,7 +736,7 @@ class _FavoritesScreenState extends State<FavoritesScreen>
                                 Colors.transparent,
                                 Theme.of(
                                   context,
-                                ).colorScheme.shadow.withOpacity(0.5),
+                                ).colorScheme.shadow.withValues(alpha: 0.5),
                               ],
                             ),
                           ),
@@ -769,7 +769,7 @@ class _FavoritesScreenState extends State<FavoritesScreen>
                         style: TextStyle(
                           fontSize: 11,
                           color: Theme.of(context).colorScheme.onSurface
-                              .withOpacity(
+                              .withValues(alpha: 
                                 Theme.of(context).brightness == Brightness.dark
                                     ? 0.85
                                     : 0.6,
@@ -791,7 +791,7 @@ class _FavoritesScreenState extends State<FavoritesScreen>
                 style: OutlinedButton.styleFrom(
                   foregroundColor: AppColors.destructive,
                   side: BorderSide(
-                    color: AppColors.destructive.withOpacity(0.3),
+                    color: AppColors.destructive.withValues(alpha: 0.3),
                   ),
                   padding: const EdgeInsets.symmetric(vertical: 6),
                   minimumSize: const Size(0, 32),
@@ -873,7 +873,7 @@ class _FavoritesScreenState extends State<FavoritesScreen>
                         fontSize: 12,
                         color: Theme.of(
                           context,
-                        ).colorScheme.onSurface.withOpacity(secondaryOpacity),
+                        ).colorScheme.onSurface.withValues(alpha: secondaryOpacity),
                       ),
                     ),
                   ],
@@ -890,7 +890,7 @@ class _FavoritesScreenState extends State<FavoritesScreen>
                   fontSize: 14,
                   color: Theme.of(
                     context,
-                  ).colorScheme.onSurface.withOpacity(secondaryOpacity),
+                  ).colorScheme.onSurface.withValues(alpha: secondaryOpacity),
                 ),
               ),
               const SizedBox(width: 8),
@@ -900,7 +900,7 @@ class _FavoritesScreenState extends State<FavoritesScreen>
                   fontSize: 14,
                   color: Theme.of(
                     context,
-                  ).colorScheme.onSurface.withOpacity(secondaryOpacity),
+                  ).colorScheme.onSurface.withValues(alpha: secondaryOpacity),
                 ),
               ),
               const SizedBox(width: 8),
@@ -910,7 +910,7 @@ class _FavoritesScreenState extends State<FavoritesScreen>
                   fontSize: 14,
                   color: Theme.of(
                     context,
-                  ).colorScheme.onSurface.withOpacity(secondaryOpacity),
+                  ).colorScheme.onSurface.withValues(alpha: secondaryOpacity),
                 ),
               ),
               const SizedBox(width: 8),
@@ -920,7 +920,7 @@ class _FavoritesScreenState extends State<FavoritesScreen>
                   fontSize: 14,
                   color: Theme.of(
                     context,
-                  ).colorScheme.onSurface.withOpacity(secondaryOpacity),
+                  ).colorScheme.onSurface.withValues(alpha: secondaryOpacity),
                 ),
               ),
               const SizedBox(width: 8),
@@ -930,7 +930,7 @@ class _FavoritesScreenState extends State<FavoritesScreen>
                   fontSize: 14,
                   color: Theme.of(
                     context,
-                  ).colorScheme.onSurface.withOpacity(secondaryOpacity),
+                  ).colorScheme.onSurface.withValues(alpha: secondaryOpacity),
                 ),
               ),
             ],
@@ -976,7 +976,7 @@ class _FavoritesScreenState extends State<FavoritesScreen>
                 style: OutlinedButton.styleFrom(
                   foregroundColor: AppColors.destructive,
                   side: BorderSide(
-                    color: AppColors.destructive.withOpacity(0.3),
+                    color: AppColors.destructive.withValues(alpha: 0.3),
                   ),
                   padding: const EdgeInsets.all(12),
                 ),
@@ -1017,7 +1017,7 @@ class _FavoritesScreenState extends State<FavoritesScreen>
             Text(
               hint,
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                color: Theme.of(context).colorScheme.onSurface.withOpacity(
+                color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 
                   Theme.of(context).brightness == Brightness.dark ? 0.85 : 0.6,
                 ),
               ),

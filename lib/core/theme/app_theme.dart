@@ -347,11 +347,11 @@ class AppTheme {
   
   // Glass morphism effect helper
   static BoxDecoration get glassCard => BoxDecoration(
-    color: AppColors.card.withOpacity(0.6),
+    color: AppColors.card.withValues(alpha: 0.6),
     borderRadius: BorderRadius.circular(borderRadius),
     boxShadow: [
       BoxShadow(
-        color: AppColors.primary.withOpacity(0.15),
+        color: AppColors.primary.withValues(alpha: 0.15),
         blurRadius: 24,
         spreadRadius: -4,
         offset: const Offset(0, 4),

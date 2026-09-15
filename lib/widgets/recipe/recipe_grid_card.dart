@@ -50,7 +50,7 @@ class RecipeGridCard extends StatelessWidget {
     } else if (lowerTag.contains('quick')) {
       return (bg: colorScheme.errorContainer, fg: colorScheme.onErrorContainer);
     }
-    return (bg: colorScheme.surfaceVariant, fg: colorScheme.onSurfaceVariant);
+    return (bg: colorScheme.surfaceContainerHighest, fg: colorScheme.onSurfaceVariant);
   }
 
   @override
@@ -81,10 +81,10 @@ class RecipeGridCard extends StatelessWidget {
                       fit: BoxFit.cover,
                       width: double.infinity,
                       placeholder: Container(
-                        color: Theme.of(context).colorScheme.surfaceVariant,
+                        color: Theme.of(context).colorScheme.surfaceContainerHighest,
                       ),
                       errorWidget: Container(
-                        color: Theme.of(context).colorScheme.surfaceVariant,
+                        color: Theme.of(context).colorScheme.surfaceContainerHighest,
                         child: const Icon(Icons.error, size: 24),
                       ),
                     ),
@@ -99,7 +99,7 @@ class RecipeGridCard extends StatelessWidget {
                               Colors.transparent,
                               Theme.of(
                                 context,
-                              ).colorScheme.onSurface.withOpacity(0.4),
+                              ).colorScheme.onSurface.withValues(alpha: 0.4),
                             ],
                           ),
                         ),
@@ -172,7 +172,7 @@ class RecipeGridCard extends StatelessWidget {
                               color: Theme.of(context)
                                   .colorScheme
                                   .onSurface
-                                  .withOpacity(0.6),
+                                  .withValues(alpha: 0.6),
                             ),
                             overflow: TextOverflow.ellipsis,
                             textDirection: Directionality.of(context),
@@ -192,7 +192,7 @@ class RecipeGridCard extends StatelessWidget {
                             color: Theme.of(context)
                                 .colorScheme
                                 .onSurface
-                                .withOpacity(0.6),
+                                .withValues(alpha: 0.6),
                           ),
                         ),
                       ],

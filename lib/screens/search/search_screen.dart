@@ -84,7 +84,7 @@ class _SearchScreenState extends State<SearchScreen> {
             filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
             child: Container(
               decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.3),
+                color: Colors.white.withValues(alpha: 0.3),
               ),
             ),
           ),
@@ -112,7 +112,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       borderRadius: BorderRadius.circular(24),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black.withOpacity(0.1),
+                          color: Colors.black.withValues(alpha: 0.1),
                           blurRadius: 20,
                           offset: const Offset(0, 4),
                         ),
@@ -128,7 +128,7 @@ class _SearchScreenState extends State<SearchScreen> {
                               // Magnifying glass icon
                               Icon(
                                 Icons.search,
-                                color: AppColors.foreground.withOpacity(0.6),
+                                color: AppColors.foreground.withValues(alpha: 0.6),
                                 size: 24,
                               ),
                               const SizedBox(width: 12),
@@ -158,7 +158,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                 onTap: _clearSearch,
                                 child: Icon(
                                   Icons.close,
-                                  color: AppColors.foreground.withOpacity(0.6),
+                                  color: AppColors.foreground.withValues(alpha: 0.6),
                                   size: 24,
                                 ),
                               ),
@@ -200,7 +200,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                           vertical: 8,
                                         ),
                                         decoration: BoxDecoration(
-                                          color: AppColors.primary.withOpacity(0.1),
+                                          color: AppColors.primary.withValues(alpha: 0.1),
                                           borderRadius: BorderRadius.circular(20),
                                         ),
                                         child: Text(

@@ -98,7 +98,7 @@ class ChatProvider with ChangeNotifier {
         await _loadMessages();
       }
     } catch (e) {
-      print('Error loading last active chat: $e');
+      debugPrint('Error loading last active chat: $e');
     }
   }
 
@@ -156,7 +156,7 @@ class ChatProvider with ChangeNotifier {
           .toList();
       notifyListeners();
     } catch (e) {
-      print('Error loading conversations: $e');
+      debugPrint('Error loading conversations: $e');
     }
   }
 
@@ -241,7 +241,7 @@ class ChatProvider with ChangeNotifier {
 
       await _loadConversations();
     } catch (e) {
-      print('Error saving conversation: $e');
+      debugPrint('Error saving conversation: $e');
     }
   }
 
@@ -323,7 +323,7 @@ class ChatProvider with ChangeNotifier {
       // Notify listeners one final time to ensure UI is updated
       notifyListeners();
     } catch (e) {
-      print('Error sending message: $e');
+      debugPrint('Error sending message: $e');
       // Remove the assistant placeholder/partial response
       _messages.removeWhere((m) => m.id == assistantId);
       _messages.removeWhere((m) => !m.isUser && m.content.isEmpty);
@@ -405,7 +405,7 @@ class ChatProvider with ChangeNotifier {
       _conversationId = conversationId;
       await _loadMessages();
     } catch (e) {
-      print('Error loading conversation: $e');
+      debugPrint('Error loading conversation: $e');
     }
   }
 
@@ -421,7 +421,7 @@ class ChatProvider with ChangeNotifier {
 
       await _loadConversations();
     } catch (e) {
-      print('Error deleting conversation: $e');
+      debugPrint('Error deleting conversation: $e');
     }
   }
 
@@ -439,7 +439,7 @@ class ChatProvider with ChangeNotifier {
         await _loadConversations();
       }
     } catch (e) {
-      print('Error renaming conversation: $e');
+      debugPrint('Error renaming conversation: $e');
     }
   }
 
@@ -450,7 +450,7 @@ class ChatProvider with ChangeNotifier {
       startNewChat();
       notifyListeners();
     } catch (e) {
-      print('Error clearing all conversations: $e');
+      debugPrint('Error clearing all conversations: $e');
     }
   }
 }

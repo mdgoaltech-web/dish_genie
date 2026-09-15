@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import '../data/models/grocery_list.dart';
 import '../data/models/meal_plan.dart';
@@ -20,7 +21,7 @@ class GroceryService {
     try {
       // Check if Supabase is initialized
       if (!SupabaseService.isInitialized) {
-        print('Error: Supabase is not initialized');
+        debugPrint('Error: Supabase is not initialized');
         return null;
       }
 
@@ -82,8 +83,8 @@ class GroceryService {
         final errorMessage = errorBody?['error']?.toString() ?? 
             errorBody?['message']?.toString() ?? 
             'Request failed with status ${httpResponse.statusCode}';
-        print('❌ [GroceryService] HTTP Error: $errorMessage');
-        print('❌ [GroceryService] Response body: ${httpResponse.body}');
+        debugPrint('❌ [GroceryService] HTTP Error: $errorMessage');
+        debugPrint('❌ [GroceryService] Response body: ${httpResponse.body}');
         throw Exception(errorMessage);
       }
 
@@ -96,7 +97,7 @@ class GroceryService {
         if (groceryListData['items'] != null) {
           final items = groceryListData['items'] as List<dynamic>;
           if (items.isEmpty) {
-            print('⚠️ [GroceryService] Warning: Grocery list has no items');
+            debugPrint('⚠️ [GroceryService] Warning: Grocery list has no items');
           }
           groceryListData['items'] = items.asMap().entries.map((entry) {
             final index = entry.key;
@@ -112,19 +113,19 @@ class GroceryService {
             return item;
           }).toList();
         } else {
-          print('⚠️ [GroceryService] Warning: Grocery list has no items field');
+          debugPrint('⚠️ [GroceryService] Warning: Grocery list has no items field');
           groceryListData['items'] = [];
         }
         
-        print('✅ [GroceryService] Successfully generated grocery list with ${(groceryListData['items'] as List).length} items');
+        debugPrint('✅ [GroceryService] Successfully generated grocery list with ${(groceryListData['items'] as List).length} items');
         return GroceryList.fromJson(groceryListData);
       }
       
-      print('⚠️ [GroceryService] Warning: Response has no groceryList field');
+      debugPrint('⚠️ [GroceryService] Warning: Response has no groceryList field');
       return null;
     } catch (e, stackTrace) {
-      print('Error generating grocery list: $e');
-      print('Stack trace: $stackTrace');
+      debugPrint('Error generating grocery list: $e');
+      debugPrint('Stack trace: $stackTrace');
       return null;
     }
   }

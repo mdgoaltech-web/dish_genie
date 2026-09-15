@@ -70,7 +70,7 @@ class _RecipeCategorySectionState extends State<RecipeCategorySection> {
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                       decoration: BoxDecoration(
-                        color: AppColors.muted.withOpacity(0.5),
+                        color: AppColors.muted.withValues(alpha: 0.5),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Text(
@@ -86,11 +86,11 @@ class _RecipeCategorySectionState extends State<RecipeCategorySection> {
                         ? Icon(
                             Icons.expand_less,
                             size: 16,
-                            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5),
+                            color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.5),
                           )
                         : RtlChevronRight(
                             size: 16,
-                            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5),
+                            color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.5),
                           ),
                   ],
                 ),
@@ -152,7 +152,7 @@ class _RecipeCategorySectionState extends State<RecipeCategorySection> {
                                           end: Alignment.bottomCenter,
                                           colors: [
                                             Colors.transparent,
-                                            Colors.black.withOpacity(0.4),
+                                            Colors.black.withValues(alpha: 0.4),
                                           ],
                                         ),
                                       ),

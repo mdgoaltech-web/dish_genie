@@ -121,7 +121,7 @@ class _RecipeCardState extends State<RecipeCard>
                                     placeholder: Container(
                                       color: Theme.of(
                                         context,
-                                      ).colorScheme.surfaceVariant,
+                                      ).colorScheme.surfaceContainerHighest,
                                       child: const Center(
                                         child: CircularProgressIndicator(),
                                       ),
@@ -129,7 +129,7 @@ class _RecipeCardState extends State<RecipeCard>
                                     errorWidget: Container(
                                       color: Theme.of(
                                         context,
-                                      ).colorScheme.surfaceVariant,
+                                      ).colorScheme.surfaceContainerHighest,
                                       child: const Icon(Icons.error),
                                     ),
                                   ),
@@ -148,7 +148,7 @@ class _RecipeCardState extends State<RecipeCard>
                                     Colors.transparent,
                                     Theme.of(
                                       context,
-                                    ).colorScheme.onSurface.withOpacity(0.6),
+                                    ).colorScheme.onSurface.withValues(alpha: 0.6),
                                   ],
                                 ),
                               ),
@@ -196,7 +196,7 @@ class _RecipeCardState extends State<RecipeCard>
                                         decoration: BoxDecoration(
                                           color: Theme.of(
                                             context,
-                                          ).cardColor.withOpacity(0.8),
+                                          ).cardColor.withValues(alpha: 0.8),
                                           borderRadius: BorderRadius.circular(
                                             12,
                                           ),
@@ -278,12 +278,12 @@ class _RecipeCardState extends State<RecipeCard>
                                         color: Theme.of(context)
                                             .colorScheme
                                             .surfaceVariant
-                                            .withOpacity(0.5),
+                                            .withValues(alpha: 0.5),
                                         borderRadius: BorderRadius.circular(12),
                                         border: Border.all(
                                           color: Theme.of(context)
                                               .dividerColor
-                                              .withOpacity(0.1),
+                                              .withValues(alpha: 0.1),
                                         ),
                                       ),
                                       child: Text(
@@ -339,7 +339,7 @@ class _ActionButton extends StatelessWidget {
         decoration: BoxDecoration(
           color: isActive
               ? color
-              : Theme.of(context).cardColor.withOpacity(0.7),
+              : Theme.of(context).cardColor.withValues(alpha: 0.7),
           shape: BoxShape.circle,
         ),
         child: ClipOval(
@@ -349,7 +349,7 @@ class _ActionButton extends StatelessWidget {
               decoration: BoxDecoration(
                 color: isActive
                     ? color
-                    : Theme.of(context).cardColor.withOpacity(0.7),
+                    : Theme.of(context).cardColor.withValues(alpha: 0.7),
                 shape: BoxShape.circle,
               ),
               child: Icon(
@@ -388,7 +388,7 @@ class _StatItem extends StatelessWidget {
           value,
           style: TextStyle(
             fontSize: 14,
-            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+            color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
             fontWeight: FontWeight.w500,
           ),
         ),

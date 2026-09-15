@@ -287,7 +287,7 @@ class StorageService {
         return data.map((e) => e as Map<String, dynamic>).toList();
       }
     } catch (e) {
-      print('Error loading chat conversations: $e');
+      debugPrint('Error loading chat conversations: $e');
     }
     return [];
   }
@@ -299,7 +299,7 @@ class StorageService {
       final prefs = await _prefs;
       await prefs.setString(_savedChatsKey, jsonEncode(conversations));
     } catch (e) {
-      print('Error saving chat conversations: $e');
+      debugPrint('Error saving chat conversations: $e');
     }
   }
 

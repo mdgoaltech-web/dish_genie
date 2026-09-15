@@ -4,7 +4,7 @@ class AppTypography {
   static const String fontFamily = 'Nunito';
   
   static TextTheme textTheme(BuildContext context) {
-    final textScaleFactor = MediaQuery.of(context).textScaleFactor.clamp(0.8, 1.3);
+    final textScaleFactor = MediaQuery.textScalerOf(context).scale(1.0).clamp(0.8, 1.3);
     final screenWidth = MediaQuery.of(context).size.width;
     final scaleFactor = screenWidth < 360 ? 0.9 : (screenWidth > 600 ? 1.1 : 1.0);
     

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/foundation.dart';
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
@@ -150,7 +151,7 @@ class ChatService {
       }
       return null;
     } catch (e) {
-      print('Error sending chat message: $e');
+      debugPrint('Error sending chat message: $e');
       return null;
     }
   }

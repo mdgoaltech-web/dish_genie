@@ -84,7 +84,7 @@ class _LoadingGenieState extends State<LoadingGenie>
                   width: 128,
                   height: 128,
                   decoration: BoxDecoration(
-                    color: AppColors.geniePurple.withOpacity(0.3 * opacity),
+                    color: AppColors.geniePurple.withValues(alpha: 0.3 * opacity),
                     shape: BoxShape.circle,
                   ),
                 );

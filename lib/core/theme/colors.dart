@@ -187,8 +187,8 @@ class AppColors {
     return [
       BoxShadow(
         color: isDark
-            ? primary.withOpacity(0.4)
-            : primary.withOpacity(0.4),
+            ? primary.withValues(alpha: 0.4)
+            : primary.withValues(alpha: 0.4),
         blurRadius: isDark ? 24 : 28,
         spreadRadius: isDark ? 0 : -2,
         offset: const Offset(0, 4),

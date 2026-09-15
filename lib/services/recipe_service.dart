@@ -58,7 +58,7 @@ class RecipeService {
     try {
       // Check if Supabase is initialized
       if (!SupabaseService.isInitialized) {
-        print('Error: Supabase is not initialized');
+        debugPrint('Error: Supabase is not initialized');
         return null;
       }
 
@@ -125,7 +125,7 @@ class RecipeService {
       // Check if there's an error
       if (data['error'] != null) {
         final errorMsg = data['error'].toString();
-        print('Recipe generation API error: $errorMsg');
+        debugPrint('Recipe generation API error: $errorMsg');
         throw Exception(errorMsg);
       }
 
@@ -151,18 +151,18 @@ class RecipeService {
               // Update recipe with the provided image
               final updatedRecipe = recipe.copyWith(image: imageDataUri);
               if (kDebugMode) {
-                print(
+                debugPrint(
                   '✅ [RecipeService] Added imageBase64 to recipe: ${updatedRecipe.title}',
                 );
-                print(
+                debugPrint(
                   '   Image format: ${imageDataUri.substring(0, imageDataUri.length > 50 ? 50 : imageDataUri.length)}...',
                 );
-                print('   Image length: ${imageDataUri.length}');
+                debugPrint('   Image length: ${imageDataUri.length}');
               }
               return updatedRecipe;
             } else {
               if (kDebugMode) {
-                print(
+                debugPrint(
                   '⚠️ [RecipeService] Invalid imageBase64 format, using recipe image or placeholder',
                 );
               }
@@ -171,18 +171,18 @@ class RecipeService {
 
           return recipe;
         } catch (e) {
-          print('Error parsing recipe JSON: $e');
-          print('Recipe data: ${data['recipe']}');
+          debugPrint('Error parsing recipe JSON: $e');
+          debugPrint('Recipe data: ${data['recipe']}');
           throw Exception('Failed to parse recipe: $e');
         }
       }
 
       // If no recipe in response, log the full response for debugging
-      print('No recipe in API response. Response: $data');
+      debugPrint('No recipe in API response. Response: $data');
       return null;
     } catch (e) {
-      print('Error generating recipe: $e');
-      print('Stack trace: ${StackTrace.current}');
+      debugPrint('Error generating recipe: $e');
+      debugPrint('Stack trace: ${StackTrace.current}');
       rethrow; // Re-throw to allow caller to handle the error
     }
   }
@@ -263,7 +263,7 @@ class RecipeService {
     try {
       // Check if Supabase is initialized
       if (!SupabaseService.isInitialized) {
-        print('Error: Supabase is not initialized');
+        debugPrint('Error: Supabase is not initialized');
         return [];
       }
 
@@ -284,7 +284,7 @@ class RecipeService {
           )
           .toList();
     } catch (e) {
-      print('Error fetching recipes from API: $e');
+      debugPrint('Error fetching recipes from API: $e');
       return [];
     }
   }

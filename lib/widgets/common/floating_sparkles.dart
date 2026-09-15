@@ -65,7 +65,7 @@ class _FloatingSparklesState extends State<FloatingSparkles>
               width: 384,
               height: 384,
               decoration: BoxDecoration(
-                color: AppColors.genieLavender.withOpacity(0.2),
+                color: AppColors.genieLavender.withValues(alpha: 0.2),
                 shape: BoxShape.circle,
               ),
             ),
@@ -77,7 +77,7 @@ class _FloatingSparklesState extends State<FloatingSparkles>
               width: 320,
               height: 320,
               decoration: BoxDecoration(
-                color: AppColors.geniePink.withOpacity(0.15),
+                color: AppColors.geniePink.withValues(alpha: 0.15),
                 shape: BoxShape.circle,
               ),
             ),

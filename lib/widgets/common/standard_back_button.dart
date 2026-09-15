@@ -23,8 +23,8 @@ class StandardBackButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final bg = backgroundColor ?? theme.cardColor.withOpacity(0.9);
-    final iconFg = iconColor ?? theme.colorScheme.onSurface.withOpacity(0.9);
+    final bg = backgroundColor ?? theme.cardColor.withValues(alpha: 0.9);
+    final iconFg = iconColor ?? theme.colorScheme.onSurface.withValues(alpha: 0.9);
 
     return Material(
       color: Colors.transparent,
@@ -38,7 +38,7 @@ class StandardBackButton extends StatelessWidget {
             shape: BoxShape.circle,
             boxShadow: [
               BoxShadow(
-                color: AppColors.primary.withOpacity(0.12),
+                color: AppColors.primary.withValues(alpha: 0.12),
                 blurRadius: 10,
                 offset: const Offset(0, 4),
               ),

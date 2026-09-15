@@ -16,7 +16,7 @@ class NetworkService {
             r == ConnectivityResult.ethernet,
       );
     } catch (e) {
-      if (kDebugMode) print('[NetworkService] Error checking connectivity: $e');
+      if (kDebugMode) debugPrint('[NetworkService] Error checking connectivity: $e');
       return false;
     }
   }

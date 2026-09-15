@@ -88,7 +88,7 @@ class _SavedListDetailScreenState extends State<SavedListDetailScreen> {
         }
       }
     } catch (e) {
-      print('Error loading grocery list: $e');
+      debugPrint('Error loading grocery list: $e');
       // Show error to user
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -278,7 +278,7 @@ class _SavedListDetailScreenState extends State<SavedListDetailScreen> {
           await StorageService.saveSavedGroceryLists(json.encode(savedLists));
         }
       } catch (e) {
-        print('Error deleting list: $e');
+        debugPrint('Error deleting list: $e');
       }
 
       if (mounted) {
@@ -409,7 +409,7 @@ class _SavedListDetailScreenState extends State<SavedListDetailScreen> {
                     color: Colors.transparent,
                     borderRadius: BorderRadius.circular(12),
                     border: Border.all(
-                      color: Theme.of(context).dividerColor.withOpacity(0.5),
+                      color: Theme.of(context).dividerColor.withValues(alpha: 0.5),
                     ),
                   ),
                   child: TextField(
@@ -421,7 +421,7 @@ class _SavedListDetailScreenState extends State<SavedListDetailScreen> {
                         Icons.search,
                         color: Theme.of(
                           context,
-                        ).colorScheme.onSurface.withOpacity(0.6),
+                        ).colorScheme.onSurface.withValues(alpha: 0.6),
                       ),
                       suffixIcon: _searchQuery.isNotEmpty
                           ? IconButton(
@@ -459,7 +459,7 @@ class _SavedListDetailScreenState extends State<SavedListDetailScreen> {
                               fontSize: 12,
                               color: Theme.of(
                                 context,
-                              ).colorScheme.onPrimary.withOpacity(0.7),
+                              ).colorScheme.onPrimary.withValues(alpha: 0.7),
                             ),
                           ),
                         ],
@@ -480,7 +480,7 @@ class _SavedListDetailScreenState extends State<SavedListDetailScreen> {
                               fontSize: 12,
                               color: Theme.of(
                                 context,
-                              ).colorScheme.onPrimary.withOpacity(0.7),
+                              ).colorScheme.onPrimary.withValues(alpha: 0.7),
                             ),
                           ),
                         ],
@@ -501,7 +501,7 @@ class _SavedListDetailScreenState extends State<SavedListDetailScreen> {
                               fontSize: 12,
                               color: Theme.of(
                                 context,
-                              ).colorScheme.onPrimary.withOpacity(0.7),
+                              ).colorScheme.onPrimary.withValues(alpha: 0.7),
                             ),
                           ),
                         ],
@@ -523,10 +523,10 @@ class _SavedListDetailScreenState extends State<SavedListDetailScreen> {
                 Container(
                   padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
                   decoration: BoxDecoration(
-                    color: Theme.of(context).cardColor.withOpacity(0.95),
+                    color: Theme.of(context).cardColor.withValues(alpha: 0.95),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
+                        color: Colors.black.withValues(alpha: 0.1),
                         blurRadius: 10,
                         offset: const Offset(0, -2),
                       ),
@@ -547,7 +547,7 @@ class _SavedListDetailScreenState extends State<SavedListDetailScreen> {
                               side: BorderSide(
                                 color: Theme.of(
                                   context,
-                                ).colorScheme.onSurface.withOpacity(0.35),
+                                ).colorScheme.onSurface.withValues(alpha: 0.35),
                               ),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20),
@@ -627,7 +627,7 @@ class _SavedListDetailScreenState extends State<SavedListDetailScreen> {
             Text(
               context.t('saved.list.list.not.found.hint'),
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+                color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
               ),
               textAlign: TextAlign.center,
             ),
@@ -663,7 +663,7 @@ class _SavedListDetailScreenState extends State<SavedListDetailScreen> {
               ? '${context.t('grocery.no.items.found')} "$_searchQuery"'
               : context.t('grocery.no.items.yet'),
           style: TextStyle(
-            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+            color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
           ),
         ),
       );
@@ -694,7 +694,7 @@ class _SavedListDetailScreenState extends State<SavedListDetailScreen> {
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: AppColors.primary.withOpacity(0.15),
+            color: AppColors.primary.withValues(alpha: 0.15),
             blurRadius: 24,
             spreadRadius: -4,
             offset: const Offset(0, 4),
@@ -722,7 +722,7 @@ class _SavedListDetailScreenState extends State<SavedListDetailScreen> {
                     vertical: 4,
                   ),
                   decoration: BoxDecoration(
-                    color: AppColors.primary.withOpacity(0.1),
+                    color: AppColors.primary.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Text(
@@ -775,7 +775,7 @@ class _SavedListDetailScreenState extends State<SavedListDetailScreen> {
                     color: item.checked
                         ? Theme.of(
                             context,
-                          ).colorScheme.onSurface.withOpacity(0.6)
+                          ).colorScheme.onSurface.withValues(alpha: 0.6)
                         : Theme.of(context).colorScheme.onSurface,
                   ),
                 ),
@@ -786,7 +786,7 @@ class _SavedListDetailScreenState extends State<SavedListDetailScreen> {
                       fontSize: 12,
                       color: Theme.of(
                         context,
-                      ).colorScheme.onSurface.withOpacity(0.6),
+                      ).colorScheme.onSurface.withValues(alpha: 0.6),
                     ),
                   ),
               ],
